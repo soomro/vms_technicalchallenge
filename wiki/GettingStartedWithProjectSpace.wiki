@@ -1,13 +1,9 @@
-#summary One-sentence summary of this page.
-test 
-= Introduction =
+We will use google code for:
+* Subversion
+* Task management
+* Defect management
+* Documentation
 
-Add your content here.
+Subversion settings wil be provided here later
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Task 
