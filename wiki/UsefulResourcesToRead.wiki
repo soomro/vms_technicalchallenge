@@ -1,12 +1,12 @@
 #labels Featured
-Useful resources are categorized here
+#Summary Useful resources are categorized here
 
 
-=== Project Development Related === _Requirements engineering, RUP related ...etc
+* Project Development Related *   _Requirements engineering, RUP related ...etc
 
 
 
-=== Programming Related === _Tools, frameworks, programming related things
+* Programming Related * _Tools, frameworks, programming related things
 
 * [http://marcgrabanski.com/article/jquery-google-maps-tutorial-basics jQuery and Google Maps Tutorial: #1 Basics]
 JQuery is the best javascript framework. It has many plugins for different purposes. 
