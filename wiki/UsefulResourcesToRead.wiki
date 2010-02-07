@@ -1,5 +1,5 @@
+#summary Useful resources are categorized here
 #labels Featured
-#Summary Useful resources are categorized here
 
 
 * Project Development Related *   _Requirements engineering, RUP related ...etc
