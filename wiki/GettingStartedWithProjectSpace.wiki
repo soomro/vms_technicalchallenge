@@ -1,10 +1,9 @@
 
-
 We will use google code for:
-* Subversion
-* Task management
-* Defect management
-* Documentation
+  * Subversion
+  * Task management
+  * Defect management
+  * Documentation
 
 TODO: Subversion settings wil be provided here later
 
