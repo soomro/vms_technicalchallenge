@@ -2,16 +2,14 @@
 Useful resources are categorized here
 
 
-=== Project Development Related ===
-_Requirements engineering, RUP related ...etc
+=== Project Development Related === _Requirements engineering, RUP related ...etc
 
 
-----
-=== Programming Related ===
-_Tools, frameworks, programming related things
 
-  * [http://marcgrabanski.com/article/jquery-google-maps-tutorial-basics jQuery and Google Maps Tutorial: #1 Basics]
+=== Programming Related === _Tools, frameworks, programming related things
+
+* [http://marcgrabanski.com/article/jquery-google-maps-tutorial-basics jQuery and Google Maps Tutorial: #1 Basics]
 JQuery is the best javascript framework. It has many plugins for different purposes. 
 
 
-  * [http://speckyboy.com/2010/02/03/10-jquery-plugins-for-easier-google-map-installation/ 10 jQuery Plugins for Easier Google Map Installation]
+* [http://speckyboy.com/2010/02/03/10-jquery-plugins-for-easier-google-map-installation/ 10 jQuery Plugins for Easier Google Map Installation]
