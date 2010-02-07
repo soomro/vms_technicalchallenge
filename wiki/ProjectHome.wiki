@@ -1,0 +1,11 @@
+#labels Featured,Phase-Implementation
+===Welcome to Apollo VMS project space===
+
+All of the content of the project will be handled here.
+
+Please follow the following index for details:
+
+  * [GettingStartedWithProjectSpace]
+  * [MeetingSummaries]
+  * [UsefulResourcesToRead]
+  
