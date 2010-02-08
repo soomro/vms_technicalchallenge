@@ -1,1 +1,8 @@
-content of meeting will be documented here later
+  *Waseem Joined us and he will find his role and inform the group after negotiation with Mattias
+  *Tuesdays and Thursdays are decided for our regular meetings. About the time on those days we will decide about the day before the meetings.
+  *Waseem will get some tasks for this iteration and from the next iteration everything will be normal
+  *Mohsen have to configure google code for the project management and manage the next iteration by that.
+  *Everyone is supposed to work with the google code environment here is the link: [http://code.google.com/p/apollovms/]
+  *Some issues raised about the more democratic ways of assigning tasks and estimations that Mohsen should track it and inform the result to the group
+  *There should be some way for people to report if the real effort was more that estimated effort.
+  *Mohsen has to track about the tools and server which uni is supposed to provide us
