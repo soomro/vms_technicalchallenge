@@ -2,11 +2,13 @@
 #labels Featured
 
 ----
-== Project Development Related: Requirements engineering, RUP related ...etc ==
-
+=== Project Development Related: Requirements engineering, RUP related ...etc ===
+The links which were provided in usability guest lecture
+  * [http://www.userfocus.co.uk/resources/guidelines.html] for web sites
+  * [http://msdn.microsoft.com/en-us/library/bb158602.aspx] for mobile applications
 
 ----
-== Programming Related: Tools, frameworks, programming related things ==
+=== Programming Related: Tools, frameworks, programming related things ===
 
 
 * [http://marcgrabanski.com/article/jquery-google-maps-tutorial-basics jQuery and Google Maps Tutorial: #1 Basics]
