@@ -1,0 +1,23 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+Preparing Java environment for mobile application development.
+
+= Details =
+
+1. Download and install the latest version of JDK from the link below:
+
+http://java.sun.com/javase/downloads/index.jsp
+
+2. Download and install the latest version of J2ME from the link below:
+
+http://java.sun.com/javame/downloads/index.jsp
+
+3. Download and install the latest version of NetBeans IDE from the website 
+
+http://netbeans.org/downloads/index.html
+
+Choose the Java from the all products(it is the 3rd one, between JavaFX and Ruby, the one with 
+Java ME support)
+
+Configuring the NetBeans: during the installation add the path for your JDK and the path J2ME.
