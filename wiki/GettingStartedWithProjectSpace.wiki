@@ -1,11 +1,10 @@
-
 We will use google code for:
   * Subversion
   * Task management
   * Defect management
   * Documentation
 
-TODO: Subversion settings wil be provided here later
+===[SubversionSettings READ HERE FOR SUBVERSION SETTINGS]===
 
 Google issue system was customized to satisfy our task and defect tracking needs.
 
