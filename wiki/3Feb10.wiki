@@ -1,1 +1,13 @@
-TODO : meeting summary will be written here
+We have to send the fixed documents to Mattias and in the same email we have to explain about the regular meetings on Thursdays at 10 o'clock.
+-We have to book a room before every meeting and inform to Mattias the night before meeting.
+-We have to map RUP documents to assigned documents by Gerardo
+-Assistants will be in our weekly meetings (But how? I don't remmeber)
+-We have to send the link of our documents in svn to Mattias later.
+I WILL EXTRACT TASKS AND ASSIGN TO TEAM MEMBERS FROM THESE POINTS.
+-We have some reasons to not choose Sahana and Ushahidi:
+Hard to use other's code
+We don't know php and it will reduce our productivity and quality of work
+Sahana which is closer to our solution doesn't have any mobile client
+We have enough experienced developers in Java and .net platform.
+BUT we will use those platforms as an inspiring source.
+-We decided to develop our project in .net and Java
