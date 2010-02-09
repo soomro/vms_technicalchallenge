@@ -1,0 +1,12 @@
+#labels Featured
+Subversion structure is ready to use.
+
+Here is what to do:
+
+  * Create an empty folder at any place. Preferably name it as "apollovms"
+  * Rigth click on the new folder and select "SVN Checkout". Checkout folder should be your newly created folder.
+  * In the "URL of repository" field, write: https://apollovms.googlecode.com/svn/trunk
+  * It will ask username and password. Write your google account username
+  * Generate your password in this address [https://code.google.com/hosting/settings]
+  * Dont forget to check Save my username and password setting
+  * Press OK and everything will be downloaded from repository.
