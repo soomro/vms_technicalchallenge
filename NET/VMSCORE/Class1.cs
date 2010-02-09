@@ -6,6 +6,7 @@ using System.Text;
 namespace VMSCORE
 {
     public class Class1
-    {
+    { // test
+        int a = 0;
     }
 }
