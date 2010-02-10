@@ -1,9 +1,5 @@
-#summary One-sentence summary of this page.
+#summary Preparing Java environment for mobile application development.
 
-= Introduction =
-Preparing Java environment for mobile application development.
-
-= Details =
 
 1. Download and install the latest version of JDK from the link below:
 
