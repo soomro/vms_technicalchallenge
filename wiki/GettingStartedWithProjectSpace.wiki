@@ -6,6 +6,7 @@ We will use google code for:
 
 ===[SubversionSettings READ HERE FOR SUBVERSION SETTINGS]===
 
+===[PreparingTheJavaEnvironment READ HERE FOR Java Environment SETTINGS]===
 Google issue system was customized to satisfy our task and defect tracking needs.
 
 Read [http://code.google.com/p/support/wiki/WikiSyntax this link] for wiki sysntax. You will use wiki for documentation.
