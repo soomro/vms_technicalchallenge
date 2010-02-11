@@ -1,0 +1,28 @@
+Attenders: 
+Shobha
+Gilana
+Abdullah
+Mohsen
+Tigran
+Mustafa
+Waseem (13 minutes late)
+
+*Supervisor meeting*
+
+  * Report about Waseem position to Gerardo. Assistant of architect in first half and quality assistant in second half
+  * Process of asking: first ask from Erik then if he forwarded we can ask from Mattias
+  * We have to provide final documents of ICP for Erik
+  * Actual time vs. estimated time for a task should be separated
+
+*Internal decisions*
+
+  * If you have some question about where to put a document you can ask from Abdullah Arslan.
+  * Putting 5 hours per week for reading and work out some tangible output for that.
+  * Office 2007 format of file will be used as standard and other standards will be addressed in Quality Assurance Plan.
+  * Quality assurance plan should contain all actions needed to be taken to find if anything is going wrong in the project.
+  * Mohsen should assign tasks to the group members asap.
+  * Apart from estimated effort, Group members should put the amount of actual effort they put on a task when they are submitting a comment regarding to report the progress of a task.
+
+
+
+
