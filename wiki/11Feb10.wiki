@@ -1,11 +1,11 @@
 Attenders: 
-Shobha
-Gilana
-Abdullah
-Mohsen
-Tigran
-Mustafa
-Waseem (13 minutes late)
+  * Shobha
+  * Gilana
+  * Abdullah
+  * Mohsen
+  * Tigran
+  * Mustafa
+  * Waseem (13 minutes late)
 
 *Supervisor meeting*
 
@@ -22,7 +22,5 @@ Waseem (13 minutes late)
   * Quality assurance plan should contain all actions needed to be taken to find if anything is going wrong in the project.
   * Mohsen should assign tasks to the group members asap.
   * Apart from estimated effort, Group members should put the amount of actual effort they put on a task when they are submitting a comment regarding to report the progress of a task.
-
-
 
 
