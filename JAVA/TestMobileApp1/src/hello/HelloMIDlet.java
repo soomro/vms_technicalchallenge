@@ -5,12 +5,12 @@
 
 package hello;
 
-import java.io.IOException;
 import java.io.InputStream;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
+import org.netbeans.microedition.lcdui.LoginScreen;
 
 /**
  * @author Tikoa
@@ -18,13 +18,18 @@ import javax.microedition.lcdui.*;
 public class HelloMIDlet extends MIDlet implements CommandListener {
 
     private boolean midletPaused = false;
+    private HttpConnection connection;
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
     private Command exitCommand;
     private Command updateThePage;
+    private Command LoginCommand;
+    private Command exitCommand1;
     private Form form;
     private TextField textField;
     private StringItem stringItem;
+    private LoginScreen loginScreen;
+    private Form form1;
     private Ticker ticker;
     private Image image1;
     //</editor-fold>//GEN-END:|fields|0|
@@ -45,6 +50,13 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
      */
     private void initialize() {//GEN-END:|0-initialize|0|0-preInitialize
         // write pre-initialize user code here
+        try {
+                  //open the conenction to the specified webservice
+                  connection = (HttpConnection)Connector.open("http://www.google.se");
+              }
+              catch(Exception e){
+                  e.printStackTrace();
+              }
 //GEN-LINE:|0-initialize|1|0-postInitialize
         // write post-initialize user code here
     }//GEN-BEGIN:|0-initialize|2|
@@ -56,7 +68,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
      */
     public void startMIDlet() {//GEN-END:|3-startMIDlet|0|3-preAction
         // write pre-action user code here
-        switchDisplayable(null, getForm());//GEN-LINE:|3-startMIDlet|1|3-postAction
+        /*
+switchDisplayable (null, getForm ());//GEN-LINE:|3-startMIDlet|1|3-postAction
+        */
+         switchDisplayable(null, getLoginScreen());
         // write post-action user code here
     }//GEN-BEGIN:|3-startMIDlet|2|
     //</editor-fold>//GEN-END:|3-startMIDlet|2|
@@ -108,11 +123,22 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
                 getURLInfo();
 //GEN-LINE:|7-commandAction|4|28-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|5|7-postCommandAction
-        }//GEN-END:|7-commandAction|5|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|5|35-preAction
+        } else if (displayable == loginScreen) {
+            if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|5|35-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|6|35-postAction
+                // write post-action user code here
+            } else if (command == exitCommand1) {//GEN-LINE:|7-commandAction|7|41-preAction
+                // write pre-action user code here
+                exitMIDlet();
+//GEN-LINE:|7-commandAction|8|41-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|9|7-postCommandAction
+        }//GEN-END:|7-commandAction|9|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|6|
-    //</editor-fold>//GEN-END:|7-commandAction|6|
+    }//GEN-BEGIN:|7-commandAction|10|
+    //</editor-fold>//GEN-END:|7-commandAction|10|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -235,6 +261,76 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|32-getter|2|
 
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: LoginCommand ">//GEN-BEGIN:|36-getter|0|36-preInit
+    /**
+     * Returns an initiliazed instance of LoginCommand component.
+     * @return the initialized component instance
+     */
+    public Command getLoginCommand() {
+        if (LoginCommand == null) {//GEN-END:|36-getter|0|36-preInit
+            // write pre-init user code here
+            LoginCommand = new Command("Ok", Command.EXIT, 0);//GEN-LINE:|36-getter|1|36-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|36-getter|2|
+        return LoginCommand;
+    }
+    //</editor-fold>//GEN-END:|36-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: form1 ">//GEN-BEGIN:|33-getter|0|33-preInit
+    /**
+     * Returns an initiliazed instance of form1 component.
+     * @return the initialized component instance
+     */
+    public Form getForm1() {
+        if (form1 == null) {//GEN-END:|33-getter|0|33-preInit
+            // write pre-init user code here
+            form1 = new Form("Request");//GEN-LINE:|33-getter|1|33-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|33-getter|2|
+        return form1;
+    }
+    //</editor-fold>//GEN-END:|33-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: loginScreen ">//GEN-BEGIN:|34-getter|0|34-preInit
+    /**
+     * Returns an initiliazed instance of loginScreen component.
+     * @return the initialized component instance
+     */
+    public LoginScreen getLoginScreen() {
+        if (loginScreen == null) {//GEN-END:|34-getter|0|34-preInit
+            // write pre-init user code here
+            loginScreen = new LoginScreen(getDisplay());//GEN-BEGIN:|34-getter|1|34-postInit
+            loginScreen.setLabelTexts("Username", "Password");
+            loginScreen.setTitle("VMS Login ");
+            loginScreen.setTicker(getTicker());
+            loginScreen.addCommand(LoginScreen.LOGIN_COMMAND);
+            loginScreen.addCommand(getExitCommand1());
+            loginScreen.setCommandListener(this);
+            loginScreen.setBGColor(-6697729);
+            loginScreen.setFGColor(-16777216);
+            loginScreen.setUseLoginButton(true);
+            loginScreen.setLoginButtonText("Login");//GEN-END:|34-getter|1|34-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|34-getter|2|
+        return loginScreen;
+    }
+    //</editor-fold>//GEN-END:|34-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand1 ">//GEN-BEGIN:|40-getter|0|40-preInit
+    /**
+     * Returns an initiliazed instance of exitCommand1 component.
+     * @return the initialized component instance
+     */
+    public Command getExitCommand1() {
+        if (exitCommand1 == null) {//GEN-END:|40-getter|0|40-preInit
+            // write pre-init user code here
+            exitCommand1 = new Command("Exit", Command.EXIT, 0);//GEN-LINE:|40-getter|1|40-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|40-getter|2|
+        return exitCommand1;
+    }
+    //</editor-fold>//GEN-END:|40-getter|2|
+
     /**
      * Returns a display instance.
      * @return the display instance.
@@ -263,7 +359,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
             initialize ();
             startMIDlet ();
 
-            getURLInfo();
+            //getURLInfo();
         }
         midletPaused = false;
     }
@@ -297,16 +393,12 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
         }
 
         //creating the conection to the specified webservice
-        HttpConnection c = null;
-         InputStream is = null;
-              StringBuffer str = new StringBuffer();
+        
+        InputStream is = null;
+        StringBuffer str = new StringBuffer();
 
               try {
-                  //open the conenction to the specified webservice
-                  c = (HttpConnection)Connector.open(url);
-
-
-
+                HttpConnection c = connection;
                 // Getting the InputStream will open the connection
                 // and read the HTTP headers. They are stored until
                 // requested.
