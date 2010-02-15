@@ -1,0 +1,11 @@
+#summary Analysis model guide
+
+
+Analysis model contains analysis classes
+
+That must be applied on use cases seperately.
+
+  * First take a use case
+  * Findout entities from use case
+  * Decide which of them are analysis classes
+  * Draw analysis class diagram in EA
