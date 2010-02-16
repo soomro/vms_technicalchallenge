@@ -1,0 +1,25 @@
+=Meeting notes for 16 Feb 2010=
+
+*Attenders:*
+
+  * Shobha 
+  * Waseem 
+  * Abdullah
+  * Mohsen
+  * Gilana
+  * Tigran
+  * Mustafa
+
+==Supervisor meeting==
+
+  * We have to inform assistants about our technical needs for the server today.
+  * Suggested to use revision history for code files also
+  * Have to decide about Waseem role in the project and inform to Mattias
+  * Erik mentioned that the servers will be ready till the next week hopefully.
+
+==Internal meeting==
+
+  * Decided about Waseem role: He is the Developer lead in terms of coordinating the task between team members and use their technical opinion in decision making.
+  * Deadline for Task:"Read about rational quality manager" expanded to Wednesday 17 Feb
+  * Deadline for Task:"Reading Analysis and design models" expanded to Tuesday 16 Feb
+  * Managers fixed the problem of putting wrong deadline for the task "Complete QA Plan"
