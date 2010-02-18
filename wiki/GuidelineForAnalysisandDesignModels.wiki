@@ -1,0 +1,11 @@
+=== Analysis Model ===
+
+  *  Define Boundary, Entity and Control classes
+  *  Draw the "Communication Diagram"
+  *  Draw the sequence diagram
+  *  Do these for all of use cases seperately. Use same classes if possible
+
+=== Design model ===
+   * Define Class Diagrams with detail, Package them
+   * Prepare Database Diagram
+   * Prepare Sequance Diagrams
