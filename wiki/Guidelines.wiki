@@ -1,0 +1,4 @@
+#summary Guidelines for different purposes
+
+
+  * [GuidelineForAnalysisandDesignModels Guideline For Analysis and Design Models]
