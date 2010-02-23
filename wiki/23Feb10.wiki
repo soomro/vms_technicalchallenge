@@ -1,0 +1,23 @@
+=Meeting notes for 23 Feb 2010=
+
+*Attenders:*
+
+  * Shobha 
+  * Waseem 
+  * Abdullah
+  * Mohsen (20 minutes late)
+  * Gilana
+  * Tigran (20 minutes late)
+  * Mustafa (20 minutes late)
+
+==Supervisor meeting==
+
+  * Supervisory meeting in March will be 4th, 11th, 18th, 25th
+  * Reading code standard should be put as a part of next iteration for members
+  * As a suggestion we can have different level of use-cases. Architects should decide about this and take action as a part of refinement of use-cases
+  * Architects, Managers, Q Managers should have reasons for the tools they're using and the tools they refused to use.
+  * Architects will decide and define the contents of the deliverables till the end of this iteration.
+
+==Internal meeting==
+
+  * Responsibles for assigned tasks should take action of coordinating and explain their plan for the team as soon as they were assigned for the task.
