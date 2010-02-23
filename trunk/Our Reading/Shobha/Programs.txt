@@ -1,0 +1,48 @@
+public class OperatorsEx {
+
+	public OperatorsEx() {
+		int j, k;
+		j = 10; 
+		k = 5; .
+		System.out.println("j is : " + j);
+		System.out.println("k is : " + k);
+		Integer i1 = new Integer("1");
+		Integer i2 = new Integer("2");
+		System.out.println("i1 is : " + i1);
+		System.out.println("i2 is : " + i2);
+		i1 = i2;
+		System.out.println("i1 is : " + i1);
+		System.out.println("i2 is : " + i2);
+		k = k + j;
+		System.out.println("j is : " + j);
+		System.out.println("k is : " + k);
+	}
+	public static void main(String args[]) {
+		new OperatorsEx();
+	}
+}
+
+---------------------------------------------------------
+public class ControlEx 
+{
+
+	public ControlEx() 
+	{
+		int j, k;
+		j = 10; 
+		k = 5; .
+		System.out.println("j is : " + j);
+		System.out.println("k is : " + k);
+		if ( j>k)
+		{
+			System.out.println(“J is greater then k)
+		}
+		else
+			System.out.println(“J is not greater then k)
+		
+	}
+	public static void main(String args[]) 
+	{
+		new OperatorsEx();
+	}
+}
