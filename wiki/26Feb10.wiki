@@ -1,0 +1,23 @@
+=Meeting notes for 23 Feb 2010=
+
+*Attenders:*
+
+  * Shobha 
+  * Waseem 
+  * Abdullah
+  * Gilana
+  * Tigran 
+  * Mustafa 
+
+==Assistant meeting==
+
+  * Assistants will attend our internal meetings on tuesdays. We will inform them.
+  * We can ask them any question. They are supposed to spend more time than supervisor. They may not know the answer but they will find out.
+  * We can send any artifact to them to be checked. 
+  * Abdullah Arslan will help them for IIS settings on Monday.
+  
+==Internal meeting==
+
+  * Some use cases are changed.
+  * Tigran will change the analysis model accordingly.
+  * Waseem will prepare a list of all analysis classes with their types
