@@ -1,0 +1,26 @@
+=Meeting notes for 03 March 2010=
+
+*Attenders:*
+
+  * Shobha 
+  * Waseem 
+  * Abdullah
+  * Gilana (22 min late)
+  * Tigran (13 min late)
+  * Mustafa 
+  * Mohsen
+
+==Supervisory meeting==
+
+  * Supervisor recommended to interact between groups as one important parameter for grading
+  * Friday is the deadline for preparing servers for groups and Mattias will track it.
+  * 
+  
+==Internal meeting==
+
+  * Avoid sending unnecessary or personal emails to the group
+  * In your tasks comments, give the address of your results in SVN in terms of URL so everyone can see your documents by one click. Any question related to this ask from Mohsen
+  * Managers will manage external emails with the help of English skilled members and just inform the result to the group.
+  * After assigning the tasks, responsible person should provide a plan of doing the task and explain for others in the internal meeting together with Supervisors
+  * Reduce solid commitment to the RUP process to skip the unnecessary artifacts.
+  * Those who are applying the quality reviews should add the name of quality reviewers in the Revision Hisotry. 
