@@ -16,7 +16,7 @@
   * We should provide an excel sheet for defect management of documents. Grammar defects will be commented straight on document and conceptual defects will be inserted in that excel sheet. Excel sheet structure will be provided by Tabareh and Arslan and managers should plan to put it in place.
   * Speak about server with supervisors and assistants in supervisor meeting.
   * Managers should provide contents of the presentation till Monday and in that day all group will sit together and finalize presentation.
-  * For taskID 61, they will provide estimation for test cases based on a valid method of estimation till Saturday 4 o'clock and will provide 20% of test cases till 17th of March.
+  * For taskID 61, they will provide estimation for test cases based on a valid method of estimation till Saturday 4 o'clock and will provide 20% of test cases till 17th of March with progress reports every other day.
   * For Architecture document Abdullah Arslan will provide the first draft till 15March for quality review.
   * For Design document Tigran will provide the first draft till 15March for quality review
   * Waseem and Shobha will provide a customized checklist for SAD and SDD till that day with coordinating with Tigran and Abdullah about the content of those documents
