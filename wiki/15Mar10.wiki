@@ -1,0 +1,22 @@
+=Meeting notes for 15 March 2010=
+
+*Attenders:*
+
+  * Shobha 
+  * Waseem 
+  * Abdullah
+  * Mohsen
+  * Gilana
+  * Tigran (10 min late)
+  * Mustafa
+
+==Supervisor meeting==
+
+  * We can speak with Miroslaw for the rational tools and server.
+  * Assistants will track the status of the server as soon as possible.
+
+==Internal meeting==
+
+  * Inspection done on presentation slides
+  * Some consults about the test cases, refining SAD and SDD and SRS
+  * Manager should consider reduction of coding standards to minimum useful before the development starts as urgent task
