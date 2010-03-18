@@ -23,9 +23,9 @@ Volunteers can send status related to incident they are working on. The informat
 
 ===COMMUNICATION===
 Volunteers and management center can communicate by sending text messages via web portal and mobile application. Different aims of messaging can be reporting new incidents, sending messages to specific volunteers etc.
-====WARNING THE USER====
+ ====WARNING THE USER====
 Management Center can warn users according to their location or other information about the crisis in VMS System. The Alert/ Warning messages will be sent to volunteers based on the location and also based on their association towards the crisis.
-====SEND REQUEST FOR THE HELP====
+ ====SEND REQUEST FOR THE HELP====
 Manager can send for a help request to volunteers based on the location and the type of crisis. By sending help request, the manger gets the response from volunteers. With the help these responses further course of actions will be incited by the manger to address the crisis. 
 ===LOG ANALYSIS AND BACKUP===
 VMS system logs every event and information related the each crisis, so it will be possible to analyze all crises related information later. Logs will be analyzed and used in managerial aspects, for achieving this the system has a feature to generate different reports such as historical status of crisis etc.
