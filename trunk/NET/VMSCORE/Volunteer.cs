@@ -116,5 +116,16 @@ namespace VMSCORE
             {
             }
         }
+
+        public DateTime LastAccessTime
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }

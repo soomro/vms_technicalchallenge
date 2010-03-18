@@ -72,5 +72,16 @@ namespace VMSCORE
             {
             }
         }
+
+        public EnumRequestResponseStatus Status
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="EnumMapType.cs" />
     <Compile Include="EnumLocationType.cs" />
     <Compile Include="EnumMetricType.cs" />
+    <Compile Include="EnumRequestResponseStatus.cs" />
     <Compile Include="EnumSeverity.cs" />
     <Compile Include="Incident.cs" />
     <Compile Include="EnumIncidentStatus.cs" />

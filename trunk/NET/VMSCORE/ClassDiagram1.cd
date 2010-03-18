@@ -8,8 +8,8 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="CrisisType" />
-      <Property Name="CrisisStatus" />
       <Property Name="LocationType" />
+      <Property Name="CrisisStatus" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Incidents" />
@@ -66,12 +66,13 @@
   <Class Name="VMSCORE.RequestResponse">
     <Position X="8" Y="4.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAgAAAAAAAAgAQAgA=</HashCode>
+      <HashCode>AAAAAAAEAAAAAAAAAAEAAAAAAAAAgAAAAAAAAgAQAgA=</HashCode>
       <FileName>RequestResponse.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Volunteer" />
       <Property Name="Request" />
+      <Property Name="Status" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="NeedSupplied" />
@@ -79,8 +80,13 @@
   </Class>
   <Class Name="VMSCORE.Volunteer">
     <Position X="8" Y="6.75" Width="2.25" />
+    <AssociationLine Name="Stuffs" Type="VMSCORE.StuffItem">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.657" Y="0.188" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAQAAAACAAAAAgAQAICAAAAACAQAAAAAAAAg=</HashCode>
+      <HashCode>AAEgAAAAAQAAAACAAAAAgAQAICAAAAACAQAAAAAAAAg=</HashCode>
       <FileName>Volunteer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -188,6 +194,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAQAAAAAAAAAAAAAQAAAAIAAAAAAA=</HashCode>
       <FileName>EnumIncidentStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="VMSCORE.EnumRequestResponseStatus" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnumRequestResponseStatus.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
