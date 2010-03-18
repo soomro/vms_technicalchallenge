@@ -1,0 +1,15 @@
+=== FTP Connection ===
+
+In order to connect to ftp server via Windows Explorer:
+
+  * Open internet explorer, go to Tools->Internet Options
+  * In the advanced tab, be sure that "Enable FTP folder view(Outside of Internet Explorer" is checked and "Use Passive Mode FTP" is UNCHECKED
+  * Open windows explorer and go to "ftp://129.16.213.108/groups/apollo/"
+  * Use our username and password when asked
+
+All of the web site files reside in /apollo_webroot/ folder and SQL backups will saved in sqlbackup folder.
+
+=== SQL Connection Settings ===
+
+  * Install SQL Management Studio Express 2005
+  * The Sql server adress is 129.16.213.108\SQLEXPRESS, username and password is the same with FTP
