@@ -1,0 +1,17 @@
+==Problem Statement==
+
+===Background===
+World is always having disasters and crises. Earthquakes, hurricanes, terror attacks or wars are some of examples we witnessed recently. Many people died and many of them lost. The normal city life is corrupted. Even after the crisis, problems remain as epidemic or starvation.
+To overcome all challenges of crises, there are many kind of organizations whose main aim is to help people to overcome those crises. Militaries, civil defense organizations, international help organizations are some examples of these organizations. 
+While some of these organizations such as militaries are active just in crisis times, some others try to put precautions to lessen the effects of these crises.
+
+===Problem Description===
+When we analyze the common characteristics of help organizations, we see that they are facilitating with their trained members. Militaries have educated soldiers, Red Cross has members with certificated training and Civil Defense in Sweden has hired experts.
+For a regular citizen, it is difficult to join any of such organizations. It requires, completing some training programs and then continuing to attend regular meetings. Moreover, some of them require membership payment. Their organizational structure is not built on regular citizens but to their educated active members.
+Beyond the difficulties for being a member of help organizations, there is another obstacle. People don’t want to be a member of such organizations. Unless they faced to a crisis just near them, they are not so eager to join those help organizations like Civil Defense or Red Cross. However, when they live a crisis, if they have the opportunity, most of them want to help other people who are in difficulty. 
+
+The problem is that; help organizations miss out regular citizens who can assist them in crisis time.
+
+All of the help organizations consider all regular people as citizens that need to be organized and aided. They don’t utilize those citizens even if those citizens have the ability to help them.  A regular citizen in a crisis time may have a car, some important medicine or some other stuff that can be useful for other people who are in need. Besides, he or she may want to join help facilities with the useful stuff but currently there is no way to achieve this.
+
+If we imagine a city wide earthquake that %40 of all citizens die, %20 are under wreck and remaining %40 is fine, then we can assume that, at least %10 of all city population can help rescue operations. For a small city of 100.000 populations, that means 10.000 people. Even if a so small portion of them willing to attend help facilities, that size would be so great, many times greater than all of help organizations in that city. 
