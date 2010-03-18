@@ -1,1 +1,32 @@
-VMS by apollo
+==VMS by apollo==
+
+VMS has several unique features that make it an pioneer in the market.
+
+===REGISTRATION AND MEMBERSHIP===
+Citizens can register to the system at the time of a crisis or before the crisis. Registration can be only for short term that is the user can be part of the rescue organization only at the crisis.  Registration procedure requires some basic information about the members and gives user name and password for subsequent logging into VMS.  By having authenticity in the login and also by having different users like manger and volunteers, VMS is secured.
+
+===PROFILE MANAGEMENT===
+System keeps tracks of all the information about the members including their personnel information and the useful stuff which they can provide to the needy at the crisis. Members at any point of time can add or modify this; subsequently the system adjusts to the current available list. 
+
+===RESOURCE MANAGEMENT===
+Volunteers and their useful stuff which they can provide to the needy can be managed easily by the managers. This feature is semi-automatic. VMS intensively assists the crisis manager for resource management at the time of crisis by helping in selecting the volunteers according to region, type of the crisis etc. VMS assist Manager heavily based the crisis nature and severity of the crisis.
+
+===INCIDENT MANAGEMENT	===
+Any number of incidents can be managed by system. System behaves differently to the different incidents. There can be different needs, different resource assignments and also different states like active or resolved.  More then one incidents can be raised in a crisis and each incident will have individual need list and requirements, these will be handled by VMS by assisting the crisis manger in handling them according to the nature of incidents.
+
+===INFORMATION GATHERING ===
+Volunteers can be used as information source according to their location and crisis situations at each different stage. The volunteers can send 
+ ====REPORTING NEW INCIDENTS====
+Volunteers can send new incident report to the Manager, which helps the manger to create new incident in the VMS and manage them subsequently.
+ ====REPORTING THE STATUES OF THE EXISTING INCIDENTS====
+Volunteers can send status related to incident they are working on. The information will be filtered and updated accordingly to the VMS by crisis manager.
+
+===COMMUNICATION===
+Volunteers and management center can communicate by sending text messages via web portal and mobile application. Different aims of messaging can be reporting new incidents, sending messages to specific volunteers etc.
+====WARNING THE USER====
+Management Center can warn users according to their location or other information about the crisis in VMS System. The Alert/ Warning messages will be sent to volunteers based on the location and also based on their association towards the crisis.
+====SEND REQUEST FOR THE HELP====
+Manager can send for a help request to volunteers based on the location and the type of crisis. By sending help request, the manger gets the response from volunteers. With the help these responses further course of actions will be incited by the manger to address the crisis. 
+===LOG ANALYSIS AND BACKUP===
+VMS system logs every event and information related the each crisis, so it will be possible to analyze all crises related information later. Logs will be analyzed and used in managerial aspects, for achieving this the system has a feature to generate different reports such as historical status of crisis etc.
+Periodic backing up of the system will be achieved by the back up feature of the system. This will be used in case of system failure to get the system back in operation.
