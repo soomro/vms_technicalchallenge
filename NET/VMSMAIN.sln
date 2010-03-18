@@ -6,6 +6,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WEBPORTAL", "WEBPORTAL\", "{B59CAD74-1C9B-4390-9E92-CE1AA0FEBAE0}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version=v4.0"
+		ProjectReferences = "{C4FE17BE-DAAB-4E5F-BBB4-0A433F2DAB69}|VMSCORE.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/WEBPORTAL"
 		Debug.AspNetCompiler.PhysicalPath = "WEBPORTAL\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WEBPORTAL\"
