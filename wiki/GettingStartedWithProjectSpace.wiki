@@ -10,3 +10,6 @@ We will use google code for:
 Google issue system was customized to satisfy our task and defect tracking needs.
 
 Read [http://code.google.com/p/support/wiki/WikiSyntax this link] for wiki sysntax. You will use wiki for documentation.
+
+
+===[FtpAndSqlSettings READ HERE FOR FTP,IIS and SQL SERVER SETTINGS]===
