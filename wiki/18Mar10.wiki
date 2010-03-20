@@ -1,0 +1,24 @@
+=Meeting notes for 18 March 2010=
+
+*Attenders:*
+
+  * Shobha 
+  * Waseem 
+  * Abdullah
+  * Mohsen
+  * Tigran (10 min late)
+  * Mustafa
+
+==Supervisor meeting==
+
+  * Server things are almost ready and we could connect to most important services.
+  * Mattias suggested us to show our SDD and SAD to Jonas for approval to prevent the major rework in project.
+  * 
+
+==Internal meeting==
+
+  * Test cases will be fixed by Mustafa and Gilana. Later discussion needed.
+  * SAD and SDD delivery plan fixed
+  * Test plan will be completed by Shobha today
+  * Pair programming decided and Monday is the kick start meeting for development
+  * Code guidelines will be fixed till Monday.
