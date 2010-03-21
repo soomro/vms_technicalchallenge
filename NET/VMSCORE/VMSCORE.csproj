@@ -54,7 +54,6 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="Alert.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Crisis.cs" />
     <Compile Include="EnumCrisisType.cs" />
     <Compile Include="EnumCrisisStatus.cs" />

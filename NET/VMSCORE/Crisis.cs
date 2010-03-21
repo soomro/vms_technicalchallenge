@@ -106,15 +106,5 @@ namespace VMSCORE
             }
         }
 
-        public EnumCrisisStatus CrisisStatus
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
     }
 }
