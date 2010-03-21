@@ -62,7 +62,7 @@ namespace VMSCORE
             }
         }
 
-        public sring Strin
+        public string Street
         {
             get
             {

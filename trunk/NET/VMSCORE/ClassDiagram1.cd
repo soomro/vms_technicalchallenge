@@ -3,13 +3,12 @@
   <Class Name="VMSCORE.Crisis">
     <Position X="14.25" Y="4.25" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>ACAAAQAEAAAAQAAAAAAAAAQAAAAAAAACBQAEAAAACAA=</HashCode>
+      <HashCode>AAAAAQAEAAAAQAAAAAAAAAQAAAAAAAACBQAEAAAACAA=</HashCode>
       <FileName>Crisis.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="CrisisType" />
       <Property Name="LocationType" />
-      <Property Name="CrisisStatus" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Incidents" />
@@ -86,7 +85,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAEgAAAAAQAAAACAAAAAgAQAICAAAAACAQAAAAAAAAg=</HashCode>
+      <HashCode>AAEgAAAAAQAAAACAAAAAgAAAIiAAAAACAQAAAAAAAAA=</HashCode>
       <FileName>Volunteer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -109,14 +108,14 @@
   <Class Name="VMSCORE.IncidentReport">
     <Position X="18.5" Y="7.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAAAAgAAAAAAIAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <HashCode>gAAAAQAAAAAgAAAAAAIAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>IncidentReport.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="VMSCORE.Address">
     <Position X="10.75" Y="8.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAAIYAAAAAAAAEIAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAIAAAAAAAAIIAAAAAAAAEIAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>Address.cs</FileName>
     </TypeIdentifier>
   </Class>

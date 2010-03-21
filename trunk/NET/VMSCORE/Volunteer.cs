@@ -7,18 +7,7 @@ namespace VMSCORE
 {
     public class Volunteer
     {
-        public string Name
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-
-        public string LastName
+        public string NameLastName
         {
             get
             {

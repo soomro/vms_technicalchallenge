@@ -50,5 +50,28 @@ namespace VMSCORE
             {
             }
         }
+
+        public string Location
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public string LocationCoordinates
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
     }
 }
