@@ -58,7 +58,7 @@ namespace VMSCORE.EntityClasses
         private string _itemType;
     
         [DataMember]
-        public short MetricTypeVal
+        private short MetricTypeVal
         {
             get { return _metricTypeVal; }
             set
@@ -71,7 +71,17 @@ namespace VMSCORE.EntityClasses
             }
         }
         private short _metricTypeVal;
-    
+        public EnumMetricType MetricType
+        {
+            get
+            {
+                return Util.ReflectionUtil.SafeConvertToEnum<EnumMetricType>(MetricTypeVal, EnumMetricType.Box);
+            }
+            set
+            {
+                MetricTypeVal = (Int16)value;
+            }
+        }
         [DataMember]
         public double Amount
         {
