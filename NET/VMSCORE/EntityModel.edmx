@@ -1,0 +1,1114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EntityModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="EntityModelStoreContainer">
+    <EntitySet Name="Crises" EntityType="EntityModel.Store.Crises" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Alerts" EntityType="EntityModel.Store.Alerts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Incidents" EntityType="EntityModel.Store.Incidents" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IncidentReports" EntityType="EntityModel.Store.IncidentReports" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProgressReports" EntityType="EntityModel.Store.ProgressReports" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Managers" EntityType="EntityModel.Store.Managers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Addresses" EntityType="EntityModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StuffItems" EntityType="EntityModel.Store.StuffItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Volunteers" EntityType="EntityModel.Store.Volunteers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Requests" EntityType="EntityModel.Store.Requests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NeedItems" EntityType="EntityModel.Store.NeedItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RequestResponses" EntityType="EntityModel.Store.RequestResponses" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="Aso_AlertCrisis" Association="EntityModel.Store.Aso_AlertCrisis">
+      <End Role="Alert" EntitySet="Alerts" />
+      <End Role="Crisis" EntitySet="Crises" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_RequestResponseNeedItem" Association="EntityModel.Store.Aso_RequestResponseNeedItem">
+      <End Role="RequestResponse" EntitySet="RequestResponses" />
+      <End Role="NeedItem" EntitySet="NeedItems" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_RequestResponseRequest" Association="EntityModel.Store.Aso_RequestResponseRequest">
+      <End Role="RequestResponse" EntitySet="RequestResponses" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_RequestResponseVolunteer" Association="EntityModel.Store.Aso_RequestResponseVolunteer">
+      <End Role="RequestResponse" EntitySet="RequestResponses" />
+      <End Role="Volunteer" EntitySet="Volunteers" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_CrisisIncident" Association="EntityModel.Store.Aso_CrisisIncident">
+      <End Role="Crisis" EntitySet="Crises" />
+      <End Role="Incident" EntitySet="Incidents" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_VolunteerAddress" Association="EntityModel.Store.Aso_VolunteerAddress">
+      <End Role="Volunteer" EntitySet="Volunteers" />
+      <End Role="Address" EntitySet="Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_VolunteerStuffItem" Association="EntityModel.Store.Aso_VolunteerStuffItem">
+      <End Role="Volunteer" EntitySet="Volunteers" />
+      <End Role="StuffItem" EntitySet="StuffItems" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_VolunteerProgressReport" Association="EntityModel.Store.Aso_VolunteerProgressReport">
+      <End Role="Volunteer" EntitySet="Volunteers" />
+      <End Role="ProgressReport" EntitySet="ProgressReports" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_ManagerAddress" Association="EntityModel.Store.Aso_ManagerAddress">
+      <End Role="Manager" EntitySet="Managers" />
+      <End Role="Address" EntitySet="Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_IncidentProgressReport" Association="EntityModel.Store.Aso_IncidentProgressReport">
+      <End Role="Incident" EntitySet="Incidents" />
+      <End Role="ProgressReport" EntitySet="ProgressReports" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_IncidentRequest" Association="EntityModel.Store.Aso_IncidentRequest">
+      <End Role="Incident" EntitySet="Incidents" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_IncidentAlert" Association="EntityModel.Store.Aso_IncidentAlert">
+      <End Role="Incident" EntitySet="Incidents" />
+      <End Role="Alert" EntitySet="Alerts" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_RequestNeedItem" Association="EntityModel.Store.Aso_RequestNeedItem">
+      <End Role="Request" EntitySet="Requests" />
+      <End Role="NeedItem" EntitySet="NeedItems" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_IncidentNeedItem" Association="EntityModel.Store.Aso_IncidentNeedItem">
+      <End Role="Incident" EntitySet="Incidents" />
+      <End Role="NeedItem" EntitySet="NeedItems" />
+    </AssociationSet>
+    <AssociationSet Name="Aso_IncidentReportVolunteer" Association="EntityModel.Store.Aso_IncidentReportVolunteer">
+      <End Role="IncidentReport" EntitySet="IncidentReports" />
+      <End Role="Volunteer" EntitySet="Volunteers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Crises">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Explanation" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StatusVal" Type="smallint" Nullable="false" />
+    <Property Name="CrisisTypeVal" Type="smallint" Nullable="false" />
+    <Property Name="LocationTypeVal" Type="smallint" Nullable="false" />
+    <Property Name="LocationCoordinatesStr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateClosed" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Alerts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SearchCriteriaStr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateSent" Type="datetime" Nullable="true" />
+    <Property Name="IncidentId" Type="int" Nullable="true" />
+    <Property Name="Crisis_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Incidents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShortDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LocationTypeVal" Type="smallint" Nullable="false" />
+    <Property Name="LocationCoordinatesStr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Explanation" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateClosed" Type="datetime" Nullable="true" />
+    <Property Name="SeverityVal" Type="smallint" Nullable="false" />
+    <Property Name="IncidentTypeVal" Type="smallint" Nullable="false" />
+    <Property Name="IncidentStatusVal" Type="smallint" Nullable="false" />
+    <Property Name="ShortAddress" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CrisisId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IncidentReports">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IncidentTypeVal" Type="smallint" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ImageFile" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="VideoFile" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LocationCoordinatesStr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IncidentId" Type="int" Nullable="false" />
+    <Property Name="Volunteer_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProgressReports">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReportText" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ImageFile" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="VideoFile" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StatusVal" Type="smallint" Nullable="false" />
+    <Property Name="VolunteerId" Type="int" Nullable="false" />
+    <Property Name="IncidentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Managers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameLastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExpertiseCrisisTypesStr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateBirth" Type="datetime" Nullable="false" />
+    <Property Name="GenderVal" Type="smallint" Nullable="false" />
+    <Property Name="Address_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Addresses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FlatNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HouseNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PostalCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Street" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StuffItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MetricTypeVal" Type="smallint" Nullable="false" />
+    <Property Name="Amount" Type="float" Nullable="false" />
+    <Property Name="VolunteerId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Volunteers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameLastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateBirth" Type="datetime" Nullable="true" />
+    <Property Name="GenderVal" Type="smallint" Nullable="false" />
+    <Property Name="Occupation" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SpecificationsStr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CoordinatesStr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CoordinateLastUpdateTime" Type="datetime" Nullable="false" />
+    <Property Name="LastAccessTime" Type="datetime" Nullable="false" />
+    <Property Name="Address_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Requests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="SearchAreaCoordinatesStr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IncidentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NeedItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ItemAmount" Type="float" Nullable="false" />
+    <Property Name="MetricTypeVal" Type="smallint" Nullable="false" />
+    <Property Name="SuppliedAmount" Type="float" Nullable="false" />
+    <Property Name="RequestResponseId" Type="int" Nullable="true" />
+    <Property Name="RequestId" Type="int" Nullable="true" />
+    <Property Name="IncidentId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="RequestResponses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateShowed" Type="datetime" Nullable="true" />
+    <Property Name="DateResponded" Type="datetime" Nullable="true" />
+    <Property Name="Answer" Type="varbinary(max)" Nullable="false" />
+    <Property Name="StatusVal" Type="smallint" Nullable="false" />
+    <Property Name="Request_Id" Type="int" Nullable="true" />
+    <Property Name="Volunteer_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <Association Name="Aso_AlertCrisis">
+    <End Role="Alert" Type="EntityModel.Store.Alerts" Multiplicity="*" />
+    <End Role="Crisis" Type="EntityModel.Store.Crises" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Crisis">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Alert">
+        <PropertyRef Name="Crisis_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_RequestResponseNeedItem">
+    <End Role="RequestResponse" Type="EntityModel.Store.RequestResponses" Multiplicity="0..1" />
+    <End Role="NeedItem" Type="EntityModel.Store.NeedItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequestResponse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NeedItem">
+        <PropertyRef Name="RequestResponseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_RequestResponseRequest">
+    <End Role="RequestResponse" Type="EntityModel.Store.RequestResponses" Multiplicity="*" />
+    <End Role="Request" Type="EntityModel.Store.Requests" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Request">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RequestResponse">
+        <PropertyRef Name="Request_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_RequestResponseVolunteer">
+    <End Role="RequestResponse" Type="EntityModel.Store.RequestResponses" Multiplicity="*" />
+    <End Role="Volunteer" Type="EntityModel.Store.Volunteers" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Volunteer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RequestResponse">
+        <PropertyRef Name="Volunteer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_CrisisIncident">
+    <End Role="Crisis" Type="EntityModel.Store.Crises" Multiplicity="1" />
+    <End Role="Incident" Type="EntityModel.Store.Incidents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Crisis">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Incident">
+        <PropertyRef Name="CrisisId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_VolunteerAddress">
+    <End Role="Volunteer" Type="EntityModel.Store.Volunteers" Multiplicity="*" />
+    <End Role="Address" Type="EntityModel.Store.Addresses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Volunteer">
+        <PropertyRef Name="Address_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_VolunteerStuffItem">
+    <End Role="Volunteer" Type="EntityModel.Store.Volunteers" Multiplicity="1" />
+    <End Role="StuffItem" Type="EntityModel.Store.StuffItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Volunteer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StuffItem">
+        <PropertyRef Name="VolunteerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_VolunteerProgressReport">
+    <End Role="Volunteer" Type="EntityModel.Store.Volunteers" Multiplicity="1" />
+    <End Role="ProgressReport" Type="EntityModel.Store.ProgressReports" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Volunteer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgressReport">
+        <PropertyRef Name="VolunteerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_ManagerAddress">
+    <End Role="Manager" Type="EntityModel.Store.Managers" Multiplicity="*" />
+    <End Role="Address" Type="EntityModel.Store.Addresses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Manager">
+        <PropertyRef Name="Address_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_IncidentProgressReport">
+    <End Role="Incident" Type="EntityModel.Store.Incidents" Multiplicity="1" />
+    <End Role="ProgressReport" Type="EntityModel.Store.ProgressReports" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Incident">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgressReport">
+        <PropertyRef Name="IncidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_IncidentRequest">
+    <End Role="Incident" Type="EntityModel.Store.Incidents" Multiplicity="1" />
+    <End Role="Request" Type="EntityModel.Store.Requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Incident">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="IncidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_IncidentAlert">
+    <End Role="Incident" Type="EntityModel.Store.Incidents" Multiplicity="0..1" />
+    <End Role="Alert" Type="EntityModel.Store.Alerts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Incident">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Alert">
+        <PropertyRef Name="IncidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_RequestNeedItem">
+    <End Role="Request" Type="EntityModel.Store.Requests" Multiplicity="0..1" />
+    <End Role="NeedItem" Type="EntityModel.Store.NeedItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Request">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NeedItem">
+        <PropertyRef Name="RequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_IncidentNeedItem">
+    <End Role="Incident" Type="EntityModel.Store.Incidents" Multiplicity="0..1" />
+    <End Role="NeedItem" Type="EntityModel.Store.NeedItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Incident">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NeedItem">
+        <PropertyRef Name="IncidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aso_IncidentReportVolunteer">
+    <End Role="IncidentReport" Type="EntityModel.Store.IncidentReports" Multiplicity="*" />
+    <End Role="Volunteer" Type="EntityModel.Store.Volunteers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Volunteer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IncidentReport">
+        <PropertyRef Name="Volunteer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EntityModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="EntityModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Crises" EntityType="EntityModel.Crisis" />
+          <EntitySet Name="Alerts" EntityType="EntityModel.Alert" />
+          <AssociationSet Name="Aso_AlertCrisis" Association="EntityModel.Aso_AlertCrisis">
+            <End Role="Alert" EntitySet="Alerts" />
+            <End Role="Crisis" EntitySet="Crises" />
+          </AssociationSet>
+          <EntitySet Name="Incidents" EntityType="EntityModel.Incident" />
+          <EntitySet Name="IncidentReports" EntityType="EntityModel.IncidentReport" />
+          <EntitySet Name="ProgressReports" EntityType="EntityModel.ProgressReport" />
+          <EntitySet Name="Managers" EntityType="EntityModel.Manager" />
+          <EntitySet Name="Addresses" EntityType="EntityModel.Address" />
+          <EntitySet Name="StuffItems" EntityType="EntityModel.StuffItem" />
+          <EntitySet Name="Volunteers" EntityType="EntityModel.Volunteer" />
+          <EntitySet Name="Requests" EntityType="EntityModel.Request" />
+          <EntitySet Name="NeedItems" EntityType="EntityModel.NeedItem" />
+          <EntitySet Name="RequestResponses" EntityType="EntityModel.RequestResponse" />
+          <AssociationSet Name="Aso_RequestResponseNeedItem" Association="EntityModel.Aso_RequestResponseNeedItem">
+            <End Role="RequestResponse" EntitySet="RequestResponses" />
+            <End Role="NeedItem" EntitySet="NeedItems" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_RequestResponseRequest" Association="EntityModel.Aso_RequestResponseRequest">
+            <End Role="RequestResponse" EntitySet="RequestResponses" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_RequestResponseVolunteer" Association="EntityModel.Aso_RequestResponseVolunteer">
+            <End Role="RequestResponse" EntitySet="RequestResponses" />
+            <End Role="Volunteer" EntitySet="Volunteers" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_CrisisIncident" Association="EntityModel.Aso_CrisisIncident">
+            <End Role="Crisis" EntitySet="Crises" />
+            <End Role="Incident" EntitySet="Incidents" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_VolunteerAddress" Association="EntityModel.Aso_VolunteerAddress">
+            <End Role="Volunteer" EntitySet="Volunteers" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_VolunteerStuffItem" Association="EntityModel.Aso_VolunteerStuffItem">
+            <End Role="Volunteer" EntitySet="Volunteers" />
+            <End Role="StuffItem" EntitySet="StuffItems" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_VolunteerProgressReport" Association="EntityModel.Aso_VolunteerProgressReport">
+            <End Role="Volunteer" EntitySet="Volunteers" />
+            <End Role="ProgressReport" EntitySet="ProgressReports" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_ManagerAddress" Association="EntityModel.Aso_ManagerAddress">
+            <End Role="Manager" EntitySet="Managers" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_IncidentProgressReport" Association="EntityModel.Aso_IncidentProgressReport">
+            <End Role="Incident" EntitySet="Incidents" />
+            <End Role="ProgressReport" EntitySet="ProgressReports" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_IncidentRequest" Association="EntityModel.Aso_IncidentRequest">
+            <End Role="Incident" EntitySet="Incidents" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_IncidentAlert" Association="EntityModel.Aso_IncidentAlert">
+            <End Role="Incident" EntitySet="Incidents" />
+            <End Role="Alert" EntitySet="Alerts" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_RequestNeedItem" Association="EntityModel.Aso_RequestNeedItem">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="NeedItem" EntitySet="NeedItems" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_IncidentNeedItem" Association="EntityModel.Aso_IncidentNeedItem">
+            <End Role="Incident" EntitySet="Incidents" />
+            <End Role="NeedItem" EntitySet="NeedItems" />
+          </AssociationSet>
+          <AssociationSet Name="Aso_IncidentReportVolunteer" Association="EntityModel.Aso_IncidentReportVolunteer">
+            <End Role="IncidentReport" EntitySet="IncidentReports" />
+            <End Role="Volunteer" EntitySet="Volunteers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Crisis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Explanation" Nullable="false" />
+          <Property Type="Int16" Name="StatusVal" Nullable="false" />
+          <Property Type="Int16" Name="CrisisTypeVal" Nullable="false" />
+          <Property Type="Int16" Name="LocationTypeVal" Nullable="false" />
+          <Property Type="String" Name="LocationCoordinatesStr" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTime" Name="DateClosed" />
+          <NavigationProperty Name="Alerts" Relationship="EntityModel.Aso_AlertCrisis" FromRole="Crisis" ToRole="Alert" />
+          <NavigationProperty Name="Incidents" Relationship="EntityModel.Aso_CrisisIncident" FromRole="Crisis" ToRole="Incident" />
+        </EntityType>
+        <EntityType Name="Alert">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Message" Nullable="false" />
+          <Property Type="String" Name="SearchCriteriaStr" Nullable="false" />
+          <Property Type="DateTime" Name="DateSent" Precision="29" Nullable="true" />
+          <NavigationProperty Name="Crisis" Relationship="EntityModel.Aso_AlertCrisis" FromRole="Alert" ToRole="Crisis" />
+          <NavigationProperty Name="Incident" Relationship="EntityModel.Aso_IncidentAlert" FromRole="Alert" ToRole="Incident" />
+          <Property Type="Int32" Name="IncidentId" Nullable="true" />
+        </EntityType>
+        <Association Name="Aso_AlertCrisis">
+          <End Type="EntityModel.Alert" Role="Alert" Multiplicity="*" />
+          <End Type="EntityModel.Crisis" Role="Crisis" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Incident">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ShortDescription" Nullable="false" />
+          <Property Type="Int16" Name="LocationTypeVal" Nullable="false" />
+          <Property Type="String" Name="LocationCoordinatesStr" Nullable="false" />
+          <Property Type="String" Name="Explanation" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="29" />
+          <Property Type="DateTime" Name="DateClosed" Nullable="true" Precision="29" />
+          <Property Type="Int16" Name="SeverityVal" Nullable="false" />
+          <Property Type="Int16" Name="IncidentTypeVal" Nullable="false" />
+          <Property Type="Int16" Name="IncidentStatusVal" Nullable="false" />
+          <Property Type="String" Name="ShortAddress" Nullable="false" />
+          <NavigationProperty Name="Crisis" Relationship="EntityModel.Aso_CrisisIncident" FromRole="Incident" ToRole="Crisis" />
+          <Property Type="Int32" Name="CrisisId" Nullable="false" />
+          <NavigationProperty Name="ProgressReports" Relationship="EntityModel.Aso_IncidentProgressReport" FromRole="Incident" ToRole="ProgressReport" />
+          <NavigationProperty Name="Requests" Relationship="EntityModel.Aso_IncidentRequest" FromRole="Incident" ToRole="Request" />
+          <NavigationProperty Name="Alerts" Relationship="EntityModel.Aso_IncidentAlert" FromRole="Incident" ToRole="Alert" />
+          <NavigationProperty Name="NeedItems" Relationship="EntityModel.Aso_IncidentNeedItem" FromRole="Incident" ToRole="NeedItem" />
+        </EntityType>
+        <EntityType Name="IncidentReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="IncidentTypeVal" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="String" Name="ImageFile" Nullable="false" />
+          <Property Type="String" Name="VideoFile" Nullable="false" />
+          <Property Type="String" Name="Location" Nullable="false" />
+          <Property Type="String" Name="LocationCoordinatesStr" Nullable="false" />
+          <Property Type="Int32" Name="IncidentId" Nullable="false" />
+          <NavigationProperty Name="Volunteer" Relationship="EntityModel.Aso_IncidentReportVolunteer" FromRole="IncidentReport" ToRole="Volunteer" />
+        </EntityType>
+        <EntityType Name="ProgressReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ReportText" Nullable="false" />
+          <Property Type="String" Name="ImageFile" Nullable="false" />
+          <Property Type="String" Name="VideoFile" Nullable="false" />
+          <Property Type="Int16" Name="StatusVal" Nullable="false" >
+            <Documentation>
+              <Summary>Incident Status</Summary>
+            </Documentation>
+          </Property>
+          <NavigationProperty Name="Volunteer" Relationship="EntityModel.Aso_VolunteerProgressReport" FromRole="ProgressReport" ToRole="Volunteer" />
+          <Property Type="Int32" Name="VolunteerId" Nullable="false" />
+          <NavigationProperty Name="Incident" Relationship="EntityModel.Aso_IncidentProgressReport" FromRole="ProgressReport" ToRole="Incident" />
+          <Property Type="Int32" Name="IncidentId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="NameLastName" Nullable="false" />
+          <Property Type="String" Name="ExpertiseCrisisTypesStr" Nullable="false" />
+          <Property Type="DateTime" Name="DateBirth" Nullable="false" Precision="29" />
+          <Property Type="Int16" Name="GenderVal" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="EntityModel.Aso_ManagerAddress" FromRole="Manager" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="City" Nullable="false" />
+          <Property Type="String" Name="Country" Nullable="false" />
+          <Property Type="String" Name="FlatNumber" Nullable="false" />
+          <Property Type="String" Name="HouseNumber" Nullable="false" />
+          <Property Type="String" Name="PostalCode" Nullable="false" />
+          <Property Type="String" Name="Street" Nullable="false" />
+          <NavigationProperty Name="Volunteer" Relationship="EntityModel.Aso_VolunteerAddress" FromRole="Address" ToRole="Volunteer" />
+          <NavigationProperty Name="Manager" Relationship="EntityModel.Aso_ManagerAddress" FromRole="Address" ToRole="Manager" />
+        </EntityType>
+        <EntityType Name="StuffItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ItemType" Nullable="false" />
+          <Property Type="Int16" Name="MetricTypeVal" Nullable="false" />
+          <Property Type="Double" Name="Amount" Nullable="false" />
+          <NavigationProperty Name="Volunteer" Relationship="EntityModel.Aso_VolunteerStuffItem" FromRole="StuffItem" ToRole="Volunteer" />
+          <Property Type="Int32" Name="VolunteerId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Volunteer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="NameLastName" Nullable="false" />
+          <Property Type="DateTime" Name="DateBirth" Nullable="true" Precision="29" />
+          <Property Type="Int16" Name="GenderVal" Nullable="false" />
+          <Property Type="String" Name="Occupation" Nullable="false" />
+          <Property Type="String" Name="SpecificationsStr" Nullable="false" />
+          <Property Type="String" Name="CoordinatesStr" Nullable="false" />
+          <Property Type="DateTime" Name="CoordinateLastUpdateTime" Nullable="false" Precision="29" />
+          <Property Type="DateTime" Name="LastAccessTime" Nullable="false" Precision="29" />
+          <NavigationProperty Name="RequestResponses" Relationship="EntityModel.Aso_RequestResponseVolunteer" FromRole="Volunteer" ToRole="RequestResponse" />
+          <NavigationProperty Name="Address" Relationship="EntityModel.Aso_VolunteerAddress" FromRole="Volunteer" ToRole="Address" />
+          <NavigationProperty Name="StuffItems" Relationship="EntityModel.Aso_VolunteerStuffItem" FromRole="Volunteer" ToRole="StuffItem" />
+          <NavigationProperty Name="ProgressReports" Relationship="EntityModel.Aso_VolunteerProgressReport" FromRole="Volunteer" ToRole="ProgressReport" />
+          <NavigationProperty Name="IncidentReports" Relationship="EntityModel.Aso_IncidentReportVolunteer" FromRole="Volunteer" ToRole="IncidentReport" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Message" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="String" Name="SearchAreaCoordinatesStr" Nullable="false" />
+          <NavigationProperty Name="RequestResponses" Relationship="EntityModel.Aso_RequestResponseRequest" FromRole="Request" ToRole="RequestResponse" />
+          <NavigationProperty Name="Incident" Relationship="EntityModel.Aso_IncidentRequest" FromRole="Request" ToRole="Incident" />
+          <Property Type="Int32" Name="IncidentId" Nullable="false" />
+          <NavigationProperty Name="NeedItems" Relationship="EntityModel.Aso_RequestNeedItem" FromRole="Request" ToRole="NeedItem" />
+        </EntityType>
+        <EntityType Name="NeedItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ItemType" Nullable="false" />
+          <Property Type="Double" Name="ItemAmount" Nullable="false" />
+          <Property Type="Int16" Name="MetricTypeVal" Nullable="false" />
+          <Property Type="Double" Name="SuppliedAmount" Nullable="false" />
+          <NavigationProperty Name="RequestResponse" Relationship="EntityModel.Aso_RequestResponseNeedItem" FromRole="NeedItem" ToRole="RequestResponse" />
+          <Property Type="Int32" Name="RequestResponseId" Nullable="true" />
+          <NavigationProperty Name="Request" Relationship="EntityModel.Aso_RequestNeedItem" FromRole="NeedItem" ToRole="Request" />
+          <Property Type="Int32" Name="RequestId" Nullable="true" />
+          <NavigationProperty Name="Incident" Relationship="EntityModel.Aso_IncidentNeedItem" FromRole="NeedItem" ToRole="Incident" />
+          <Property Type="Int32" Name="IncidentId" Nullable="true" />
+        </EntityType>
+        <EntityType Name="RequestResponse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="DateShowed" Nullable="true" Precision="29" />
+          <Property Type="DateTime" Name="DateResponded" Nullable="true" Precision="29" />
+          <Property Type="Binary" Name="Answer" Nullable="false" MaxLength="2147483647" FixedLength="false" />
+          <Property Type="Int16" Name="StatusVal" Nullable="false" />
+          <NavigationProperty Name="NeedItems" Relationship="EntityModel.Aso_RequestResponseNeedItem" FromRole="RequestResponse" ToRole="NeedItem" />
+          <NavigationProperty Name="Request" Relationship="EntityModel.Aso_RequestResponseRequest" FromRole="RequestResponse" ToRole="Request" />
+          <NavigationProperty Name="Volunteer" Relationship="EntityModel.Aso_RequestResponseVolunteer" FromRole="RequestResponse" ToRole="Volunteer" />
+        </EntityType>
+        <Association Name="Aso_RequestResponseNeedItem">
+          <End Type="EntityModel.RequestResponse" Role="RequestResponse" Multiplicity="0..1" />
+          <End Type="EntityModel.NeedItem" Role="NeedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestResponse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NeedItem">
+              <PropertyRef Name="RequestResponseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aso_RequestResponseRequest">
+          <End Type="EntityModel.RequestResponse" Role="RequestResponse" Multiplicity="*" />
+          <End Type="EntityModel.Request" Role="Request" Multiplicity="0..1" />
+        </Association>
+        <Association Name="Aso_RequestResponseVolunteer">
+          <End Type="EntityModel.RequestResponse" Role="RequestResponse" Multiplicity="*" />
+          <End Type="EntityModel.Volunteer" Role="Volunteer" Multiplicity="0..1" />
+        </Association>
+        <Association Name="Aso_CrisisIncident">
+          <End Type="EntityModel.Crisis" Role="Crisis" Multiplicity="1" />
+          <End Type="EntityModel.Incident" Role="Incident" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Crisis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Incident">
+              <PropertyRef Name="CrisisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aso_VolunteerAddress">
+          <End Type="EntityModel.Volunteer" Role="Volunteer" Multiplicity="0..1" />
+          <End Type="EntityModel.Address" Role="Address" Multiplicity="1" />
+        </Association>
+        <Association Name="Aso_VolunteerStuffItem">
+          <End Type="EntityModel.Volunteer" Role="Volunteer" Multiplicity="1" />
+          <End Type="EntityModel.StuffItem" Role="StuffItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StuffItem">
+              <PropertyRef Name="VolunteerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aso_VolunteerProgressReport">
+          <End Type="EntityModel.Volunteer" Role="Volunteer" Multiplicity="1" />
+          <End Type="EntityModel.ProgressReport" Role="ProgressReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgressReport">
+              <PropertyRef Name="VolunteerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aso_ManagerAddress">
+          <End Type="EntityModel.Manager" Role="Manager" Multiplicity="0..1" />
+          <End Type="EntityModel.Address" Role="Address" Multiplicity="1" />
+        </Association>
+        <Association Name="Aso_IncidentProgressReport">
+          <End Type="EntityModel.Incident" Role="Incident" Multiplicity="1" />
+          <End Type="EntityModel.ProgressReport" Role="ProgressReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Incident">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgressReport">
+              <PropertyRef Name="IncidentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aso_IncidentRequest">
+          <End Type="EntityModel.Incident" Role="Incident" Multiplicity="1" />
+          <End Type="EntityModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Incident">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="IncidentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aso_IncidentAlert">
+          <End Type="EntityModel.Incident" Role="Incident" Multiplicity="0..1" />
+          <End Type="EntityModel.Alert" Role="Alert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Incident">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alert">
+              <PropertyRef Name="IncidentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aso_RequestNeedItem">
+          <End Type="EntityModel.Request" Role="Request" Multiplicity="0..1" />
+          <End Type="EntityModel.NeedItem" Role="NeedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NeedItem">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aso_IncidentNeedItem">
+          <End Type="EntityModel.Incident" Role="Incident" Multiplicity="0..1" />
+          <End Type="EntityModel.NeedItem" Role="NeedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Incident">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NeedItem">
+              <PropertyRef Name="IncidentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aso_IncidentReportVolunteer">
+          <End Type="EntityModel.IncidentReport" Role="IncidentReport" Multiplicity="*" />
+          <End Type="EntityModel.Volunteer" Role="Volunteer" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EntityModelStoreContainer" CdmEntityContainer="EntityModelContainer">
+    <EntitySetMapping Name="Crises">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.Crisis)">
+        <MappingFragment StoreEntitySet="Crises">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="StatusVal" ColumnName="StatusVal" />
+          <ScalarProperty Name="CrisisTypeVal" ColumnName="CrisisTypeVal" />
+          <ScalarProperty Name="LocationTypeVal" ColumnName="LocationTypeVal" />
+          <ScalarProperty Name="LocationCoordinatesStr" ColumnName="LocationCoordinatesStr" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateClosed" ColumnName="DateClosed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Alerts">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.Alert)">
+        <MappingFragment StoreEntitySet="Alerts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="SearchCriteriaStr" ColumnName="SearchCriteriaStr" />
+          <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+          <ScalarProperty Name="IncidentId" ColumnName="IncidentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Incidents">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.Incident)">
+        <MappingFragment StoreEntitySet="Incidents">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LocationTypeVal" ColumnName="LocationTypeVal" />
+          <ScalarProperty Name="LocationCoordinatesStr" ColumnName="LocationCoordinatesStr" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateClosed" ColumnName="DateClosed" />
+          <ScalarProperty Name="SeverityVal" ColumnName="SeverityVal" />
+          <ScalarProperty Name="IncidentTypeVal" ColumnName="IncidentTypeVal" />
+          <ScalarProperty Name="IncidentStatusVal" ColumnName="IncidentStatusVal" />
+          <ScalarProperty Name="ShortAddress" ColumnName="ShortAddress" />
+          <ScalarProperty Name="CrisisId" ColumnName="CrisisId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IncidentReports">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.IncidentReport)">
+        <MappingFragment StoreEntitySet="IncidentReports">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IncidentTypeVal" ColumnName="IncidentTypeVal" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ImageFile" ColumnName="ImageFile" />
+          <ScalarProperty Name="VideoFile" ColumnName="VideoFile" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="LocationCoordinatesStr" ColumnName="LocationCoordinatesStr" />
+          <ScalarProperty Name="IncidentId" ColumnName="IncidentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProgressReports">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.ProgressReport)">
+        <MappingFragment StoreEntitySet="ProgressReports">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReportText" ColumnName="ReportText" />
+          <ScalarProperty Name="ImageFile" ColumnName="ImageFile" />
+          <ScalarProperty Name="VideoFile" ColumnName="VideoFile" />
+          <ScalarProperty Name="StatusVal" ColumnName="StatusVal" />
+          <ScalarProperty Name="VolunteerId" ColumnName="VolunteerId" />
+          <ScalarProperty Name="IncidentId" ColumnName="IncidentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Managers">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.Manager)">
+        <MappingFragment StoreEntitySet="Managers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameLastName" ColumnName="NameLastName" />
+          <ScalarProperty Name="ExpertiseCrisisTypesStr" ColumnName="ExpertiseCrisisTypesStr" />
+          <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+          <ScalarProperty Name="GenderVal" ColumnName="GenderVal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.Address)">
+        <MappingFragment StoreEntitySet="Addresses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+          <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StuffItems">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.StuffItem)">
+        <MappingFragment StoreEntitySet="StuffItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+          <ScalarProperty Name="MetricTypeVal" ColumnName="MetricTypeVal" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="VolunteerId" ColumnName="VolunteerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Volunteers">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.Volunteer)">
+        <MappingFragment StoreEntitySet="Volunteers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameLastName" ColumnName="NameLastName" />
+          <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+          <ScalarProperty Name="GenderVal" ColumnName="GenderVal" />
+          <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+          <ScalarProperty Name="SpecificationsStr" ColumnName="SpecificationsStr" />
+          <ScalarProperty Name="CoordinatesStr" ColumnName="CoordinatesStr" />
+          <ScalarProperty Name="CoordinateLastUpdateTime" ColumnName="CoordinateLastUpdateTime" />
+          <ScalarProperty Name="LastAccessTime" ColumnName="LastAccessTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requests">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.Request)">
+        <MappingFragment StoreEntitySet="Requests">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SearchAreaCoordinatesStr" ColumnName="SearchAreaCoordinatesStr" />
+          <ScalarProperty Name="IncidentId" ColumnName="IncidentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NeedItems">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.NeedItem)">
+        <MappingFragment StoreEntitySet="NeedItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+          <ScalarProperty Name="ItemAmount" ColumnName="ItemAmount" />
+          <ScalarProperty Name="MetricTypeVal" ColumnName="MetricTypeVal" />
+          <ScalarProperty Name="SuppliedAmount" ColumnName="SuppliedAmount" />
+          <ScalarProperty Name="RequestResponseId" ColumnName="RequestResponseId" />
+          <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+          <ScalarProperty Name="IncidentId" ColumnName="IncidentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestResponses">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityModel.RequestResponse)">
+        <MappingFragment StoreEntitySet="RequestResponses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DateShowed" ColumnName="DateShowed" />
+          <ScalarProperty Name="DateResponded" ColumnName="DateResponded" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="StatusVal" ColumnName="StatusVal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Aso_AlertCrisis" TypeName="EntityModel.Aso_AlertCrisis" StoreEntitySet="Alerts">
+      <EndProperty Name="Crisis">
+        <ScalarProperty Name="Id" ColumnName="Crisis_Id" />
+      </EndProperty>
+      <EndProperty Name="Alert">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Aso_RequestResponseRequest" TypeName="EntityModel.Aso_RequestResponseRequest" StoreEntitySet="RequestResponses">
+      <EndProperty Name="Request">
+        <ScalarProperty Name="Id" ColumnName="Request_Id" />
+      </EndProperty>
+      <EndProperty Name="RequestResponse">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Request_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Aso_RequestResponseVolunteer" TypeName="EntityModel.Aso_RequestResponseVolunteer" StoreEntitySet="RequestResponses">
+      <EndProperty Name="Volunteer">
+        <ScalarProperty Name="Id" ColumnName="Volunteer_Id" />
+      </EndProperty>
+      <EndProperty Name="RequestResponse">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Volunteer_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Aso_VolunteerAddress" TypeName="EntityModel.Aso_VolunteerAddress" StoreEntitySet="Volunteers">
+      <EndProperty Name="Address">
+        <ScalarProperty Name="Id" ColumnName="Address_Id" />
+      </EndProperty>
+      <EndProperty Name="Volunteer">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Aso_ManagerAddress" TypeName="EntityModel.Aso_ManagerAddress" StoreEntitySet="Managers">
+      <EndProperty Name="Address">
+        <ScalarProperty Name="Id" ColumnName="Address_Id" />
+      </EndProperty>
+      <EndProperty Name="Manager">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Aso_IncidentReportVolunteer" TypeName="EntityModel.Aso_IncidentReportVolunteer" StoreEntitySet="IncidentReports">
+      <EndProperty Name="Volunteer">
+        <ScalarProperty Name="Id" ColumnName="Volunteer_Id" />
+      </EndProperty>
+      <EndProperty Name="IncidentReport">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="EntityModel" ZoomLevel="68" DisplayType="true" >
+        <EntityTypeShape EntityType="EntityModel.Crisis" Width="1.5" PointX="13.125" PointY="1.25" Height="3.1340950520833326" IsExpanded="true" />
+        <EntityTypeShape EntityType="EntityModel.Alert" Width="1.5" PointX="14.625" PointY="5.125" Height="2.3648893229166656" IsExpanded="true" />
+        <AssociationConnector Association="EntityModel.Aso_AlertCrisis">
+          <ConnectorPoint PointX="15.791420558019322" PointY="5.125" />
+          <ConnectorPoint PointX="15.791420558019322" PointY="2.8170475260416663" />
+          <ConnectorPoint PointX="14.625" PointY="2.8170475260416663" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="EntityModel.Incident" Width="1.875" PointX="11.625" PointY="5.25" Height="4.2879036458333335" />
+        <EntityTypeShape EntityType="EntityModel.IncidentReport" Width="1.5" PointX="7.375" PointY="8.25" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="EntityModel.ProgressReport" Width="1.5" PointX="11.75" PointY="10.75" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="EntityModel.Manager" Width="1.5" PointX="9.125" PointY="10.25" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="EntityModel.Address" Width="1.5" PointX="9.25" PointY="6.625" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="EntityModel.StuffItem" Width="1.5" PointX="4.625" PointY="10.375" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="EntityModel.Volunteer" Width="1.625" PointX="5" PointY="4.75" Height="3.7109993489583335" />
+        <EntityTypeShape EntityType="EntityModel.Request" Width="1.5" PointX="8.125" PointY="2.625" Height="2.5571907552083326" />
+        <EntityTypeShape EntityType="EntityModel.NeedItem" Width="1.5" PointX="10.5" PointY="1" Height="3.1340950520833326" />
+        <EntityTypeShape EntityType="EntityModel.RequestResponse" Width="1.5" PointX="5.25" PointY="0.625" Height="2.5571907552083331" />
+        <AssociationConnector Association="EntityModel.Aso_RequestResponseNeedItem">
+          <ConnectorPoint PointX="6.75" PointY="1.78125" />
+          <ConnectorPoint PointX="10.5" PointY="1.78125" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_RequestResponseRequest">
+          <ConnectorPoint PointX="6.75" PointY="2.9035953776041667" />
+          <ConnectorPoint PointX="8.125" PointY="2.9035953776041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_RequestResponseVolunteer">
+          <ConnectorPoint PointX="5.9375" PointY="3.1821907552083331" />
+          <ConnectorPoint PointX="5.9375" PointY="4.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_CrisisIncident">
+          <ConnectorPoint PointX="13.3125" PointY="4.3840950520833326" />
+          <ConnectorPoint PointX="13.3125" PointY="5.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_VolunteerAddress">
+          <ConnectorPoint PointX="6.625" PointY="7.46875" />
+          <ConnectorPoint PointX="9.25" PointY="7.46875" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_VolunteerStuffItem">
+          <ConnectorPoint PointX="5.5625" PointY="8.4609993489583335" />
+          <ConnectorPoint PointX="5.5625" PointY="10.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_VolunteerProgressReport">
+          <ConnectorPoint PointX="6.33593625" PointY="8.4609993489583335" />
+          <ConnectorPoint PointX="6.33593625" PointY="13.0547900390625" />
+          <ConnectorPoint PointX="11.75" PointY="13.0547900390625" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_ManagerAddress">
+          <ConnectorPoint PointX="9.9375" PointY="10.25" />
+          <ConnectorPoint PointX="9.9375" PointY="9.3744921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_IncidentProgressReport">
+          <ConnectorPoint PointX="12.46740318599193" PointY="9.5379036458333335" />
+          <ConnectorPoint PointX="12.46740318599193" PointY="10.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_IncidentRequest">
+          <ConnectorPoint PointX="11.625" PointY="5.90625" />
+          <ConnectorPoint PointX="9" PointY="5.90625" />
+          <ConnectorPoint PointX="9" PointY="5.1821907552083326" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_IncidentAlert">
+          <ConnectorPoint PointX="13.5" PointY="6.3699446614583328" />
+          <ConnectorPoint PointX="14.625" PointY="6.3699446614583328" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_RequestNeedItem">
+          <ConnectorPoint PointX="9.625" PointY="3.3795475260416663" />
+          <ConnectorPoint PointX="10.5" PointY="3.3795475260416663" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_IncidentNeedItem">
+          <ConnectorPoint PointX="11.8125" PointY="5.25" />
+          <ConnectorPoint PointX="11.8125" PointY="4.1340950520833326" />
+        </AssociationConnector>
+        <AssociationConnector Association="EntityModel.Aso_IncidentReportVolunteer">
+          <ConnectorPoint PointX="7.375" PointY="9.4180021744791667" />
+          <ConnectorPoint PointX="6.5468775" PointY="9.4180021744791667" />
+          <ConnectorPoint PointX="6.5468775" PointY="8.4609993489583335" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
