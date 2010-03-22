@@ -90,7 +90,7 @@ namespace VMSCORE.EntityClasses
         private byte[] _answer;
     
         [DataMember]
-        public short StatusVal
+        private short StatusVal
         {
             get { return _statusVal; }
             set
@@ -103,6 +103,17 @@ namespace VMSCORE.EntityClasses
             }
         }
         private short _statusVal;
+        public EnumRequestResponseStatus IncidentStatus
+        {
+            get
+            {
+                return Util.ReflectionUtil.SafeConvertToEnum<EnumRequestResponseStatus>(StatusVal, EnumRequestResponseStatus.Waiting);
+            }
+            set
+            {
+                StatusVal = (Int16)value;
+            }
+        }
 
         #endregion
         #region Navigation Properties
