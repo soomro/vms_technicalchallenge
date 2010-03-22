@@ -24,6 +24,17 @@
             <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Larger" 
                 ForeColor="Red"></asp:Label>
         
+            <br />
+            <br />
+            <br />
+            Crisis Id:<asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+            <asp:Button ID="Button3" runat="server" onclick="Button3_Click" Text="Show" />
+            <br />
+            New Name 
+            <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+            <asp:Button ID="Button2" runat="server" onclick="Button2_Click" Text="Change" />
+            <br />
+        
         </div>
     
     </div>

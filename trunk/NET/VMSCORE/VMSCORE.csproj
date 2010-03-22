@@ -52,33 +52,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="Alert.cs" />
-    <Compile Include="Crisis.cs" />
-    <Compile Include="EnumCrisisType.cs" />
-    <Compile Include="EnumCrisisStatus.cs" />
-    <Compile Include="EnumIncidentType.cs" />
-    <Compile Include="EnumMapType.cs" />
-    <Compile Include="EnumLocationType.cs" />
-    <Compile Include="EnumMetricType.cs" />
-    <Compile Include="EnumRequestResponseStatus.cs" />
-    <Compile Include="EnumSeverity.cs" />
-    <Compile Include="Incident.cs" />
-    <Compile Include="EnumIncidentStatus.cs" />
-    <Compile Include="IncidentReport.cs" />
-    <Compile Include="Manager.cs" />
-    <Compile Include="Model1.cs">
+    <Compile Include="EntityClasses\Address.cs" />
+    <Compile Include="EntityClasses\Alert.cs" />
+    <Compile Include="EntityClasses\Crisis.cs" />
+    <Compile Include="EntityClasses\Incident.cs" />
+    <Compile Include="EntityClasses\IncidentReport.cs" />
+    <Compile Include="EntityClasses\Manager.cs" />
+    <Compile Include="EntityClasses\Model1.Context.cs" />
+    <Compile Include="EntityClasses\Model1.Context.Extensions.cs" />
+    <Compile Include="EntityClasses\Model1.cs" />
+    <Compile Include="EntityClasses\NeedItem.cs" />
+    <Compile Include="EntityClasses\ProgressReport.cs" />
+    <Compile Include="EntityClasses\Request.cs" />
+    <Compile Include="EntityClasses\RequestResponse.cs" />
+    <Compile Include="EntityClasses\StuffItem.cs" />
+    <Compile Include="EntityClasses\Volunteer.cs" />
+    <Compile Include="EntityModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="NeedItem.cs" />
-    <Compile Include="ProgressReport.cs" />
+    <Compile Include="EntityClasses\Enumerations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Request.cs" />
-    <Compile Include="RequestResponse.cs" />
-    <Compile Include="StuffItem.cs" />
-    <Compile Include="Volunteer.cs" />
+    <Compile Include="Util\ReflectionUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -87,15 +83,16 @@
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="ClassDiagram1.cd" />
-    <EntityDeploy Include="EFModel.edmx" />
-    <None Include="EFModel.edmx.sql" />
-    <None Include="Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </None>
+    <EntityDeploy Include="EntityModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EntityModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityModel.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
