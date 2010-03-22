@@ -16,3 +16,5 @@ JQuery is the best javascript framework. It has many plugins for different purpo
 
 
 * [http://speckyboy.com/2010/02/03/10-jquery-plugins-for-easier-google-map-installation/ 10 jQuery Plugins for Easier Google Map Installation]
+
+* An excellent video for Entiy Framework:  http://microsoftpdc.com/Sessions/FT10
