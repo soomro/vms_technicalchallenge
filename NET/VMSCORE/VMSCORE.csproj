@@ -74,6 +74,8 @@
     </Compile>
     <Compile Include="EntityClasses\Enumerations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\CollectionUtil.cs" />
+    <Compile Include="Util\ObservableList.cs" />
     <Compile Include="Util\ReflectionUtil.cs" />
   </ItemGroup>
   <ItemGroup>

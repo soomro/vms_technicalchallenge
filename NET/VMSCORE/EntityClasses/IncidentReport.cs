@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using VMSCORE.Util;
 
 namespace VMSCORE.EntityClasses
 {
@@ -143,7 +144,14 @@ namespace VMSCORE.EntityClasses
             }
         }
         private string _locationCoordinatesStr;
-    
+        public IList<string> LocationCoordinates
+        {
+            get
+            {
+                return new ObservableStringList(LocationCoordinatesStr, "LocationCoordinatesStr", this);
+            }
+        }
+
         [DataMember]
         public int IncidentId
         {

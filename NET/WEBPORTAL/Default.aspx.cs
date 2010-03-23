@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using VMSCORE.EntityClasses;
+using System.Collections.ObjectModel;
 
 public partial class _Default : System.Web.UI.Page 
 {
@@ -29,28 +30,32 @@ public partial class _Default : System.Web.UI.Page
             Name = "Earthquake",
             DateCreated = DateTime.Now,
             Explanation = "This is explanation2222222",
-            LocationCoordinatesStr = "2222222",
-            
+                       
         };
+        c.LocationCoordinates.Add("36.45");
+        c.LocationCoordinates.Add("46.45");
 
         var inc = new Incident()
         {
             Explanation="this is expla",
             DateCreated = DateTime.Now,
             ShortDescription = "this is short desc test test",
-            LocationCoordinatesStr = "222test test",
             ShortAddress = "goteborgtest test",
             LocationType = EnumLocationType.Freeform
         };
-        
-        c.Alerts.Add(
-            new Alert()
+        inc.LocationCoordinates.Add("this is new coordinate");
+        inc.LocationCoordinates.Add("this is another coordinate");
+        var aa = new Alert()
             {
                 Message = "ruuuuuuntest testtest test",
-                Incident = inc           ,
-                SearchCriteriaStr = "name=abdullah"
-            }
-        );
+                Incident = inc
+            };
+        aa.SearchCriteria.Add("name=abdullah");
+        aa.SearchCriteria.Add("lastname=nooo");
+        aa.SearchCriteria.Add("surname=testing");
+        c.Alerts.Add(aa);
+            
+
 
         cont.Crises.AddObject(c);
         cont.SaveChanges();
