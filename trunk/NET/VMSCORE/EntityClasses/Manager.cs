@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using VMSCORE.Util;
 
 namespace VMSCORE.EntityClasses
 {
@@ -58,7 +59,7 @@ namespace VMSCORE.EntityClasses
         private string _nameLastName;
     
         [DataMember]
-        public string ExpertiseCrisisTypesStr
+        private string ExpertiseCrisisTypesStr
         {
             get { return _expertiseCrisisTypesStr; }
             set
@@ -71,7 +72,14 @@ namespace VMSCORE.EntityClasses
             }
         }
         private string _expertiseCrisisTypesStr;
-    
+        public IList<string> ExpertiseCrisisTypes
+        {
+            get
+            {
+                return new ObservableStringList(ExpertiseCrisisTypesStr, "ExpertiseCrisisTypesStr", this);
+            }
+        }
+
         [DataMember]
         public System.DateTime DateBirth
         {

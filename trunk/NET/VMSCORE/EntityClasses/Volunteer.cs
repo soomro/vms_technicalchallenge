@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using VMSCORE.Util;
 
 namespace VMSCORE.EntityClasses
 {
@@ -107,7 +108,7 @@ namespace VMSCORE.EntityClasses
         private string _occupation;
     
         [DataMember]
-        public string SpecificationsStr
+        private string SpecificationsStr
         {
             get { return _specificationsStr; }
             set
@@ -120,7 +121,15 @@ namespace VMSCORE.EntityClasses
             }
         }
         private string _specificationsStr;
-    
+        public IList<string> Specifications
+        {
+            get
+            {
+                return new ObservableStringList(SpecificationsStr, "SpecificationsStr", this);
+            }
+        }
+
+
         [DataMember]
         public string CoordinatesStr
         {

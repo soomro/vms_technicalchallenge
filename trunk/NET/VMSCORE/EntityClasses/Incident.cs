@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using VMSCORE.Util;
 
 namespace VMSCORE.EntityClasses
 {
@@ -25,6 +26,7 @@ namespace VMSCORE.EntityClasses
     [KnownType(typeof(NeedItem))]
     public partial class Incident: IObjectWithChangeTracker, INotifyPropertyChanged
     {
+   
         #region Primitive Properties
     
         [DataMember]
@@ -86,7 +88,7 @@ namespace VMSCORE.EntityClasses
         }
 
         [DataMember]
-        public string LocationCoordinatesStr
+        private string LocationCoordinatesStr
         {
             get { return _locationCoordinatesStr; }
             set
@@ -99,7 +101,15 @@ namespace VMSCORE.EntityClasses
             }
         }
         private string _locationCoordinatesStr;
-    
+        public IList<string> LocationCoordinates
+        {
+            get
+            {
+                return new ObservableStringList(LocationCoordinatesStr, "LocationCoordinatesStr", this);
+            }
+        }
+             
+
         [DataMember]
         public string Explanation
         {
@@ -705,5 +715,6 @@ namespace VMSCORE.EntityClasses
         }
 
         #endregion
+
     }
 }

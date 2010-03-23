@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using VMSCORE.Util;
 
 namespace VMSCORE.EntityClasses
 {
@@ -59,7 +60,7 @@ namespace VMSCORE.EntityClasses
         private string _message;
     
         [DataMember]
-        public string SearchCriteriaStr
+        private string SearchCriteriaStr
         {
             get { return _searchCriteriaStr; }
             set
@@ -72,7 +73,14 @@ namespace VMSCORE.EntityClasses
             }
         }
         private string _searchCriteriaStr;
-    
+        public IList<string> SearchCriteria
+        {
+            get
+            {
+                return new ObservableStringList(SearchCriteriaStr, "SearchCriteriaStr", this);
+            }
+        }
+
         [DataMember]
         public Nullable<System.DateTime> DateSent
         {
