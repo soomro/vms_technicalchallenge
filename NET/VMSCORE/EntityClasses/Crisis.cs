@@ -114,7 +114,7 @@ namespace VMSCORE.EntityClasses
             }
         }
         private short _crisisTypeVal;
-        public EnumCrisisType Statusx
+        public EnumCrisisType CrisisType
         {
             get
             {
@@ -140,7 +140,7 @@ namespace VMSCORE.EntityClasses
             }
         }
         private short _locationTypeVal;
-        public EnumLocationType CrisisType
+        public EnumLocationType LocationType
         {
             get
             {
@@ -155,24 +155,40 @@ namespace VMSCORE.EntityClasses
         [DataMember]
         private string LocationCoordinatesStr
         {
-            get { return _locationCoordinatesStr; }
-            set
-            {
-                if (_locationCoordinatesStr != value)
-                {
-                    _locationCoordinatesStr = value;
-                    OnPropertyChanged("LocationCoordinatesStr");
-                }
-            }
-        }
-        private string _locationCoordinatesStr;
-        public IList<string> LocationCoordinates
-        {
             get
             {
-                return new ObservableStringList(LocationCoordinatesStr, "LocationCoordinatesStr", this);
+                return Util.CollectionUtil.ToString<string>(LocationCoordinates);
+            }
+            set
+            {
+                LocationCoordinates = Util.CollectionUtil.ToStrArray(value);
+                OnPropertyChanged("LocationCoordinatesStr");
+                
             }
         }
+        public ObservableCollection<string> LocationCoordinates = new ObservableCollection<string>();
+
+        //[DataMember]
+        //private string LocationCoordinatesStr
+        //{
+        //    get { return _locationCoordinatesStr; }
+        //    set
+        //    {
+        //        if (_locationCoordinatesStr != value)
+        //        {
+        //            _locationCoordinatesStr = value;
+        //            OnPropertyChanged("LocationCoordinatesStr");
+        //        }
+        //    }
+        //}
+        //private string _locationCoordinatesStr;
+        //public IList<string> LocationCoordinates
+        //{
+        //    get
+        //    {
+        //        return new ObservableStringList(LocationCoordinatesStr, "LocationCoordinatesStr", this);
+        //    }
+        //}
 
         [DataMember]
         public System.DateTime DateCreated
