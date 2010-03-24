@@ -5,9 +5,11 @@
 
 package edu.vms;
 
+import edu.vms.util.VMSUtilities;
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
 import org.netbeans.microedition.lcdui.LoginScreen;
+import org.netbeans.microedition.lcdui.TableItem;
 
 /**
  * @author tiko
@@ -21,6 +23,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener {
     private Command exitLogin;
     private Form main;
     private LoginScreen Login;
+    private Ticker ticker;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -95,7 +98,14 @@ public class ClientMIDlet extends MIDlet implements CommandListener {
         if (displayable == Login) {//GEN-BEGIN:|7-commandAction|1|24-preAction
             if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|1|24-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|2|24-postAction
+                //checking of the valid username and password
+                if(VMSUtilities.checkUsernameAndPassword(Login.getUsername(), Login.getPassword())){
+                    System.out.println("Authenticated");
+                    switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|2|24-postAction
+                } else {
+                    Login.setTicker(new Ticker("Incorect Usernmaen or password"));
+                    System.out.println("Not Authenticated");
+                }
                 // write post-action user code here
             } else if (command == exitLogin) {//GEN-LINE:|7-commandAction|3|30-preAction
                 // write pre-action user code here
@@ -173,6 +183,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener {
             Login = new LoginScreen(getDisplay());//GEN-BEGIN:|22-getter|1|22-postInit
             Login.setLabelTexts("Username", "Password");
             Login.setTitle("VMS Login");
+            Login.setTicker(getTicker());
             Login.addCommand(LoginScreen.LOGIN_COMMAND);
             Login.addCommand(getExitLogin());
             Login.setCommandListener(this);
@@ -185,6 +196,25 @@ public class ClientMIDlet extends MIDlet implements CommandListener {
         return Login;
     }
     //</editor-fold>//GEN-END:|22-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker ">//GEN-BEGIN:|36-getter|0|36-preInit
+    /**
+     * Returns an initiliazed instance of ticker component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker() {
+        if (ticker == null) {//GEN-END:|36-getter|0|36-preInit
+            // write pre-init user code here
+            ticker = new Ticker("");//GEN-LINE:|36-getter|1|36-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|36-getter|2|
+        return ticker;
+    }
+    //</editor-fold>//GEN-END:|36-getter|2|
+
+
+
+
 
 
 
