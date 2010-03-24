@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using VMSCORE.EntityClasses;
 using System.Collections.ObjectModel;
+using VMSCORE.Operations;
 
 public partial class _Default : System.Web.UI.Page 
 {
@@ -23,7 +24,9 @@ public partial class _Default : System.Web.UI.Page
 
         EntityModelContainer cont = new EntityModelContainer();
 
-        var ccc = new Crisis();
+        var ccc = CrisisOperations.CreateCrisis("test crisis", "test explanation", EnumCrisisType.Earthquake, EnumLocationType.Rectangle
+            , new List<string>() { "23231", "33333", "4556", "9999" });
+
 
         var c = new Crisis
         {
@@ -31,7 +34,7 @@ public partial class _Default : System.Web.UI.Page
             DateCreated = DateTime.Now,
             Explanation = "This is explanation2222222",
                        
-        };
+        }; 
         c.LocationCoordinates.Add("36.45");
         c.LocationCoordinates.Add("46.45");
 
@@ -78,7 +81,8 @@ public partial class _Default : System.Web.UI.Page
 
         EntityModelContainer cont = new EntityModelContainer();
         var cr = cont.Crises.Single(c => c.Id == crisisId);
-
+        cr.LocationCoordinates.Add("this is addition");
+        cont.SaveChanges();
         TextBox3.Text = cr.Name;
     }
 }
