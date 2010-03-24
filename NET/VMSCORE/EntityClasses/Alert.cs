@@ -62,24 +62,15 @@ namespace VMSCORE.EntityClasses
         [DataMember]
         private string SearchCriteriaStr
         {
-            get { return _searchCriteriaStr; }
+            get { return CollectionUtil.ToString<string>(SearchCriteria); }
             set
             {
-                if (_searchCriteriaStr != value)
-                {
-                    _searchCriteriaStr = value;
-                    OnPropertyChanged("SearchCriteriaStr");
-                }
+                SearchCriteria = CollectionUtil.ToStrArray(value);
+                OnPropertyChanged("SearchCriteriaStr");                
             }
-        }
-        private string _searchCriteriaStr;
-        public IList<string> SearchCriteria
-        {
-            get
-            {
-                return new ObservableStringList(SearchCriteriaStr, "SearchCriteriaStr", this);
-            }
-        }
+        } 
+        public ObservableCollection<string> SearchCriteria = new ObservableCollection<string>();
+
 
         [DataMember]
         public Nullable<System.DateTime> DateSent

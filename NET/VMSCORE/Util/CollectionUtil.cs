@@ -8,7 +8,7 @@ namespace VMSCORE.Util
 {
     /// <summary>
     /// The database stores string representation of some attributes. 
-    /// This class hels converting arrays and string representation to each other.
+    /// This class helps converting arrays and string representation to each other.
     /// </summary>
     public static class CollectionUtil
     {
