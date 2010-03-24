@@ -110,40 +110,29 @@ namespace VMSCORE.EntityClasses
         [DataMember]
         private string SpecificationsStr
         {
-            get { return _specificationsStr; }
+            get { return CollectionUtil.ToString(Specifications); }
             set
             {
-                if (_specificationsStr != value)
-                {
-                    _specificationsStr = value;
+                    Specifications=CollectionUtil.ToStrArray(value);
                     OnPropertyChanged("SpecificationsStr");
-                }
+               
             }
         }
-        private string _specificationsStr;
-        public IList<string> Specifications
-        {
-            get
-            {
-                return new ObservableStringList(SpecificationsStr, "SpecificationsStr", this);
-            }
-        }
-
+        public ObservableCollection<string> Specifications=new ObservableCollection<string>();
+        
 
         [DataMember]
         public string CoordinatesStr
         {
-            get { return _coordinatesStr; }
+            get { return CollectionUtil.ToString(Coordinates); }
             set
             {
-                if (_coordinatesStr != value)
-                {
-                    _coordinatesStr = value;
-                    OnPropertyChanged("CoordinatesStr");
-                }
+                Coordinates = CollectionUtil.ToStrArray(value);
+                OnPropertyChanged("CoordinatesStr");
             }
         }
-        private string _coordinatesStr;
+        public ObservableCollection<string> Coordinates=new ObservableCollection<string>();
+
     
         [DataMember]
         public System.DateTime CoordinateLastUpdateTime

@@ -1,0 +1,48 @@
+﻿body 
+{
+}
+
+div#dvTop
+{
+	font-size:xx-large;
+	color:Red;
+}
+div#dvMiddle
+{
+}
+div#dvLeft
+{
+	padding: 20px;
+	margin-right: 20px;
+	float: left;
+	width: 150px;
+	border-right-style: double;
+	border-right-width: medium;
+	border-right-color: #808080;
+}
+div#dvContent
+{
+	float: left;
+}
+
+table.tblForm td.label
+{
+	font-size: 10px;
+	font-family: sans-serif;
+	color: #800000;
+}
+table.tblForm td.value .tx
+{
+	border: thin solid #C0C0C0;
+	font-size: 11px;
+	font-family: Verdana;
+	font-weight: bold;
+	padding: 5px;
+	width: 300px;
+}
+table.tblForm td.value .options
+{ 
+	font-size: 11px;
+	font-family: Verdana;
+	font-weight: bold; 
+}

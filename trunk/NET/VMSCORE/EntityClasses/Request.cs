@@ -78,24 +78,14 @@ namespace VMSCORE.EntityClasses
         [DataMember]
         public string SearchAreaCoordinatesStr
         {
-            get { return _searchAreaCoordinatesStr; }
+            get { return Util.CollectionUtil.ToString<string>(SearchAreaCoordinates); }
             set
             {
-                if (_searchAreaCoordinatesStr != value)
-                {
-                    _searchAreaCoordinatesStr = value;
+                    SearchAreaCoordinates=Util.CollectionUtil.ToStrArray(value);
                     OnPropertyChanged("SearchAreaCoordinatesStr");
-                }
             }
         }
-        private string _searchAreaCoordinatesStr;
-        public IList<string> SearchAreaCoordinates
-        {
-            get
-            {
-                return new ObservableStringList(SearchAreaCoordinatesStr, "SearchAreaCoordinatesStr", this);
-            }
-        }
+        public ObservableCollection<string> SearchAreaCoordinates=new ObservableCollection<string>();
 
         [DataMember]
         public int IncidentId

@@ -1,0 +1,37 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PageMaster.master.cs" Inherits="PageMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Apollo VMS Crisis Management System</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link type="text/css" href="css/Common.css" rel="Stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="dvPage">
+        <div id="dvTop">
+            <asp:Image ID="Image1" runat="server" ImageUrl="http://code.google.com/p/apollovms/logo?logo_id=1268907520" />&nbsp;
+            <asp:Literal runat="server" ID="ltPageTitle" Text="Page Title"></asp:Literal>
+        </div>
+        <div id="dvMiddle">
+            <div id="dvLeft">
+                
+            MenuMenuMenuMenu
+            </div>
+            <div id="dvContent">
+                <div id="dvMessages">
+                    <asp:BulletedList ID="blMessages" runat="server">
+                    </asp:BulletedList>
+                </div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div id="dvFooter">
+        </div>
+    </div>
+    </form>
+</body>
+</html>

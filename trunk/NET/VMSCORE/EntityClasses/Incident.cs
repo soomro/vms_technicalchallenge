@@ -90,25 +90,16 @@ namespace VMSCORE.EntityClasses
         [DataMember]
         private string LocationCoordinatesStr
         {
-            get { return _locationCoordinatesStr; }
+            get { return CollectionUtil.ToString(LocationCoordinates); }
             set
             {
-                if (_locationCoordinatesStr != value)
-                {
-                    _locationCoordinatesStr = value;
-                    OnPropertyChanged("LocationCoordinatesStr");
-                }
+                LocationCoordinates=CollectionUtil.ToStrArray(value);
+                OnPropertyChanged("LocationCoordinatesStr");                
             }
         }
-        private string _locationCoordinatesStr;
-        public IList<string> LocationCoordinates
-        {
-            get
-            {
-                return new ObservableStringList(LocationCoordinatesStr, "LocationCoordinatesStr", this);
-            }
-        }
-             
+        public ObservableCollection<string> LocationCoordinates= new ObservableCollection<string>();
+       
+
 
         [DataMember]
         public string Explanation
