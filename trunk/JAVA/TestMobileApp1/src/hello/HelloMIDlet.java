@@ -57,7 +57,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
               catch(Exception e){
                   e.printStackTrace();
               }
-//GEN-LINE:|0-initialize|1|0-postInitialize
+        form = new Form("Client", new Item[] { getTextField(), getStringItem() });//GEN-BEGIN:|0-initialize|1|0-postInitialize
+        form.addCommand(getExitCommand());
+        form.addCommand(getUpdateThePage());
+        form.setCommandListener(this);//GEN-END:|0-initialize|1|0-postInitialize
         // write post-initialize user code here
     }//GEN-BEGIN:|0-initialize|2|
     //</editor-fold>//GEN-END:|0-initialize|2|
@@ -69,7 +72,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
     public void startMIDlet() {//GEN-END:|3-startMIDlet|0|3-preAction
         // write pre-action user code here
         /*
-switchDisplayable (null, getForm ());//GEN-LINE:|3-startMIDlet|1|3-postAction
+switchDisplayable (null, getLoginScreen ());//GEN-LINE:|3-startMIDlet|1|3-postAction
         */
          switchDisplayable(null, getLoginScreen());
         // write post-action user code here
@@ -127,12 +130,12 @@ switchDisplayable (null, getForm ());//GEN-LINE:|3-startMIDlet|1|3-postAction
         } else if (displayable == loginScreen) {
             if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|5|35-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|6|35-postAction
+                switchDisplayable(null, form);//GEN-LINE:|7-commandAction|6|35-postAction
                 // write post-action user code here
             } else if (command == exitCommand1) {//GEN-LINE:|7-commandAction|7|41-preAction
                 // write pre-action user code here
                 exitMIDlet();
-//GEN-LINE:|7-commandAction|8|41-postAction
+                switchDisplayable(null, getForm1());//GEN-LINE:|7-commandAction|8|41-postAction
                 // write post-action user code here
             }//GEN-BEGIN:|7-commandAction|9|7-postCommandAction
         }//GEN-END:|7-commandAction|9|7-postCommandAction
@@ -155,25 +158,7 @@ switchDisplayable (null, getForm ());//GEN-LINE:|3-startMIDlet|1|3-postAction
     }
     //</editor-fold>//GEN-END:|18-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: form ">//GEN-BEGIN:|14-getter|0|14-preInit
-    /**
-     * Returns an initiliazed instance of form component.
-     * @return the initialized component instance
-     */
-    public Form getForm() {
-        if (form == null) {//GEN-END:|14-getter|0|14-preInit
-            // write pre-init user code here
-            form = new Form("Client", new Item[] { getTextField(), getStringItem() });//GEN-BEGIN:|14-getter|1|14-postInit
-            form.setTicker(getTicker());
-            form.addCommand(getExitCommand());
-            form.addCommand(getUpdateThePage());
-            form.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
-            // write post-init user code heread
 
-        }//GEN-BEGIN:|14-getter|2|
-        return form;
-    }
-    //</editor-fold>//GEN-END:|14-getter|2|
 
 
 
@@ -306,6 +291,7 @@ switchDisplayable (null, getForm ());//GEN-LINE:|3-startMIDlet|1|3-postAction
             loginScreen.addCommand(LoginScreen.LOGIN_COMMAND);
             loginScreen.addCommand(getExitCommand1());
             loginScreen.setCommandListener(this);
+            loginScreen.setFullScreenMode(true);
             loginScreen.setBGColor(-6697729);
             loginScreen.setFGColor(-16777216);
             loginScreen.setUseLoginButton(true);
@@ -402,6 +388,7 @@ switchDisplayable (null, getForm ());//GEN-LINE:|3-startMIDlet|1|3-postAction
                 // Getting the InputStream will open the connection
                 // and read the HTTP headers. They are stored until
                 // requested.
+                //System.out.println(is.available());
                 is = c.openInputStream();
 
 
@@ -411,6 +398,7 @@ switchDisplayable (null, getForm ());//GEN-LINE:|3-startMIDlet|1|3-postAction
              while ((ch = is.read()) != -1) {
                  str.append((char)ch);
              }
+             is.close();
 
           }
               catch(Exception e){
