@@ -1,12 +1,25 @@
+=Meeting notes for 25 March 2010=
 
-= Introduction =
+*Attenders:*
 
-Add your content here.
+  * Shobha 
+  * Waseem 
+  * Abdullah
+  * Mohsen
+  * Gilana
+  * Tigran
+  * Mustafa
 
+==Supervisor meeting==
 
-= Details =
+  * Mattias will talk about the feebacks with Gerardo abpit SAD and SDD.
+  * Show and discuss SAD and SDD with Jonas.
+  * Discuss and make decision about the defect traking system. 
+  * Mattias will talk with Gerardo about ISS 4.0 and inform us.
+  * Next supervisor meeting is on 1st of April.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+==Internal meeting==
+
+  * Abdullah will make research on test case format and shot to the group
+  * Everyone should make research of the defect tracking system 
+  * These two issues will be discussed in the group
