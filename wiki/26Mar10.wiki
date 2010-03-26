@@ -1,0 +1,14 @@
+=Meeting notes for 26 March 2010=
+
+*Attenders:*
+
+  * Shobha 
+  * Waseem 
+  * Abdullah
+  * Gilana
+  * Tigran
+
+==Internal meeting==
+
+  * QA team should create a routin for reporting the defects and work with them. (aseembla’s trac) 
+  * Test case format is fixed by group. The test case format and the routin for that will be documented by Abdullah. It should be a part of QA plan(test plan).
