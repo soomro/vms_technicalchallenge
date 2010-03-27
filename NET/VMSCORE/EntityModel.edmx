@@ -4,20 +4,20 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EntityModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="EntityModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="EntityModelStoreContainer">
-    <EntitySet Name="Crises" EntityType="EntityModel.Store.Crises" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Alerts" EntityType="EntityModel.Store.Alerts" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Incidents" EntityType="EntityModel.Store.Incidents" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="IncidentReports" EntityType="EntityModel.Store.IncidentReports" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProgressReports" EntityType="EntityModel.Store.ProgressReports" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Managers" EntityType="EntityModel.Store.Managers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Addresses" EntityType="EntityModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="StuffItems" EntityType="EntityModel.Store.StuffItems" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Volunteers" EntityType="EntityModel.Store.Volunteers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Requests" EntityType="EntityModel.Store.Requests" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="NeedItems" EntityType="EntityModel.Store.NeedItems" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RequestResponses" EntityType="EntityModel.Store.RequestResponses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Crises" EntityType="EntityModel.Store.Crises" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Alerts" EntityType="EntityModel.Store.Alerts" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Incidents" EntityType="EntityModel.Store.Incidents" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="IncidentReports" EntityType="EntityModel.Store.IncidentReports" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="ProgressReports" EntityType="EntityModel.Store.ProgressReports" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Managers" EntityType="EntityModel.Store.Managers" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Addresses" EntityType="EntityModel.Store.Addresses" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="StuffItems" EntityType="EntityModel.Store.StuffItems" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Volunteers" EntityType="EntityModel.Store.Volunteers" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Requests" EntityType="EntityModel.Store.Requests" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="NeedItems" EntityType="EntityModel.Store.NeedItems" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="RequestResponses" EntityType="EntityModel.Store.RequestResponses" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
     <AssociationSet Name="Aso_AlertCrisis" Association="EntityModel.Store.Aso_AlertCrisis">
       <End Role="Alert" EntitySet="Alerts" />
       <End Role="Crisis" EntitySet="Crises" />
@@ -413,8 +413,8 @@
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EntityModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-        <EntityContainer Name="EntityModelContainer" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="EntityModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="EntityModelContainer" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="Crises" EntityType="EntityModel.Crisis" />
           <EntitySet Name="Alerts" EntityType="EntityModel.Alert" />
           <AssociationSet Name="Aso_AlertCrisis" Association="EntityModel.Aso_AlertCrisis">
@@ -492,7 +492,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Name" Nullable="false" />
           <Property Type="String" Name="Explanation" Nullable="false" />
           <Property Type="Int16" Name="StatusVal" Nullable="false" />
@@ -508,7 +508,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Message" Nullable="false" />
           <Property Type="String" Name="SearchCriteriaStr" Nullable="false" />
           <Property Type="DateTime" Name="DateSent" Precision="29" Nullable="true" />
@@ -524,7 +524,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="ShortDescription" Nullable="false" />
           <Property Type="Int16" Name="LocationTypeVal" Nullable="false" />
           <Property Type="String" Name="LocationCoordinatesStr" Nullable="false" />
@@ -546,7 +546,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int16" Name="IncidentTypeVal" Nullable="false" />
           <Property Type="String" Name="Description" Nullable="false" />
           <Property Type="String" Name="ImageFile" Nullable="false" />
@@ -560,11 +560,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="ReportText" Nullable="false" />
           <Property Type="String" Name="ImageFile" Nullable="false" />
           <Property Type="String" Name="VideoFile" Nullable="false" />
-          <Property Type="Int16" Name="StatusVal" Nullable="false" >
+          <Property Type="Int16" Name="StatusVal" Nullable="false">
             <Documentation>
               <Summary>Incident Status</Summary>
             </Documentation>
@@ -578,7 +578,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="NameLastName" Nullable="false" />
           <Property Type="String" Name="ExpertiseCrisisTypesStr" Nullable="false" />
           <Property Type="DateTime" Name="DateBirth" Nullable="false" Precision="29" />
@@ -589,7 +589,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="City" Nullable="false" />
           <Property Type="String" Name="Country" Nullable="false" />
           <Property Type="String" Name="FlatNumber" Nullable="false" />
@@ -603,7 +603,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="ItemType" Nullable="false" />
           <Property Type="Int16" Name="MetricTypeVal" Nullable="false" />
           <Property Type="Double" Name="Amount" Nullable="false" />
@@ -614,7 +614,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="NameLastName" Nullable="false" />
           <Property Type="DateTime" Name="DateBirth" Nullable="true" Precision="29" />
           <Property Type="Int16" Name="GenderVal" Nullable="false" />
@@ -633,7 +633,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Message" Nullable="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <Property Type="String" Name="SearchAreaCoordinatesStr" Nullable="false" />
@@ -646,7 +646,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="ItemType" Nullable="false" />
           <Property Type="Double" Name="ItemAmount" Nullable="false" />
           <Property Type="Int16" Name="MetricTypeVal" Nullable="false" />
@@ -662,7 +662,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="DateTime" Name="DateShowed" Nullable="true" Precision="29" />
           <Property Type="DateTime" Name="DateResponded" Nullable="true" Precision="29" />
           <Property Type="Binary" Name="Answer" Nullable="false" MaxLength="2147483647" FixedLength="false" />
@@ -1016,14 +1016,14 @@
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <edmx:Designer>
     <edmx:Connection>
-      <DesignerInfoPropertySet>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
     </edmx:Connection>
     <edmx:Options>
-      <DesignerInfoPropertySet>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
@@ -1031,7 +1031,7 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="EntityModel" ZoomLevel="89" DisplayType="true" >
+      <Diagram Name="EntityModel" ZoomLevel="57" DisplayType="true" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <EntityTypeShape EntityType="EntityModel.Crisis" Width="1.5" PointX="13.125" PointY="1.25" Height="3.1340950520833326" IsExpanded="true" />
         <EntityTypeShape EntityType="EntityModel.Alert" Width="1.5" PointX="14.625" PointY="5.125" Height="2.3648893229166656" IsExpanded="true" />
         <AssociationConnector Association="EntityModel.Aso_AlertCrisis">
