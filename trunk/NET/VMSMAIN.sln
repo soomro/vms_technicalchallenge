@@ -19,7 +19,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WEBPORTAL", "WEBPORTAL\", "
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "true"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "55181"
+		VWDPort = "61115"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
