@@ -1,0 +1,13 @@
+=Meeting notes for 29 March 2010=
+
+*Attenders:*
+
+  * Gilana
+  * Tigran
+
+==Meeting with Jonas for SAD and SDD==
+
+  * The SAD and SDD are good. We can continue with these SAD and SDD.
+  * The presentation of the layers in section Logical view(SAD, section 3) is a little confusing, it is difficult to understand which layer belongs to which tier. It can be presented in more clear way.
+  * Some minor problems in SDD had been discovered. 
+ 
