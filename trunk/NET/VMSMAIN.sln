@@ -25,6 +25,26 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WEBPORTAL", "WEBPORTAL\", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMSCORE", "VMSCORE\VMSCORE.csproj", "{C4FE17BE-DAAB-4E5F-BBB4-0A433F2DAB69}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SampleWebSite", "SampleWebSite\", "{67A3DFFB-B992-4A16-808F-F04D602EC2E7}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		Debug.AspNetCompiler.VirtualPath = "/SampleWebSite"
+		Debug.AspNetCompiler.PhysicalPath = "SampleWebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\SampleWebSite\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/SampleWebSite"
+		Release.AspNetCompiler.PhysicalPath = "SampleWebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\SampleWebSite\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "59129"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +75,16 @@ Global
 		{C4FE17BE-DAAB-4E5F-BBB4-0A433F2DAB69}.Release|Mixed Platforms.Build.0 = Release|x86
 		{C4FE17BE-DAAB-4E5F-BBB4-0A433F2DAB69}.Release|x86.ActiveCfg = Release|x86
 		{C4FE17BE-DAAB-4E5F-BBB4-0A433F2DAB69}.Release|x86.Build.0 = Release|x86
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{67A3DFFB-B992-4A16-808F-F04D602EC2E7}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
