@@ -9,17 +9,15 @@
     <link type="text/css" href="css/Common.css" rel="Stylesheet" />
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server"><asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
     <div id="dvPage">
         <div id="dvTop">
             <asp:Image ID="Image1" runat="server" ImageUrl="http://code.google.com/p/apollovms/logo?logo_id=1268907520" />&nbsp;
             <asp:Literal runat="server" ID="ltPageTitle" Text="Page Title"></asp:Literal>
         </div>
         <div id="dvMiddle">
-            <div id="dvLeft">
-                
-            MenuMenuMenuMenu
-            </div>
+            
             <div id="dvContent">
                 <div id="dvMessages">
                     <asp:BulletedList ID="blMessages" runat="server">
@@ -32,6 +30,7 @@
         <div id="dvFooter">
         </div>
     </div>
+    
     </form>
 </body>
 </html>
