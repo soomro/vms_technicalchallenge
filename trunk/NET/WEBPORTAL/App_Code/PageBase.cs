@@ -27,6 +27,17 @@ public class PageBase : System.Web.UI.Page
         }
     }
 
+    public void RedirectAfter(int second, string url)
+    {
+        string js=string.Format(
+            "<SCRIPT LANGUAGE=\"JavaScript\">"
+           // + " function redireccionar() {"
+            + "     setTimeout(\"location.href='{0}'\", {1});"
+            + "  </SCRIPT>"
+            ,url,second*1000);
+        ClientScript.RegisterStartupScript(typeof(string),"rd", js);
+        
+    }
 
 }
 

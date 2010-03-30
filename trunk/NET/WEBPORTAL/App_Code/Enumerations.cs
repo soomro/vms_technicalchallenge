@@ -16,3 +16,10 @@ public enum EnumMessageType
     Error,
     Warning
 }
+
+public enum EnumMapMode
+{
+    DefineCrisis=1,
+    DefineIncident=2,
+    ShowCrisis=3
+}

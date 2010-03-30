@@ -1,14 +1,23 @@
 ﻿body 
 {
 }
-
+div#dvPage
+{
+	border: thin solid #C0C0C0;
+	width: 100%;
+	
+}
+	
 div#dvTop
 {
 	font-size:xx-large;
 	color:Red;
+	border: thin solid #C0C0C0;
 }
 div#dvMiddle
 {
+	width: 99%;
+	
 }
 div#dvLeft
 {
@@ -22,7 +31,7 @@ div#dvLeft
 }
 div#dvContent
 {
-	float: left;
+	float: left;  
 }
 
 table.tblForm td.label
