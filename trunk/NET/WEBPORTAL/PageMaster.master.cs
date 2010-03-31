@@ -16,6 +16,7 @@ public partial class PageMaster : System.Web.UI.MasterPage
             Page.Title = value;
         }
     }
+
     public void ShowMessage(EnumMessageType mtype,params string[] messages )
     {
         if (mtype==EnumMessageType.Error)
@@ -37,7 +38,8 @@ public partial class PageMaster : System.Web.UI.MasterPage
         }
         
     }
-    protected void Page_Load(object sender, EventArgs e)
+    
+    protected void Page_Init(object sender, EventArgs e)
     {
         blMessages.Items.Clear();
     }

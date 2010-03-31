@@ -14,27 +14,16 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
      
     protected override void OnPreRender(EventArgs e)
     {
-        if(CrisisArea!=null)
-        GoogleMap1.Polygons.Add(CrisisArea);
+        GoogleMap1.Polygons.Clear();
+
+        if (CrisisArea!=null)
+        {
+            GoogleMap1.Polygons.Add(CrisisArea);
+            GoogleMap1.Latitude = CrisisArea.Latitude;
+            GoogleMap1.Longitude = CrisisArea.Longitude;
+        }
         base.OnPreRender(e);
     }
-    //protected override object SaveViewState()
-    //{// Saves the crisis area to the session
-
-    //    Session["crisisarea"]=CrisisArea;       
-
-    //    return base.SaveViewState();
-    //}
-    //protected override void LoadViewState(object savedState)
-    //{// copies crisis area to the instance.
-
-    //    if (Session["crisisarea"]!=null)
-    //    {
-
-    //        CrisisArea =Session["crisisarea"] as GoogleCirclePolygon;
-    //    }
-    //    base.LoadViewState(savedState);
-    //}
      
 
     public GoogleCirclePolygon CrisisArea
@@ -56,7 +45,7 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
             double r = 0;
             var res = double.TryParse(ViewState["Radious"]+"", out r);
             if (res) return r;
-            else return 80;
+            else return 20;
         }
         set
         {
@@ -77,7 +66,7 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
             GoogleMap1.Longitude = 11.9915771484375;
             GoogleMap1.Zoom = 8;
 
-            Session["crisisarea"] = null;
+            
         }
     }
 
@@ -128,17 +117,24 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
             return;
         }
 
-        
-            GoogleCirclePolygon area = new GoogleCirclePolygon();
-            area.Latitude = e.Location.Latitude;
-            area.Longitude = e.Location.Longitude;
-            area.FillColor = Color.Blue;
-            area.FillOpacity = 0.3F;
-            area.Radius = Radious; 
 
-            area.IsClickable=true;
-            CrisisArea = area;
+        GoogleCirclePolygon area = GetDefaultCirclePolygon(e.Location.Latitude,e.Location.Longitude,Radious);
+
+        CrisisArea = area;
          
+    }
+
+    public static GoogleCirclePolygon GetDefaultCirclePolygon(double latitude, double longitude, double radious)
+    {
+        GoogleCirclePolygon area = new GoogleCirclePolygon();
+        area.Latitude = latitude;
+        area.Longitude = longitude;
+        area.FillColor = Color.Blue;
+        area.FillOpacity = 0.3F;
+        area.Radius = radious;
+
+        area.IsClickable=true;
+        return area;
     }
     protected void GoogleMap1_ZoomEnd(object sender, GoogleZoomEventArgs e)
     {

@@ -33,5 +33,10 @@ namespace VMSCORE.Operations
 
             return c;
         }
+
+        public static void UpdateCrisis(int p, string name, string explanation, EnumCrisisType ctype, EnumLocationType enumLocationType, ObservableCollection<string> coords)
+        {
+            //throw new NotImplementedException();
+        }
     }
 }
