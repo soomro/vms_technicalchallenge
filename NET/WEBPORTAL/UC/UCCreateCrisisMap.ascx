@@ -7,5 +7,4 @@
                EnableGoogleMapState="True">       
        
         </artem:GoogleMap>
-        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label><asp:Button ID="Button1"
-            runat="server" Text="Button" />
+        <asp:Label ID="Label1" runat="server" Text="Label" Visible="False"></asp:Label>

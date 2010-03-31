@@ -9,6 +9,10 @@ using VMSCORE.Util;
 using Artem.Web.UI.Controls;
 using System.Collections.ObjectModel;
 
+/// <summary>
+/// <para>Crisispage is used to create crisis.</para>
+/// <para>It contains a UC </para>
+/// </summary>
 public partial class Crisispage : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -16,24 +20,47 @@ public partial class Crisispage : PageBase
 
         if (!Page.IsPostBack)
         {
-            MultiView1.ActiveViewIndex=-1;
+            CrisisArea = null;
+
             ucEnumSelector1.EnumType = typeof(EnumCrisisType);
             ucEnumSelector1.DefaultSelection = EnumCrisisType.Earthquake;
-            
-            if (PageAction==EnumPageAction.Create)
-            {                
-                MultiView1.ActiveViewIndex=0;
-                Master.PageTitle = "Create New Crisis";
-                UCCreateCrisisMap1.Width = new Unit("650px" );
-                
-                UCCreateCrisisMap1.Radious = 80;
-                ddlRadious.SelectedValue = "80";
+            UCCreateCrisisMap1.Width = new Unit("650px");
+            UCCreateCrisisMap1.Heigth = new Unit("600px");
+
+            if (PageAction==EnumPageAction.Edit)
+            {
+                if (MainCrisis==null)
+                {
+                    Master.ShowMessage(EnumMessageType.Error, "Crisis is not defined yet");
+                    RedirectAfter(4, "Crisispage.aspx?action=Create");
+                    return;
+                }
+
+                txCrisisName.Text = MainCrisis.Name;
+                txExplanation.Text = MainCrisis.Explanation;
+
+                double latitude = 0, longitude=0, radious=0;
+                double.TryParse(MainCrisis.LocationCoordinates[0], out latitude);
+                double.TryParse(MainCrisis.LocationCoordinates[1], out longitude);
+                double.TryParse(MainCrisis.LocationCoordinates[2], out radious);
+                ddlRadious.SelectedValue = radious+"";
+                CrisisArea = UC_UCCreateCrisisMap.GetDefaultCirclePolygon(latitude, longitude, radious);
+                Master.PageTitle = "Edit Crisis";
             }
-            
+
+            else  // Create crisis 
+            {
+                Master.PageTitle = "Create New Crisis";
+
+                UCCreateCrisisMap1.Radious = 20;
+                ddlRadious.SelectedValue = "20";
+            }
+
         }
     }
     protected void btSave_Click(object sender, EventArgs e)
     {
+
         var ctype = ucEnumSelector1.SelectedValue<EnumCrisisType>();
         var name = txCrisisName.Text;
         var explanation = txExplanation.Text;
@@ -47,25 +74,32 @@ public partial class Crisispage : PageBase
         coords.Add(CrisisArea.Longitude+"");
         coords.Add(CrisisArea.Radius+"");
 
-        try
+
+        if (PageAction==EnumPageAction.Create)
         {
-            var c = CrisisOperations.CreateCrisis(name, explanation, ctype, EnumLocationType.Circle, coords);
-            Master.ShowMessage(EnumMessageType.Info, "A new crisis is created");
+            try
+            {
+                var c = CrisisOperations.CreateCrisis(name, explanation, ctype, EnumLocationType.Circle, coords);
+                MainCrisis = c;
+                Master.ShowMessage(EnumMessageType.Info, "A new crisis is created");
 
-            RedirectAfter(4, string.Format("Crisispage.aspx?cid={0}&action=View", c.Id));
-            // TODO: forward crisis main page.
+                RedirectAfter(4, string.Format("CrisisBoard.aspx?cid={0}&action=View", c.Id));
+
+            }
+            catch (VMSException ex)
+            {
+                Master.ShowMessage(EnumMessageType.Error, "Following error is occured:"+ex.Message);
+                return;
+            }
         }
-        catch (VMSException ex)
+        else
         {
-            // TODO: Show error messages.
+            // Update
+            //CrisisOperations.UpdateCrisis(MainCrisis.Id, name, explanation, ctype, EnumLocationType.Circle, coords);
         }
 
-        
     }
-    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
-    {
 
-    }
     protected void ddlRadious_SelectedIndexChanged(object sender, EventArgs e)
     {
         UCCreateCrisisMap1.Radious = 
@@ -78,7 +112,11 @@ public partial class Crisispage : PageBase
         {
             return Session["crisisarea"] as GoogleCirclePolygon;
         }
-        
+        set
+        {
+            Session["crisisarea"] = value;
+        }
+
     }
     protected void Button1_Click(object sender, EventArgs e)
     {

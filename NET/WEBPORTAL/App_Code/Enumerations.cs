@@ -7,7 +7,8 @@ public enum EnumPageAction
 {
     Create,
     Edit,
-    View
+    View,
+    None
 }
 
 public enum EnumMessageType

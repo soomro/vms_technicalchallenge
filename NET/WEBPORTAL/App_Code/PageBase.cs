@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using VMSCORE.EntityClasses;
 
 /// <summary>
 /// Summary description for PageBase
@@ -19,11 +20,11 @@ public class PageBase : System.Web.UI.Page
     {
         get
         {
-            EnumPageAction robj = EnumPageAction.View;
+            EnumPageAction robj = EnumPageAction.None;
             var paction = Request["action"];
             if (Enum.TryParse(paction, out robj))
                 return robj;
-            else return EnumPageAction.View;
+            else return EnumPageAction.None;
         }
     }
 
@@ -37,6 +38,21 @@ public class PageBase : System.Web.UI.Page
             ,url,second*1000);
         ClientScript.RegisterStartupScript(typeof(string),"rd", js);
         
+    }
+
+    /// <summary>
+    /// Persisted to the application
+    /// </summary>
+    public static Crisis MainCrisis
+    {
+        get
+        {
+            return HttpContext.Current.Application["MainCrisis"] as Crisis;
+        }
+        set
+        {
+            HttpContext.Current.Application["MainCrisis"] = value;
+        }
     }
 
 }

@@ -7,10 +7,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
-    <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View runat="server" ID="vwCreateCrisis">
-           <div style="float:left;">
+<div style="float:left;">
             <table class="tblForm">       
             <tr>
                 <td class="label">
@@ -42,16 +39,15 @@
                     <asp:DropDownList ID="ddlRadious" runat="server" 
                         onselectedindexchanged="ddlRadious_SelectedIndexChanged" 
                         AutoPostBack="True">
-                        <asp:ListItem>10</asp:ListItem>
-                        <asp:ListItem>20</asp:ListItem>
-                        <asp:ListItem>30</asp:ListItem>
-                        <asp:ListItem>40</asp:ListItem>
-                        <asp:ListItem>50</asp:ListItem>
-                        <asp:ListItem>60</asp:ListItem>
-                        <asp:ListItem>70</asp:ListItem>
-                        <asp:ListItem>80</asp:ListItem>
-                        <asp:ListItem>90</asp:ListItem>
-                        <asp:ListItem>100</asp:ListItem>
+                        <asp:ListItem Value="10">40</asp:ListItem>
+                        <asp:ListItem Value="20">80</asp:ListItem>
+                        <asp:ListItem Value="30">120</asp:ListItem>
+                        <asp:ListItem Value="40">160</asp:ListItem>
+                        <asp:ListItem Value="50">200</asp:ListItem>
+                        <asp:ListItem Value="60">240</asp:ListItem>
+                        <asp:ListItem Value="70">280</asp:ListItem>
+                        <asp:ListItem Value="80">320</asp:ListItem>
+                        <asp:ListItem Value="90">360</asp:ListItem> 
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -59,8 +55,8 @@
                 <td class="label">
                     &nbsp;</td>
                 <td class="value" align="right">
-                    <asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />
-                    <asp:Button ID="btSave" runat="server" onclick="btSave_Click" Text="Save" />
+                    <asp:Button ID="Button1" runat="server" Text="Cancel" onclick="Button1_Click" />
+                    &nbsp;<asp:Button ID="btSave" runat="server" onclick="btSave_Click" Text="Save" />
                 </td>
             </tr>
         </table>
@@ -81,12 +77,7 @@
                
            
            </div>
-            
-        </asp:View>
-        <asp:View runat="server" ID="vwView">
-        as
-        </asp:View>
-    </asp:MultiView>
+   
     
 
 </asp:Content>
