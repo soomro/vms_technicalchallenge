@@ -6,30 +6,46 @@
 package edu.vms;
 
 import edu.vms.util.VMSUtilities;
+import javax.bluetooth.UUID;
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
 import org.netbeans.microedition.lcdui.LoginScreen;
-import org.netbeans.microedition.lcdui.TableItem;
+import org.netbeans.microedition.lcdui.WaitScreen;
+import service.Service_Stub;
 
 /**
  * @author tiko
  */
-public class ClientMIDlet extends MIDlet implements CommandListener {
+public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommandListener {
 
     private boolean midletPaused = false;
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
     private Command exitCommand;
     private Command exitLogin;
+    private Command okCommand;
     private Form main;
+    private ChoiceGroup choiceGroup;
+    private Spacer spacer;
+    private ChoiceGroup choiceGroup1;
     private LoginScreen Login;
+    private WaitScreen waitScreen;
+    private Form request;
     private Ticker ticker;
+    private Font font;
     //</editor-fold>//GEN-END:|fields|0|
-
+    private VMSUtilities util;
+    public Service_Stub service = new Service_Stub();
+    public boolean loggedIn = false;
+    public boolean accepted = false;
+    public String requestID;
+    public String guid;
     /**
      * The ClientMIDlet constructor.
      */
     public ClientMIDlet() {
+        util = new VMSUtilities(this);
+        service._setProperty(null, main);
     }
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Methods ">//GEN-BEGIN:|methods|0|
@@ -98,14 +114,9 @@ public class ClientMIDlet extends MIDlet implements CommandListener {
         if (displayable == Login) {//GEN-BEGIN:|7-commandAction|1|24-preAction
             if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|1|24-preAction
                 // write pre-action user code here
+                switchDisplayable(null, getWaitScreen());//GEN-LINE:|7-commandAction|2|24-postAction
                 //checking of the valid username and password
-                if(VMSUtilities.checkUsernameAndPassword(Login.getUsername(), Login.getPassword())){
-                    System.out.println("Authenticated");
-                    switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|2|24-postAction
-                } else {
-                    Login.setTicker(new Ticker("Incorect Usernmaen or password"));
-                    System.out.println("Not Authenticated");
-                }
+                util.checkUsernameAndPassword(Login.getUsername(), Login.getPassword());
                 // write post-action user code here
             } else if (command == exitLogin) {//GEN-LINE:|7-commandAction|3|30-preAction
                 // write pre-action user code here
@@ -117,11 +128,25 @@ public class ClientMIDlet extends MIDlet implements CommandListener {
                 // write pre-action user code here
                 exitMIDlet();//GEN-LINE:|7-commandAction|6|19-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|7|7-postCommandAction
-        }//GEN-END:|7-commandAction|7|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|7|50-preAction
+        } else if (displayable == waitScreen) {
+            if (command == WaitScreen.FAILURE_COMMAND) {//GEN-END:|7-commandAction|7|50-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getLogin());
+//GEN-LINE:|7-commandAction|8|50-postAction
+                // write post-action user code here
+            } else if (command == WaitScreen.SUCCESS_COMMAND) {//GEN-LINE:|7-commandAction|9|49-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getMain());
+                util.checkRequests();
+//GEN-LINE:|7-commandAction|10|49-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|11|7-postCommandAction
+        }//GEN-END:|7-commandAction|11|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|8|
-    //</editor-fold>//GEN-END:|7-commandAction|8|
+    }//GEN-BEGIN:|7-commandAction|12|
+    //</editor-fold>//GEN-END:|7-commandAction|12|
+
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -146,7 +171,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener {
     public Form getMain() {
         if (main == null) {//GEN-END:|14-getter|0|14-preInit
             // write pre-init user code here
-            main = new Form("VMS Main", new Item[] { });//GEN-BEGIN:|14-getter|1|14-postInit
+            main = new Form("VMS Main", new Item[] { getChoiceGroup(), getSpacer(), getChoiceGroup1() });//GEN-BEGIN:|14-getter|1|14-postInit
             main.addCommand(getExitCommand());
             main.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
             // write post-init user code here
@@ -216,6 +241,155 @@ public class ClientMIDlet extends MIDlet implements CommandListener {
 
 
 
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: waitScreen ">//GEN-BEGIN:|48-getter|0|48-preInit
+    /**
+     * Returns an initiliazed instance of waitScreen component.
+     * @return the initialized component instance
+     */
+    public WaitScreen getWaitScreen() {
+        if (waitScreen == null) {//GEN-END:|48-getter|0|48-preInit
+            // write pre-init user code here
+            waitScreen = new WaitScreen(getDisplay());//GEN-BEGIN:|48-getter|1|48-postInit
+            waitScreen.setTitle("waitScreen");
+            waitScreen.setCommandListener(this);//GEN-END:|48-getter|1|48-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|48-getter|2|
+        return waitScreen;
+    }
+    //</editor-fold>//GEN-END:|48-getter|2|
+
+
+
+
+
+
+
+
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: choiceGroup ">//GEN-BEGIN:|62-getter|0|62-preInit
+    /**
+     * Returns an initiliazed instance of choiceGroup component.
+     * @return the initialized component instance
+     */
+    public ChoiceGroup getChoiceGroup() {
+        if (choiceGroup == null) {//GEN-END:|62-getter|0|62-preInit
+            // write pre-init user code here
+            choiceGroup = new ChoiceGroup("Requests", Choice.MULTIPLE);//GEN-BEGIN:|62-getter|1|62-postInit
+            choiceGroup.append("", null);
+            choiceGroup.addCommand(getOkCommand());
+            choiceGroup.setItemCommandListener(this);
+            choiceGroup.setLayout(ImageItem.LAYOUT_CENTER);
+            choiceGroup.setFitPolicy(Choice.TEXT_WRAP_DEFAULT);
+            choiceGroup.setSelectedFlags(new boolean[] { false });//GEN-END:|62-getter|1|62-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|62-getter|2|
+        return choiceGroup;
+    }
+    //</editor-fold>//GEN-END:|62-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: font ">//GEN-BEGIN:|64-getter|0|64-preInit
+    /**
+     * Returns an initiliazed instance of font component.
+     * @return the initialized component instance
+     */
+    public Font getFont() {
+        if (font == null) {//GEN-END:|64-getter|0|64-preInit
+            // write pre-init user code here
+            font = Font.getDefaultFont();//GEN-LINE:|64-getter|1|64-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|64-getter|2|
+        return font;
+    }
+    //</editor-fold>//GEN-END:|64-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: spacer ">//GEN-BEGIN:|65-getter|0|65-preInit
+    /**
+     * Returns an initiliazed instance of spacer component.
+     * @return the initialized component instance
+     */
+    public Spacer getSpacer() {
+        if (spacer == null) {//GEN-END:|65-getter|0|65-preInit
+            // write pre-init user code here
+            spacer = new Spacer(16, 5);//GEN-LINE:|65-getter|1|65-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|65-getter|2|
+        return spacer;
+    }
+    //</editor-fold>//GEN-END:|65-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: choiceGroup1 ">//GEN-BEGIN:|66-getter|0|66-preInit
+    /**
+     * Returns an initiliazed instance of choiceGroup1 component.
+     * @return the initialized component instance
+     */
+    public ChoiceGroup getChoiceGroup1() {
+        if (choiceGroup1 == null) {//GEN-END:|66-getter|0|66-preInit
+            // write pre-init user code here
+            choiceGroup1 = new ChoiceGroup("Alerts", Choice.MULTIPLE);//GEN-BEGIN:|66-getter|1|66-postInit
+            choiceGroup1.setLayout(ImageItem.LAYOUT_CENTER);//GEN-END:|66-getter|1|66-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|66-getter|2|
+        return choiceGroup1;
+    }
+    //</editor-fold>//GEN-END:|66-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: commandAction for Items ">//GEN-BEGIN:|17-itemCommandAction|0|17-preItemCommandAction
+    /**
+     * Called by a system to indicated that a command has been invoked on a particular item.
+     * @param command the Command that was invoked
+     * @param displayable the Item where the command was invoked
+     */
+    public void commandAction(Command command, Item item) {//GEN-END:|17-itemCommandAction|0|17-preItemCommandAction
+        // write pre-action user code here
+        if (item == choiceGroup) {//GEN-BEGIN:|17-itemCommandAction|1|69-preAction
+            if (command == okCommand) {//GEN-END:|17-itemCommandAction|1|69-preAction
+                // write pre-action user code here               
+                if(getChoiceGroup().isSelected(0)){
+                switchDisplayable(null, getRequest());//GEN-LINE:|17-itemCommandAction|2|69-postAction
+                util.getRequestInfo();
+                }// write post-action user code here
+            }//GEN-BEGIN:|17-itemCommandAction|3|17-postItemCommandAction
+        }//GEN-END:|17-itemCommandAction|3|17-postItemCommandAction
+        // write post-action user code here
+    }//GEN-BEGIN:|17-itemCommandAction|4|
+    //</editor-fold>//GEN-END:|17-itemCommandAction|4|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand ">//GEN-BEGIN:|68-getter|0|68-preInit
+    /**
+     * Returns an initiliazed instance of okCommand component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand() {
+        if (okCommand == null) {//GEN-END:|68-getter|0|68-preInit
+            // write pre-init user code here
+            okCommand = new Command("Open", Command.OK, 0);//GEN-LINE:|68-getter|1|68-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|68-getter|2|
+        return okCommand;
+    }
+    //</editor-fold>//GEN-END:|68-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: request ">//GEN-BEGIN:|70-getter|0|70-preInit
+    /**
+     * Returns an initiliazed instance of request component.
+     * @return the initialized component instance
+     */
+    public Form getRequest() {
+        if (request == null) {//GEN-END:|70-getter|0|70-preInit
+            // write pre-init user code here
+            request = new Form("form");//GEN-LINE:|70-getter|1|70-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|70-getter|2|
+        return request;
+    }
+    //</editor-fold>//GEN-END:|70-getter|2|
+
+
+
+
+
 
 
     /**
@@ -262,5 +436,4 @@ public class ClientMIDlet extends MIDlet implements CommandListener {
      */
     public void destroyApp(boolean unconditional) {
     }
-
 }
