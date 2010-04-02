@@ -27,8 +27,22 @@ public class WS : System.Web.Services.WebService
         return "Hello World";
     }
     [WebMethod]
-    public string CalculateMyAge(int birthDate,string name)
+    public string Login(string username, string password)
     {
-        return string.Format("Hello {0}. You are {1} years old", name, DateTime.Now.Year - birthDate);
+        Guid guid = new Guid();
+        return guid.ToString();
     }
+    [WebMethod]
+    public string GetRequest(int requestID, string userID)
+    {
+        return string.Format("Dear {0}, here is your info request for {1}", userID, requestID);
+    }
+    [WebMethod]
+    public string CheckUpdate(string usename, string guid)
+    {
+        return "R?0001:Help needed#A?1101:Run away";
+    }
+
 }
+
+
