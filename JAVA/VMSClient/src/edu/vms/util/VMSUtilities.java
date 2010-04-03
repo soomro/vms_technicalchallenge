@@ -3,7 +3,7 @@ package edu.vms.util;
 import edu.vms.ClientMIDlet;
 
 /**
- * This class will provide methodes for basik checkings
+ * This class will provide methodes for basic checkings
  * @author Tigran Harutyunyan
  */
 public class VMSUtilities {
@@ -18,58 +18,61 @@ public class VMSUtilities {
      * @param password - the password of the user
      * @return
      */
-    public boolean checkUsernameAndPassword(String username, String password){
-        System.out.println("username : " + username);
-        System.out.println("password : " + password);
-
+    public void checkUsernameAndPassword(String username, String password){
         try{
-            System.out.println("---------------------------------");
             ServiceRequests service = new ServiceRequests(midlet);
             service.operation = ServiceRequests.LOGIN;
             service.start();
-            
-            System.out.println("---------------------------------");
         }
         catch(Exception re){
             re.printStackTrace();
         } 
-        
-        if(!username.equals("admin") || !password.equals("admin")){
-            System.out.println("false");
-            return false;
-        }
-        System.out.println("true");
-        return true;
     }
 
-    public void checkRequests(){
+    /*
+     * checkRequest method runs a thread which connects to the server, check for the updated and refresh
+     * refresh information in mobile app
+     * This method will be called periodically
+     */
+    public void checkUpdate(){
         try{
-
-            System.out.println("---------------------------------");
             ServiceRequests service = new ServiceRequests(midlet);
-            service.operation = ServiceRequests.CHECKREQUEST;
+            service.operation = ServiceRequests.CHECKUPDATE;
             service.start();
-
-            System.out.println("---------------------------------");
         }
         catch(Exception re){
             re.printStackTrace();
         }
     }
-
+    /*
+     * getRequestInfo method runs a thread, which connects to the server and gets the request information
+     * for the request by the given request ID
+     */
     public void getRequestInfo() {
         try{
-
-            System.out.println("+++++++++++++++++++++++++++");
             ServiceRequests service = new ServiceRequests(midlet);
             service.operation = ServiceRequests.GETREQUEST;
             service.start();
-
-            System.out.println("+++++++++++++++++++++++++++++++++");
         }
         catch(Exception re){
             re.printStackTrace();
         }
-
+    }
+    /*
+     * answerRequest method runs a thread, which sends to the server the request answer with need list
+     */
+    public void answerRequest() {
+        try{
+            ServiceRequests service = new ServiceRequests(midlet);
+            if(midlet.accepted){
+                service.operation = ServiceRequests.ACCEPTREQUEST;
+            } else {
+                service.operation = ServiceRequests.REJECTREQUEST;
+            }
+            service.start();
+        }
+        catch(Exception re){
+            re.printStackTrace();
+        }
     }
 }
