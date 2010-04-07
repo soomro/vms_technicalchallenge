@@ -1,6 +1,8 @@
 package edu.vms.util;
 
 import edu.vms.ClientMIDlet;
+import java.util.Vector;
+import javax.microedition.lcdui.TextField;
 
 /**
  * This class will provide methodes for basic checkings
@@ -31,8 +33,7 @@ public class VMSUtilities {
 
     /*
      * checkRequest method runs a thread which connects to the server, check for the updated and refresh
-     * refresh information in mobile app
-     * This method will be called periodically
+     * refresh information in mobile app     
      */
     public void checkUpdate(){
         try{
@@ -74,5 +75,36 @@ public class VMSUtilities {
         catch(Exception re){
             re.printStackTrace();
         }
+    }
+/*
+     * checkRequest method runs a thread which connects to the server, check for the updated and refresh
+     * refresh information in mobile app
+     */
+    public void checkPeriodically(){
+        try{
+            ServiceRequests service = new ServiceRequests(midlet);
+            service.operation = ServiceRequests.CHECKPERIODICALLY;
+            service.start();
+        }
+        catch(Exception re){
+            re.printStackTrace();
+        }
+    }
+
+    //-------------------------------------------------------
+    public void calculateAmount(){
+        midlet.collectedAmount = new Vector();        
+        for(int i = 0; i < midlet.getRequest().size(); i++){
+            if(midlet.getRequest().get(i) instanceof TextField){
+                TextField tf = (TextField) midlet.getRequest().get(i);
+                midlet.collectedAmount.addElement(Integer.valueOf(tf.getString()));
+            }
+            i++;
+        }
+    }
+
+    public void logout(){
+        midlet.loggedIn = false;
+
     }
 }

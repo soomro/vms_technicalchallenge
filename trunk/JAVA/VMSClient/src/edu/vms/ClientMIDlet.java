@@ -6,12 +6,11 @@
 package edu.vms;
 
 import edu.vms.util.VMSUtilities;
-import javax.bluetooth.UUID;
+import java.util.Vector;
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
 import org.netbeans.microedition.lcdui.LoginScreen;
 import org.netbeans.microedition.lcdui.WaitScreen;
-import service.Service_Stub;
 
 /**
  * @author tiko
@@ -21,35 +20,35 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     private boolean midletPaused = false;
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
-    private Command okCommand;
     private Command exitCommand;
     private Command exitLogin;
+    private Command okCommand;
     private Command acceptCommand;
     private Command rejectCommand;
     private Command reportCommand;
     private Command cancelCommand;
-    private Command cancelCommand1;
     private Command okCommand1;
+    private Command cancelCommand1;
+    private Command logoutCommand;
     private Command progressCommand;
-    private Form request;
     private Form main;
+    private ChoiceGroup choiceGroup;
     private Spacer spacer;
     private ChoiceGroup choiceGroup1;
-    private ChoiceGroup choiceGroup;
     private LoginScreen Login;
     private WaitScreen waitScreen;
+    private Form request;
     private Form reportIncident;
     private Form reportProgress;
-    private Font font;
     private Ticker ticker;
+    private Font font;
     //</editor-fold>//GEN-END:|fields|0|
     private VMSUtilities util;
-    public Service_Stub service = new Service_Stub();
     public boolean loggedIn = false;
     public boolean accepted = false;
     public int requestID;
     public String guid;
-
+    public Vector collectedAmount;
     /*
      * Static variables
      */
@@ -59,7 +58,6 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
      */
     public ClientMIDlet() {
         util = new VMSUtilities(this);
-        service._setProperty(null, main);
     }
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Methods ">//GEN-BEGIN:|methods|0|
@@ -94,7 +92,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
      */
     public void resumeMIDlet() {//GEN-END:|4-resumeMIDlet|0|4-preAction
         // write pre-action user code here
-//GEN-LINE:|4-resumeMIDlet|1|4-postAction
+        switchDisplayable(null, getWaitScreen());//GEN-LINE:|4-resumeMIDlet|1|4-postAction
         // write post-action user code here
     }//GEN-BEGIN:|4-resumeMIDlet|2|
     //</editor-fold>//GEN-END:|4-resumeMIDlet|2|
@@ -142,63 +140,69 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
                 // write pre-action user code here
                 exitMIDlet();//GEN-LINE:|7-commandAction|6|19-postAction
                 // write post-action user code here
-            } else if (command == progressCommand) {//GEN-LINE:|7-commandAction|7|105-preAction
+            } else if (command == logoutCommand) {//GEN-LINE:|7-commandAction|7|109-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getReportProgress());//GEN-LINE:|7-commandAction|8|105-postAction
+                switchDisplayable(null, getLogin());//GEN-LINE:|7-commandAction|8|109-postAction
+                util.logout();
                 // write post-action user code here
-            } else if (command == reportCommand) {//GEN-LINE:|7-commandAction|9|88-preAction
+            } else if (command == progressCommand) {//GEN-LINE:|7-commandAction|9|105-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getReportIncident());//GEN-LINE:|7-commandAction|10|88-postAction
+                switchDisplayable(null, getReportProgress());//GEN-LINE:|7-commandAction|10|105-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|11|94-preAction
+            } else if (command == reportCommand) {//GEN-LINE:|7-commandAction|11|88-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getReportIncident());//GEN-LINE:|7-commandAction|12|88-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|13|94-preAction
         } else if (displayable == reportIncident) {
-            if (command == cancelCommand) {//GEN-END:|7-commandAction|11|94-preAction
+            if (command == cancelCommand) {//GEN-END:|7-commandAction|13|94-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|12|94-postAction
+                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|14|94-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|13|97-preAction
+            }//GEN-BEGIN:|7-commandAction|15|97-preAction
         } else if (displayable == reportProgress) {
-            if (command == cancelCommand1) {//GEN-END:|7-commandAction|13|97-preAction
+            if (command == cancelCommand1) {//GEN-END:|7-commandAction|15|97-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|14|97-postAction
+                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|16|97-postAction
                 // write post-action user code here
-            } else if (command == okCommand1) {//GEN-LINE:|7-commandAction|15|103-preAction
+            } else if (command == okCommand1) {//GEN-LINE:|7-commandAction|17|103-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|16|103-postAction
+                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|18|103-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|17|78-preAction
+            }//GEN-BEGIN:|7-commandAction|19|78-preAction
         } else if (displayable == request) {
-            if (command == acceptCommand) {//GEN-END:|7-commandAction|17|78-preAction
+            if (command == acceptCommand) {//GEN-END:|7-commandAction|19|78-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|18|78-postAction
+                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|20|78-postAction
                 accepted = true;
+                util.calculateAmount();
                 util.answerRequest();
                 // write post-action user code here
-            } else if (command == rejectCommand) {//GEN-LINE:|7-commandAction|19|80-preAction
+            } else if (command == rejectCommand) {//GEN-LINE:|7-commandAction|21|80-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|20|80-postAction
+                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|22|80-postAction
                 accepted = false;
                 util.answerRequest();
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|21|50-preAction
+            }//GEN-BEGIN:|7-commandAction|23|50-preAction
         } else if (displayable == waitScreen) {
-            if (command == WaitScreen.FAILURE_COMMAND) {//GEN-END:|7-commandAction|21|50-preAction
+            if (command == WaitScreen.FAILURE_COMMAND) {//GEN-END:|7-commandAction|23|50-preAction
                 // write pre-action user code here
                 switchDisplayable(null, getLogin());
-//GEN-LINE:|7-commandAction|22|50-postAction
+//GEN-LINE:|7-commandAction|24|50-postAction
                 // write post-action user code here
-            } else if (command == WaitScreen.SUCCESS_COMMAND) {//GEN-LINE:|7-commandAction|23|49-preAction
+            } else if (command == WaitScreen.SUCCESS_COMMAND) {//GEN-LINE:|7-commandAction|25|49-preAction
                 // write pre-action user code here
-//GEN-LINE:|7-commandAction|24|49-postAction
+//GEN-LINE:|7-commandAction|26|49-postAction
                 // write post-action user code here
             } else if(command == ClientMIDlet.SUCCESS_LOGIN) {
                 switchDisplayable(null, getMain());
-                util.checkUpdate();
-            }//GEN-BEGIN:|7-commandAction|25|7-postCommandAction
-        }//GEN-END:|7-commandAction|25|7-postCommandAction
+                util.checkPeriodically();
+            }//GEN-BEGIN:|7-commandAction|27|7-postCommandAction
+        }//GEN-END:|7-commandAction|27|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|26|
-    //</editor-fold>//GEN-END:|7-commandAction|26|
+    }//GEN-BEGIN:|7-commandAction|28|
+    //</editor-fold>//GEN-END:|7-commandAction|28|
 
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
@@ -228,6 +232,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
             main.addCommand(getExitCommand());
             main.addCommand(getReportCommand());
             main.addCommand(getProgressCommand());
+            main.addCommand(getLogoutCommand());
             main.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
             // write post-init user code here
         }//GEN-BEGIN:|14-getter|2|
@@ -585,6 +590,21 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
         return reportProgress;
     }
     //</editor-fold>//GEN-END:|86-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: logoutCommand ">//GEN-BEGIN:|108-getter|0|108-preInit
+    /**
+     * Returns an initiliazed instance of logoutCommand component.
+     * @return the initialized component instance
+     */
+    public Command getLogoutCommand() {
+        if (logoutCommand == null) {//GEN-END:|108-getter|0|108-preInit
+            // write pre-init user code here
+            logoutCommand = new Command("Logout", Command.OK, 0);//GEN-LINE:|108-getter|1|108-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|108-getter|2|
+        return logoutCommand;
+    }
+    //</editor-fold>//GEN-END:|108-getter|2|
 
 
 
