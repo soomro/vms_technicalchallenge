@@ -17,7 +17,7 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
         GoogleMap1.Polygons.Clear();
 
         if (CrisisArea!=null)
-        {
+        {            
             GoogleMap1.Polygons.Add(CrisisArea);
             GoogleMap1.Latitude = CrisisArea.Latitude;
             GoogleMap1.Longitude = CrisisArea.Longitude;

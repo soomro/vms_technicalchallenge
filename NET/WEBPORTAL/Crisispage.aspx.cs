@@ -10,8 +10,8 @@ using Artem.Web.UI.Controls;
 using System.Collections.ObjectModel;
 
 /// <summary>
-/// <para>Crisispage is used to create crisis.</para>
-/// <para>It contains a UC </para>
+/// Crisispage is used to create crisis.
+/// It contains a UC 
 /// </summary>
 public partial class Crisispage : PageBase
 {
@@ -48,13 +48,19 @@ public partial class Crisispage : PageBase
                 Master.PageTitle = "Edit Crisis";
             }
 
-            else  // Create crisis 
+            else if (PageAction == EnumPageAction.Create)// Create crisis 
             {
+
                 Master.PageTitle = "Create New Crisis";
 
                 UCCreateCrisisMap1.Radious = 20;
                 ddlRadious.SelectedValue = "20";
             }
+            else
+            {
+                Response.Redirect("Crisispage.aspx?action=Create");
+            }
+
 
         }
     }
@@ -83,7 +89,7 @@ public partial class Crisispage : PageBase
                 MainCrisis = c;
                 Master.ShowMessage(EnumMessageType.Info, "A new crisis is created");
 
-                RedirectAfter(4, string.Format("CrisisBoard.aspx?cid={0}&action=View", c.Id));
+                RedirectAfter(4, string.Format(VMSCORE.Util.Constants.Pages.CrisisBoard+"?cid={0}&action=View", c.Id));
 
             }
             catch (VMSException ex)
@@ -92,10 +98,10 @@ public partial class Crisispage : PageBase
                 return;
             }
         }
-        else
+        else if (PageAction == EnumPageAction.Edit)
         {
             // Update
-            //CrisisOperations.UpdateCrisis(MainCrisis.Id, name, explanation, ctype, EnumLocationType.Circle, coords);
+            CrisisOperations.UpdateCrisis(MainCrisis.Id, name, explanation, ctype, EnumLocationType.Circle, coords);
         }
 
     }
@@ -121,6 +127,6 @@ public partial class Crisispage : PageBase
     protected void Button1_Click(object sender, EventArgs e)
     {
         Master.ShowMessage(EnumMessageType.Info, "test message");
-        RedirectAfter(4, "http://www.google.com");
+        RedirectAfter(4, VMSCORE.Util.Constants.Pages.CrisisBoard);
     }
 }

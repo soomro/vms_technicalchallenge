@@ -1031,13 +1031,12 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="EntityModel" ZoomLevel="57" DisplayType="true" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
-        <EntityTypeShape EntityType="EntityModel.Crisis" Width="1.5" PointX="13.125" PointY="1.25" Height="3.1340950520833326" IsExpanded="true" />
+      <Diagram Name="EntityModel" ZoomLevel="97" DisplayType="true" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+        <EntityTypeShape EntityType="EntityModel.Crisis" Width="2.5" PointX="13.125" PointY="1.25" Height="3.1340950520833326" IsExpanded="true" />
         <EntityTypeShape EntityType="EntityModel.Alert" Width="1.5" PointX="14.625" PointY="5.125" Height="2.3648893229166656" IsExpanded="true" />
         <AssociationConnector Association="EntityModel.Aso_AlertCrisis">
-          <ConnectorPoint PointX="15.791420558019322" PointY="5.125" />
-          <ConnectorPoint PointX="15.791420558019322" PointY="2.8170475260416663" />
-          <ConnectorPoint PointX="14.625" PointY="2.8170475260416663" />
+          <ConnectorPoint PointX="15.125" PointY="5.125" />
+          <ConnectorPoint PointX="15.125" PointY="4.3840950520833326" />
         </AssociationConnector>
         <EntityTypeShape EntityType="EntityModel.Incident" Width="1.875" PointX="11.625" PointY="5.25" Height="4.2879036458333335" />
         <EntityTypeShape EntityType="EntityModel.IncidentReport" Width="1.5" PointX="7.375" PointY="8.25" Height="2.7494921874999996" />
@@ -1062,8 +1061,9 @@
           <ConnectorPoint PointX="5.9375" PointY="4.75" />
         </AssociationConnector>
         <AssociationConnector Association="EntityModel.Aso_CrisisIncident">
-          <ConnectorPoint PointX="13.3125" PointY="4.3840950520833326" />
-          <ConnectorPoint PointX="13.3125" PointY="5.25" />
+          <ConnectorPoint PointX="14.0625025" PointY="4.3840950520833326" />
+          <ConnectorPoint PointX="14.0625025" PointY="8.545146484375" />
+          <ConnectorPoint PointX="13.5" PointY="8.545146484375" />
         </AssociationConnector>
         <AssociationConnector Association="EntityModel.Aso_VolunteerAddress">
           <ConnectorPoint PointX="6.625" PointY="7.46875" />
@@ -1093,6 +1093,8 @@
         </AssociationConnector>
         <AssociationConnector Association="EntityModel.Aso_IncidentAlert">
           <ConnectorPoint PointX="13.5" PointY="6.3699446614583328" />
+          <ConnectorPoint PointX="13.979169166666667" PointY="6.3699446614583319" />
+          <ConnectorPoint PointX="14.145835833333335" PointY="6.3699446614583328" />
           <ConnectorPoint PointX="14.625" PointY="6.3699446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="EntityModel.Aso_RequestNeedItem">
