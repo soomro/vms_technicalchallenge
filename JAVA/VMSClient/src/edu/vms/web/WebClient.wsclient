@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsclientconfig serviceType="jsr-172" version="1.0">
+    <client>
+        <project>VMSClient</project>
+        <class location="${src.dir}" type="edu.vms.web.WebClient"/>
+        <property name="DataBinding" value="false"/>
+        <property name="cldc11" value="true"/>
+    </client>
+    <services>
+        <service file="WebClient.asmx.wsdl" url="http://licrp.dnsalias.net/apollo/ws.asmx?WSDL"/>
+    </services>
+</wsclientconfig>

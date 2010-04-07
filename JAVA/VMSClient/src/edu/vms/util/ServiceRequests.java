@@ -5,12 +5,11 @@
 package edu.vms.util;
 
 import edu.vms.ClientMIDlet;
-import java.lang.String;
+import edu.vms.web.WS_Stub;
 import javax.microedition.lcdui.TextField;
 import javax.microedition.midlet.MIDlet;
 import org.netbeans.microedition.lcdui.WaitScreen;
-import service.Service_Stub;
-import ws.WS_Stub;
+
 
 /**
  *
@@ -26,6 +25,7 @@ public class ServiceRequests extends Thread {
     public static final String GETREQUEST = "GETREQUEST";
     public static final String ACCEPTREQUEST = "ACCEPTREQUEST";
     public static final String REJECTREQUEST = "REJECTREQUEST";
+    public static final String CHECKPERIODICALLY = "CHECKPERIODICALLY";
     private String username;
     private String password;
 
@@ -56,6 +56,11 @@ public class ServiceRequests extends Thread {
             rejectRequest();
             return;
         }
+        if (operation.equals(CHECKPERIODICALLY)) {
+            checkPeriodically();
+            return;
+        }
+
     }
 
     private void login() {
@@ -91,7 +96,7 @@ public class ServiceRequests extends Thread {
             System.out.println("request = " + request + " " + main.requestID);
             main.getChoiceGroup().set(0, request, null);
             System.out.println("aaaaaaaaaaaaaaa");
-            main.getChoiceGroup1().insert(0, answer, null);
+            //main.getChoiceGroup1().insert(0, answer, null);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -137,6 +142,7 @@ public class ServiceRequests extends Thread {
      * drawRequest draws the page of request
      */
     private void drawRequest(String rLocation, String rName, String rMessage, String[] iName, int[] iNumber){
+        main.getRequest().deleteAll();
         main.getRequest().append(rLocation);
         main.getRequest().append("\n");
         main.getRequest().append(rMessage);
@@ -145,11 +151,28 @@ public class ServiceRequests extends Thread {
         main.getRequest().append("\n");
         for(int i = 0; i < iName.length; i++){
             TextField tField = new TextField(iName[i] + "/ " + iNumber[i], "0", 3, 3);
+            tField.setConstraints(TextField.NUMERIC);
             main.getRequest().append(tField);
             main.getRequest().append("\n");
             TextField tField1 = new TextField(iName[i] + "/ " + iNumber[i], "0", 3, 3);
+            tField1.setConstraints(TextField.NUMERIC);
             main.getRequest().append(tField1);
             main.getRequest().append("\n");
+        }
+    }
+
+    private void checkPeriodically() {
+        System.out.println("main.loggedIn" + main.loggedIn);
+        while(main.loggedIn){
+            try {
+                synchronized(this){
+                    System.gc();
+                    checkUpdate();
+                    wait(300000);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
