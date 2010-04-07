@@ -8,7 +8,7 @@ using VMSCORE.EntityClasses;
 using System.Collections.ObjectModel;
 using VMSCORE.Operations; 
 
-public partial class _Default : System.Web.UI.Page 
+public partial class _Default : PageBase 
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -85,11 +85,12 @@ public partial class _Default : System.Web.UI.Page
     {
         int crisisId = Convert.ToInt32(TextBox4.Text);
 
-        EntityModelContainer cont = Container.Instance;
-        var cr = cont.Crises.Single(c => c.Id == crisisId);
-        cr.LocationCoordinates.Add("this is addition");
+        MainCrisis = Container.Instance.Crises.FirstOrDefault(cr => cr.Id == crisisId);
+
+        /*cr.LocationCoordinates.Add("this is addition");
         cont.SaveChanges();
-        TextBox3.Text = cr.Name;
+        TextBox3.Text = cr.Name;*/
+        
     }
     
 }

@@ -8,6 +8,7 @@ public enum EnumCrisisType
 {
     Fire=1,
     Earthquake=2,
+    Avalanche=3,
 }
 public enum EnumIncidentStatus
 {

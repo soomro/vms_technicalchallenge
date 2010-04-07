@@ -34,9 +34,27 @@ namespace VMSCORE.Operations
             return c;
         }
 
-        public static void UpdateCrisis(int p, string name, string explanation, EnumCrisisType ctype, EnumLocationType enumLocationType, ObservableCollection<string> coords)
+        public static void UpdateCrisis(int id, string name, string explanation, EnumCrisisType ctype, EnumLocationType enumLocationType, ObservableCollection<string> coords)
         {
-            //throw new NotImplementedException();
+            //Getting the object to be modified
+            var c = Container.Instance.Crises.FirstOrDefault(cr => cr.Id == id);
+            if (c==null)
+            {
+                throw new VMSException("there is no crisis with such an id");
+            }                        
+            //Setting new values
+            c.Name = ConvertUtil.SafeString(name);
+            c.Explanation = ConvertUtil.SafeString(explanation);
+            if (coords != null)
+            {
+                c.LocationCoordinates = coords;
+            }
+            c.Status = EnumCrisisStatus.Active;
+            c.LocationType = enumLocationType;
+
+            //Reflecting to DB
+            Container.Instance.SaveChanges();
+
         }
     }
 }
