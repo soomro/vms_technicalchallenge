@@ -1,0 +1,20 @@
+8th2010   
+
+Meeting notes for 8th Mar 2010
+
+Attenders:
+
+    * Shobha
+    * Waseem(10 min late)
+    * Abdullah(absent)
+    * Mohsen
+    * Tigran
+    * Mustafa
+    * Gilana 
+
+Supervisor meeting
+
+    * development and testing task progress were discussed.
+    * Waseem has taken the responsibility to research on test case and result storage.
+    * Mattias suggested us to have team Reflection meeting for the work done/decision taken.
+    * Next meeting will be on 15th at 10.00 
