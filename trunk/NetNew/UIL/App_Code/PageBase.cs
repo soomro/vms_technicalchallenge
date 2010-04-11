@@ -16,15 +16,19 @@ public class PageBase : System.Web.UI.Page
         //
     }
 
-    public PageAction PageAction
+    public PageActions PageAction
     {
         get
         {
-            PageAction robj = PageAction.None;
-            var paction = Request[Utils.Constants.GlobalIds.Action];
-            if (Enum.TryParse(paction, out robj))
-                return robj;
-            else return PageAction.None;
+            PageActions robj = PageActions.None;
+            var paction = Request[Constants.IdAction];
+            if (paction==null)
+            {
+                return PageActions.None;
+            }
+            paction = paction.ToLower();
+            Enum.TryParse(paction, out robj);
+            return robj;
         }
     }
 
@@ -43,15 +47,15 @@ public class PageBase : System.Web.UI.Page
     /// <summary>
     /// Persisted to the application
     /// </summary>
-    public static DAL.Crisis MainCrisis
+    public static BLL.BEntities.Crisis MainCrisis
     {
         get
         {
-            return HttpContext.Current.Application[Utils.Constants.GlobalIds.MainCrisis] as Crisis;
+            return HttpContext.Current.Application[Constants.IdMainCrisis] as BLL.BEntities.Crisis;
         }
         set
         {
-            HttpContext.Current.Application[Utils.Constants.GlobalIds.MainCrisis] = value;
+            HttpContext.Current.Application[Constants.IdMainCrisis] = value;
         }
     }
 

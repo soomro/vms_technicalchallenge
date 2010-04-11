@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-public enum PageAction
+public enum PageActions
 {
     Create,
     Edit,
@@ -11,14 +11,14 @@ public enum PageAction
     None
 }
 
-public enum MessageType
+public enum MessageTypes
 {
     Info,
     Error,
     Warning
 }
 
-public enum MapMode
+public enum MapModes
 {
     DefineCrisis=1,
     DefineIncident=2,

@@ -24,4 +24,25 @@ public partial class SiteMaster : System.Web.UI.MasterPage
         }
         
     }
+    public void ShowMessage(MessageTypes mtype, params string[] messages)
+    {
+        if (mtype == MessageTypes.Error)
+        {
+            blMessages.CssClass = "errorMessage";
+        }
+        else if (mtype == MessageTypes.Warning)
+        {
+            blMessages.CssClass = "warninglist";
+        }
+        else
+        {
+            blMessages.CssClass = "infolist";
+        }
+
+        foreach (var message in messages)
+        {
+            blMessages.Items.Add(message);
+        }
+
+    }
 }
