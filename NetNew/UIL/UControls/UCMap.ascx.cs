@@ -59,16 +59,16 @@ public partial class UCMap : System.Web.UI.UserControl
         }
     }
 
-    public EnumMapMode MapMode
+    public MapModes MapMode
     {
         get
         {
             if (ViewState["mapmode"]==null)
             {
-                ViewState["mapmode"] = EnumMapMode.DefineCrisis;
+                ViewState["mapmode"] = MapModes.DefineCrisis;
             }
 
-            return (EnumMapMode)   ViewState["mapmode"]  ;
+            return (MapModes)ViewState["mapmode"];
         }
         set
         {
@@ -84,7 +84,7 @@ public partial class UCMap : System.Web.UI.UserControl
             return ;
         }
 
-        if (MapMode==EnumMapMode.DefineCrisis)
+        if (MapMode==MapModes.DefineCrisis)
         {
             GoogleCirclePolygon area = new GoogleCirclePolygon();
             area.Latitude = e.Location.Latitude;
