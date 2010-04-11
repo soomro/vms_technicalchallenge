@@ -1,0 +1,56 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title></title>
+    <link href="~/Styles/style.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <div id="mainFrame">
+        <div id="topBox">
+            <img src="Styles/logo.jpg" alt="VMS Logo" width="132" height="55" class="img1" />
+            <h2>
+                Volunteers' Management System</h2>
+            <p class="rightTxt1">
+                <asp:Label ID="lblPageTitle" runat="server" Text="Page Title"></asp:Label>
+            </p>
+        </div>
+        <br class="spacer"></br>
+        <div id="pagePath" class="frame">
+            Site path will be shown here...<asp:SiteMapPath 
+                ID="SiteMapPath1" runat="server">
+            </asp:SiteMapPath>
+        </div>
+        <div>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+         <br class="spacer"></br>
+        <!--footer start -->
+        <div id="footerMain">
+            <div id="footer">
+                <ul>
+                    <li><a href="#">Home</a> |</li>
+                    <li><a href="#">About Us</a> |</li>
+                    <li><a href="#">Solutions</a> |</li>
+                    <li><a href="#">Support</a> |</li>
+                    <li><a href="#">Testimonials</a> |</li>
+                    <li><a href="#">News and Events</a> |</li>
+                    <li><a href="#">Location</a> |</li>
+                    <li><a href="#">blog</a> |</li>
+                    <li><a href="#">Contact&nbsp;Us</a></li>
+                </ul>
+                <p class="copyright">
+                    Copyright © Apollo Group 2010. All Rights Reserved.</p>
+            </div>
+        </div>
+        <!--footer end -->
+    </div>
+    </form>
+</body>
+</html>

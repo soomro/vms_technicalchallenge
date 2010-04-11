@@ -1,0 +1,8 @@
+D:\TCP\NetNew\DAL\obj\Debug\ResolveAssemblyReference.cache
+D:\TCP\NetNew\DAL\bin\Debug\DAL.dll.config
+D:\TCP\NetNew\DAL\bin\Debug\DAL.dll
+D:\TCP\NetNew\DAL\bin\Debug\DAL.pdb
+D:\TCP\NetNew\DAL\bin\Debug\Utils.dll
+D:\TCP\NetNew\DAL\bin\Debug\Utils.pdb
+D:\TCP\NetNew\DAL\obj\Debug\DAL.dll
+D:\TCP\NetNew\DAL\obj\Debug\DAL.pdb
