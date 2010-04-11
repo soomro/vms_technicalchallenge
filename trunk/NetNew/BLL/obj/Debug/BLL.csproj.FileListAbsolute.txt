@@ -1,0 +1,9 @@
+D:\TCP\NetNew\BLL\bin\Debug\BLL.dll
+D:\TCP\NetNew\BLL\bin\Debug\BLL.pdb
+D:\TCP\NetNew\BLL\bin\Debug\DAL.dll
+D:\TCP\NetNew\BLL\bin\Debug\Utils.dll
+D:\TCP\NetNew\BLL\bin\Debug\DAL.pdb
+D:\TCP\NetNew\BLL\bin\Debug\Utils.pdb
+D:\TCP\NetNew\BLL\obj\Debug\ResolveAssemblyReference.cache
+D:\TCP\NetNew\BLL\obj\Debug\BLL.dll
+D:\TCP\NetNew\BLL\obj\Debug\BLL.pdb
