@@ -58,4 +58,14 @@
         Medium = 3,
         Low = 4,
     }
+    public enum UserTypes
+    {
+        Volunteer,
+        Manager
+    }
+    public enum Gender
+    {
+        Man,
+        Woman
+    }
 }
