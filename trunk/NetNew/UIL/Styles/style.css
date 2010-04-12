@@ -115,14 +115,13 @@ ul{
 	left:378px;
 	top:53px;
 }
-table.tblForm td.value .tx
+.tx
 {
     border: thin solid #000080;
     font-size: 11px;
     font-family: Verdana;
     font-weight: bold;
-    padding: 5px;
-    width: 300px;
+    padding: 2px;
 }
 .buttons
 {
@@ -130,4 +129,5 @@ table.tblForm td.value .tx
     background-color: #FFFFFF;
     color: #000000;
     font-weight: bold;
+     padding: 2px;
 }
