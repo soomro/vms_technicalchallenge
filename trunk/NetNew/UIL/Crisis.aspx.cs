@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Artem.Web.UI.Controls;
+using System.Collections.ObjectModel;
 
 public partial class Crisis : PageBase
 {
@@ -68,10 +69,48 @@ public partial class Crisis : PageBase
     }
     protected void ddlRadious_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        UCCreateCrisisMap1.Radious =  double.Parse(ddlRadious.SelectedValue);
     }
     protected void btSave_Click(object sender, EventArgs e)
     {
+        var ctype = ucEnumSelector1.SelectedValue<Utils.Enumerations.CrisisTypes>();
+        var name = txtCrisisName.Text;
+        var explanation = txtExplanation.Text;
+        if (CrisisArea == null)
+        {
+            Master.ShowMessage(MessageTypes.Error, "Define crisis area!");
+            return;
+        }
+        var coords = new ObservableCollection<string>();
+        coords.Add(CrisisArea.Latitude + "");
+        coords.Add(CrisisArea.Longitude + "");
+        coords.Add(CrisisArea.Radius + "");
 
+        if (PageAction == PageActions.Create)
+        {
+            try
+            {
+                var c = BLL.BWorkflows.CrisisOperations.CreateCrisis(name, explanation, ctype, Utils.Enumerations.LocationTypes.Circle, coords);
+                MainCrisis = c;
+                Master.ShowMessage(MessageTypes.Info, "A new crisis is created");
+                RedirectAfter(4, string.Format(Constants.PageCrisisBoard + "?cid={0}&action=View", c.Id));
+
+            }
+            catch (Utils.Exceptions.VMSException ex)
+            {
+                Master.ShowMessage(MessageTypes.Error, "Following error is occured:" + ex.Message);
+                return;
+            }
+        }
+        else if (PageAction == PageActions.Edit)
+        {
+            // Update
+            var c = BLL.BWorkflows.CrisisOperations.UpdateCrisis(MainCrisis.Id, name, explanation, ctype, Utils.Enumerations.LocationTypes.Circle, coords);
+            MainCrisis = c;
+        }
+    }
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect(Constants.PageCrisisBoard);
     }
 }

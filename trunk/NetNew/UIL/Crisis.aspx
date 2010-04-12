@@ -58,7 +58,8 @@
                     &nbsp;
                 </td>
                 <td class="value" align="right">
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="buttons"/>
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="buttons" 
+                        onclick="btnCancel_Click"/>
                     &nbsp;<asp:Button ID="btnSave" runat="server" OnClick="btSave_Click" 
                         Text="Save" CssClass="buttons" />
                 </td>
