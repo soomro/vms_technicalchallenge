@@ -13,13 +13,12 @@ namespace BLL.BEntities
 
         public Crisis()
         {
-           
             
         }
+       
         public Crisis(DAL.Crisis dataObject)
         {
             this.Update(dataObject);
-
         }
        
         public BLL.BEntities.Crisis Update(DAL.Crisis dataObject)
@@ -31,10 +30,15 @@ namespace BLL.BEntities
                 UpdateForType(type, dataObject, this);
                 type = type.BaseType;
             }
+            this.LocationCoordinates = Utils.Collection.ToStrArray(this.LocationCoordinatesStr);
             return this;
         }
 
-
+        public DAL.Crisis GetDataObject()
+        {
+            this.LocationCoordinatesStr = Utils.Collection.ToString<string>(this.LocationCoordinates);
+            return (DAL.Crisis)this;
+        }
         private static void UpdateForType(Type type, DAL.Crisis source, BLL.BEntities.Crisis destination)
         {
             FieldInfo[] myObjectFields = type.GetFields(
@@ -68,6 +72,7 @@ namespace BLL.BEntities
                 LocationTypeVal = (Int16)value;
             }
         }
+        
         
     }
 }

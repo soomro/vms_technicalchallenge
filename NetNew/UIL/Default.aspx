@@ -6,5 +6,11 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    Some Contents here
+    This page is the default page of the system but will serve for test purposes 
+    now.<br />
+    crisis id:
+    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+&nbsp;<asp:Button ID="Button1" runat="server" onclick="Button1_Click1" 
+        Text="edit" />
+&nbsp;
 </asp:Content>

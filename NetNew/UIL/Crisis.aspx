@@ -14,7 +14,7 @@
                     Crisis Name
                 </td>
                 <td class="value">
-                    <asp:TextBox ID="txtCrisisName" runat="server" CssClass="tx"></asp:TextBox>
+                    <asp:TextBox ID="txtCrisisName" runat="server" CssClass="tx" Width="138px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -65,12 +65,11 @@
                 </td>
             </tr>
         </table>
+        <uc2:UCCreateCrisisMap ID="UCCreateCrisisMap1" runat="server" Heigth="300" 
+                        Width="300" />
     </div>
     <div style="float: left">
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-            <ContentTemplate>
-                <uc2:UCCreateCrisisMap ID="UCCreateCrisisMap1" runat="server" />
-            </ContentTemplate>
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="ddlRadious" EventName="SelectedIndexChanged" />
             </Triggers>
