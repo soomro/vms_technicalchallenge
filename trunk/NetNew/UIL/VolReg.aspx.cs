@@ -35,8 +35,8 @@ public partial class VolReg : System.Web.UI.Page
         vol.CoordinatesStr = string.Empty;
         vol.CoordinateLastUpdateTime = DateTime.Now;
         vol.LastAccessTime = DateTime.Now;
-        vol.SpecificationsStr = new System.Collections.ObjectModel.ObservableCollection<string>();
-        vol.SpecificationsStr.Add(txtSpecialTraining.Text);
+        //vol.SpecificationsStr = new System.Collections.ObjectModel.ObservableCollection<string>();
+        //vol.SpecificationsStr.Add(txtSpecialTraining.Text);
         
 
         //save the object in db

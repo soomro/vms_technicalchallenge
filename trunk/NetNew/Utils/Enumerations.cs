@@ -1,69 +1,66 @@
 ﻿namespace Utils.Enumerations
 {
-    public enum CrisisStatuses
+    public enum CrisisStatuses:short
     {
-        Active = 1,
-        Closed = 2,
+        Active ,
+        Closed ,
     }
-    public enum CrisisTypes
+    public enum CrisisTypes:short
     {
-        Fire = 1,
-        Earthquake = 2,
-        Avalanche = 3,
+        Fire ,
+        Earthquake ,
+        Avalanche ,
     }
-    public enum IncidentStatuses
+    public enum IncidentStatuses:short
     {
-        Created = 1,
-        ResourceGathering = 2,
-        Working = 3,
-        Complete = 4,
+        Created ,
+        ResourceGathering ,
+        Working ,
+        Complete ,
     }
-    public enum IncidentTypes
+    public enum IncidentTypes:short
     {
-        Fire = 1,
-        CollapsedBuilding = 2,
-        Bomb = 3,
-        Accident = 4,
+        Fire ,
+        CollapsedBuilding ,
+        Bomb ,
+        Accident ,
     }
-    public enum LocationTypes
+    public enum LocationTypes:short
     {
-        Rectangle = 1,
-        Circle = 2,
-        Freeform = 3
+        Rectangle ,
+        Circle ,
+        Freeform 
     }
-    public enum MapTypes
+    public enum MapTypes:short
     {
-        Satelite = 1,
-        Map = 2,
-        Terrain = 3,
+        Satelite ,
+        Map,
+        Terrain ,
     }
-    public enum MetricTypes
+    public enum MetricTypes:short
     {
-        Box = 1
+        Box 
     }
     public enum RequestResponseStatuses
     {
-        Waiting = 1,
-        Responded = 2,
-        Timeout = 3,
-        Caceled = 4
+        Waiting ,
+        Responded ,
+        Timeout ,
+        Caceled 
     }
     public enum Severities
     {
-        Critical = 1,
-        High = 2,
-        /// <summary>
-        /// Less severe
-        /// </summary>
-        Medium = 3,
-        Low = 4,
+        Critical ,
+        High ,
+        Medium ,
+        Low ,
     }
-    public enum UserTypes
+    public enum UserTypes:short
     {
         Volunteer,
         Manager
     }
-    public enum Gender
+    public enum Gender:short
     {
         Man,
         Woman

@@ -35,7 +35,7 @@ public partial class ManReg : System.Web.UI.Page
         Man.DateBirth = Convert.ToDateTime(Utils.Convert.SafeString(txtBirthDate.Text));
         Man.NameLastName = Utils.Convert.SafeString(txtFirstName.Text) + " " + Utils.Convert.SafeString(txtLastName.Text);
         Man.GenderVal = (short)ucEnumSelectorGender.SelectedValue<Utils.Enumerations.Gender>();
-        Man.ExpertiseCrisisTypesStr.Add(Utils.Convert.SafeString(txtExpertiseCrisisTypes.Text));
+        //Man.ExpertiseCrisisTypesStr.Add(Utils.Convert.SafeString(txtExpertiseCrisisTypes.Text));
 
         /* Login/Password functionality needs to be added later*/
 
