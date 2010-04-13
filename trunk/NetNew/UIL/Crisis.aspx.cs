@@ -43,9 +43,7 @@ public partial class Crisis : PageBase
 
             else if (PageAction == PageActions.Create)// Create crisis 
             {
-
                 Master.PageTitle = "Create New Crisis";
-
                 UCCreateCrisisMap1.Radious = 20;
                 ddlRadious.SelectedValue = "20";
             }
