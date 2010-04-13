@@ -31,7 +31,7 @@ public partial class Crisis : PageBase
 
                 txtCrisisName.Text = MainCrisis.Name;
                 txtExplanation.Text = MainCrisis.Explanation;
-
+                ucEnumSelector1.DefaultSelection = MainCrisis.CrisisType;
                 double latitude = 0, longitude = 0, radious = 0;
                 double.TryParse(MainCrisis.LocationCoordinates[0], out latitude);
                 double.TryParse(MainCrisis.LocationCoordinates[1], out longitude);

@@ -22,7 +22,7 @@ namespace BLL.BWorkflows
             c.DateCreated = DateTime.Now;
             c.StatusVal = (short)Utils.Enumerations.CrisisStatuses.Active;
             c.LocationTypeVal = (short)locationType;
-
+            c.CrisisTypeVal = (short)ctype;
             DAL.Container.Instance.Crises.AddObject(c);
             DAL.Container.Instance.SaveChanges();
 
@@ -46,7 +46,7 @@ namespace BLL.BWorkflows
             }
             c.StatusVal = (short)Utils.Enumerations.CrisisStatuses.Active;
             c.LocationTypeVal = (short)locationType;
-
+            c.CrisisTypeVal = (short)ctype;
             //Reflecting to DB
             DAL.Container.Instance.SaveChanges();
             return new BEntities.Crisis(c);

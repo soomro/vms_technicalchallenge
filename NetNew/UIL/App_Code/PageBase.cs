@@ -26,7 +26,7 @@ public class PageBase : System.Web.UI.Page
             {
                 return PageActions.None;
             }
-            paction = paction.ToLower();
+            //paction = paction.ToLower();
             Enum.TryParse(paction, out robj);
             return robj;
         }

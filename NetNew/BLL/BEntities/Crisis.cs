@@ -72,7 +72,17 @@ namespace BLL.BEntities
                 LocationTypeVal = (Int16)value;
             }
         }
-        
+        public Utils.Enumerations.CrisisTypes CrisisType
+        {
+            get
+            {
+                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.CrisisTypes>(CrisisTypeVal, Utils.Enumerations.CrisisTypes.Earthquake);
+            }
+            set
+            {
+                CrisisTypeVal = (Int16)value;
+            }
+        }
         
     }
 }
