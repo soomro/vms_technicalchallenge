@@ -1,0 +1,21 @@
+April 1th 2010   
+
+Meeting notes for 1th April 2010
+
+Attenders:
+
+    * Shobha
+    * Waseem
+    * Abdullah(5min)
+    * Mohsen (15 min late)
+    * Tigran (15 min late)
+    * Mustafa
+    * Gilana 
+
+Supervisor meeting
+
+    * development and testing task progress were discussed.
+    * Mattias suggested us to write  why we chose other tracking system. in some were in the document
+    * Mattias suggested to have  few emulator or mobile phones model
+    * Mattias suggested to take sample mobile phone from the university, to use it for development and testing
+    * Next meeting will be on 8th at 10.00
