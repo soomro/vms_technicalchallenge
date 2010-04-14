@@ -14,4 +14,4 @@
   * [25Mar10] Supervisor & Assistants and internal meeting
   * [26Mar10] Internal meeting
   * [29Mar10] Meeting with Jonas for SAD and SDD
-  * [1 April 10]Supervisor & Assistants and internal meeting
+  * [1April10]Supervisor & Assistants and internal meeting
