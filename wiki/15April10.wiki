@@ -1,0 +1,18 @@
+April29th2010   
+
+Attenders:
+
+    * Shobha
+    * Waseem
+    * Abdullah
+    * Mohsen
+    * Tigran
+    * Mustafa
+    * Gilana 
+
+Supervisor meeting
+
+    * Find a phone which will support needed J2ME features.
+    * Next meeting 29th of April, 10:00 o'clock.
+    * Mattias will look for the guys who worked will mobile development.
+    * Try the location detecting on different emulators(3rd party) 
