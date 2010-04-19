@@ -12,7 +12,10 @@ public class Constants
     public const string IdAction = "Action";
     public const string IdMainCrisis = "MainCrisis";
     public const string IdCrisisArea = "CrisisArea";
+    public const string IdUserName = "UserName";
+    public const string IdUserName = "IdUserType";
     //Constants for pages will begin with "Page" in identifier
     public const string PageCrisisBoard = "CrisisBoard.aspx";
     public const string PageCrisis = "Crisis.aspx";
+    public const string PageVolunteerProfile = "VProfile.aspx";
 }
