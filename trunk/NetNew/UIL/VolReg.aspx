@@ -11,22 +11,22 @@
             <td class="style1">
                 First Name:</td>
             <td class="value">
-                <asp:TextBox ID="txtFirstName" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtFirstName" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 Last Name:</td>
             <td class="value">
-                <asp:TextBox ID="txtLastName" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtLastName" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
-                Birthdate:<br />
+                Birth Date:<br />
                 (yyyy.mm.dd)</td>
             <td class="value">
-                <asp:TextBox ID="txtBirthDate" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtBirthDate" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -39,28 +39,29 @@
         <tr>
             <td class="style1">
                 Phone:         <td class="value">
-                <asp:TextBox ID="txtPhone" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtPhone" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 Height:</td>
             <td class="value">
-                <asp:TextBox ID="txtHeight" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtHeight" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 Weight:</td>
             <td class="value">
-                <asp:TextBox ID="txtWeight" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtWeight" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
-                Education:</td>
+                Health problems:</td>
             <td class="value">
-                <asp:TextBox ID="txtEducation" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtHealthProblem" runat="server" CssClass="tx" Rows="4" 
+                    TextMode="MultiLine"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -83,56 +84,64 @@
             <td class="style1">
                 Country:</td>
             <td class="value">
-                <asp:TextBox ID="txtCountry" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtCountry" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 City:</td>
             <td class="value">
-                <asp:TextBox ID="txtCity" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtCity" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 Street:</td>
             <td class="value">
-                <asp:TextBox ID="txtStreet" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtStreet" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 House No.</td>
             <td class="value">
-                <asp:TextBox ID="txtHouseNo" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtHouseNo" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 Flat No.:</td>
             <td class="value">
-                <asp:TextBox ID="txtFlatNo" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtFlatNo" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 Postal code:</td>
             <td class="value">
-                <asp:TextBox ID="txtPostalCode" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtPostalCode" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="style1">
+                Email address</td>
+            <td class="value">
+                <asp:TextBox ID="txtEmalAddress" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 Username:</td>
             <td class="value">
-                <asp:TextBox ID="txtUserName" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtUserName" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 Password:</td>
             <td class="value">
-                <asp:TextBox ID="txtPassword" runat="server" CssClass="tx" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="txtPassword" runat="server" CssClass="tx" TextMode="Password" 
+                    Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
