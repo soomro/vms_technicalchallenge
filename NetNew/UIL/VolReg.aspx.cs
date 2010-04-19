@@ -22,7 +22,7 @@ public partial class VolReg : System.Web.UI.Page
         DAL.Volunteer vol = new DAL.Volunteer();
         vol.Address = new DAL.Address();
         vol.NameLastName = Utils.Convert.SafeString(txtFirstName.Text) + " " + Utils.Convert.SafeString(txtLastName.Text);
-        vol.DateBirth = Convert.ToDateTime(Utils.Convert.SafeString(txtBirthDate.Text));
+        vol.BirthDate = Convert.ToDateTime(Utils.Convert.SafeString(txtBirthDate.Text));
         vol.Address.City = Utils.Convert.SafeString(txtCity.Text);
         vol.Address.Country = Utils.Convert.SafeString(txtCountry.Text);
         vol.Address.FlatNumber = Utils.Convert.SafeString(txtFlatNo.Text);
