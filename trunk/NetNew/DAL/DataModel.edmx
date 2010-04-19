@@ -1029,7 +1029,7 @@
       <Diagram Name="DataModel">
         <EntityTypeShape EntityType="DataModel.Address" Width="1.5" PointX="0.75" PointY="11.5" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.Alert" Width="1.5" PointX="6" PointY="0.75" Height="2.5571907552083326" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.Crisis" Width="1.5" PointX="1.5" PointY="4.5" Height="3.1340950520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.Crisis" Width="1.75" PointX="1.5" PointY="4.5" Height="3.1340950520833335" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.IncidentReport" Width="1.5" PointX="5.25" PointY="11.5" Height="2.9417936197916674" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.Incident" Width="1.5" PointX="3.75" PointY="2.5" Height="4.2879036458333326" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.Manager" Width="1.5" PointX="3" PointY="8.375" Height="2.3648893229166674" IsExpanded="true" />
@@ -1050,8 +1050,8 @@
           <ConnectorPoint PointX="3" PointY="13.24974609375" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_AlertCrisis" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.5" />
-          <ConnectorPoint PointX="2.25" PointY="1.59375" />
+          <ConnectorPoint PointX="2.375" PointY="4.5" />
+          <ConnectorPoint PointX="2.375" PointY="1.59375" />
           <ConnectorPoint PointX="6" PointY="1.59375" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentAlert" ManuallyRouted="false">
@@ -1059,7 +1059,7 @@
           <ConnectorPoint PointX="6" PointY="2.9035953776041663" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_CrisisIncident" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="5.6439518229166659" />
+          <ConnectorPoint PointX="3.25" PointY="5.6439518229166659" />
           <ConnectorPoint PointX="3.75" PointY="5.6439518229166659" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentReportVolunteer" ManuallyRouted="false">
