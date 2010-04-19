@@ -35,8 +35,14 @@ public partial class VolReg : System.Web.UI.Page
         vol.CoordinatesStr = string.Empty;
         vol.CoordinateLastUpdateTime = DateTime.Now;
         vol.LastAccessTime = DateTime.Now;
-        //vol.SpecificationsStr = new System.Collections.ObjectModel.ObservableCollection<string>();
-        //vol.SpecificationsStr.Add(txtSpecialTraining.Text);
+        vol.EduAndTrainings = txtSpecialTraining.Text;
+        vol.EmailAddr = txtEmalAddress.Text;
+        vol.Username = txtUserName.Text;
+        vol.Password = txtPassword.Text;
+        vol.Weight = Convert.ToDecimal(txtWeight.Text);
+        vol.Height = Convert.ToDecimal(txtHeight.Text);
+        vol.HealthProb = txtHealthProblem.Text;
+        vol.Phone = txtPhone.Text;
         
 
         //save the object in db

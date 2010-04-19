@@ -26,6 +26,15 @@ public partial class Login : System.Web.UI.Page
     }
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        
+        if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Volunteer.ToString())
+        {
+            var user =DAL.Container.Instance.Volunteers.SingleOrDefault(row => row.Username == txtUserName.Text);
+            if (user != null && user.Password == txtPassword.Text)
+            {
+                Session[Constants.IdUserName] = txtUserName.Text;
+                Session[Constants.IdUserType] = Utils.Enumerations.UserTypes.Volunteer.ToString();
+                Response.Redirect(Constants.PageVolunteerProfile);
+            }
+        }
     }
 }
