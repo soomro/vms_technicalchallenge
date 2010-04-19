@@ -25,7 +25,7 @@ public partial class ManReg : System.Web.UI.Page
     {
         // creating manager instance and assigning values into it
 
-        //BLL.BEntities.Manager Man = new BLL.BEntities.Manager();
+        
         DAL.Manager Man = new DAL.Manager();
         Man.Address = new DAL.Address();
         Man.Address.City =  Utils.Convert.SafeString(txtCity.Text);
@@ -38,19 +38,22 @@ public partial class ManReg : System.Web.UI.Page
         Man.NameLastName = Utils.Convert.SafeString(txtFirstName.Text) + " " + Utils.Convert.SafeString(txtLastName.Text);
         Man.GenderVal = (short)ucEnumSelectorGender.SelectedValue<Utils.Enumerations.Gender>();
 
-        //var lines = txtExpertiseCrisisTypes.Text.Split(new string[]{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
-        //foreach (var line in lines)
-        //{
-        //    var et = Utils.Convert.SafeString(line);
-        //    if(et!="")
-        //        Man.ExpertiseCrisisTypes.Add(et);
-        //}        
+        List<string> areas = new List<string>();
 
+        var lines = txtExpertiseCrisisTypes.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var line in lines)
+        {
+            var et = Utils.Convert.SafeString(line);
+            if (et!="")
+                areas.Add(et);
+        }
+        Man.ExpertiseCrisisTypesStr = Utils.Collection.ToString<string>(areas);
+            
         /* TODO: Login/Password functionality needs to be added later*/
 
         //save the object in db
-        DAL.Manager m = Man as DAL.Manager;
-        DAL.Container.Instance.Managers.AddObject( m );
+        
+        DAL.Container.Instance.Managers.AddObject( Man );
         DAL.Container.Instance.SaveChanges();
 
         //redirecting to Managers's profile page
