@@ -20,5 +20,10 @@ namespace BLL.BEntities
                 return _expertiseCrisisTypes;
             }
         }
+
+        public DAL.Manager GetBase()
+        {
+            return base;
+        }
     }
 }
