@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 public partial class ManReg : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -23,8 +24,8 @@ public partial class ManReg : System.Web.UI.Page
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         // creating manager instance and assigning values into it
-        
-        DAL.Manager Man = new DAL.Manager();
+
+        BLL.BEntities.Manager Man = new BLL.BEntities.Manager();
         Man.Address = new DAL.Address();
         Man.Address.City =  Utils.Convert.SafeString(txtCity.Text);
         Man.Address.Country = Utils.Convert.SafeString(txtCountry.Text);
@@ -35,9 +36,16 @@ public partial class ManReg : System.Web.UI.Page
         Man.DateBirth = Convert.ToDateTime(Utils.Convert.SafeString(txtBirthDate.Text));
         Man.NameLastName = Utils.Convert.SafeString(txtFirstName.Text) + " " + Utils.Convert.SafeString(txtLastName.Text);
         Man.GenderVal = (short)ucEnumSelectorGender.SelectedValue<Utils.Enumerations.Gender>();
-        //Man.ExpertiseCrisisTypesStr.Add(Utils.Convert.SafeString(txtExpertiseCrisisTypes.Text));
 
-        /* Login/Password functionality needs to be added later*/
+        var lines = txtExpertiseCrisisTypes.Text.Split(new string[]{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var line in lines)
+        {
+            var et = Utils.Convert.SafeString(line);
+            if(et!="")
+                Man.ExpertiseCrisisTypes.Add(et);
+        }        
+
+        /* TODO: Login/Password functionality needs to be added later*/
 
         //save the object in db
         DAL.Container.Instance.Managers.AddObject(Man);
