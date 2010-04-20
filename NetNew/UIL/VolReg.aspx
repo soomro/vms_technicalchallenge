@@ -24,7 +24,7 @@
         <tr>
             <td class="style1">
                 Birth Date:<br />
-                (yyyy.mm.dd)</td>
+                (yyyy/mm/dd)</td>
             <td class="value">
                 <asp:TextBox ID="txtBirthDate" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>

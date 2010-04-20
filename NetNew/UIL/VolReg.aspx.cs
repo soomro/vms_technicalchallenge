@@ -18,6 +18,10 @@ public partial class VolReg : System.Web.UI.Page
     }
     protected void btnRegister_Click(object sender, EventArgs e)
     {
+        //TODO: Check user inputs for format and data
+
+        //TODO: make sure there is no such a user with this username
+        
         //make object and fill according to user inputs
         DAL.Volunteer vol = new DAL.Volunteer();
         vol.Address = new DAL.Address();
