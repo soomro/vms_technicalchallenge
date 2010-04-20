@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BLL.BEntities
 {
-    public class Manager:DAL.Manager
+    public class Manager: DAL.Manager
     {
         public IList<string> _expertiseCrisisTypes=null;
 
@@ -22,8 +22,11 @@ namespace BLL.BEntities
         }
 
         public DAL.Manager GetBase()
-        {
-            return base;
+        {            
+            return base.MemberwiseClone() as DAL.Manager;
         }
+
+        
     }
 }
+ 

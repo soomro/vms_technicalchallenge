@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 
-public partial class ManReg : System.Web.UI.Page
+public partial class ManReg : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -24,7 +24,8 @@ public partial class ManReg : System.Web.UI.Page
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         // creating manager instance and assigning values into it
-
+        //BLL.BEntities.Manager Man = new BLL.BEntities.Manager();
+            
         
         DAL.Manager Man = new DAL.Manager();
         Man.Address = new DAL.Address();
@@ -37,18 +38,24 @@ public partial class ManReg : System.Web.UI.Page
         Man.DateBirth = Convert.ToDateTime(Utils.Convert.SafeString(txtBirthDate.Text));
         Man.NameLastName = Utils.Convert.SafeString(txtFirstName.Text) + " " + Utils.Convert.SafeString(txtLastName.Text);
         Man.GenderVal = (short)ucEnumSelectorGender.SelectedValue<Utils.Enumerations.Gender>();
-
-        List<string> areas = new List<string>();
+         
 
         var lines = txtExpertiseCrisisTypes.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
         foreach (var line in lines)
         {
             var et = Utils.Convert.SafeString(line);
-            if (et!="")
-                areas.Add(et);
+            if (et!="") 
+                Man.ExpertiseCrisisTypes.Add(et);
         }
-        Man.ExpertiseCrisisTypesStr = Utils.Collection.ToString<string>(areas);
-            
+
+        var messages = Man.Validate();
+        if (messages.Count>0)
+        {
+            Master.ShowMessage(MessageTypes.Error, messages.ToArray<string>());
+            return;
+        }
+
+
         /* TODO: Login/Password functionality needs to be added later*/
 
         //save the object in db
@@ -57,6 +64,7 @@ public partial class ManReg : System.Web.UI.Page
         DAL.Container.Instance.SaveChanges();
 
         //redirecting to Managers's profile page
-        Response.Redirect("~/ManProfile.aspx");
+        Master.ShowMessage(MessageTypes.Info, "Successfully saved. Now you are being redirected to your profile page...");
+        RedirectAfter (4,"ManProfile.aspx");
     }
 }
