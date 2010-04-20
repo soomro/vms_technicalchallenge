@@ -35,7 +35,10 @@ public partial class ManReg : PageBase
         Man.Address.HouseNumber = Utils.Convert.SafeString(txtHouseNo.Text);
         Man.Address.PostalCode = Utils.Convert.SafeString(txtPostalCode.Text);
         Man.Address.Street = Utils.Convert.SafeString(txtStreet.Text);
+        
+        
         Man.DateBirth = Convert.ToDateTime(Utils.Convert.SafeString(txtBirthDate.Text));
+        
         Man.NameLastName = Utils.Convert.SafeString(txtFirstName.Text) + " " + Utils.Convert.SafeString(txtLastName.Text);
         Man.GenderVal = (short)ucEnumSelectorGender.SelectedValue<Utils.Enumerations.Gender>();
          

@@ -29,8 +29,13 @@ namespace DAL
         {
             List<string> incorrects = new List<string>();
 
-            if (!Utils.Validation.Check(NameLastName, 5, 50, "a-z", " "))
+            if (!Utils.Validation.Check(NameLastName, 5, 50,"a-z"," ","1-9"))
                 incorrects.Add("Name/Lastname can be only letters");
+
+            if (this.Address.City == "")
+                incorrects.Add("City can not be empty");
+
+            
 
             // testing
             incorrects.Add("this test message. name is incorrect");
