@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
-public partial class VolReg : System.Web.UI.Page
+//TODO: Code commenting
+//TODO: User input checking
+//TODO: Showing messages according to use-case if somewhere is needed
+public partial class VolReg : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -20,8 +22,13 @@ public partial class VolReg : System.Web.UI.Page
     {
         //TODO: Check user inputs for format and data
 
-        //TODO: make sure there is no such a user with this username
-        
+        // make sure there is no such a user with this username
+        var q = DAL.Container.Instance.Volunteers.SingleOrDefault(row => row.Username == txtUserName.Text);
+        if (q != null)
+        {
+            Master.ShowMessage(MessageTypes.Error, "There is already such a user in the system. Change the username.");
+            return;
+        }
         //make object and fill according to user inputs
         DAL.Volunteer vol = new DAL.Volunteer();
         vol.Address = new DAL.Address();

@@ -7,7 +7,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <div style="float: left;">
         <table class="tblForm">
             <tr>
                 <td class="label">
@@ -67,7 +66,6 @@
         </table>
         <uc2:UCCreateCrisisMap ID="UCCreateCrisisMap1" runat="server" Heigth="300" 
                         Width="300" />
-    </div>
     <div style="float: left">
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <Triggers>

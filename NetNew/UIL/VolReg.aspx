@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="VolReg.aspx.cs" Inherits="VolReg" %>
-
+<%@ MasterType TypeName="SiteMaster" %>
 <%@ Register src="UControls/ucEnumSelector.ascx" tagname="ucEnumGender1" tagprefix="uc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
