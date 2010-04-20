@@ -23,7 +23,7 @@ public partial class _Default :PageBase
     {
         int id= Convert.ToInt32(TextBox1.Text);
         var row = DAL.Container.Instance.Crises.SingleOrDefault(r => r.Id == id);
-        MainCrisis = new BLL.BEntities.Crisis(row);
+        MainCrisis = row;
         Response.Redirect(Constants.PageCrisis + "?action=Edit");
     }
 }

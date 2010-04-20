@@ -9,7 +9,7 @@ namespace BLL.BWorkflows
 {
     public class CrisisOperations
     {
-        public static BLL.BEntities.Crisis CreateCrisis(string name, string explanation, Utils.Enumerations.CrisisTypes ctype, Utils.Enumerations.LocationTypes locationType
+        public static DAL.Crisis CreateCrisis(string name, string explanation, Utils.Enumerations.CrisisTypes ctype, Utils.Enumerations.LocationTypes locationType
            , ObservableCollection<string> locationCoordinates)
         {
             var c = new DAL.Crisis();
@@ -26,11 +26,11 @@ namespace BLL.BWorkflows
             DAL.Container.Instance.Crises.AddObject(c);
             DAL.Container.Instance.SaveChanges();
 
-            return new BEntities.Crisis(c);
+            return (c);
         }
 
 
-        public static BLL.BEntities.Crisis UpdateCrisis(int id, string name, string explanation, Utils.Enumerations.CrisisTypes ctype, Utils.Enumerations.LocationTypes locationType, ObservableCollection<string> coords)
+        public static DAL.Crisis UpdateCrisis(int id, string name, string explanation, Utils.Enumerations.CrisisTypes ctype, Utils.Enumerations.LocationTypes locationType, ObservableCollection<string> coords)
         {
             var c = DAL.Container.Instance.Crises.FirstOrDefault(cr => cr.Id == id);
             if (c == null)
@@ -49,7 +49,7 @@ namespace BLL.BWorkflows
             c.CrisisTypeVal = (short)ctype;
             //Reflecting to DB
             DAL.Container.Instance.SaveChanges();
-            return new BEntities.Crisis(c);
+            return (c);
         }
     }
 }
