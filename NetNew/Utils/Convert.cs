@@ -21,5 +21,7 @@ namespace Utils
             }
             return rawString.Trim();
         }
+
+
     }
 }

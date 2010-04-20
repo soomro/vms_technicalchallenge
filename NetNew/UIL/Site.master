@@ -28,8 +28,8 @@
                 ID="SiteMapPath1" runat="server">
             </asp:SiteMapPath>
         </div>
-        <div>
-         <p >
+        <div >
+         <p id="massagePart">
                <asp:BulletedList ID="blMessages" runat="server" >
               
                     </asp:BulletedList>
