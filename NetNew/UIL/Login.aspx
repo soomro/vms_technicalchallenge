@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" 
 CodeFile="Login.aspx.cs" Inherits="Login" %>
-
+<%@ MasterType TypeName="SiteMaster" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <style type="text/css">
         .style1

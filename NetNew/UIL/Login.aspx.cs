@@ -5,11 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Login : System.Web.UI.Page
+public partial class Login : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            Master.PageTitle = "Login Page";
+        }
     }
     protected void btnRegister_Click(object sender, EventArgs e)
     {
@@ -35,6 +38,17 @@ public partial class Login : System.Web.UI.Page
                 Session[Constants.IdUserType] = Utils.Enumerations.UserTypes.Volunteer.ToString();
                 Response.Redirect(Constants.PageVolunteerProfile);
             }
+        }
+        if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Manager.ToString())
+        {
+            //Should be implemented after fixing database
+            //var user = DAL.Container.Instance.Managers.SingleOrDefault(row => row.Username == txtUserName.Text);
+            //if (user != null && user.Password == txtPassword.Text)
+            //{
+            //    Session[Constants.IdUserName] = txtUserName.Text;
+            //    Session[Constants.IdUserType] = Utils.Enumerations.UserTypes.Volunteer.ToString();
+            //    Response.Redirect(Constants.PageVolunteerProfile);
+            //}
         }
     }
 }
