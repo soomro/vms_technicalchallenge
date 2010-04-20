@@ -20,10 +20,7 @@
             <p class="rightTxt1">
                 <asp:Label ID="lblPageTitle" runat="server" Text="Page Title"></asp:Label>
             </p>
-            <p >
-               <asp:BulletedList ID="blMessages" runat="server">
-                    </asp:BulletedList>
-            </p>
+           
         </div>
         <br class="spacer"></br>
         <div id="pagePath" class="frame">
@@ -32,6 +29,11 @@
             </asp:SiteMapPath>
         </div>
         <div>
+         <p >
+               <asp:BulletedList ID="blMessages" runat="server" >
+              
+                    </asp:BulletedList>
+            </p>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
          <br class="spacer"></br>

@@ -12,7 +12,7 @@ body{
 div, h1, h2, h3, h4, p, form, label, input, textarea, img, span{
 	margin:0; padding:0;
 }
-
+/*
 ul{
 	margin:0; 
 	padding:0; 
@@ -20,6 +20,7 @@ ul{
 	font-size:0;
 	line-height:0;
 }
+*/
 .spacer{
 	clear:both; 
 	font-size:0; 
@@ -131,3 +132,7 @@ ul{
     font-weight: bold;
      padding: 2px;
 }
+
+ 
+	
+		

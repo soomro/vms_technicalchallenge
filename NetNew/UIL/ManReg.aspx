@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ManReg.aspx.cs" Inherits="ManReg" %>
 
+<%@ MasterType TypeName="SiteMaster" %>
 
 <%@ Register src="UControls/ucEnumSelector.ascx" tagname="ucEnumSelector" tagprefix="uc1" %>
 
