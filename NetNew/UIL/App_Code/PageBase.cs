@@ -47,11 +47,11 @@ public class PageBase : System.Web.UI.Page
     /// <summary>
     /// Persisted to the application
     /// </summary>
-    public static BLL.BEntities.Crisis MainCrisis
+    public static DAL.Crisis MainCrisis
     {
         get
         {
-            return HttpContext.Current.Application[Constants.IdMainCrisis] as BLL.BEntities.Crisis;
+            return HttpContext.Current.Application[Constants.IdMainCrisis] as DAL.Crisis;
         }
         set
         {
