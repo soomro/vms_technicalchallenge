@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 
 public partial class Crisis : PageBase
 {
+    //TODO: commenting this class
+    //TODO: check user inputs
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

@@ -41,8 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BEntities\Crisis.cs" />
-    <Compile Include="BEntities\Manager.cs" />
     <Compile Include="BusUtils.cs" />
     <Compile Include="BWorkflows\CrisisOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +54,9 @@
       <Project>{D69A977D-72EF-43F7-8905-D447E95B5890}</Project>
       <Name>Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BEntities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
