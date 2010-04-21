@@ -39,9 +39,7 @@ namespace DAL
             if (string.IsNullOrEmpty(this.UserName))
                 incorrects.Add("Username can not be empty");
 
-            if (DAL.Container.Instance.Managers.Count(man => man.UserName == this.UserName) > 0)
-                incorrects.Add(string.Format("'{0}' is not available. Please select another username", this.UserName));
-           
+            
             if (string.IsNullOrEmpty(this.Password))
                 incorrects.Add("Password can not be empty");
 

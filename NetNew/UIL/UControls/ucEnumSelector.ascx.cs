@@ -19,7 +19,7 @@ public partial class UC_ucEnumSelector: System.Web.UI.UserControl
             foreach (var name in names)
             {
                 var li = new ListItem(name);
-                if (li.ToString()==DefaultSelection.ToString())
+                if ( ((short) Enum.Parse(EnumType,name)).ToString() ==DefaultSelection.ToString())
                 {
                     li.Selected = true;
                 }

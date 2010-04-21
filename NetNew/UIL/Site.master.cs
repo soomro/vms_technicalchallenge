@@ -7,10 +7,16 @@ using System.Web.UI.WebControls;
 //TODO: add code comments for this file
 public partial class SiteMaster : System.Web.UI.MasterPage
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected override void LoadViewState(object savedState)
     {
+        base.LoadViewState(savedState);
         // this line is required to clear messages from previous postback.
         blMessages.Items.Clear();
+
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        
     }
     public string PageTitle
     {

@@ -59,5 +59,16 @@ public class PageBase : System.Web.UI.Page
         }
     }
 
+    public Manager CurrentUser
+    {
+        get
+        {
+            return Session["currentuser"] as Manager;
+        }
+        set
+        {
+            Session["currentuser"] = value;
+        }
+    }
 }
 

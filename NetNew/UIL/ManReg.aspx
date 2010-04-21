@@ -19,22 +19,15 @@
     <table class="tblForm">
         <tr>
             <td class="style1">
-                First Name:</td>
+                Full Name:</td>
             <td class="value">
-                <asp:TextBox ID="txtFirstName" runat="server" CssClass="tx"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td class="style1">
-                Last Name:</td>
-            <td class="value">
-                <asp:TextBox ID="txtLastName" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:TextBox ID="txtFullName" runat="server" CssClass="tx"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="style1">
                 Birthdate:<br />
-                (yyyy.mm.dd)</td>
+                (yyyy-mm-dd)</td>
             <td class="value">
                 <asp:TextBox ID="txtBirthDate" runat="server" CssClass="tx"></asp:TextBox>
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
