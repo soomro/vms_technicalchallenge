@@ -1999,7 +1999,9 @@ namespace DAL
         /// <param name="expertiseCrisisTypesStr">Initial value of the ExpertiseCrisisTypesStr property.</param>
         /// <param name="dateBirth">Initial value of the DateBirth property.</param>
         /// <param name="genderVal">Initial value of the GenderVal property.</param>
-        public static Manager CreateManager(global::System.Int32 id, global::System.String nameLastName, global::System.String expertiseCrisisTypesStr, global::System.DateTime dateBirth, global::System.Int16 genderVal)
+        /// <param name="userName">Initial value of the UserName property.</param>
+        /// <param name="password">Initial value of the Password property.</param>
+        public static Manager CreateManager(global::System.Int32 id, global::System.String nameLastName, global::System.String expertiseCrisisTypesStr, global::System.DateTime dateBirth, global::System.Int16 genderVal, global::System.String userName, global::System.String password)
         {
             Manager manager = new Manager();
             manager.Id = id;
@@ -2007,6 +2009,8 @@ namespace DAL
             manager.ExpertiseCrisisTypesStr = expertiseCrisisTypesStr;
             manager.DateBirth = dateBirth;
             manager.GenderVal = genderVal;
+            manager.UserName = userName;
+            manager.Password = password;
             return manager;
         }
 
@@ -2159,6 +2163,54 @@ namespace DAL
         private Nullable<global::System.Int32> _Address_Id;
         partial void OnAddress_IdChanging(Nullable<global::System.Int32> value);
         partial void OnAddress_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+            set
+            {
+                OnUserNameChanging(value);
+                ReportPropertyChanging("UserName");
+                _UserName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UserName");
+                OnUserNameChanged();
+            }
+        }
+        private global::System.String _UserName;
+        partial void OnUserNameChanging(global::System.String value);
+        partial void OnUserNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Password
+        {
+            get
+            {
+                return _Password;
+            }
+            set
+            {
+                OnPasswordChanging(value);
+                ReportPropertyChanging("Password");
+                _Password = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Password");
+                OnPasswordChanged();
+            }
+        }
+        private global::System.String _Password;
+        partial void OnPasswordChanging(global::System.String value);
+        partial void OnPasswordChanged();
 
         #endregion
     

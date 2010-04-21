@@ -37,6 +37,10 @@
                 (yyyy.mm.dd)</td>
             <td class="value">
                 <asp:TextBox ID="txtBirthDate" runat="server" CssClass="tx"></asp:TextBox>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
+                    ErrorMessage="*" ControlToValidate="txtBirthDate" 
+                    ValidationExpression="^(19[0-9]{2}|2[0-9]{3})-(0[1-9]|1[012])-([123]0|[012][1-9]|31)$" 
+                    ValidationGroup="1">*</asp:RegularExpressionValidator>
             </td>
         </tr>
         <tr>
@@ -128,7 +132,7 @@
                 &nbsp;</td>
             <td>
                 <asp:Button ID="btnRegister" runat="server" onclick="btnRegister_Click" 
-                    Text="Register" />
+                    Text="Register" ValidationGroup="1" />
                 &nbsp;<asp:Button ID="btnCancel" runat="server" onclick="btnCancel_Click" 
                     style="height: 26px" Text="Cancel" />
             </td>

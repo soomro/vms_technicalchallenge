@@ -157,6 +157,8 @@
           <Property Name="DateBirth" Type="datetime" Nullable="false" />
           <Property Name="GenderVal" Type="smallint" Nullable="false" />
           <Property Name="Address_Id" Type="int" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <EntityType Name="NeedItems">
           <Key>
@@ -586,6 +588,8 @@
           <Property Type="Int16" Name="GenderVal" Nullable="false" />
           <Property Type="Int32" Name="Address_Id" />
           <NavigationProperty Name="Address" Relationship="DataModel.FK_Aso_ManagerAddress" FromRole="Manager" ToRole="Address" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="NeedItem">
           <Key>
@@ -945,6 +949,8 @@
           <EntitySetMapping Name="Managers">
             <EntityTypeMapping TypeName="DataModel.Manager">
               <MappingFragment StoreEntitySet="Managers">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
                 <ScalarProperty Name="GenderVal" ColumnName="GenderVal" />
                 <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />

@@ -27,19 +27,26 @@ namespace DAL
         /// <returns></returns>
         public IList<string> Validate()
         {
+            // this string list will be filled with messages.
             List<string> incorrects = new List<string>();
 
             if (!Utils.Validation.Check(NameLastName, 5, 50,"a-z"," ","1-9"))
-                incorrects.Add("Name/Lastname can be only letters");
+                incorrects.Add("Name/Lastname can only be letters");
 
-            if (this.Address.City == "")
-                incorrects.Add("City can not be empty");
+            if (this.Address.City == "" || this.Address.Country == "")
+                incorrects.Add("Country and city can not be empty");
 
-            
+            if (string.IsNullOrEmpty(this.UserName))
+                incorrects.Add("Username can not be empty");
 
-            // testing
-            incorrects.Add("this test message. name is incorrect");
-            incorrects.Add("this test message. age is incorrect");
+            if (DAL.Container.Instance.Managers.Count(man => man.UserName == this.UserName) > 0)
+                incorrects.Add(string.Format("'{0}' is not available. Please select another username", this.UserName));
+           
+            if (string.IsNullOrEmpty(this.Password))
+                incorrects.Add("Password can not be empty");
+
+            if (this.ExpertiseCrisisTypes.Count==0)
+                incorrects.Add("At least one crisis expertise area is required");
 
             return incorrects;
         }

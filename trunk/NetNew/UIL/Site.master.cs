@@ -9,7 +9,8 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        // this line is required to clear messages from previous postback.
+        blMessages.Items.Clear();
     }
     public string PageTitle
     {
@@ -45,4 +46,6 @@ public partial class SiteMaster : System.Web.UI.MasterPage
         }
 
     }
+
+     
 }
