@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 
 public enum PageActions
-{
+{   
+    None,
     Create,
     Edit,
-    View,
-    None
+    View
+    
 }
 
 public enum MessageTypes
