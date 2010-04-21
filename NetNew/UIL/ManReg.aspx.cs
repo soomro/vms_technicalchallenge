@@ -12,7 +12,7 @@ public partial class ManReg : PageBase
     {
         if (!IsPostBack)
         {
-            Master.Page.Title = "Volunteer registration";
+            Master.PageTitle = "Manager Registration";
             ucEnumSelectorGender.EnumType = typeof(Utils.Enumerations.Gender);
             ucEnumSelectorGender.DefaultSelection = Utils.Enumerations.Gender.Man;
         }
@@ -24,7 +24,6 @@ public partial class ManReg : PageBase
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         // creating manager instance and assigning values into it
-        //BLL.BEntities.Manager Man = new BLL.BEntities.Manager();
             
         
         DAL.Manager Man = new DAL.Manager();
@@ -35,9 +34,16 @@ public partial class ManReg : PageBase
         Man.Address.HouseNumber = Utils.Convert.SafeString(txtHouseNo.Text);
         Man.Address.PostalCode = Utils.Convert.SafeString(txtPostalCode.Text);
         Man.Address.Street = Utils.Convert.SafeString(txtStreet.Text);
-        
-        
-        Man.DateBirth = Convert.ToDateTime(Utils.Convert.SafeString(txtBirthDate.Text));
+
+        DateTime tempDate = new DateTime();
+
+        var succeed = DateTime.TryParse(Utils.Convert.SafeString(txtBirthDate.Text),out tempDate);
+        if (!succeed)
+        {
+            Master.ShowMessage(MessageTypes.Error, "Birth date is not correct");
+            return;
+        }
+        Man.DateBirth = tempDate;
         
         Man.NameLastName = Utils.Convert.SafeString(txtFirstName.Text) + " " + Utils.Convert.SafeString(txtLastName.Text);
         Man.GenderVal = (short)ucEnumSelectorGender.SelectedValue<Utils.Enumerations.Gender>();
@@ -50,6 +56,9 @@ public partial class ManReg : PageBase
             if (et!="") 
                 Man.ExpertiseCrisisTypes.Add(et);
         }
+
+        Man.UserName = Utils.Convert.SafeString(txtUserName.Text);
+        Man.Password = Utils.Convert.SafeString(txtPassword.Text);
 
         var messages = Man.Validate();
         if (messages.Count>0)
