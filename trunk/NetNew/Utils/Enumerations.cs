@@ -65,4 +65,23 @@
         Man,
         Woman
     }
+
+    /// <summary>
+    /// Used to indicate which rules will be applied for validation
+    /// </summary>
+    public enum ValRules
+    {
+        _abc,
+        _123,
+        _SpeChars, // special characters ( symbols and punctiations )
+        _Space,
+        _StartsWith_abc
+    }
+
+    public enum MessageTypes
+    {
+        Info,
+        Error,
+        Warning
+    }
 }
