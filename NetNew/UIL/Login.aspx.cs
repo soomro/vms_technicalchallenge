@@ -41,14 +41,13 @@ public partial class Login : PageBase
         }
         if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Manager.ToString())
         {
-            //Should be implemented after fixing database
-            //var user = DAL.Container.Instance.Managers.SingleOrDefault(row => row.Username == txtUserName.Text);
-            //if (user != null && user.Password == txtPassword.Text)
-            //{
-            //    Session[Constants.IdUserName] = txtUserName.Text;
-            //    Session[Constants.IdUserType] = Utils.Enumerations.UserTypes.Volunteer.ToString();
-            //    Response.Redirect(Constants.PageVolunteerProfile);
-            //}
+            var user = DAL.Container.Instance.Managers.SingleOrDefault(row => row.UserName == txtUserName.Text);
+            if (user != null && user.Password == txtPassword.Text)
+            {
+                Session[Constants.IdUserName] = txtUserName.Text;
+                Session[Constants.IdUserType] = Utils.Enumerations.UserTypes.Manager.ToString();
+                Response.Redirect(Constants.PageManagerProfile);
+            }
         }
     }
 }
