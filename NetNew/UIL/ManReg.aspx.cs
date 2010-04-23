@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Utils.Enumerations;
 
 
 public partial class ManReg : PageBase
@@ -15,6 +16,12 @@ public partial class ManReg : PageBase
             Master.PageTitle = "Manager Registration";
             ucEnumSelectorGender.EnumType = typeof(Utils.Enumerations.Gender);
             ucEnumSelectorGender.DefaultSelection = Utils.Enumerations.Gender.Man;
+
+
+            btnRegister.Visible = true;
+            btnCancel.Visible=true;
+
+            divForm.Enabled =true;
 
             if (PageAction == PageActions.Edit)
             { // initialize page for editing
@@ -65,6 +72,38 @@ public partial class ManReg : PageBase
                 btnRegister.Text = "Register";
 
             }
+            else if (PageAction == PageActions.View)
+            {
+                // each manager can view his own profile. check session for user info
+                if (CurrentUser==null)
+                {
+                    Master.ShowMessage(MessageTypes.Error, "You must login to see your profile");
+                    btnRegister.Enabled = false;
+                    return;
+                }
+
+                txtFullName.Text = CurrentUser.NameLastName;
+                txtBirthDate.Text = CurrentUser.DateBirth.ToString("yyyy-MM-dd");
+                ucEnumSelectorGender.DefaultSelection = CurrentUser.GenderVal;
+                foreach (var item in CurrentUser.ExpertiseCrisisTypes)
+                {
+                    txtExpertiseCrisisTypes.Text += item + Environment.NewLine;
+                }
+                txtCountry.Text = CurrentUser.Address.Country;
+                txtCity.Text= CurrentUser.Address.City;
+                txtStreet.Text = CurrentUser.Address.Street;
+                txtHouseNo.Text = CurrentUser.Address.HouseNumber;
+                txtFlatNo.Text = CurrentUser.Address.FlatNumber;
+                txtPostalCode.Text = CurrentUser.Address.PostalCode;
+                txtHouseNo.Text = CurrentUser.Address.HouseNumber;
+                txtUserName.Text = CurrentUser.UserName;
+                txtUserName.Enabled = false;
+
+                btnRegister.Visible = false;
+                btnCancel.Visible=false;
+                divForm.Enabled =false;
+                
+            }
 
             else
             {
@@ -91,7 +130,8 @@ public partial class ManReg : PageBase
         }
         else
         {
-            throw new Exception("We dont know what to do!");
+            Master.ShowMessage(MessageTypes.Error, "Login first");
+            divForm.Enabled = false;
         }
         Man.Address = new DAL.Address();
         Man.Address.City =  Utils.Convert.SafeString(txtCity.Text);
@@ -129,7 +169,7 @@ public partial class ManReg : PageBase
         if (PageAction == PageActions.Create && // if we are creating new profile and there is already someone with that username
                 DAL.Container.Instance.Managers.Count(man => man.UserName == Man.UserName) > 0)
         {
-            Master.ShowMessage(MessageTypes.Error, string.Format("'{0}' is not available. Please select another username"));
+            Master.ShowMessage(MessageTypes.Error, string.Format("'{0}' is not available. Please select another username", Man.UserName));
             return; // show error message and cancel operation
         }
 
@@ -150,16 +190,20 @@ public partial class ManReg : PageBase
         DAL.Container.Instance.SaveChanges();
 
         CurrentUser = Man;
-        //redirecting to Managers's profile page
-        Master.ShowMessage(MessageTypes.Info, "Successfully saved. Now you are being redirected to your profile page...");
-        RedirectAfter(4, Constants.PageManagerProfile+"?"+Constants.IdAction+"="+PageActions.View);
+        if (PageAction==PageActions.Create)
+        {
+            Master.ShowMessage(MessageTypes.Info, "Successfully saved.");
+            RedirectAfter(4, Constants.PageManagerProfile+"?"+Constants.IdAction+"="+PageActions.Edit);
+            
+        }
+        else if (PageAction==PageActions.Edit)
+        {
+            //redirecting to Managers's profile page
+            Master.ShowMessage(MessageTypes.Info, "Successfully updated."); 
+        }
+        
+        
 
-
-
-
-        #region Edit Action
-
-        #endregion
 
     }
 }

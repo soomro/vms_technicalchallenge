@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Artem.Web.UI.Controls;
 using System.Collections.ObjectModel;
+using Utils.Enumerations;
 
 public partial class Crisis : PageBase
 {

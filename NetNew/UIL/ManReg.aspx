@@ -16,7 +16,8 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-    <table class="tblForm">
+  <asp:Panel runat="server" id="divForm"> 
+   <table class="tblForm" >
         <tr>
             <td class="style1">
                 Full Name:</td>
@@ -130,6 +131,7 @@
                     style="height: 26px" Text="Cancel" />
             </td>
         </tr>
-    </table>
+    </table> 
+    </asp:Panel>
 </asp:Content>
 

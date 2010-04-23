@@ -12,16 +12,11 @@ public enum PageActions
     
 }
 
-public enum MessageTypes
-{
-    Info,
-    Error,
-    Warning
-}
+
 
 public enum MapModes
 {
     DefineCrisis=1,
     DefineIncident=2,
     ShowCrisis=3
-}
+} 
