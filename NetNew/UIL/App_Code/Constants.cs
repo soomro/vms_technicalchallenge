@@ -17,6 +17,6 @@ public class Constants
     //Constants for pages will begin with "Page" in identifier
     public const string PageCrisisBoard = "CrisisBoard.aspx";
     public const string PageCrisis = "Crisis.aspx";
-    public const string PageVolunteerProfile = "VProfile.aspx";
+    public const string PageVolunteerProfile = "VolReg.aspx";
     public static string PageManagerProfile = "Manreg.aspx";
 }
