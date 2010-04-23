@@ -18,5 +18,5 @@ public class Constants
     public const string PageCrisisBoard = "CrisisBoard.aspx";
     public const string PageCrisis = "Crisis.aspx";
     public const string PageVolunteerProfile = "VProfile.aspx";
-    public static string PageManagerProfile = "Manreg.aspx";
+    public static string PageManagerProfile = "ManProfile.aspx";
 }
