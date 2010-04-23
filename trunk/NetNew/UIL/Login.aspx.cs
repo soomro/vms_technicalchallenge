@@ -19,12 +19,12 @@ public partial class Login : PageBase
         
         if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Volunteer.ToString())
         {
-            Response.Redirect("~/VolReg.aspx");
+            Response.Redirect("~/"+Constants.PageVolunteerProfile+"?Action=Create");
 
         }
         else if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Manager.ToString())
         {
-            Response.Redirect("~/ManReg.aspx");
+            Response.Redirect("~/"+Constants.PageVolunteerProfile+"?Action=Create");
         }
     }
     protected void btnLogin_Click(object sender, EventArgs e)
