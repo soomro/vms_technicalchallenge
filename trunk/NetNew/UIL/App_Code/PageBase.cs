@@ -70,5 +70,16 @@ public class PageBase : System.Web.UI.Page
             Session["currentuser"] = value;
         }
     }
+    public Volunteer CurrentVolunteer
+    {
+        get
+        {
+            return Session["currentuser"] as Manager;
+        }
+        set
+        {
+            Session["currentuser"] = value;
+        }
+    }
 }
 
