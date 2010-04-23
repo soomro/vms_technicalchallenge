@@ -74,11 +74,11 @@ public class PageBase : System.Web.UI.Page
     {
         get
         {
-            return Session["currentuser"] as Manager;
+            return Session["CurrentVolunteer"] as Volunteer;
         }
         set
         {
-            Session["currentuser"] = value;
+            Session["CurrentVolunteer"] = value;
         }
     }
 }
