@@ -36,7 +36,7 @@ public partial class Incident : PageBase
 
             ucSeverity.EnumType = typeof(Severities);
             NeedList = null; // clear if it contains any.
-
+            NeedList.Add(new NeedItem());
             BindData();
         }
         
@@ -157,7 +157,11 @@ public partial class Incident : PageBase
         inc.Crisis = MainCrisis;
 
         inc.IncidentType = ucIncidentType.SelectedValue<IncidentTypes>();
-
+        if (UCIncidentMap1.Incident==null)
+        {
+            Master.ShowMessage(MessageTypes.Error,"Define incident location on the map.");
+            return;
+        }
         inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Latitude+"");
         inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Longitude+"");
         foreach (var ni in NeedList)

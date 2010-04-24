@@ -8,12 +8,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <table width="100%" border="0" style="border: 1px dotted #FF0000"   >
+    <table width="100%" border="0"  >
         <tr>
             <td width="300px" valign="top">
-                <table border="0" style="border: 2px dotted #0000FF" width="100%"  >
+                <table border="0" 
                     <tr>
-                        <td width="30px">
+                        <td width="30px" class="formField">
                             Incident Type
                         </td>
                         <td>
@@ -21,7 +21,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="formField">
                             Severity
                         </td>
                         <td>
@@ -30,20 +30,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="formField">
                             Short Description
                         </td>
                         <td>
-                            <asp:TextBox runat="server" ID="txShortDesc" Height="40px" Width="100%"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="txShortDesc" Height="40px" Width="100%" 
+                                TextMode="MultiLine"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="formField">
                             Need List
                         </td>
                         <td align="right">
                            <asp:GridView ID="gvNeedList" runat="server" AutoGenerateColumns="False" 
-                                BorderColor="Red" BorderWidth="1px" Width="100%" 
+                                 BorderWidth="0px" Width="100%" 
                                 EmptyDataText="No need item is defined" 
                                 onrowdatabound="gvNeedList_RowDataBound">
                                 <Columns>
@@ -101,15 +102,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="formField">
                             Explanation</td>
                         <td valign="top">
                             <asp:TextBox runat="server" ID="txExplanation" Height="61px" Width="100%" 
-                                Rows="5"></asp:TextBox>
+                                Rows="5" TextMode="MultiLine"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="formField">
                             Short Address</td>
                         <td valign="top">
                             <asp:TextBox ID="txShortAddress" runat="server"></asp:TextBox>
