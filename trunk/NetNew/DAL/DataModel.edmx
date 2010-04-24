@@ -136,7 +136,6 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ShortDescription" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="LocationTypeVal" Type="smallint" Nullable="false" />
           <Property Name="LocationCoordinatesStr" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Explanation" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
@@ -561,7 +560,6 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="ShortDescription" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int16" Name="LocationTypeVal" Nullable="false" />
           <Property Type="String" Name="LocationCoordinatesStr" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Explanation" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" />
@@ -940,7 +938,6 @@
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Explanation" ColumnName="Explanation" />
                 <ScalarProperty Name="LocationCoordinatesStr" ColumnName="LocationCoordinatesStr" />
-                <ScalarProperty Name="LocationTypeVal" ColumnName="LocationTypeVal" />
                 <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1070,7 +1067,7 @@
         <EntityTypeShape EntityType="DataModel.Alert" Width="1.5" PointX="6" PointY="0.75" Height="2.5571907552083388" />
         <EntityTypeShape EntityType="DataModel.Crisis" Width="1.5" PointX="1.5" PointY="4.5" Height="3.1340950520833388" />
         <EntityTypeShape EntityType="DataModel.IncidentReport" Width="1.5" PointX="5.25" PointY="11.5" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="DataModel.Incident" Width="1.5" PointX="3.75" PointY="2.5" Height="4.2879036458333388" />
+        <EntityTypeShape EntityType="DataModel.Incident" Width="1.5" PointX="3.75" PointY="2.5" Height="4.0956022135416656" />
         <EntityTypeShape EntityType="DataModel.Manager" Width="1.5" PointX="3" PointY="8.375" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="DataModel.NeedItem" Width="1.5" PointX="10.5" PointY="12.875" Height="3.1340950520833388" />
         <EntityTypeShape EntityType="DataModel.ProgressReport" Width="1.5" PointX="5.25" PointY="16" Height="2.7494921875000031" />
@@ -1097,8 +1094,8 @@
           <ConnectorPoint PointX="6" PointY="2.9035953776041694" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_CrisisIncident" >
-          <ConnectorPoint PointX="3" PointY="5.6439518229166694" />
-          <ConnectorPoint PointX="3.75" PointY="5.6439518229166694" />
+          <ConnectorPoint PointX="3" PointY="5.5478011067708328" />
+          <ConnectorPoint PointX="3.75" PointY="5.5478011067708328" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentReportVolunteer" >
           <ConnectorPoint PointX="4.5" PointY="13.095896809895834" />
@@ -1107,18 +1104,18 @@
           <ConnectorPoint PointX="5.25" PointY="13.095896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentNeedItem" >
-          <ConnectorPoint PointX="5.25" PointY="3.7160953776041694" />
-          <ConnectorPoint PointX="11.25" PointY="3.7160953776041694" />
-          <ConnectorPoint PointX="11.25" PointY="12.875" />
+          <ConnectorPoint PointX="5.25" PointY="3.716095377604169" />
+          <ConnectorPoint PointX="11.45312625" PointY="3.716095377604169" />
+          <ConnectorPoint PointX="11.45312625" PointY="12.875" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentProgressReport" >
-          <ConnectorPoint PointX="4.875" PointY="6.7879036458333388" />
+          <ConnectorPoint PointX="4.875" PointY="6.5956022135416656" />
           <ConnectorPoint PointX="4.875" PointY="17.905701497395835" />
           <ConnectorPoint PointX="5.25" PointY="17.905701497395835" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentRequest" >
-          <ConnectorPoint PointX="5.25" PointY="5.4035953776041623" />
-          <ConnectorPoint PointX="6" PointY="5.4035953776041623" />
+          <ConnectorPoint PointX="5.25" PointY="5.3603011067708319" />
+          <ConnectorPoint PointX="6" PointY="5.3603011067708319" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_RequestNeedItem" >
           <ConnectorPoint PointX="7.5" PointY="5.4035953776041623" />

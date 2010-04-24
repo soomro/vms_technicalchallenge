@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Utils.Enumerations;
 using DAL;
 
-public partial class Incident : System.Web.UI.Page
+public partial class Incident : PageBase
 {
     public List<NeedItem> NeedList
     {
@@ -44,7 +44,12 @@ public partial class Incident : System.Web.UI.Page
         
 
     }
+    protected override void OnPreLoad(EventArgs e)
+    {
+        PersistNeedList();
 
+        base.OnPreLoad(e);
+    }
     private void BindData()
     {
         gvNeedList.DataSource = NeedList;
@@ -56,7 +61,7 @@ public partial class Incident : System.Web.UI.Page
     protected void btAddNew_Click(object sender, EventArgs e)
     {
         NeedList.Add(new NeedItem());
-        PersistNeedList();
+        //PersistNeedList();
         BindData();
     }
 
@@ -81,8 +86,7 @@ public partial class Incident : System.Web.UI.Page
             NeedList[count].ItemAmount = Utils.Convert.ToDouble(txAmount.Text, 0);
             NeedList[count].SuppliedAmount =  Utils.Convert.ToDouble(txCollected.Text, 0);
             NeedList[count].ItemType = txItemType.Text;
-    
-            Response.Write(NeedList[count].ItemType+"-");
+     
             count++;
         }
     }
@@ -132,7 +136,7 @@ public partial class Incident : System.Web.UI.Page
     
     protected void ibtRemove_Command(object sender, CommandEventArgs e)
     {
-        PersistNeedList();
+        //PersistNeedList();
 
         int order = 0;
         if (!Int32.TryParse(e.CommandArgument.ToString(), out order))
@@ -143,6 +147,33 @@ public partial class Incident : System.Web.UI.Page
             NeedList.RemoveAt(order);
         }
         BindData();
+
+    }
+    protected void btSave_Click(object sender, EventArgs e)
+    {
+        //PersistNeedList();
+
+        DAL.Incident inc = new DAL.Incident();
+        inc.Crisis = MainCrisis;
+
+        inc.IncidentType = ucIncidentType.SelectedValue<IncidentTypes>();
+
+        inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Latitude+"");
+        inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Longitude+"");
+        foreach (var ni in NeedList)
+        {
+            inc.NeedItems.Add(ni);
+        }
+        inc.DateCreated = DateTime.Now;
+        inc.ShortDescription = txShortDesc.Text;
+        inc.Explanation = txExplanation.Text;
+        inc.ShortAddress = txShortAddress.Text;
+
+        Container.Instance.Incidents.AddObject(inc);
+        Container.Instance.SaveChanges();
+
+        Master.ShowMessage(MessageTypes.Info, "Successfully saved. Now navigating to crisis board");
+        RedirectAfter(3, Constants.PageCrisisBoard);
 
     }
 }

@@ -19,11 +19,11 @@ namespace DAL
         {
             get
             {
-                if (System.Web.HttpContext.Current.Items[Utils.Constants.GlobalIds.Container] == null)
+                if (System.Web.HttpContext.Current.Session[Utils.Constants.GlobalIds.Container] == null)
                 {
-                    System.Web.HttpContext.Current.Items[Utils.Constants.GlobalIds.Container] = new ApolloEntities();
+                    System.Web.HttpContext.Current.Session[Utils.Constants.GlobalIds.Container] = new ApolloEntities();
                 }
-                return (ApolloEntities)System.Web.HttpContext.Current.Items[Utils.Constants.GlobalIds.Container];
+                return (ApolloEntities)System.Web.HttpContext.Current.Session[Utils.Constants.GlobalIds.Container];
             }
         }
     }
