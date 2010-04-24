@@ -64,10 +64,12 @@
                 </td>
             </tr>
         </table>
-        <uc2:UCCreateCrisisMap ID="UCCreateCrisisMap1" runat="server" Heigth="300" 
-                        Width="300" />
-    <div style="float: left">
+        
+    <div>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate><uc2:UCCreateCrisisMap ID="UCCreateCrisisMap1" runat="server" Heigth="300" 
+                        Width="300" /></ContentTemplate>
+        
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="ddlRadious" EventName="SelectedIndexChanged" />
             </Triggers>
