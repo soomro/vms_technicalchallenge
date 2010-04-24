@@ -41,23 +41,30 @@
                         <td>
                             Need List
                         </td>
-                        <td>
+                        <td align="right">
                            <asp:GridView ID="gvNeedList" runat="server" AutoGenerateColumns="False" 
                                 BorderColor="Red" BorderWidth="1px" Width="100%" 
                                 EmptyDataText="No need item is defined" 
                                 onrowdatabound="gvNeedList_RowDataBound">
                                 <Columns>
                                     <asp:TemplateField HeaderText="Type">
-                                        <ItemTemplate>
-                                        
-                                            <uc2:ucEnumSelector ID="ucType" runat="server" SelectionType="DropDownList" />
+                                        <ItemTemplate>                                        
+                                            <asp:TextBox ID="txItemType" runat="server" Width="50px" AutoComplete="Off"></asp:TextBox>
+                                            <asp:AutoCompleteExtender ID="txItemType_AutoCompleteExtender" runat="server" 
+                                                CompletionInterval="400" DelimiterCharacters="" EnableCaching="False" 
+                                                Enabled="True" FirstRowSelected="True" MinimumPrefixLength="2" 
+                                                ServiceMethod="GetCompletionList" ServicePath="" TargetControlID="txItemType" 
+                                                UseContextKey="True">
+                                            </asp:AutoCompleteExtender>
                                         </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" />
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Unit">
                                         <ItemTemplate>
                                             <uc2:ucEnumSelector ID="ucUnit" runat="server" 
                                                 SelectionType="DropDownList" />
                                         </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" />
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Amt.">
                                         <ItemTemplate>
@@ -67,6 +74,7 @@
                                                 ValidChars="1234567890.">
                                             </asp:FilteredTextBoxExtender>
                                         </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" />
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Col.">
                                         <ItemTemplate>
@@ -76,11 +84,18 @@
                                                 ValidChars="0987654321.">
                                             </asp:FilteredTextBoxExtender>
                                         </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:ImageButton ID="ibtRemove" runat="server" AlternateText="Remove" 
+                                                ImageUrl="~/Images/remove.jpg" oncommand="ibtRemove_Command" ToolTip="Remove" 
+                                                Width="15px" />
+                                        </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
                                 <HeaderStyle Font-Bold="False" Font-Size="9pt" Font-Underline="True" />
                             </asp:GridView>
-                            <br />
                             <asp:Button ID="btAddNew" runat="server" Text="Add New" 
                                 onclick="btAddNew_Click" />
                         </td>
