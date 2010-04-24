@@ -1224,7 +1224,6 @@ namespace DAL
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="shortDescription">Initial value of the ShortDescription property.</param>
-        /// <param name="locationTypeVal">Initial value of the LocationTypeVal property.</param>
         /// <param name="locationCoordinatesStr">Initial value of the LocationCoordinatesStr property.</param>
         /// <param name="explanation">Initial value of the Explanation property.</param>
         /// <param name="dateCreated">Initial value of the DateCreated property.</param>
@@ -1233,12 +1232,11 @@ namespace DAL
         /// <param name="incidentStatusVal">Initial value of the IncidentStatusVal property.</param>
         /// <param name="shortAddress">Initial value of the ShortAddress property.</param>
         /// <param name="crisisId">Initial value of the CrisisId property.</param>
-        public static Incident CreateIncident(global::System.Int32 id, global::System.String shortDescription, global::System.Int16 locationTypeVal, global::System.String locationCoordinatesStr, global::System.String explanation, global::System.DateTime dateCreated, global::System.Int16 severityVal, global::System.Int16 incidentTypeVal, global::System.Int16 incidentStatusVal, global::System.String shortAddress, global::System.Int32 crisisId)
+        public static Incident CreateIncident(global::System.Int32 id, global::System.String shortDescription, global::System.String locationCoordinatesStr, global::System.String explanation, global::System.DateTime dateCreated, global::System.Int16 severityVal, global::System.Int16 incidentTypeVal, global::System.Int16 incidentStatusVal, global::System.String shortAddress, global::System.Int32 crisisId)
         {
             Incident incident = new Incident();
             incident.Id = id;
             incident.ShortDescription = shortDescription;
-            incident.LocationTypeVal = locationTypeVal;
             incident.LocationCoordinatesStr = locationCoordinatesStr;
             incident.Explanation = explanation;
             incident.DateCreated = dateCreated;
@@ -1303,30 +1301,6 @@ namespace DAL
         private global::System.String _ShortDescription;
         partial void OnShortDescriptionChanging(global::System.String value);
         partial void OnShortDescriptionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 LocationTypeVal
-        {
-            get
-            {
-                return _LocationTypeVal;
-            }
-            set
-            {
-                OnLocationTypeValChanging(value);
-                ReportPropertyChanging("LocationTypeVal");
-                _LocationTypeVal = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LocationTypeVal");
-                OnLocationTypeValChanged();
-            }
-        }
-        private global::System.Int16 _LocationTypeVal;
-        partial void OnLocationTypeValChanging(global::System.Int16 value);
-        partial void OnLocationTypeValChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

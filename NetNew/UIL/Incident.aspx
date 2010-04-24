@@ -10,7 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <table width="100%" border="0" style="border: 1px dotted #FF0000"   >
         <tr>
-            <td width="300px">
+            <td width="300px" valign="top">
                 <table border="0" style="border: 2px dotted #0000FF" width="100%"  >
                     <tr>
                         <td width="30px">
@@ -31,10 +31,10 @@
                     </tr>
                     <tr>
                         <td>
-                            Information
+                            Short Description
                         </td>
                         <td>
-                            <asp:TextBox runat="server" ID="txInfo" Height="40px" Width="100%"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="txShortDesc" Height="40px" Width="100%"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -102,9 +102,24 @@
                     </tr>
                     <tr>
                         <td>
-                            &nbsp;</td>
+                            Explanation</td>
+                        <td valign="top">
+                            <asp:TextBox runat="server" ID="txExplanation" Height="61px" Width="100%" 
+                                Rows="5"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
-                            <asp:Button ID="Button1" runat="server" Text="Button" />
+                            Short Address</td>
+                        <td valign="top">
+                            <asp:TextBox ID="txShortAddress" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;</td>
+                        <td valign="top">
+                            <asp:Button ID="btSave" runat="server" Text="Save" onclick="btSave_Click" />
                         </td>
                     </tr>
         </table> </td>

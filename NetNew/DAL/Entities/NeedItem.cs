@@ -11,7 +11,7 @@ namespace DAL
         {
             get
             {
-                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.MetricTypes>(this.MetricTypeVal, Utils.Enumerations.MetricTypes.None);
+                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.MetricTypes>(this.MetricTypeVal, Utils.Enumerations.MetricTypes.Item);
             }
             set
             {

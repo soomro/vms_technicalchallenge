@@ -51,6 +51,7 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entities\Crisis.cs" />
+    <Compile Include="Entities\Incident.cs" />
     <Compile Include="Entities\Manager.cs" />
     <Compile Include="Entities\NeedItem.cs" />
     <Compile Include="Entities\Volunteer.cs" />
