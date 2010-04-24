@@ -9,7 +9,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
         <table class="tblForm">
             <tr>
-                <td class="label">
+                <td class="formField">
                     Crisis Name
                 </td>
                 <td class="value">
@@ -17,7 +17,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="label">
+                <td class="formField">
                     Explanation
                 </td>
                 <td class="value">
@@ -26,7 +26,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="label">
+                <td class="formField">
                     Crisis Type
                 </td>
                 <td class="value">
@@ -34,7 +34,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="label">
+                <td class="formField">
                     Radious(km)
                 </td>
                 <td class="value">
