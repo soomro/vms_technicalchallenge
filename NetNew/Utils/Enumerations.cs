@@ -39,7 +39,11 @@
     }
     public enum MetricTypes:short
     {
-        Box 
+        None=0,
+        Item=1,
+        Liter=2,
+        Kg=3,
+        Box=4 
     }
     public enum RequestResponseStatuses
     {
@@ -48,13 +52,14 @@
         Timeout ,
         Caceled 
     }
-    public enum Severities
+    public enum Severities:short
     {
-        Critical ,
-        High ,
-        Medium ,
-        Low ,
+        Critical =1,
+        High =2,
+        Medium =3,
+        Low =4,
     }
+   
     public enum UserTypes:short
     {
         Volunteer,
@@ -84,4 +89,6 @@
         Error,
         Warning
     }
+
+    
 }

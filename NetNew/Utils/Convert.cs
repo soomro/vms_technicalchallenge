@@ -22,6 +22,22 @@ namespace Utils
             return rawString.Trim();
         }
 
+        /// <summary>
+        /// <para>Converts the given string to double. </para>
+        /// <para>Doesnt throw exception if the parameter is not a double. Instead returns defaultVal.</para>
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defaultVal"></param>
+        /// <returns></returns>
+        public static double ToDouble(string value,double defaultVal)
+        {
+            double tmp = 0;
+            if (!double.TryParse(SafeString(value), out tmp))
+                tmp = defaultVal;
+
+            return tmp;
+
+        }
 
     }
 }
