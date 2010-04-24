@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="Entities\Crisis.cs" />
     <Compile Include="Entities\Manager.cs" />
+    <Compile Include="Entities\NeedItem.cs" />
     <Compile Include="Entities\Volunteer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
