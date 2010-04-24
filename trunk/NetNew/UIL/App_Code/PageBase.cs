@@ -51,7 +51,13 @@ public class PageBase : System.Web.UI.Page
     {
         get
         {
-            return HttpContext.Current.Application[Constants.IdMainCrisis] as DAL.Crisis;
+            var c = HttpContext.Current.Application[Constants.IdMainCrisis] as DAL.Crisis;
+#if DEBUG
+            if (c==null)
+                c =   Container.Instance.Crises.ToArray()[0];
+#endif
+            return c;
+ 
         }
         set
         {
