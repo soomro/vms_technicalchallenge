@@ -38,8 +38,7 @@
         Terrain ,
     }
     public enum MetricTypes:short
-    {
-        None=0,
+    { 
         Item=1,
         Liter=2,
         Kg=3,
