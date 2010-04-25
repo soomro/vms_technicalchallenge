@@ -20,7 +20,7 @@ public partial class VolReg : PageBase
             if (PageAction == PageActions.Edit)
             {
                 //for test
-                CurrentVolunteer = DAL.Container.Instance.Volunteers.SingleOrDefault(row => row.NameLastName == "text");
+                CurrentVolunteer = DAL.Container.Instance.Volunteers.SingleOrDefault(row => row.NameLastName == "text22");
                 if (CurrentVolunteer == null)
                     Response.Redirect("~/" + Constants.PageVolunteerProfile + "?Action=Create");
                 else
@@ -40,7 +40,7 @@ public partial class VolReg : PageBase
 
     private void FillUiWithVolunteer(DAL.Volunteer vol)
     {
-        txtBirthDate.Text = vol.BirthDate.Value.ToShortDateString();
+        txtBirthDate.Text = vol.BirthDate.Value.ToString("yyyy-MM-dd");
         txtCity.Text = vol.Address.City;
         txtCountry.Text = vol.Address.Country;
         txtEmailAddress.Text = vol.EmailAddr;
@@ -69,12 +69,23 @@ public partial class VolReg : PageBase
             var q = DAL.Container.Instance.Volunteers.SingleOrDefault(row => row.Username == txtUserName.Text);
             if (q != null)
             {
-                Master.ShowMessage(MessageTypes.Error, "There is already such a user in the system. Change the username.");
+                Master.ShowMessage(MessageTypes.Error, "Another user with this username already exists in the system.");
                 return;
             }
+            //Check for validity of date entered
+            DateTime tempDate = new DateTime();
+            var succeed = DateTime.TryParse(Utils.Convert.SafeString(txtBirthDate.Text), out tempDate);
+            if (!succeed)
+            {
+                Master.ShowMessage(MessageTypes.Error, "Birth date is not correct");
+                return;
+            }
+
             //make object and fill according to user inputs
             DAL.Volunteer vol = new DAL.Volunteer();
-            
+            if (!FillVolunteer(vol))
+                return;
+
             //Validation of inputs
             var messages = vol.Validate(); // check the fields and return error messages if any
 
@@ -83,18 +94,23 @@ public partial class VolReg : PageBase
                 Master.ShowMessage(MessageTypes.Error, messages.ToArray<string>()); // show them
                 return; // cancel operation
             }
-
-            FillVolunteer(vol);
             //save the object in db
             DAL.Container.Instance.Volunteers.AddObject(vol);
             DAL.Container.Instance.SaveChanges();
             this.CurrentVolunteer = vol;
             //show message of successfull completion
-            Master.ShowMessage(MessageTypes.Info, "Volunteer registered successfully");
+            Master.ShowMessage(MessageTypes.Info, "Volunteer registered successfully.");
+            this.RedirectAfter(4, Constants.PageVolunteerProfile+"?Action=Edit");
         }
         else if (PageAction == PageActions.Edit)
         {
-
+            //make object and fill according to user inputs
+            DAL.Volunteer vol = new DAL.Volunteer();
+            if (!FillVolunteer(vol))
+                return;
+            //Make changes presistent
+            DAL.Container.Instance.SaveChanges();
+            Master.ShowMessage(MessageTypes.Info, "Changes sumbited to system successfully.");
         }
     }
 
@@ -102,7 +118,7 @@ public partial class VolReg : PageBase
     /// Fills a volunteer object accoridng to user inputs
     /// </summary>
     /// <param name="vol">volunteer instance</param>
-    private void FillVolunteer(DAL.Volunteer vol)
+    private bool FillVolunteer(DAL.Volunteer vol)
     {
         // creating address instance and assigning values into 
         vol.Address = new DAL.Address();
@@ -124,10 +140,22 @@ public partial class VolReg : PageBase
         vol.EmailAddr = txtEmailAddress.Text;
         vol.Username = txtUserName.Text;
         vol.Password = txtPassword.Text;
-        vol.Weight = Convert.ToDecimal(txtWeight.Text);
-        vol.Height = Convert.ToDecimal(txtHeight.Text);
+        decimal tmpDecimal;
+        if (!decimal.TryParse(txtWeight.Text, out tmpDecimal))
+        {
+            Master.ShowMessage(MessageTypes.Error, "Weight should be a floating point number");
+            return false;
+        }
+        vol.Weight = tmpDecimal;
+        if (!decimal.TryParse(txtHeight.Text, out tmpDecimal))
+        {
+            Master.ShowMessage(MessageTypes.Error, "Height should be a floating point number");
+            return false;
+        }
+        vol.Height = tmpDecimal;
         vol.HealthProb = txtHealthProblem.Text;
         vol.Phone = txtPhone.Text;
+        return true;
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {

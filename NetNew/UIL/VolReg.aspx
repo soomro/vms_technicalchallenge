@@ -17,8 +17,13 @@
         </tr>
         <tr>
             <td class="formField">
-                Birth Date:<br />
-                (yyyy/mm/dd)</td>
+                Birth Date:<asp:RegularExpressionValidator 
+                    ID="RegularExpressionValidator1" runat="server" 
+                    ErrorMessage="*" ControlToValidate="txtBirthDate" 
+                    ValidationExpression="^(19[0-9]{2}|2[0-9]{3})-(0[1-9]|1[012])-([123]0|[012][1-9]|31)$" 
+                    ValidationGroup="1">*</asp:RegularExpressionValidator>
+                <br />
+                (yyyy-mm-dd)</td>
             <td class="value">
                 <asp:TextBox ID="txtBirthDate" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
@@ -55,15 +60,15 @@
                 Health problems:</td>
             <td class="value">
                 <asp:TextBox ID="txtHealthProblem" runat="server" CssClass="tx" Rows="4" 
-                    TextMode="MultiLine"></asp:TextBox>
+                    TextMode="MultiLine" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="formField">
-                Special training:</td>
+                Educations &amp; Training:</td>
             <td class="value">
                 <asp:TextBox ID="txtSpecialTraining" runat="server" CssClass="tx" Rows="4" 
-                    TextMode="MultiLine"></asp:TextBox>
+                    TextMode="MultiLine" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -71,7 +76,7 @@
                 Occupation:</td>
             <td class="value">
                 <asp:TextBox ID="txtOccupation" runat="server" CssClass="tx" Rows="4" 
-                    TextMode="MultiLine"></asp:TextBox>
+                    TextMode="MultiLine" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -149,9 +154,9 @@
                 &nbsp;</td>
             <td>
                 <asp:Button ID="btnRegister" runat="server" onclick="btnRegister_Click" 
-                    Text="Register" />
+                    Text="Register" CssClass="buttons" />
                 &nbsp;<asp:Button ID="btnCancel" runat="server" onclick="btnCancel_Click" 
-                    style="height: 26px" Text="Cancel" />
+                     Text="Cancel" CssClass="buttons" />
             </td>
         </tr>
     </table>
