@@ -89,10 +89,11 @@ div, h1, h2, h3, h4, p, form, label, input, textarea, img, span{
 	height:102px;
 	position:relative;
 }
-#footer ul{
-	position:absolute;
-	left:219px;	
-	list-style-type:none;
+#footer ul
+{
+    position:absolute;
+	left:305px;	
+    list-style-type: none;
 }
 #footer ul li{
 	float:left;
