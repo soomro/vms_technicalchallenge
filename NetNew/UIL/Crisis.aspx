@@ -7,13 +7,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-        <table class="tblForm">
+       <table width="100%">
+       <tr>
+       <td style="width: 300px;" valign="top"> 
+       <table class="tblForm" width="100%">
             <tr>
                 <td class="formField">
                     Crisis Name
                 </td>
                 <td class="value">
-                    <asp:TextBox ID="txtCrisisName" runat="server" CssClass="tx" Width="138px"></asp:TextBox>
+                    <asp:TextBox ID="txtCrisisName" runat="server" CssClass="tx" Width="98%"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -21,7 +24,7 @@
                     Explanation
                 </td>
                 <td class="value">
-                    <asp:TextBox ID="txtExplanation" runat="server" CssClass="tx" TextMode="MultiLine"
+                    <asp:TextBox ID="txtExplanation" runat="server" CssClass="tx" TextMode="MultiLine" Width="98%"
                         Rows="4"></asp:TextBox>
                 </td>
             </tr>
@@ -63,16 +66,17 @@
                         Text="Save" CssClass="buttons" />
                 </td>
             </tr>
-        </table>
-        
-    <div>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate><uc2:UCCreateCrisisMap ID="UCCreateCrisisMap1" runat="server" Heigth="300" 
+        </table></td>
+       <td><asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <uc2:UCCreateCrisisMap ID="UCCreateCrisisMap1" runat="server" Heigth="300px" 
                         Width="300" /></ContentTemplate>
         
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="ddlRadious" EventName="SelectedIndexChanged" />
             </Triggers>
-        </asp:UpdatePanel>
-    </div>
+        </asp:UpdatePanel></td>
+       </tr>
+       </table>
+       
 </asp:Content>

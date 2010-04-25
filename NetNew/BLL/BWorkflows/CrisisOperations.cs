@@ -40,6 +40,7 @@ namespace BLL.BWorkflows
             //Setting new values
             c.Name = Utils.Convert.SafeString(name);
             c.Explanation = Utils.Convert.SafeString(explanation);
+            c.LocationCoordinates.Clear();
             if (coords != null)
             {                
                 foreach (var coord in coords)

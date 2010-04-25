@@ -21,7 +21,7 @@ public partial class Crisis : PageBase
             ucEnumSelector1.EnumType = typeof(Utils.Enumerations.CrisisTypes);
             ucEnumSelector1.DefaultSelection = Utils.Enumerations.CrisisTypes.Earthquake;
             UCCreateCrisisMap1.Width = new Unit("650px");
-            UCCreateCrisisMap1.Heigth = new Unit("600px");
+            UCCreateCrisisMap1.Heigth = new Unit("550px");
 
             if (PageAction == PageActions.Edit)
             {
