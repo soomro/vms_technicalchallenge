@@ -75,6 +75,7 @@
     /// </summary>
     public enum ValRules
     {
+        //Mohsen: Not agree with underscore in the begining. to be discussed
         _abc,
         _123,
         _SpeChars, // special characters ( symbols and punctiations )
