@@ -21,6 +21,8 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
             GoogleMap1.Polygons.Add(CrisisArea);
             GoogleMap1.Latitude = CrisisArea.Latitude;
             GoogleMap1.Longitude = CrisisArea.Longitude;
+            Label1.Text = string.Format("lat:{0}, lon:{1}", CrisisArea.Latitude, CrisisArea.Longitude);
+
         }
         base.OnPreRender(e);
     }
@@ -30,11 +32,11 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
     {
         get
         {
-            return Session["crisisarea"] as GoogleCirclePolygon;
+            return Session[Constants.IdCrisisArea] as GoogleCirclePolygon;
         }
         set
         {
-            Session["crisisarea"] = value;
+            Session[Constants.IdCrisisArea] = value;
         }
     } 
 
@@ -110,8 +112,7 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
      
     protected void GoogleMap1_Click(object sender, Artem.Web.UI.Controls.GoogleLocationEventArgs e)
     {
-        Label1.Text = string.Format("lat:{0}, lon:{1}", e.Location.Latitude, e.Location.Longitude);
-
+        
         if (e.Location.Longitude==0 || e.Location.Latitude==0)
         {
             return;
