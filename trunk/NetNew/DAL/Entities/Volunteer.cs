@@ -50,8 +50,8 @@ namespace DAL
             if (!Utils.Validation.Check(this.Password, 3, 16))
                 incorrects.Add("Password should be min. 3, max. 16 long");
 
-            if (!Utils.Validation.Check(EmailAddr, 5, 50, ValRules._abc))
-                incorrects.Add("Email feild can only be 5 to 50 long letters");
+            if (!Utils.Validation.Check(EmailAddr, 5, 50, ValRules._abc,ValRules._SpeChars))
+                incorrects.Add("Email feild can only be 5 to 50 long letters and special chars");
 
             if ((Weight.GetType() != System.Type.GetType("System.Decimal")))
                 incorrects.Add("Enter correct weight");
@@ -62,7 +62,7 @@ namespace DAL
             if (!Utils.Validation.Check(HealthProb, 5, 50, ValRules._abc))
                 incorrects.Add("'Health Problems' feild can only be 5 to 50 long letters");
 
-            if (!Utils.Validation.Check(Phone, 7, 15, ValRules._abc))
+            if (!Utils.Validation.Check(Phone, 7, 15, ValRules._123))
                 incorrects.Add("'phone' feild can only be 7 to 15 long");
 
 
