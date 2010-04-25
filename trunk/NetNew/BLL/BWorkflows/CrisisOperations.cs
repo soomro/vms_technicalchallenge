@@ -41,8 +41,11 @@ namespace BLL.BWorkflows
             c.Name = Utils.Convert.SafeString(name);
             c.Explanation = Utils.Convert.SafeString(explanation);
             if (coords != null)
-            {
-                c.LocationCoordinatesStr = Utils.Collection.ToString<string>(coords);
+            {                
+                foreach (var coord in coords)
+                {
+                    c.LocationCoordinates.Add(coord);
+                }
             }
             c.StatusVal = (short)Utils.Enumerations.CrisisStatuses.Active;
             c.LocationTypeVal = (short)locationType;

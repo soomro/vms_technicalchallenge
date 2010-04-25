@@ -49,6 +49,7 @@ public partial class Crisis : PageBase
                 Master.PageTitle = "Create New Crisis";
                 UCCreateCrisisMap1.Radious = 20;
                 ddlRadious.SelectedValue = "20";
+                CrisisArea = null;
             }
             else
             {
@@ -83,9 +84,10 @@ public partial class Crisis : PageBase
             return;
         }
         var coords = new ObservableCollection<string>();
-        coords.Add(CrisisArea.Latitude + "");
-        coords.Add(CrisisArea.Longitude + "");
-        coords.Add(CrisisArea.Radius + "");
+
+        coords.Add(UCCreateCrisisMap1.CrisisArea.Latitude + "");
+        coords.Add(UCCreateCrisisMap1.CrisisArea.Longitude + "");
+        coords.Add(UCCreateCrisisMap1.CrisisArea.Radius + "");
 
         if (PageAction == PageActions.Create)
         {
@@ -108,6 +110,8 @@ public partial class Crisis : PageBase
             // Update
             var c = BLL.BWorkflows.CrisisOperations.UpdateCrisis(MainCrisis.Id, name, explanation, ctype, Utils.Enumerations.LocationTypes.Circle, coords);
             MainCrisis = c;
+            Master.ShowMessage(MessageTypes.Info, "Crisis information is updated");
+            
         }
     }
     protected void btnCancel_Click(object sender, EventArgs e)
