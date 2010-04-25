@@ -53,14 +53,16 @@ div, h1, h2, h3, h4, p, form, label, input, textarea, img, span{
 	line-height:0;
 	float:left;
 	margin:10px 10px 10px 10px;
-	border:dashed 1px #000000;
+	/*border:dashed 1px #000000;*/
 }
-#topBox h2{
-	display:block;
-	font:normal 28px/28px Arial, Helvetica, sans-serif;
-	color:#fff;
-	background-color:inherit;
-	margin:0 0 12px 0;
+#topBox h2
+{
+    display: block;
+    font: italic 28px/28px Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    background-color: inherit;
+    margin: 0 0 12px 0;
+    font-weight: bold;
 }
 .frame
 {
