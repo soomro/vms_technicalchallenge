@@ -27,15 +27,7 @@ namespace DAL
             // this string list will be filled with messages.
             List<string> incorrects = new List<string>();
             
-            /*
-             * Explanation of Utils.Validation.Check method:
-             * This method is used to check for many rules at one time.
-             * First three parameter are mandatory. They are string to be checked, minlength and max length.
-             * Remaining parameters are optional. For example, if value can only be consist of letters
-             * use like this: Utils.Validation.Check(NameLastName, 5, 50, ValRules._abc)
-             * Or value can only be consist of letters, numbers and spaces then use this:
-             * Utils.Validation.Check(NameLastName, 5, 50, ValRules._abc,ValRules._123,ValRules._Space)
-             */
+           
 
             if (!Utils.Validation.Check(NameLastName, 5, 50, ValRules._abc))
                 incorrects.Add("Name/Lastname can only be 5 to 50 long letters");
@@ -61,10 +53,10 @@ namespace DAL
             if (!Utils.Validation.Check(EmailAddr, 5, 50, ValRules._abc))
                 incorrects.Add("Email feild can only be 5 to 50 long letters");
 
-            if ((Weight.GetType() != System.Type.GetType("System.Decimal"))
+            if ((Weight.GetType() != System.Type.GetType("System.Decimal")))
                 incorrects.Add("Enter correct weight");
 
-            if ((Height.GetType() != System.Type.GetType("System.Decimal"))
+            if ((Height.GetType() != System.Type.GetType("System.Decimal")))
                 incorrects.Add("Enter correct height");
 
             if (!Utils.Validation.Check(HealthProb, 5, 50, ValRules._abc))
@@ -72,6 +64,7 @@ namespace DAL
 
             if (!Utils.Validation.Check(Phone, 7, 15, ValRules._abc))
                 incorrects.Add("'phone' feild can only be 7 to 15 long");
+
 
             return incorrects;
         }
