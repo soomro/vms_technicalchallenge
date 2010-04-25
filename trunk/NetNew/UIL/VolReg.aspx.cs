@@ -59,12 +59,12 @@ public partial class VolReg : PageBase
         txtHouseNo.Text = vol.Address.HouseNumber;
         ucEnumGender1.DefaultSelection = vol.Gender;
     }
+
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         //TODO: Check user inputs for format and data
         if (PageAction==PageActions.Create)
         {
-
             // make sure there is no such a user with this username
             var q = DAL.Container.Instance.Volunteers.SingleOrDefault(row => row.Username == txtUserName.Text);
             if (q != null)
@@ -74,6 +74,16 @@ public partial class VolReg : PageBase
             }
             //make object and fill according to user inputs
             DAL.Volunteer vol = new DAL.Volunteer();
+            
+            //Validation of inputs
+            var messages = vol.Validate(); // check the fields and return error messages if any
+
+            if (messages.Count > 0) // there are error messages
+            {
+                Master.ShowMessage(MessageTypes.Error, messages.ToArray<string>()); // show them
+                return; // cancel operation
+            }
+
             FillVolunteer(vol);
             //save the object in db
             DAL.Container.Instance.Volunteers.AddObject(vol);
@@ -86,15 +96,15 @@ public partial class VolReg : PageBase
         {
 
         }
-        
-
     }
+
     /// <summary>
     /// Fills a volunteer object accoridng to user inputs
     /// </summary>
     /// <param name="vol">volunteer instance</param>
     private void FillVolunteer(DAL.Volunteer vol)
     {
+        // creating address instance and assigning values into 
         vol.Address = new DAL.Address();
         vol.NameLastName = Utils.Convert.SafeString(txtName.Text);
         vol.BirthDate = Convert.ToDateTime(Utils.Convert.SafeString(txtBirthDate.Text));
