@@ -14,18 +14,19 @@
     </asp:ScriptManager>
     <div id="mainFrame">
         <div id="topBox">
-            <img src="Styles/logo.jpg" alt="VMS Logo" width="132" height="55" class="img1" />
+            <img src="Styles/Logo.png" alt="VMS Logo" width="259" height="105" 
+                class="img1" />
             <h2>
-                Volunteers' Management System</h2>
-            <p class="rightTxt1">
-                <asp:Label ID="lblPageTitle" runat="server" Text="Page Title"></asp:Label>
-            </p>
+                &nbsp;</h2>
+            <h2>
+                 <asp:Label ID="lblPageTitle" runat="server" Text="Page Title"></asp:Label></h2>
+            
            
         </div>
         <br class="spacer"></br>
         <div id="pagePath" class="frame">
-            Site path will be shown here...<asp:SiteMapPath 
-                ID="SiteMapPath1" runat="server">
+            &nbsp;<asp:SiteMapPath 
+                ID="SiteMapPath1" runat="server" Visible="False">
             </asp:SiteMapPath>
         </div>
         <div >
@@ -45,10 +46,6 @@
                     <li><a href="#">About Us</a> |</li>
                     <li><a href="#">Solutions</a> |</li>
                     <li><a href="#">Support</a> |</li>
-                    <li><a href="#">Testimonials</a> |</li>
-                    <li><a href="#">News and Events</a> |</li>
-                    <li><a href="#">Location</a> |</li>
-                    <li><a href="#">blog</a> |</li>
                     <li><a href="#">Contact&nbsp;Us</a></li>
                 </ul>
                 <p class="copyright">
