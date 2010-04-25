@@ -19,6 +19,18 @@ namespace DAL
             }
         }
 
+        public Utils.Enumerations.Severities Severity
+        {
+            get
+            {
+                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.Severities>(this.SeverityVal, Utils.Enumerations.Severities.Medium);
+            }
+            set
+            {
+                this.IncidentTypeVal = (Int16)value;
+            }
+        }
+
         public Utils.Enumerations.IncidentStatuses IncidentStatus
         {
             get

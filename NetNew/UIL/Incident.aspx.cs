@@ -27,21 +27,71 @@ public partial class Incident : PageBase
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-
         if (!IsPostBack)
         {
             ucIncidentType.EnumType = typeof(Utils.Enumerations.IncidentTypes);
             //ucIncidentType.DefaultSelection = IncidentTypes.Bomb;
 
             ucSeverity.EnumType = typeof(Severities);
-            NeedList = null; // clear if it contains any.
-            NeedList.Add(new NeedItem());
-            BindData();
-        }
-        
 
-        
+            if (PageAction == PageActions.Create)
+            {                
+                NeedList = null; // clear if it contains any.
+                NeedList.Add(new NeedItem()); // add an empty line for starting
+                BindData();
+                UCIncidentMap1.Incident = null;
+            }
+            else if (PageAction == PageActions.Edit)
+            {
+                var inc = GetIncident();
+                if (inc==null)
+                {
+                    Master.ShowMessage(MessageTypes.Error, "Invalid paramater");
+                    return;
+                }
+                BindDataForEdit(inc);
+
+            }
+            else
+            {
+                Response.Redirect(Constants.PageIncident+"?Action=Create",true);
+            }
+        }              
+
+    }
+
+    private void BindDataForEdit(DAL.Incident inc)
+    {
+        ucIncidentType.DefaultSelection = inc.IncidentType;
+        ucSeverity.DefaultSelection = inc.IncidentStatus;
+
+        txShortDesc.Text = inc.ShortDescription;
+        txExplanation.Text = inc.Explanation;
+        txShortAddress.Text = inc.ShortAddress;
+        NeedList = null;
+        foreach (var ni in inc.NeedItems)
+        {
+            NeedList.Add(ni);
+        }
+
+        gvNeedList.DataSource = NeedList;
+        gvNeedList.DataBind();
+        UCIncidentMap1.Incident = new Artem.Web.UI.Controls.GoogleMarker(
+            Utils.Convert.ToDouble(inc.LocationCoordinates[0], 0),
+            Utils.Convert.ToDouble(inc.LocationCoordinates[1], 0));
+
+    }
+    /// <summary>
+    /// Gets the incidentid from url and retrieves the object from db.
+    /// </summary>
+    /// <returns></returns>
+    DAL.Incident GetIncident()
+    {
+        int iid = Utils.Convert.ToInt(Request[Constants.IdIncidentId], 0);
+        if (iid==0)
+            return null;
+        var incObj = DAL.Container.Instance.Incidents.SingleOrDefault(inc => inc.Id==iid);
+        return incObj;
 
     }
     protected override void OnPreLoad(EventArgs e)
@@ -151,12 +201,21 @@ public partial class Incident : PageBase
     }
     protected void btSave_Click(object sender, EventArgs e)
     {
-        //PersistNeedList();
 
-        DAL.Incident inc = new DAL.Incident();
+        DAL.Incident inc =null;
+        if (PageAction==PageActions.Create)
+        {
+            inc = new DAL.Incident();
+        }
+        else
+        {
+            inc = GetIncident();
+        }
         inc.Crisis = MainCrisis;
 
         inc.IncidentType = ucIncidentType.SelectedValue<IncidentTypes>();
+        inc.Severity = ucSeverity.SelectedValue<Severities>();
+
         if (UCIncidentMap1.Incident==null)
         {
             Master.ShowMessage(MessageTypes.Error,"Define incident location on the map.");
@@ -172,12 +231,19 @@ public partial class Incident : PageBase
         inc.ShortDescription = txShortDesc.Text;
         inc.Explanation = txExplanation.Text;
         inc.ShortAddress = txShortAddress.Text;
+        if(PageAction == PageActions.Create)
+            Container.Instance.Incidents.AddObject(inc);
 
-        Container.Instance.Incidents.AddObject(inc);
         Container.Instance.SaveChanges();
 
-        Master.ShowMessage(MessageTypes.Info, "Successfully saved. Now navigating to crisis board");
-        RedirectAfter(3, Constants.PageCrisisBoard);
-
+        if (PageAction == PageActions.Create)
+        {
+            Master.ShowMessage(MessageTypes.Info, "Successfully saved. Now navigating to crisis board");
+            RedirectAfter(3, Constants.PageCrisisBoard);
+        }
+        else if (PageAction == PageActions.Edit)
+        {
+            Master.ShowMessage(MessageTypes.Info, "Successfully updated.");
+        }
     }
 }

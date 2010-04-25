@@ -39,5 +39,22 @@ namespace Utils
 
         }
 
+        /// <summary>
+        /// <para>Converts the given string to int. </para>
+        /// <para>Does not throw exception if the parameter is not a int. Instead returns defaultVal.</para>
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defaultVal"></param>
+        /// <returns></returns>
+        public static int ToInt(string value, int defaultVal)
+        {
+            int tmp = 0;
+            if (!Int32.TryParse(SafeString(value), out tmp))
+                tmp = defaultVal;
+
+            return tmp;
+
+        }
+
     }
 }
