@@ -53,7 +53,28 @@ namespace BLL.BWorkflows
             c.CrisisTypeVal = (short)ctype;
             //Reflecting to DB
             DAL.Container.Instance.SaveChanges();
+          
             return (c);
+        }
+
+        public static bool CloseCrisis(int id)
+        {
+
+            var cr = DAL.Container.Instance.Crises.Single(c => c.Id == id);
+            if (cr.Status == Utils.Enumerations.CrisisStatuses.Closed)
+                throw new VMSException("Crisis is already closed");
+
+            foreach (var inc in cr.Incidents)
+            {
+                if (inc.IncidentStatus!=Utils.Enumerations.IncidentStatuses.Complete)
+                {
+                    throw new VMSException("Crisis has incomplete incidents");
+                }
+            }
+
+            cr.Status = Utils.Enumerations.CrisisStatuses.Closed;
+            DAL.Container.Instance.SaveChanges();
+            return true;
         }
     }
 }
