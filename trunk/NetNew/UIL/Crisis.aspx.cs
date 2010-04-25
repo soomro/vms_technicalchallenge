@@ -7,6 +7,9 @@ using System.Web.UI.WebControls;
 using Artem.Web.UI.Controls;
 using System.Collections.ObjectModel;
 using Utils.Enumerations;
+using DAL;
+using BLL.BWorkflows;
+using Utils.Exceptions;
 
 public partial class Crisis : PageBase
 {
@@ -42,6 +45,7 @@ public partial class Crisis : PageBase
                 ddlRadious.SelectedValue = radious + "";
                 CrisisArea = UC_UCCreateCrisisMap.GetDefaultCirclePolygon(latitude, longitude, radious);
                 Master.PageTitle = "Edit Crisis";
+                btnClose.Visible = true;
             }
 
             else if (PageAction == PageActions.Create)// Create crisis 
@@ -50,6 +54,7 @@ public partial class Crisis : PageBase
                 UCCreateCrisisMap1.Radious = 20;
                 ddlRadious.SelectedValue = "20";
                 CrisisArea = null;
+                btnClose.Visible = false;
             }
             else
             {
@@ -117,5 +122,28 @@ public partial class Crisis : PageBase
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect(Constants.PageCrisisBoard);
+    }
+    protected void btnClose_Click(object sender, EventArgs e)
+    {
+        if (MainCrisis.Status==CrisisStatuses.Active)
+        {
+            // TODO : Check for active incidents. All incidents should be closed.
+            try
+            {
+                bool res = CrisisOperations.CloseCrisis(MainCrisis.Id);
+                if (res)
+                {
+                    Master.ShowMessage(MessageTypes.Info,"Crisis status changed to Closed");
+                }
+                else
+                {
+                    Master.ShowMessage(MessageTypes.Info, "Operation is unsuccessfull");
+                }
+            }
+            catch (VMSException ex)
+            {
+                Master.ShowMessage(MessageTypes.Error, ex.Messages.ToArray());
+            }
+        }
     }
 }
