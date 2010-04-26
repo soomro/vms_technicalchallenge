@@ -38,14 +38,20 @@ CodeFile="Login.aspx.cs" Inherits="Login" %>
             </td>
         </tr>
         <tr>
+            <td class="style1">
+                &nbsp;</td>
+            <td class="value">
+                &nbsp;</td>
+        </tr>
+        <tr>
             <td>
                 &nbsp;</td>
             <td>
                 <asp:Button ID="btnLogin" runat="server" onclick="btnLogin_Click" 
-                    Text="Login" />
+                    Text="Login" CssClass="buttons" />
                 &nbsp;
                 <asp:Button ID="btnRegister" runat="server" onclick="btnRegister_Click" 
-                    Text="Register" />
+                    Text="Register" CssClass="buttons" />
             </td>
         </tr>
     </table>
