@@ -22,6 +22,62 @@ public partial class UCMap : System.Web.UI.UserControl
 
         }
     }
+    protected override void OnPreRender(EventArgs e)
+    {
+        GoogleMap1.Markers.Clear();
+        foreach (var inc in Incidents)
+        {
+            GoogleMarker m = new GoogleMarker();
+            m.Clickable = true;
+            m.Draggable = false;
+            m.IconSize = new GoogleSize(30, 30);
+            switch (inc.IncidentType)
+            {
+                case Utils.Enumerations.IncidentTypes.Fire:
+                    m.IconUrl = Constants.ImgFire2; 
+                    break;
+                case Utils.Enumerations.IncidentTypes.CollapsedBuilding:
+                    break;
+                case Utils.Enumerations.IncidentTypes.Bomb:
+                    m.IconUrl = Constants.ImgBomb1; 
+                    break;
+                case Utils.Enumerations.IncidentTypes.Accident:
+                    m.IconUrl = Constants.ImgAccident1; 
+                    break;
+                default:
+                    break;
+            }
+            Response.Write(inc.IncidentType.ToString()); 
+            m.Latitude = Utils.Convert.ToDouble(inc.LocationCoordinates[0],0);
+            m.Longitude = Utils.Convert.ToDouble(inc.LocationCoordinates[1],0);
+
+            m.Text = inc.ShortDescription+"nnn<b>aaaa</b>";
+            m.Bouncy = true;
+            m.Title = inc.ShortDescription ;
+            m.Show();
+            
+            GoogleMap1.Markers.Add(m);
+        }
+        base.OnPreRender(e);
+    }
+
+
+    public System.Data.Objects.DataClasses.EntityCollection<DAL.Incident> Incidents
+    {
+        get
+        {
+            var incs = Session["incidents"] as System.Data.Objects.DataClasses.EntityCollection<DAL.Incident>;
+            if (incs==null)
+            {
+                return new System.Data.Objects.DataClasses.EntityCollection<DAL.Incident>();
+            }
+            return incs;
+        }
+        set
+        {
+            Session["incidents"] = value;
+        }
+    }
 
     public Unit Width
     {

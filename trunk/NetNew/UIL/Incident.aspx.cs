@@ -27,6 +27,15 @@ public partial class Incident : PageBase
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        // DEMONSTRATION
+        if (MainCrisis==null)
+        {
+            var row = DAL.Container.Instance.Crises.SingleOrDefault(r => r.Id == 46);
+            MainCrisis = row;
+        }
+        // DEMONSTRATION
+
+
         if (!IsPostBack)
         {
             ucIncidentType.EnumType = typeof(Utils.Enumerations.IncidentTypes);
