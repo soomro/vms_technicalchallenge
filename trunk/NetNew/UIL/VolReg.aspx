@@ -151,7 +151,7 @@
         <tr>
             <td>
                 <asp:Button ID="btnDeleteProfile" runat="server" onclick="btnDeleteProfile_Click" 
-                    Text="Delete" CssClass="buttons" />
+                    Text="Delete" CssClass="buttons" Visible="False" />
                 </td>
             <td>
                 <asp:Button ID="btnRegister" runat="server" onclick="btnRegister_Click" 

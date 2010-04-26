@@ -25,11 +25,13 @@ public partial class VolReg : PageBase
                 else
                     FillUiWithVolunteer(CurrentVolunteer);
                 btnRegister.Text = "Update";
+                btnDeleteProfile.Visible = true;
             }
             else if (PageAction == PageActions.Create)
             {
                 Master.PageTitle = "Volunteer Registration";
                 btnRegister.Text = "Register";
+                btnDeleteProfile.Visible = false;
             }
             else
             {
