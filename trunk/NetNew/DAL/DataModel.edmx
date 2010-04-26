@@ -233,8 +233,8 @@
           <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="EmailAddr" Type="nvarchar" Nullable="false" MaxLength="255" />
-          <Property Name="Weight" Type="decimal" Precision="4" Scale="2" />
-          <Property Name="Height" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="Weight" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Height" Type="decimal" Precision="5" Scale="2" />
           <Property Name="HealthProb" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -434,14 +434,9 @@
           <EntitySet Name="RequestResponses" EntityType="DataModel.RequestRespons" />
           <EntitySet Name="Requests" EntityType="DataModel.Request" />
           <EntitySet Name="StuffItems" EntityType="DataModel.StuffItem" />
-          <EntitySet Name="Volunteers" EntityType="DataModel.Volunteer" />
           <AssociationSet Name="FK_Aso_ManagerAddress" Association="DataModel.FK_Aso_ManagerAddress">
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Manager" EntitySet="Managers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Aso_VolunteerAddress" Association="DataModel.FK_Aso_VolunteerAddress">
-            <End Role="Address" EntitySet="Addresses" />
-            <End Role="Volunteer" EntitySet="Volunteers" />
           </AssociationSet>
           <AssociationSet Name="FK_Aso_AlertCrisis" Association="DataModel.FK_Aso_AlertCrisis">
             <End Role="Crisis" EntitySet="Crises" />
@@ -454,10 +449,6 @@
           <AssociationSet Name="FK_Aso_CrisisIncident" Association="DataModel.FK_Aso_CrisisIncident">
             <End Role="Crisis" EntitySet="Crises" />
             <End Role="Incident" EntitySet="Incidents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Aso_IncidentReportVolunteer" Association="DataModel.FK_Aso_IncidentReportVolunteer">
-            <End Role="Volunteer" EntitySet="Volunteers" />
-            <End Role="IncidentReport" EntitySet="IncidentReports" />
           </AssociationSet>
           <AssociationSet Name="FK_Aso_IncidentNeedItem" Association="DataModel.FK_Aso_IncidentNeedItem">
             <End Role="Incident" EntitySet="Incidents" />
@@ -479,13 +470,22 @@
             <End Role="RequestRespons" EntitySet="RequestResponses" />
             <End Role="NeedItem" EntitySet="NeedItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_Aso_VolunteerProgressReport" Association="DataModel.FK_Aso_VolunteerProgressReport">
-            <End Role="Volunteer" EntitySet="Volunteers" />
-            <End Role="ProgressReport" EntitySet="ProgressReports" />
-          </AssociationSet>
           <AssociationSet Name="FK_Aso_RequestResponseRequest" Association="DataModel.FK_Aso_RequestResponseRequest">
             <End Role="Request" EntitySet="Requests" />
             <End Role="RequestRespons" EntitySet="RequestResponses" />
+          </AssociationSet>
+          <EntitySet Name="Volunteers" EntityType="DataModel.Volunteer" />
+          <AssociationSet Name="FK_Aso_VolunteerAddress" Association="DataModel.FK_Aso_VolunteerAddress">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Volunteer" EntitySet="Volunteers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aso_IncidentReportVolunteer" Association="DataModel.FK_Aso_IncidentReportVolunteer">
+            <End Role="Volunteer" EntitySet="Volunteers" />
+            <End Role="IncidentReport" EntitySet="IncidentReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aso_VolunteerProgressReport" Association="DataModel.FK_Aso_VolunteerProgressReport">
+            <End Role="Volunteer" EntitySet="Volunteers" />
+            <End Role="ProgressReport" EntitySet="ProgressReports" />
           </AssociationSet>
           <AssociationSet Name="FK_Aso_RequestResponseVolunteer" Association="DataModel.FK_Aso_RequestResponseVolunteer">
             <End Role="Volunteer" EntitySet="Volunteers" />
@@ -495,7 +495,7 @@
             <End Role="Volunteer" EntitySet="Volunteers" />
             <End Role="StuffItem" EntitySet="StuffItems" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Id" />
@@ -658,33 +658,6 @@
           <Property Type="Int32" Name="VolunteerId" Nullable="false" />
           <NavigationProperty Name="Volunteer" Relationship="DataModel.FK_Aso_VolunteerStuffItem" FromRole="StuffItem" ToRole="Volunteer" />
         </EntityType>
-        <EntityType Name="Volunteer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="NameLastName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="BirthDate" />
-          <Property Type="Int16" Name="GenderVal" Nullable="false" />
-          <Property Type="String" Name="Occupation" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="EduAndTrainings" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="CoordinatesStr" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="CoordinateLastUpdateTime" Nullable="false" />
-          <Property Type="DateTime" Name="LastAccessTime" Nullable="false" />
-          <Property Type="Int32" Name="Address_Id" Nullable="false" />
-          <Property Type="String" Name="Username" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Password" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="EmailAddr" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="Weight" Precision="4" Scale="2" />
-          <Property Type="Decimal" Name="Height" Precision="4" Scale="2" />
-          <Property Type="String" Name="HealthProb" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Address" Relationship="DataModel.FK_Aso_VolunteerAddress" FromRole="Volunteer" ToRole="Address" />
-          <NavigationProperty Name="IncidentReports" Relationship="DataModel.FK_Aso_IncidentReportVolunteer" FromRole="Volunteer" ToRole="IncidentReport" />
-          <NavigationProperty Name="ProgressReports" Relationship="DataModel.FK_Aso_VolunteerProgressReport" FromRole="Volunteer" ToRole="ProgressReport" />
-          <NavigationProperty Name="RequestResponses" Relationship="DataModel.FK_Aso_RequestResponseVolunteer" FromRole="Volunteer" ToRole="RequestRespons" />
-          <NavigationProperty Name="StuffItems" Relationship="DataModel.FK_Aso_VolunteerStuffItem" FromRole="Volunteer" ToRole="StuffItem" />
-        </EntityType>
         <Association Name="FK_Aso_ManagerAddress">
           <End Type="DataModel.Address" Role="Address" Multiplicity="0..1" />
           <End Type="DataModel.Manager" Role="Manager" Multiplicity="*" />
@@ -693,18 +666,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Manager">
-              <PropertyRef Name="Address_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Aso_VolunteerAddress">
-          <End Type="DataModel.Address" Role="Address" Multiplicity="1" />
-          <End Type="DataModel.Volunteer" Role="Volunteer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Volunteer">
               <PropertyRef Name="Address_Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -742,18 +703,6 @@
             </Principal>
             <Dependent Role="Incident">
               <PropertyRef Name="CrisisId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Aso_IncidentReportVolunteer">
-          <End Type="DataModel.Volunteer" Role="Volunteer" Multiplicity="1" />
-          <End Type="DataModel.IncidentReport" Role="IncidentReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Volunteer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="IncidentReport">
-              <PropertyRef Name="Volunteer_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -817,18 +766,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Aso_VolunteerProgressReport">
-          <End Type="DataModel.Volunteer" Role="Volunteer" Multiplicity="1" />
-          <End Type="DataModel.ProgressReport" Role="ProgressReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Volunteer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProgressReport">
-              <PropertyRef Name="VolunteerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Aso_RequestResponseRequest">
           <End Type="DataModel.Request" Role="Request" Multiplicity="0..1" />
           <End Type="DataModel.RequestRespons" Role="RequestRespons" Multiplicity="*" />
@@ -838,6 +775,69 @@
             </Principal>
             <Dependent Role="RequestRespons">
               <PropertyRef Name="Request_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Volunteer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="NameLastName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="BirthDate" />
+          <Property Type="Int16" Name="GenderVal" Nullable="false" />
+          <Property Type="String" Name="Occupation" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EduAndTrainings" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CoordinatesStr" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CoordinateLastUpdateTime" Nullable="false" />
+          <Property Type="DateTime" Name="LastAccessTime" Nullable="false" />
+          <Property Type="Int32" Name="Address_Id" Nullable="false" />
+          <Property Type="String" Name="Username" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EmailAddr" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="Weight" Precision="5" Scale="2" />
+          <Property Type="Decimal" Name="Height" Precision="5" Scale="2" />
+          <Property Type="String" Name="HealthProb" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Address" Relationship="DataModel.FK_Aso_VolunteerAddress" FromRole="Volunteer" ToRole="Address" />
+          <NavigationProperty Name="IncidentReports" Relationship="DataModel.FK_Aso_IncidentReportVolunteer" FromRole="Volunteer" ToRole="IncidentReport" />
+          <NavigationProperty Name="ProgressReports" Relationship="DataModel.FK_Aso_VolunteerProgressReport" FromRole="Volunteer" ToRole="ProgressReport" />
+          <NavigationProperty Name="RequestResponses" Relationship="DataModel.FK_Aso_RequestResponseVolunteer" FromRole="Volunteer" ToRole="RequestRespons" />
+          <NavigationProperty Name="StuffItems" Relationship="DataModel.FK_Aso_VolunteerStuffItem" FromRole="Volunteer" ToRole="StuffItem" />
+        </EntityType>
+        <Association Name="FK_Aso_VolunteerAddress">
+          <End Type="DataModel.Address" Role="Address" Multiplicity="1" />
+          <End Type="DataModel.Volunteer" Role="Volunteer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Volunteer">
+              <PropertyRef Name="Address_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aso_IncidentReportVolunteer">
+          <End Type="DataModel.Volunteer" Role="Volunteer" Multiplicity="1" />
+          <End Type="DataModel.IncidentReport" Role="IncidentReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncidentReport">
+              <PropertyRef Name="Volunteer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aso_VolunteerProgressReport">
+          <End Type="DataModel.Volunteer" Role="Volunteer" Multiplicity="1" />
+          <End Type="DataModel.ProgressReport" Role="ProgressReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgressReport">
+              <PropertyRef Name="VolunteerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1074,15 +1074,10 @@
         <EntityTypeShape EntityType="DataModel.RequestRespons" Width="1.5" PointX="8.25" PointY="13" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="DataModel.Request" Width="1.5" PointX="6" PointY="4.125" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="DataModel.StuffItem" Width="1.5" PointX="5.25" PointY="22.375" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="DataModel.Volunteer" Width="1.5" PointX="3" PointY="11.75" Height="5.2494108072916674" />
         <AssociationConnector Association="DataModel.FK_Aso_ManagerAddress" >
           <ConnectorPoint PointX="1.5" PointY="11.5" />
-          <ConnectorPoint PointX="1.5" PointY="9.5574446614583337" />
-          <ConnectorPoint PointX="3" PointY="9.5574446614583337" />
-        </AssociationConnector>
-        <AssociationConnector Association="DataModel.FK_Aso_VolunteerAddress" >
-          <ConnectorPoint PointX="2.25" PointY="12.999746093749998" />
-          <ConnectorPoint PointX="3" PointY="12.999746093749998" />
+          <ConnectorPoint PointX="1.5" PointY="9.74974609375" />
+          <ConnectorPoint PointX="3" PointY="9.74974609375" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_AlertCrisis" >
           <ConnectorPoint PointX="2.25" PointY="4.5" />
@@ -1097,12 +1092,6 @@
           <ConnectorPoint PointX="3" PointY="5.5478011067708328" />
           <ConnectorPoint PointX="3.75" PointY="5.5478011067708328" />
         </AssociationConnector>
-        <AssociationConnector Association="DataModel.FK_Aso_IncidentReportVolunteer" >
-          <ConnectorPoint PointX="4.5" PointY="13.095896809895834" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="13.095896809895834" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="13.095896809895834" />
-          <ConnectorPoint PointX="5.25" PointY="13.095896809895834" />
-        </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentNeedItem" >
           <ConnectorPoint PointX="5.25" PointY="3.716095377604169" />
           <ConnectorPoint PointX="11.45312625" PointY="3.716095377604169" />
@@ -1110,8 +1099,8 @@
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentProgressReport" >
           <ConnectorPoint PointX="4.875" PointY="6.5956022135416656" />
-          <ConnectorPoint PointX="4.875" PointY="17.905701497395835" />
-          <ConnectorPoint PointX="5.25" PointY="17.905701497395835" />
+          <ConnectorPoint PointX="4.875" PointY="18.155701497395832" />
+          <ConnectorPoint PointX="5.25" PointY="18.155701497395832" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentRequest" >
           <ConnectorPoint PointX="5.25" PointY="5.3603011067708319" />
@@ -1126,16 +1115,27 @@
           <ConnectorPoint PointX="9.75" PointY="14.470896809895834" />
           <ConnectorPoint PointX="10.5" PointY="14.470896809895834" />
         </AssociationConnector>
-        <AssociationConnector Association="DataModel.FK_Aso_VolunteerProgressReport" >
-          <ConnectorPoint PointX="4.5" PointY="16.499705403645834" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="16.499705403645834" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="16.499705403645834" />
-          <ConnectorPoint PointX="5.25" PointY="16.499705403645834" />
-        </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_RequestResponseRequest" >
           <ConnectorPoint PointX="7.15625" PointY="6.6821907552083246" />
-          <ConnectorPoint PointX="7.15625" PointY="15.402733619791661" />
-          <ConnectorPoint PointX="8.25" PointY="15.402733619791661" />
+          <ConnectorPoint PointX="7.15625" PointY="15.223043619791667" />
+          <ConnectorPoint PointX="8.25" PointY="15.223043619791667" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DataModel.Volunteer" Width="1.5" PointX="3" PointY="12.25" Height="5.2494108072916656" />
+        <AssociationConnector Association="DataModel.FK_Aso_VolunteerAddress" >
+          <ConnectorPoint PointX="2.25" PointY="13.24974609375" />
+          <ConnectorPoint PointX="3" PointY="13.24974609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="DataModel.FK_Aso_IncidentReportVolunteer" >
+          <ConnectorPoint PointX="4.5" PointY="13.345896809895834" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="13.345896809895834" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="13.345896809895834" />
+          <ConnectorPoint PointX="5.25" PointY="13.345896809895834" />
+        </AssociationConnector>
+        <AssociationConnector Association="DataModel.FK_Aso_VolunteerProgressReport" >
+          <ConnectorPoint PointX="4.5" PointY="16.749705403645834" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="16.749705403645834" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="16.749705403645834" />
+          <ConnectorPoint PointX="5.25" PointY="16.749705403645834" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_RequestResponseVolunteer" >
           <ConnectorPoint PointX="4.5" PointY="14.801168619791667" />
@@ -1146,9 +1146,9 @@
           <ConnectorPoint PointX="8.25" PointY="14.801168619791667" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_VolunteerStuffItem" >
-          <ConnectorPoint PointX="3.75" PointY="16.999410807291667" />
-          <ConnectorPoint PointX="3.75" PointY="23.461293945312498" />
-          <ConnectorPoint PointX="5.25" PointY="23.461293945312498" />
+          <ConnectorPoint PointX="3.75" PointY="17.499410807291667" />
+          <ConnectorPoint PointX="3.75" PointY="23.4612939453125" />
+          <ConnectorPoint PointX="5.25" PointY="23.4612939453125" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
