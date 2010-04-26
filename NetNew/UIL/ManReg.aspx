@@ -126,9 +126,9 @@
                 &nbsp;</td>
             <td>
                 <asp:Button ID="btnRegister" runat="server" onclick="btnRegister_Click" 
-                    Text="Register" ValidationGroup="1" />
+                    Text="Register" ValidationGroup="1" CssClass="buttons" />
                 &nbsp;<asp:Button ID="btnCancel" runat="server" onclick="btnCancel_Click" 
-                    style="height: 26px" Text="Cancel" />
+                     Text="Cancel" CssClass="buttons" />
             </td>
         </tr>
     </table> 
