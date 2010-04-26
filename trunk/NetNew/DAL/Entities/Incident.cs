@@ -27,7 +27,7 @@ namespace DAL
             }
             set
             {
-                this.IncidentTypeVal = (Int16)value;
+                this.SeverityVal = (Int16)value;
             }
         }
 
