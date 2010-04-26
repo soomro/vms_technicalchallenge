@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeFile="CrisisBoard.aspx.cs" Inherits="CrisisBoard" %>
 
+<%@ MasterType TypeName="SiteMaster" %>
+
 <%@ Register Src="UControls/UCCreateCrisisMap.ascx" TagName="UCCreateCrisisMap" TagPrefix="uc1" %>
 <%@ Register Src="UControls/UCMap.ascx" TagName="UCMap" TagPrefix="uc2" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -31,8 +33,7 @@
                     
                 </asp:Accordion>
             </td>
-            <td>
-                rigth panel
+            <td> 
                 <uc2:UCMap ID="UCMap1" runat="server" />
             </td>
         </tr>
