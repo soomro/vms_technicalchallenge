@@ -37,6 +37,10 @@ public partial class Login : PageBase
                 CurrentVolunteer = user;
                 Response.Redirect(Constants.PageVolunteerProfile+"?Action=Edit");
             }
+            else
+            {
+                Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "Username or password is wrong!");
+            }
         }
         if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Manager.ToString())
         {
@@ -45,6 +49,10 @@ public partial class Login : PageBase
             {
                 CurrentUser = user;
                 Response.Redirect(Constants.PageManagerProfile+"?Action=Edit");
+            }
+            else
+            {
+                Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "Username or password is wrong!");
             }
         }
     }
