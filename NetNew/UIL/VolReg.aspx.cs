@@ -21,7 +21,7 @@ public partial class VolReg : PageBase
             {
                
                 if (CurrentVolunteer == null)
-                    Response.Redirect("~/" + Constants.PageVolunteerProfile + "?Action=Create");
+                    Response.Redirect(Constants.PageVolunteerProfile + "?Action=Create");
                 else
                     FillUiWithVolunteer(CurrentVolunteer);
                 btnRegister.Text = "Update";
@@ -32,7 +32,7 @@ public partial class VolReg : PageBase
             }
             else
             {
-                Response.Redirect("~/" + Constants.PageVolunteerProfile + "?Action=Create");
+                Response.Redirect( Constants.PageVolunteerProfile + "?Action=Create");
             }
         }
     }
