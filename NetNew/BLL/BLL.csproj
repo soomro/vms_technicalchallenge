@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BusUtils.cs" />
     <Compile Include="BWorkflows\CrisisOperations.cs" />
+    <Compile Include="BWorkflows\IncidentOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
