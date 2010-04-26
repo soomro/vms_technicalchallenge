@@ -19,12 +19,12 @@ public partial class Login : PageBase
         
         if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Volunteer.ToString())
         {
-            Response.Redirect("~/"+Constants.PageVolunteerProfile+"?Action=Create");
+            Response.Redirect(Constants.PageVolunteerProfile+"?Action=Create");
 
         }
         else if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Manager.ToString())
         {
-            Response.Redirect("~/"+Constants.PageVolunteerProfile+"?Action=Create");
+            Response.Redirect(Constants.PageManagerProfile+"?Action=Create");
         }
     }
     protected void btnLogin_Click(object sender, EventArgs e)
@@ -34,9 +34,8 @@ public partial class Login : PageBase
             var user =DAL.Container.Instance.Volunteers.SingleOrDefault(row => row.Username == txtUserName.Text);
             if (user != null && user.Password == txtPassword.Text)
             {
-                Session[Constants.IdUserName] = txtUserName.Text;
-                Session[Constants.IdUserType] = Utils.Enumerations.UserTypes.Volunteer.ToString();
-                Response.Redirect(Constants.PageVolunteerProfile);
+                CurrentVolunteer = user;
+                Response.Redirect(Constants.PageVolunteerProfile+"?Action=Edit");
             }
         }
         if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Manager.ToString())
@@ -44,9 +43,8 @@ public partial class Login : PageBase
             var user = DAL.Container.Instance.Managers.SingleOrDefault(row => row.UserName == txtUserName.Text);
             if (user != null && user.Password == txtPassword.Text)
             {
-                Session[Constants.IdUserName] = txtUserName.Text;
-                Session[Constants.IdUserType] = Utils.Enumerations.UserTypes.Manager.ToString();
-                Response.Redirect(Constants.PageManagerProfile);
+                CurrentUser = user;
+                Response.Redirect(Constants.PageManagerProfile+"?Action=Edit");
             }
         }
     }
