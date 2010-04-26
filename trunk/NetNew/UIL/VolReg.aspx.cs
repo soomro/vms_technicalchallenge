@@ -14,12 +14,12 @@ public partial class VolReg : PageBase
     {
         if (!IsPostBack)
         {
-            Master.PageTitle = "Volunteer registration";
+            
             ucEnumGender1.EnumType = typeof(Utils.Enumerations.Gender);
             ucEnumGender1.DefaultSelection = Utils.Enumerations.Gender.Man;
             if (PageAction == PageActions.Edit)
             {
-               
+                Master.PageTitle = "Edit Volunteer's Profile";
                 if (CurrentVolunteer == null)
                     Response.Redirect(Constants.PageVolunteerProfile + "?Action=Create");
                 else
@@ -28,6 +28,7 @@ public partial class VolReg : PageBase
             }
             else if (PageAction == PageActions.Create)
             {
+                Master.PageTitle = "Volunteer Registration";
                 btnRegister.Text = "Register";
             }
             else
@@ -61,7 +62,6 @@ public partial class VolReg : PageBase
 
     protected void btnRegister_Click(object sender, EventArgs e)
     {
-        //TODO: Check user inputs for format and data
         if (PageAction==PageActions.Create)
         {
             // make sure there is no such a user with this username
