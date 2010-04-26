@@ -40,6 +40,7 @@ public partial class Incident : PageBase
                 NeedList.Add(new NeedItem()); // add an empty line for starting
                 BindData();
                 UCIncidentMap1.Incident = null;
+                Master.PageTitle = "Create Incident";
             }
             else if (PageAction == PageActions.Edit)
             {
@@ -50,6 +51,7 @@ public partial class Incident : PageBase
                     return;
                 }
                 BindDataForEdit(inc);
+                Master.PageTitle = "Edit Incident";
 
             }
             else
@@ -63,7 +65,7 @@ public partial class Incident : PageBase
     private void BindDataForEdit(DAL.Incident inc)
     {
         ucIncidentType.DefaultSelection = inc.IncidentType;
-        ucSeverity.DefaultSelection = inc.IncidentStatus;
+        ucSeverity.DefaultSelection = inc.Severity;
 
         txShortDesc.Text = inc.ShortDescription;
         txExplanation.Text = inc.Explanation;
@@ -221,6 +223,7 @@ public partial class Incident : PageBase
             Master.ShowMessage(MessageTypes.Error,"Define incident location on the map.");
             return;
         }
+        inc.LocationCoordinates.Clear();
         inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Latitude+"");
         inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Longitude+"");
         foreach (var ni in NeedList)
