@@ -19,8 +19,7 @@ public partial class VolReg : PageBase
             ucEnumGender1.DefaultSelection = Utils.Enumerations.Gender.Man;
             if (PageAction == PageActions.Edit)
             {
-                //for test
-                CurrentVolunteer = DAL.Container.Instance.Volunteers.SingleOrDefault(row => row.NameLastName == "text22");
+               
                 if (CurrentVolunteer == null)
                     Response.Redirect("~/" + Constants.PageVolunteerProfile + "?Action=Create");
                 else
@@ -159,6 +158,32 @@ public partial class VolReg : PageBase
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Login.aspx");
+        CurrentVolunteer = null;
+        Response.Redirect(Constants.PageLogin);
+    }
+    protected void btnDeleteProfile_Click(object sender, EventArgs e)
+    {
+        pnlDeleteConfirm.Visible = true;
+        btnDeleteProfile.Visible = false;
+        btnRegister.Visible = false;
+        btnCancel.Visible = false;
+    }
+    protected void btnConfirm_Click(object sender, EventArgs e)
+    {
+        
+        if (rdlDeleteConfirm.SelectedValue == "Yes")
+        {
+            DAL.Container.Instance.Volunteers.DeleteObject(CurrentVolunteer);
+            DAL.Container.Instance.SaveChanges();
+            CurrentVolunteer = null;
+            Response.Redirect(Constants.PageLogin);
+        }
+        else
+        {
+            pnlDeleteConfirm.Visible = false;
+            btnDeleteProfile.Visible = true;
+            btnRegister.Visible = true;
+            btnCancel.Visible = true;
+        }
     }
 }
