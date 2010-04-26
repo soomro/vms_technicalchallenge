@@ -38,7 +38,7 @@
             </tr>
             <tr>
                 <td class="formField">
-                    Radious(km)
+                    Radius(km)
                 </td>
                 <td class="value">
                     <asp:DropDownList ID="ddlRadious" runat="server" OnSelectedIndexChanged="ddlRadious_SelectedIndexChanged"
