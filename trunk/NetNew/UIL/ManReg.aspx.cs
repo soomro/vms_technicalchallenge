@@ -193,7 +193,7 @@ public partial class ManReg : PageBase
         if (PageAction==PageActions.Create)
         {
             Master.ShowMessage(MessageTypes.Info, "Successfully saved.");
-            RedirectAfter(4, Constants.PageManagerProfile+"?"+Constants.IdAction+"="+PageActions.Edit);
+            RedirectAfter(4, Constants.PageManagerProfile+"?Action=Edit");
             
         }
         else if (PageAction==PageActions.Edit)
