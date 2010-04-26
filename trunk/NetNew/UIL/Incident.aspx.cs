@@ -82,6 +82,8 @@ public partial class Incident : PageBase
             Utils.Convert.ToDouble(inc.LocationCoordinates[0], 0),
             Utils.Convert.ToDouble(inc.LocationCoordinates[1], 0));
 
+        btClose.Visible = true;
+
     }
     /// <summary>
     /// Gets the incidentid from url and retrieves the object from db.
@@ -106,6 +108,7 @@ public partial class Incident : PageBase
     {
         gvNeedList.DataSource = NeedList;
         gvNeedList.DataBind();
+        btClose.Visible = false;
     }
 
 
@@ -249,4 +252,26 @@ public partial class Incident : PageBase
             Master.ShowMessage(MessageTypes.Info, "Successfully updated.");
         }
     }
+    protected void btClose_Click(object sender, EventArgs e)
+    {
+        var inc = GetIncident();
+        if (inc==null)
+        {
+            Master.ShowMessage(MessageTypes.Error, "Invalid paramater");
+            return;
+        }
+        try
+        {
+            BLL.BWorkflows.IncidentOperations.CloseIncident(inc.Id);
+            Master.ShowMessage(MessageTypes.Info,"Incident set to \"Completed\"");
+            DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, inc);
+            BindDataForEdit(inc);
+        }
+        catch (Utils.Exceptions.VMSException ex)
+        {
+            Master.ShowMessage(MessageTypes.Error, ex.Messages.ToArray());
+            return;
+        }
+    }
+     
 }
