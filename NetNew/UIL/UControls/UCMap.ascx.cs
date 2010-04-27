@@ -62,7 +62,7 @@ public partial class UCMap : System.Web.UI.UserControl
         incInfo  = incInfo.Replace("[INCTITLE]", inc.ShortDescription);
         incInfo  = incInfo.Replace("[INCSEVERITY]", inc.Severity.ToString());
         incInfo  = incInfo.Replace("[INCSTATUS]", inc.IncidentStatus.ToString());
-        Response.Write(Request.ApplicationPath+"   -"+Request.CurrentExecutionFilePath);
+        
         incInfo  = incInfo.Replace("[EDITURL]", 
             string.Format(Request.ApplicationPath+"/Incident.aspx?{0}={1}&iid={2}",Constants.IdAction,PageActions.Edit.ToString(),inc.Id)
             );

@@ -23,13 +23,15 @@ namespace BLL.BWorkflows
             c.StatusVal = (short)Utils.Enumerations.CrisisStatuses.Active;
             c.LocationTypeVal = (short)locationType;
             c.CrisisTypeVal = (short)ctype;
+            // TODO: validate fields 
+
             DAL.Container.Instance.Crises.AddObject(c);
             DAL.Container.Instance.SaveChanges();
 
+           
             return (c);
         }
-
-
+        
         public static DAL.Crisis UpdateCrisis(int id, string name, string explanation, Utils.Enumerations.CrisisTypes ctype, Utils.Enumerations.LocationTypes locationType, ObservableCollection<string> coords)
         {
             var c = DAL.Container.Instance.Crises.FirstOrDefault(cr => cr.Id == id);
@@ -51,6 +53,9 @@ namespace BLL.BWorkflows
             c.StatusVal = (short)Utils.Enumerations.CrisisStatuses.Active;
             c.LocationTypeVal = (short)locationType;
             c.CrisisTypeVal = (short)ctype;
+
+            // TODO : validate fields.
+
             //Reflecting to DB
             DAL.Container.Instance.SaveChanges();
           
