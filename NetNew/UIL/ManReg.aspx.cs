@@ -56,7 +56,7 @@ public partial class ManReg : PageBase
 
             else if (PageAction == PageActions.Create)// Create crisis 
             {// initialize page for creating 
-
+                CurrentUser = null;
                 txtFullName.Text = "";
                 txtBirthDate.Text = "";
                 txtExpertiseCrisisTypes.Text  = "";
@@ -113,6 +113,7 @@ public partial class ManReg : PageBase
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
+        CurrentUser = null;
         Response.Redirect("~/Login.aspx");
     }
     protected void btnRegister_Click(object sender, EventArgs e)
