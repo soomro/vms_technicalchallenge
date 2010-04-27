@@ -13,6 +13,8 @@ public partial class Login : PageBase
         {
             Master.PageTitle = "Login Page";
         }
+        CurrentUser = null;
+        CurrentVolunteer = null;
     }
     protected void btnRegister_Click(object sender, EventArgs e)
     {
