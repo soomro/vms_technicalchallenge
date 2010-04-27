@@ -27,40 +27,66 @@ public partial class UCMap : System.Web.UI.UserControl
         GoogleMap1.Markers.Clear();
         foreach (var inc in Incidents)
         {
-            GoogleMarker m = new GoogleMarker();
-            m.Clickable = true;
-            m.Draggable = false;
-            m.IconSize = new GoogleSize(30, 30);
-            switch (inc.IncidentType)
-            {
-                case Utils.Enumerations.IncidentTypes.Fire:
-                    m.IconUrl = Constants.ImgFire2; 
-                    break;
-                case Utils.Enumerations.IncidentTypes.CollapsedBuilding:
-                    break;
-                case Utils.Enumerations.IncidentTypes.Bomb:
-                    m.IconUrl = Constants.ImgBomb1; 
-                    break;
-                case Utils.Enumerations.IncidentTypes.Accident:
-                    m.IconUrl = Constants.ImgAccident1; 
-                    break;
-                default:
-                    break;
-            }
-            Response.Write(inc.IncidentType.ToString()); 
-            m.Latitude = Utils.Convert.ToDouble(inc.LocationCoordinates[0],0);
-            m.Longitude = Utils.Convert.ToDouble(inc.LocationCoordinates[1],0);
-
-            m.Text = inc.ShortDescription+"nnn<b>aaaa</b>";
-            m.Bouncy = true;
-            m.Title = inc.ShortDescription ;
-            m.Show();
-            
+            var m = BuildMarker(inc);
             GoogleMap1.Markers.Add(m);
         }
         base.OnPreRender(e);
     }
 
+    private GoogleMarker BuildMarker(DAL.Incident inc)
+    {
+        GoogleMarker m = new GoogleMarker();
+        m.Clickable = true;
+        m.Draggable = false;
+        m.IconSize = new GoogleSize(30, 30);
+        string iconName = inc.IncidentType.ToString();
+        iconName += ""+ ((short)inc.Severity)+"_";
+        if (inc.IncidentStatus==Utils.Enumerations.IncidentStatuses.Complete)
+            iconName += "complete";
+        if (inc.IncidentStatus==Utils.Enumerations.IncidentStatuses.Created)
+            iconName += "created";
+        if (inc.IncidentStatus==Utils.Enumerations.IncidentStatuses.ResourceGathering)
+            iconName += "resource";
+        if (inc.IncidentStatus==Utils.Enumerations.IncidentStatuses.Working)
+            iconName += "working";
+        iconName+=".gif";
+        iconName = iconName.ToLower();
+
+
+        //Response.Write(iconName+"  ");
+        m.IconUrl = "~/images/"+iconName;
+
+        m.Latitude = Utils.Convert.ToDouble(inc.LocationCoordinates[0], 0);
+        m.Longitude = Utils.Convert.ToDouble(inc.LocationCoordinates[1], 0);
+        var incInfo  = incContent.Replace("[INCTYPE]", inc.IncidentType.ToString());
+        incInfo  = incInfo.Replace("[INCTITLE]", inc.ShortDescription);
+        incInfo  = incInfo.Replace("[INCSEVERITY]", inc.Severity.ToString());
+        incInfo  = incInfo.Replace("[INCSTATUS]", inc.IncidentStatus.ToString());
+        Response.Write(Request.ApplicationPath+"   -"+Request.CurrentExecutionFilePath);
+        incInfo  = incInfo.Replace("[EDITURL]", 
+            string.Format(Request.ApplicationPath+"/Incident.aspx?{0}={1}&iid={2}",Constants.IdAction,PageActions.Edit.ToString(),inc.Id)
+            );
+        m.Text = incInfo;
+        m.Bouncy = true;
+        m.Title = inc.ShortDescription;
+        m.Show();
+        return m;
+    }
+
+    string incContent = @"
+        <h3>[INCTITLE]</h3>
+        <table class='gmapincInfo'>
+            <tr>
+                <td>Type:[INCTYPE]</td> <td>Severity:[INCSEVERITY]</td>
+            </tr>
+            <tr>
+                <td>Status:[INCSTATUS]</td> <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><a href='[EDITURL]'>Edit Incident</a></td> <td>&nbsp;</td>
+            </tr>
+        </table>
+    ";
 
     public System.Data.Objects.DataClasses.EntityCollection<DAL.Incident> Incidents
     {
