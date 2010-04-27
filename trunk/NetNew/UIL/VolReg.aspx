@@ -122,7 +122,11 @@
         </tr>
         <tr>
             <td class="formField">
-                Email address</td>
+                Email address:<asp:RegularExpressionValidator ID="revEmail" runat="server" 
+                    ErrorMessage="*" ControlToValidate="txtEmailAddress" 
+                    ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" 
+                    ValidationGroup="1">*</asp:RegularExpressionValidator>
+                </td>
             <td class="value">
                 <asp:TextBox ID="txtEmailAddress" runat="server" CssClass="tx" Width="100%"></asp:TextBox>
             </td>
@@ -155,7 +159,7 @@
                 </td>
             <td>
                 <asp:Button ID="btnRegister" runat="server" onclick="btnRegister_Click" 
-                    Text="Register" CssClass="buttons" />
+                    Text="Register" CssClass="buttons" ValidationGroup="1" />
                 &nbsp;<asp:Button ID="btnCancel" runat="server" onclick="btnCancel_Click" 
                      Text="Cancel" CssClass="buttons" />
             </td>
