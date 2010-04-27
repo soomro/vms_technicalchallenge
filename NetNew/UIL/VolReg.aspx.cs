@@ -32,6 +32,8 @@ public partial class VolReg : PageBase
                 Master.PageTitle = "Volunteer Registration";
                 btnRegister.Text = "Register";
                 btnDeleteProfile.Visible = false;
+                CurrentVolunteer = null;
+                CurrentUser = null;
             }
             else
             {
@@ -101,12 +103,13 @@ public partial class VolReg : PageBase
             this.CurrentVolunteer = vol;
             //show message of successfull completion
             Master.ShowMessage(MessageTypes.Info, "Volunteer registered successfully.");
+            btnRegister.Visible = false;
             this.RedirectAfter(4, Constants.PageVolunteerProfile+"?Action=Edit");
         }
         else if (PageAction == PageActions.Edit)
         {
             //make object and fill according to user inputs
-            DAL.Volunteer vol = new DAL.Volunteer();
+            DAL.Volunteer vol = CurrentVolunteer;
             if (!FillVolunteer(vol))
                 return;
             //Make changes presistent
@@ -142,15 +145,16 @@ public partial class VolReg : PageBase
         vol.Username = txtUserName.Text;
         vol.Password = txtPassword.Text;
         decimal tmpDecimal;
-        if (!decimal.TryParse(txtWeight.Text, out tmpDecimal))
+        if (!decimal.TryParse(txtWeight.Text, out tmpDecimal) || tmpDecimal >= 1000L)
         {
-            Master.ShowMessage(MessageTypes.Error, "Weight should be a floating point number");
+            Master.ShowMessage(MessageTypes.Error, "Weight should be a floating point number less than 1000");
             return false;
         }
+        
         vol.Weight = tmpDecimal;
-        if (!decimal.TryParse(txtHeight.Text, out tmpDecimal))
+        if (!decimal.TryParse(txtHeight.Text, out tmpDecimal) || tmpDecimal >= 1000L)
         {
-            Master.ShowMessage(MessageTypes.Error, "Height should be a floating point number");
+            Master.ShowMessage(MessageTypes.Error, "Height should be a number less than 1000");
             return false;
         }
         vol.Height = tmpDecimal;
