@@ -10,11 +10,11 @@ public partial class CrisisBoard : PageBase
     protected void Page_Load(object sender, EventArgs e)
     {
         // DEMONSTRATION
-        if (MainCrisis==null)
-        {
+        //if (MainCrisis==null)
+        //{
             var row = DAL.Container.Instance.Crises.SingleOrDefault(r => r.Id == 46);
             MainCrisis = row;
-        }
+        //}
         // DEMONSTRATION
 
         Master.PageTitle = "Crisis Dashboard: " + MainCrisis.Name;
