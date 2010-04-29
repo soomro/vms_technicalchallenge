@@ -99,12 +99,16 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
         {
             return;
         }
-
+         
         GoogleMarker inc = new GoogleMarker(e.Location.Latitude, e.Location.Longitude);
         inc.Clickable=false;
         inc.Draggable = true;
         Incident = inc;
+
+        var name = Utils.GeoUtil.GetAddressName(e.Location.Latitude+"", e.Location.Longitude+"");
+        HttpContext.Current.Items["adrName"] = name;
     }
      
+
      
 }

@@ -40,7 +40,20 @@ public partial class UCMap : System.Web.UI.UserControl
         m.Draggable = false;
         m.IconSize = new GoogleSize(30, 30);
         string iconName = inc.IncidentType.ToString();
-        iconName += ""+ ((short)inc.Severity)+"_";
+        iconName += ""+ //((short)inc.Severity)+
+            "_";
+
+        if (inc.Severity==Utils.Enumerations.Severities.Low)
+            m.IconSize = new GoogleSize(20, 20);
+        if (inc.Severity==Utils.Enumerations.Severities.Medium)
+            m.IconSize = new GoogleSize(28, 28);
+        if (inc.Severity==Utils.Enumerations.Severities.High)
+            m.IconSize = new GoogleSize(35, 35);
+        if (inc.Severity==Utils.Enumerations.Severities.Critical)
+            m.IconSize = new GoogleSize(43, 43);
+
+
+
         if (inc.IncidentStatus==Utils.Enumerations.IncidentStatuses.Complete)
             iconName += "complete";
         if (inc.IncidentStatus==Utils.Enumerations.IncidentStatuses.Created)
