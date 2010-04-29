@@ -10,9 +10,9 @@ Attenders:
 
 Supervisor meeting
 
-    *Decide on the use-cases
-    *Mattias couldn't find a person who could help us with J2ME problems
-    *User manual should be for user, not so technical
-    *Two different user manuals for the manager and the volunteer
-    *No feedback from Gerardo about SAD and SDD
-    *Next meeting 13th of May, 10:00.
+    * Decide on the use-cases
+    * Mattias couldn't find a person who could help us with J2ME problems
+    * User manual should be for user, not so technical
+    * Two different user manuals for the manager and the volunteer
+    * No feedback from Gerardo about SAD and SDD
+    * Next meeting 13th of May, 10:00.
