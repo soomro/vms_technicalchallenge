@@ -25,6 +25,11 @@ public partial class Incident : PageBase
         }
     }
 
+    protected override void OnPreRender(EventArgs e)
+    {
+        txShortAddress.Text = HttpContext.Current.Items["adrName"] as string;
+        base.OnPreRender(e);
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         // DEMONSTRATION
