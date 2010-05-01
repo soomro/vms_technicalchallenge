@@ -95,8 +95,12 @@ public partial class Incident : PageBase
         UCIncidentMap1.Incident = new Artem.Web.UI.Controls.GoogleMarker(
             Utils.Convert.ToDouble(inc.LocationCoordinates[0], 0),
             Utils.Convert.ToDouble(inc.LocationCoordinates[1], 0));
+        if(inc.LocationCoordinates.Count>2)
+            UCIncidentMap1.Zoom = Utils.Convert.ToInt(inc.LocationCoordinates[2], 8);
 
         btClose.Visible = true;
+        
+
 
     }
     /// <summary>
@@ -251,6 +255,8 @@ public partial class Incident : PageBase
         inc.ShortDescription = txShortDesc.Text;
         inc.Explanation = txExplanation.Text;
         inc.ShortAddress = txShortAddress.Text;
+        inc.LocationCoordinates.Add(UCIncidentMap1.Zoom+"");
+
         if(PageAction == PageActions.Create)
             Container.Instance.Incidents.AddObject(inc);
 
