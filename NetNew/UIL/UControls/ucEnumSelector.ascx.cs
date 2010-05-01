@@ -65,21 +65,40 @@ public partial class UC_ucEnumSelector : System.Web.UI.UserControl
         if (EnumType==null) return;
 
         var names = Enum.GetNames(EnumType);
-        foreach (var name in names)
+        foreach (Enum item in Enum.GetValues(EnumType))
         {
-            var li = new ListItem(name);
-            if (string.IsNullOrEmpty(selVal) 
-                && (Enum.Parse(EnumType, name)).ToString() == DefaultSelection+"")
-            {
-                li.Selected = true;
-            }
-            if (!string.IsNullOrEmpty(selVal) && name==selVal)
-            {
-                li.Selected = true;
-            }
+            var li = new ListItem(Utils.Reflection.GetEnumDescription(item),item.ToString());
             rdlOptions.Items.Add(li);
             ddlOptions.Items.Add(li);
+
+            if (string.IsNullOrEmpty(selVal) 
+                && item.ToString() == DefaultSelection+"")
+            {
+                li.Selected = true;
+            }
+            if (!string.IsNullOrEmpty(selVal) && item.ToString()==selVal)
+            {
+                li.Selected = true;
+            }
+
         }
+
+        //foreach (var name in names)
+        //{
+            
+        //    var li = new ListItem(name);
+        //    if (string.IsNullOrEmpty(selVal) 
+        //        && (Enum.Parse(EnumType, name)).ToString() == DefaultSelection+"")
+        //    {
+        //        li.Selected = true;
+        //    }
+        //    if (!string.IsNullOrEmpty(selVal) && name==selVal)
+        //    {
+        //        li.Selected = true;
+        //    }
+        //    rdlOptions.Items.Add(li);
+        //    ddlOptions.Items.Add(li);
+        //}
     }
 
     public string CssClass

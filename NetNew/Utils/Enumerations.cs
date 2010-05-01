@@ -1,4 +1,5 @@
-﻿namespace Utils.Enumerations
+﻿using System.ComponentModel;
+namespace Utils.Enumerations
 {
     public enum CrisisStatuses:short
     {
@@ -14,6 +15,7 @@
     public enum IncidentStatuses:short
     {
         Created ,
+        [Description("Resource Gathering")]
         ResourceGathering ,
         Working ,
         Complete ,
@@ -21,6 +23,7 @@
     public enum IncidentTypes:short
     {
         Fire ,
+        [Description("Collapsed Building")]
         CollapsedBuilding ,
         Bomb ,
         Accident ,

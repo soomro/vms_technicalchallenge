@@ -47,7 +47,7 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
 
             GoogleMap1.Latitude= 57.7070820644457;
             GoogleMap1.Longitude = 11.9915771484375;
-            GoogleMap1.Zoom = 8;
+            //GoogleMap1.Zoom = 8;
 
             
         }
@@ -89,7 +89,18 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
             GoogleMap1.Height = value;
         }
     }
-
+    public int Zoom
+    {
+        get
+        {
+            return Utils.Convert.ToInt(ViewState["Zoom"]+"", 8);
+        }
+        set
+        {
+            ViewState["Zoom"] = value;
+            GoogleMap1.Zoom = value;
+        }
+    }
      
     protected void GoogleMap1_Click(object sender, Artem.Web.UI.Controls.GoogleLocationEventArgs e)
     {
@@ -107,6 +118,9 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
 
         var name = Utils.GeoUtil.GetAddressName(e.Location.Latitude+"", e.Location.Longitude+"");
         HttpContext.Current.Items["adrName"] = name;
+        
+        Zoom = GoogleMap1.Zoom;
+        
     }
      
 

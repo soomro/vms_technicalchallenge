@@ -26,12 +26,17 @@
         <br class="spacer"></br>
         <div id="pagePath" class="frame">
             &nbsp;<asp:SiteMapPath 
-                ID="SiteMapPath1" runat="server" Visible="False">
+                ID="SiteMapPath1" runat="server" Font-Names="Verdana" Font-Size="0.8em" 
+                PathSeparator=" : ">
+                <CurrentNodeStyle ForeColor="#333333" />
+                <NodeStyle Font-Bold="True" ForeColor="#666666" />
+                <PathSeparatorStyle Font-Bold="True" ForeColor="#1C5E55" />
+                <RootNodeStyle Font-Bold="True" ForeColor="#1C5E55" />
             </asp:SiteMapPath>
         </div>
         <div >
          <p id="massagePart">
-               <asp:BulletedList ID="blMessages" runat="server" >
+               &nbsp;<asp:BulletedList ID="blMessages" runat="server" >
               
                     </asp:BulletedList>
             </p>
@@ -42,7 +47,7 @@
         <div id="footerMain">
             <div id="footer">
                 <ul>
-                    <li><a href="#">Home</a> |</li>
+                    <li><a href="#">Home</li>
                     <li><a href="#">About Us</a> |</li>
                     <li><a href="#">Solutions</a> |</li>
                     <li><a href="#">Support</a> |</li>
