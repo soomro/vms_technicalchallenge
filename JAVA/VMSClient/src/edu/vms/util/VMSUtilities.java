@@ -147,7 +147,7 @@ public class VMSUtilities {
         for (int i = 0; i < iName.length; i++) {
             midlet.getViewRequest().append(iName[i] + "/ " + iNumber[i] + "/ " + (String) midlet.collectedAmount.elementAt(i));
             midlet.getViewRequest().append("\n");            
-            midlet.getViewRequest().append(iName[i] + "/ " + iNumber[i] + "/ " + (String) midlet.collectedAmount.elementAt(i));
+            midlet.getViewRequest().append("Fuel/ liter/ 5/ " + (String) midlet.collectedAmount.elementAt(i + 1));
             midlet.getViewRequest().append("\n");
         }
 

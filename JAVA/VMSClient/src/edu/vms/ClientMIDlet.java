@@ -14,7 +14,6 @@ import javax.microedition.media.Manager;
 import javax.microedition.media.MediaException;
 import javax.microedition.media.Player;
 import javax.microedition.media.control.VideoControl;
-import org.netbeans.microedition.lcdui.LoginScreen;
 import org.netbeans.microedition.lcdui.WaitScreen;
 
 /**
@@ -24,7 +23,11 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
 
     private boolean midletPaused = false;
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
+    private Command itemCommand;
+    private Command okCommand1;
     private Command exitCommand;
+    private Command loginCommand;
+    private Command exitCommand1;
     private Command exitLogin;
     private Command okCommand;
     private Command acceptCommand;
@@ -35,28 +38,30 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     private Command cancelCommand1;
     private Command logoutCommand;
     private Command progressCommand;
-    private Command videoCommand;
-    private Command sendCommand;
     private Command backCommand;
-    private Command okCommand1;
+    private Command sendCommand;
+    private Command videoCommand;
+    private Form login;
+    private TextField textField5;
+    private TextField textField6;
+    private StringItem stringItem;
+    private Alert alert;
     private Form main;
+    private ChoiceGroup choiceGroup2;
     private ChoiceGroup choiceGroup;
     private Spacer spacer;
-    private ChoiceGroup choiceGroup2;
-    private LoginScreen Login;
     private WaitScreen waitScreen;
     private Form request;
     private Form reportIncident;
-    private TextField textField;
-    private TextField textField1;
     private TextField textField2;
+    private TextField textField1;
+    private TextField textField;
     private Form reportProgress;
-    private TextField textField3;
     private TextField textField4;
+    private TextField textField3;
     private Form viewRequest;
-    private Alert alert;
-    private Ticker ticker;
     private Image image1;
+    private Ticker ticker;
     //</editor-fold>//GEN-END:|fields|0|
     private VMSUtilities util;
     public boolean loggedIn = false;
@@ -72,6 +77,8 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     private Form form;
     private Command exit, back, capture, camera;
     public String location;
+    private String username;
+    private String password;
     /*
      * Static variables
      */
@@ -146,23 +153,23 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
         // write pre-action user code here
-        if (displayable == Login) {//GEN-BEGIN:|7-commandAction|1|24-preAction
-            if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|1|24-preAction
+        if (displayable == alert) {//GEN-BEGIN:|7-commandAction|1|132-preAction
+            if (command == okCommand1) {//GEN-END:|7-commandAction|1|132-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getWaitScreen());//GEN-LINE:|7-commandAction|2|24-postAction
-                //checking of the valid username and password
-                util.checkUsernameAndPassword(Login.getUsername(), Login.getPassword());
+//GEN-LINE:|7-commandAction|2|132-postAction
                 // write post-action user code here
-            } else if (command == exitLogin) {//GEN-LINE:|7-commandAction|3|30-preAction
+            }//GEN-BEGIN:|7-commandAction|3|148-preAction
+        } else if (displayable == login) {
+            if (command == exitCommand1) {//GEN-END:|7-commandAction|3|148-preAction
                 // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|4|30-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|4|148-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|5|132-preAction
-        } else if (displayable == alert) {
-            if (command == okCommand1) {//GEN-END:|7-commandAction|5|132-preAction
+            } else if (command == loginCommand) {//GEN-LINE:|7-commandAction|5|146-preAction
                 // write pre-action user code here
-//GEN-LINE:|7-commandAction|6|132-postAction
-                // write post-action user code here
+                switchDisplayable(null, getWaitScreen());//GEN-LINE:|7-commandAction|6|146-postAction
+                username = ((TextField)login.get(0)).getString();
+                password = ((TextField)login.get(1)).getString();
+                util.checkUsernameAndPassword(username, password);// write post-action user code here
             }//GEN-BEGIN:|7-commandAction|7|19-preAction
         } else if (displayable == main) {
             if (command == exitCommand) {//GEN-END:|7-commandAction|7|19-preAction
@@ -252,6 +259,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     }//GEN-BEGIN:|7-commandAction|36|
     //</editor-fold>//GEN-END:|7-commandAction|36|
 
+
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
      * Returns an initiliazed instance of exitCommand component.
@@ -302,31 +310,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     }
     //</editor-fold>//GEN-END:|29-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Login ">//GEN-BEGIN:|22-getter|0|22-preInit
-    /**
-     * Returns an initiliazed instance of Login component.
-     * @return the initialized component instance
-     */
-    public LoginScreen getLogin() {
-        if (Login == null) {//GEN-END:|22-getter|0|22-preInit
-            // write pre-init user code here
-            Login = new LoginScreen(getDisplay());//GEN-BEGIN:|22-getter|1|22-postInit
-            Login.setLabelTexts("Username", "Password");
-            Login.setTitle("VMS Login");
-            Login.setTicker(getTicker());
-            Login.addCommand(LoginScreen.LOGIN_COMMAND);
-            Login.addCommand(getExitLogin());
-            Login.setCommandListener(this);
-            Login.setBGColor(-39322);
-            Login.setFGColor(0);
-            Login.setLoginTitle("Login to VMS");
-            Login.setUseLoginButton(true);
-            Login.setLoginButtonText("Login");//GEN-END:|22-getter|1|22-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|22-getter|2|
-        return Login;
-    }
-    //</editor-fold>//GEN-END:|22-getter|2|
+
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker ">//GEN-BEGIN:|36-getter|0|36-preInit
     /**
@@ -852,6 +836,118 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     }
     //</editor-fold>//GEN-END:|130-getter|3|
 
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: login ">//GEN-BEGIN:|142-getter|0|142-preInit
+    /**
+     * Returns an initiliazed instance of login component.
+     * @return the initialized component instance
+     */
+    public Form getLogin() {
+        if (login == null) {//GEN-END:|142-getter|0|142-preInit
+            // write pre-init user code here
+            login = new Form("Login", new Item[] { getStringItem(), getTextField5(), getTextField6() });//GEN-BEGIN:|142-getter|1|142-postInit
+            login.addCommand(getLoginCommand());
+            login.addCommand(getExitCommand1());
+            login.setCommandListener(this);//GEN-END:|142-getter|1|142-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|142-getter|2|
+        return login;
+    }
+    //</editor-fold>//GEN-END:|142-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: itemCommand ">//GEN-BEGIN:|143-getter|0|143-preInit
+    /**
+     * Returns an initiliazed instance of itemCommand component.
+     * @return the initialized component instance
+     */
+    public Command getItemCommand() {
+        if (itemCommand == null) {//GEN-END:|143-getter|0|143-preInit
+            // write pre-init user code here
+            itemCommand = new Command("Item", Command.ITEM, 0);//GEN-LINE:|143-getter|1|143-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|143-getter|2|
+        return itemCommand;
+    }
+    //</editor-fold>//GEN-END:|143-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: loginCommand ">//GEN-BEGIN:|145-getter|0|145-preInit
+    /**
+     * Returns an initiliazed instance of loginCommand component.
+     * @return the initialized component instance
+     */
+    public Command getLoginCommand() {
+        if (loginCommand == null) {//GEN-END:|145-getter|0|145-preInit
+            // write pre-init user code here
+            loginCommand = new Command("Login", "Login", Command.OK, 0);//GEN-LINE:|145-getter|1|145-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|145-getter|2|
+        return loginCommand;
+    }
+    //</editor-fold>//GEN-END:|145-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand1 ">//GEN-BEGIN:|147-getter|0|147-preInit
+    /**
+     * Returns an initiliazed instance of exitCommand1 component.
+     * @return the initialized component instance
+     */
+    public Command getExitCommand1() {
+        if (exitCommand1 == null) {//GEN-END:|147-getter|0|147-preInit
+            // write pre-init user code here
+            exitCommand1 = new Command("Exit", Command.EXIT, 0);//GEN-LINE:|147-getter|1|147-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|147-getter|2|
+        return exitCommand1;
+    }
+    //</editor-fold>//GEN-END:|147-getter|2|
+
+
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: textField5 ">//GEN-BEGIN:|155-getter|0|155-preInit
+    /**
+     * Returns an initiliazed instance of textField5 component.
+     * @return the initialized component instance
+     */
+    public TextField getTextField5() {
+        if (textField5 == null) {//GEN-END:|155-getter|0|155-preInit
+            // write pre-init user code here
+            textField5 = new TextField("Username", "", 32, TextField.ANY);//GEN-LINE:|155-getter|1|155-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|155-getter|2|
+        return textField5;
+    }
+    //</editor-fold>//GEN-END:|155-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: textField6 ">//GEN-BEGIN:|156-getter|0|156-preInit
+    /**
+     * Returns an initiliazed instance of textField6 component.
+     * @return the initialized component instance
+     */
+    public TextField getTextField6() {
+        if (textField6 == null) {//GEN-END:|156-getter|0|156-preInit
+            // write pre-init user code here
+            textField6 = new TextField("Password", "", 32, TextField.ANY);//GEN-LINE:|156-getter|1|156-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|156-getter|2|
+        return textField6;
+    }
+    //</editor-fold>//GEN-END:|156-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem ">//GEN-BEGIN:|158-getter|0|158-preInit
+    /**
+     * Returns an initiliazed instance of stringItem component.
+     * @return the initialized component instance
+     */
+    public StringItem getStringItem() {
+        if (stringItem == null) {//GEN-END:|158-getter|0|158-preInit
+            // write pre-init user code here
+            stringItem = new StringItem("Volunteer\'s Management System", "", Item.PLAIN);//GEN-LINE:|158-getter|1|158-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|158-getter|2|
+        return stringItem;
+    }
+    //</editor-fold>//GEN-END:|158-getter|2|
+
     /**
      * Returns a display instance.
      * @return the display instance.
@@ -956,4 +1052,12 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
             }
         }
     };
+
+    public String getUsername(){
+        return username;
+    }
+
+    public String getPassword(){
+        return password;
+    }
 }
