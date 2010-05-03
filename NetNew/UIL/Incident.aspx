@@ -123,12 +123,19 @@
                             <asp:Button ID="btClose" runat="server" Text="Close" onclick="btClose_Click"  />
                         &nbsp;
                             <asp:Button ID="btSave" runat="server" Text="Save" onclick="btSave_Click" />
+                        &nbsp;<br />
+                            <br />
+                            <asp:HyperLink ID="hlResourceGathering" runat="server" 
+                                NavigateUrl="~/ResourceGathering.aspx">Resource Gathering</asp:HyperLink>
                         </td>
                     </tr>
         </table> </td>
-        <td>
-            <uc1:UCIncidentMap ID="UCIncidentMap1" runat="server" Width="100%" Heigth="400px" />
-        </td>
+        <td><asp:UpdatePanel runat="server" id="upMap">
+            <ContentTemplate></ContentTemplate>
+            </asp:UpdatePanel>
+            <uc1:UCIncidentMap ID="UCIncidentMap1" runat="server" Width="100%" Heigth="400px"  />
+            
+       </td>
         </tr>
     </table>
 </asp:Content>

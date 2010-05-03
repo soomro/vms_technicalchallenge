@@ -205,6 +205,7 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="SearchAreaCoordinatesStr" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IncidentId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="StuffItems">
           <Key>
@@ -646,6 +647,7 @@
           <NavigationProperty Name="Incident" Relationship="DataModel.FK_Aso_IncidentRequest" FromRole="Request" ToRole="Incident" />
           <NavigationProperty Name="NeedItems" Relationship="DataModel.FK_Aso_RequestNeedItem" FromRole="Request" ToRole="NeedItem" />
           <NavigationProperty Name="RequestResponses" Relationship="DataModel.FK_Aso_RequestResponseRequest" FromRole="Request" ToRole="RequestRespons" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="StuffItem">
           <Key>
@@ -1000,6 +1002,7 @@
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="DataModel.Request">
               <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IncidentId" ColumnName="IncidentId" />
                 <ScalarProperty Name="SearchAreaCoordinatesStr" ColumnName="SearchAreaCoordinatesStr" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />

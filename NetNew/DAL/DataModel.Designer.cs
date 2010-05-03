@@ -2887,7 +2887,8 @@ namespace DAL
         /// <param name="isActive">Initial value of the IsActive property.</param>
         /// <param name="searchAreaCoordinatesStr">Initial value of the SearchAreaCoordinatesStr property.</param>
         /// <param name="incidentId">Initial value of the IncidentId property.</param>
-        public static Request CreateRequest(global::System.Int32 id, global::System.String message, global::System.Boolean isActive, global::System.String searchAreaCoordinatesStr, global::System.Int32 incidentId)
+        /// <param name="name">Initial value of the Name property.</param>
+        public static Request CreateRequest(global::System.Int32 id, global::System.String message, global::System.Boolean isActive, global::System.String searchAreaCoordinatesStr, global::System.Int32 incidentId, global::System.String name)
         {
             Request request = new Request();
             request.Id = id;
@@ -2895,6 +2896,7 @@ namespace DAL
             request.IsActive = isActive;
             request.SearchAreaCoordinatesStr = searchAreaCoordinatesStr;
             request.IncidentId = incidentId;
+            request.Name = name;
             return request;
         }
 
@@ -3023,6 +3025,30 @@ namespace DAL
         private global::System.Int32 _IncidentId;
         partial void OnIncidentIdChanging(global::System.Int32 value);
         partial void OnIncidentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
 
         #endregion
     

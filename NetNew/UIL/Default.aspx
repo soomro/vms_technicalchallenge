@@ -3,6 +3,8 @@
 
 <%@ MasterType TypeName="SiteMaster" %>
 
+<%@ Register src="UControls/ucRequestMap.ascx" tagname="ucRequestMap" tagprefix="uc1" %>
+
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -13,4 +15,10 @@
 &nbsp;<asp:Button ID="Button1" runat="server" onclick="Button1_Click1" 
         Text="edit" />
 &nbsp;
+
+    <br />
+    
+&nbsp;
+
+
 </asp:Content>
