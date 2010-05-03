@@ -33,8 +33,8 @@ public class ServiceRequests extends Thread {
 
     public ServiceRequests(MIDlet m) {
         midlet = (ClientMIDlet) m;
-        username = midlet.getLogin().getUsername();
-        password = midlet.getLogin().getPassword();
+        username = midlet.getUsername();
+        password = midlet.getPassword();
     }
 
     public void run() {
@@ -87,7 +87,12 @@ public class ServiceRequests extends Thread {
                 System.out.println("GUID = " + answer);
                 midlet.loggedIn = true;
                 System.out.println("answer = " + answer);
-                midlet.commandAction(ClientMIDlet.SUCCESS_LOGIN, midlet.getWaitScreen());
+                if(username.equals("admin")){
+                    midlet.commandAction(ClientMIDlet.SUCCESS_LOGIN, midlet.getWaitScreen());
+                } else {
+                    midlet.commandAction(WaitScreen.FAILURE_COMMAND, midlet.getWaitScreen());
+                }
+                
             } else {
                 midlet.commandAction(WaitScreen.FAILURE_COMMAND, midlet.getWaitScreen());
             }
@@ -120,7 +125,7 @@ public class ServiceRequests extends Thread {
         System.out.println("method : getRequest()");
         WS_Stub service = new WS_Stub();
         try {
-            answer = service.getRequest(midlet.requestID, midlet.getLogin().getUsername());
+            answer = service.getRequest(midlet.requestID, midlet.getUsername());
             System.out.println("answer = " + answer);
             String[] iName = {"Car/ Item"};
             int[] iNumber = {5};
@@ -167,7 +172,7 @@ public class ServiceRequests extends Thread {
             tField.setConstraints(TextField.NUMERIC);
             midlet.getRequest().append(tField);
             midlet.getRequest().append("\n");
-            TextField tField1 = new TextField(iName[i] + "/ " + iNumber[i], "0", 3, 3);
+            TextField tField1 = new TextField("Fuel/ liter/ 5" , "0", 3, 3);
             tField1.setConstraints(TextField.NUMERIC);
             midlet.getRequest().append(tField1);
             midlet.getRequest().append("\n");
