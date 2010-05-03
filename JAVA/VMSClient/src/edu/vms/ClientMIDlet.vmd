@@ -343,8 +343,13 @@
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="isFullScreen" typeID="Pboolean" value="Vtrue"/>
                     <Component componentID="50" typeID="C#WaitScreenFailureCommandEventSource">
+                        <Property name="eventHandler" typeID="C#EventHandler" value="R159"/>
                         <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R48"/>
                         <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R41"/>
+                        <Component componentID="159" typeID="C#SwitchDisplayableEventHandler">
+                            <Property name="eventSource" typeID="C#EventSource" value="R50"/>
+                            <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R142"/>
+                        </Component>
                     </Component>
                     <Component componentID="49" typeID="C#WaitScreenSuccessCommandEventSource">
                         <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R48"/>
@@ -497,7 +502,7 @@
     </Document>
     <FlowScene version="1">
         <Node componentID="142" descriptorID="componentNode142" x="613" y="118"/>
-        <Node componentID="48" descriptorID="componentNode48" x="792" y="29"/>
+        <Node componentID="48" descriptorID="componentNode48" x="768" y="211"/>
         <Node componentID="118" descriptorID="componentNode118" x="34" y="32"/>
         <Node componentID="14" descriptorID="componentNode14" x="269" y="122"/>
         <Node componentID="85" descriptorID="componentNode85" x="45" y="267"/>
