@@ -18,6 +18,8 @@ public class Constants
     public const string IdUserName = "UserName";
     public const string IdUserType = "IdUserType";
     public const string IdIncidentId = "iid";
+    public const string IdIncident = "Incident";
+
     //Constants for pages will begin with "Page" in identifier
     public const string PageCrisisBoard = "CrisisBoard.aspx";
     public const string PageCrisis = "Crisis.aspx";
@@ -25,6 +27,7 @@ public class Constants
     public const string PageManagerProfile = "Manreg.aspx";
     public const string PageIncident = "Incident.aspx";
     public const string PageLogin = "Login.aspx";
+    public const string PageResourceGathering = "ResourceGathering.aspx";
 
     public const string ImgFire1 = "~/Images/fire1.gif";
     public const string ImgFire2 = "~/Images/fire2.gif";

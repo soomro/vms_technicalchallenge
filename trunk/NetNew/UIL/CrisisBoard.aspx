@@ -20,7 +20,9 @@
                             <Header>
                                 Create New Incident</Header>
                             <Content>
-                                <a href="Incident.aspx">Create new incident</a></Content>
+                                <a href="Incident.aspx">Create new incident</a>
+                                
+                                </Content>
                         </asp:AccordionPane>
                         <asp:AccordionPane runat="server" ID="pn2">
                             <Header>

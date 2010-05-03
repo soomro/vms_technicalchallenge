@@ -10,8 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
 public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
-{
-     
+{     
     protected override void OnPreRender(EventArgs e)
     {
         GoogleMap1.Polygons.Clear();
@@ -25,8 +24,38 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
         }
         base.OnPreRender(e);
     }
-     
 
+    public bool ReadOnly
+    {
+        get
+        {
+            bool r = false;
+
+            try
+            {
+                r = (bool)ViewState["readonly"];
+                return r;
+            }
+            catch (Exception ex) { }
+
+            return false;
+        }
+        set
+        {
+            ViewState["readonly"] = value;
+            if (value==true)
+            {
+                GoogleMap1.Click -= GoogleMap1_Click;
+                GoogleMap1.EnableGoogleBar = false;
+                GoogleMap1.EnableInfoWindow = false; 
+
+            }
+            else
+            {
+                GoogleMap1.Click += GoogleMap1_Click;
+            }
+        }
+    }
     public GoogleMarker Incident
     {
         get
@@ -52,9 +81,7 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
             
         }
     }
-
-   
-
+    
     public Unit Width
     {
         get
@@ -122,7 +149,5 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
         Zoom = GoogleMap1.Zoom;
         
     }
-     
-
-     
+          
 }

@@ -99,8 +99,9 @@ public partial class Incident : PageBase
             UCIncidentMap1.Zoom = Utils.Convert.ToInt(inc.LocationCoordinates[2], 8);
 
         btClose.Visible = true;
-        
-
+        hlResourceGathering.Visible = true;
+        hlResourceGathering.NavigateUrl = Constants.PageResourceGathering+  "?iid=" + inc.Id;
+       
 
     }
     /// <summary>
@@ -127,6 +128,7 @@ public partial class Incident : PageBase
         gvNeedList.DataSource = NeedList;
         gvNeedList.DataBind();
         btClose.Visible = false;
+        hlResourceGathering.Visible = false;
     }
 
 

@@ -205,3 +205,9 @@ div, h1, h2, h3, h4, p, form, label, input, textarea, img, span{
     padding-top: 10px;
 }
 /*******************************************/
+
+.modalBackground {
+	background-color:Gray;
+	filter:alpha(opacity=70);
+	opacity:0.7;
+}
