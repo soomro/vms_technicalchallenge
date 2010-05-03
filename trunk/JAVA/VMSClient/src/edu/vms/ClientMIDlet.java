@@ -167,8 +167,8 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
             } else if (command == loginCommand) {//GEN-LINE:|7-commandAction|5|146-preAction
                 // write pre-action user code here
                 switchDisplayable(null, getWaitScreen());//GEN-LINE:|7-commandAction|6|146-postAction
-                username = ((TextField)login.get(0)).getString();
-                password = ((TextField)login.get(1)).getString();
+                username = ((TextField)login.get(1)).getString();
+                password = ((TextField)login.get(2)).getString();
                 util.checkUsernameAndPassword(username, password);// write post-action user code here
             }//GEN-BEGIN:|7-commandAction|7|19-preAction
         } else if (displayable == main) {
@@ -239,7 +239,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
             if (command == WaitScreen.FAILURE_COMMAND) {//GEN-END:|7-commandAction|31|50-preAction
                 // write pre-action user code here
                 switchDisplayable(null, getLogin());
-//GEN-LINE:|7-commandAction|32|50-postAction
+                switchDisplayable(null, getLogin());//GEN-LINE:|7-commandAction|32|50-postAction
                 // write post-action user code here
             } else if (command == WaitScreen.SUCCESS_COMMAND) {//GEN-LINE:|7-commandAction|33|49-preAction
                 // write pre-action user code here

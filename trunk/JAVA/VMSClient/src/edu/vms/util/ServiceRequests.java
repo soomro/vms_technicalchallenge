@@ -87,11 +87,8 @@ public class ServiceRequests extends Thread {
                 System.out.println("GUID = " + answer);
                 midlet.loggedIn = true;
                 System.out.println("answer = " + answer);
-                if(username.equals("admin")){
-                    midlet.commandAction(ClientMIDlet.SUCCESS_LOGIN, midlet.getWaitScreen());
-                } else {
-                    midlet.commandAction(WaitScreen.FAILURE_COMMAND, midlet.getWaitScreen());
-                }
+                midlet.commandAction(ClientMIDlet.SUCCESS_LOGIN, midlet.getWaitScreen());
+                
                 
             } else {
                 midlet.commandAction(WaitScreen.FAILURE_COMMAND, midlet.getWaitScreen());
