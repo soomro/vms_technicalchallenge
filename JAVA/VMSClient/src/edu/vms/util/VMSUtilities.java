@@ -3,7 +3,6 @@ package edu.vms.util;
 import edu.vms.ClientMIDlet;
 import java.util.Vector;
 import javax.microedition.lcdui.TextField;
-import javax.microedition.location.*;
 
 /**
  * This class will provide methodes for basic checkings
