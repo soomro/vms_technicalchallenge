@@ -27,10 +27,13 @@ public class WS : System.Web.Services.WebService
         return "Hello World";
     }
     [WebMethod]
-    public string Login(string username, string password)
+    public bool Login(string username, string password)
     {
-        Guid guid = new Guid();
-        return guid.ToString();
+        var q=DAL.Container.Instance.Volunteers.SingleOrDefault(v => v.Username == username && v.Password == password);
+        if (q == null)
+            return false;
+        else
+            return true;
     }
     [WebMethod]
     public string GetRequest(int requestID, string userID)
