@@ -6,6 +6,12 @@ package edu.vms.util;
 
 import edu.vms.ClientMIDlet;
 import edu.vms.web.WS_Stub;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.microedition.io.Connection;
+import javax.microedition.io.Connector;
+import javax.microedition.io.HttpConnection;
+import javax.microedition.io.HttpsConnection;
 import javax.microedition.lcdui.TextField;
 import javax.microedition.midlet.MIDlet;
 import org.netbeans.microedition.lcdui.WaitScreen;
@@ -81,15 +87,10 @@ public class ServiceRequests extends Thread {
         System.out.println("method : login()");
         WS_Stub service = new WS_Stub();
         try {
+
             answer = service.login(username, password);
-            if (!answer.equals("")) {
-                midlet.guid = answer;
-                System.out.println("GUID = " + answer);
-                midlet.loggedIn = true;
-                System.out.println("answer = " + answer);
+            if (!midlet.loggedIn) {
                 midlet.commandAction(ClientMIDlet.SUCCESS_LOGIN, midlet.getWaitScreen());
-                
-                
             } else {
                 midlet.commandAction(WaitScreen.FAILURE_COMMAND, midlet.getWaitScreen());
             }
@@ -99,37 +100,27 @@ public class ServiceRequests extends Thread {
 
         }
     }
-
+    //TODO: not implemented
     private void checkUpdate() {
         System.out.println("method : checkUpdate()");
         WS_Stub service = new WS_Stub();
         String request = new String();
         try {
             answer = service.checkUpdate(username, password);
-            System.out.println("answer = " + answer);
             request = TextParser.getRequest(answer);
-            midlet.requestID = Integer.parseInt(TextParser.getRequestID(answer));
-            System.out.println("request = " + request + " " + midlet.requestID);
-            midlet.getChoiceGroup().set(0, request, null);
-            System.out.println("aaaaaaaaaaaaaaa");
-            //midlet.getChoiceGroup1().insert(0, answer, null);
+            request = "Help to transport victims.";
+            midlet.getChoiceGroup().set(0, request, null);                        
+            getCoordinates();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
+    //TODO: Implement after the server is ready
     private void getRequest() {
         System.out.println("method : getRequest()");
         WS_Stub service = new WS_Stub();
         try {
-            answer = service.getRequest(midlet.requestID, midlet.getUsername());
-            System.out.println("answer = " + answer);
-            String[] iName = {"Car/ Item"};
-            int[] iNumber = {5};
-            String location = "Angered Centre";
-            String message = "Hello, we need your help";
-            String name = "Angered disaster";
-            drawRequest(location, name, message, iName, iNumber);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -156,22 +147,20 @@ public class ServiceRequests extends Thread {
     /*
      * drawRequest draws the page of request
      */
-    private void drawRequest(String rLocation, String rName, String rMessage, String[] iName, int[] iNumber) {
+    private void drawRequest() {
+        Request request = midlet.reqInfo;
         midlet.getRequest().deleteAll();
-        midlet.getRequest().append(rLocation);
+        midlet.getRequest().append(request.location);
         midlet.getRequest().append("\n");
-        midlet.getRequest().append(rMessage);
+        midlet.getRequest().append(request.message);
         midlet.getRequest().append("\n");
         midlet.getRequest().append("Need list");
         midlet.getRequest().append("\n");
-        for (int i = 0; i < iName.length; i++) {
-            TextField tField = new TextField(iName[i] + "/ " + iNumber[i], "0", 3, 3);
+        for (int i = 0; i < request.nAmount.size(); i++) {
+            TextField tField = new TextField((String)request.nType.elementAt(i) +"/ " +  request.nUnit.elementAt(i) +
+                    "/ " + request.nAmount.elementAt(i), "", 3, 3);
             tField.setConstraints(TextField.NUMERIC);
             midlet.getRequest().append(tField);
-            midlet.getRequest().append("\n");
-            TextField tField1 = new TextField("Fuel/ liter/ 5" , "0", 3, 3);
-            tField1.setConstraints(TextField.NUMERIC);
-            midlet.getRequest().append(tField1);
             midlet.getRequest().append("\n");
         }
     }
@@ -194,7 +183,23 @@ public class ServiceRequests extends Thread {
      * This method get the currecnt coordinates of the volunteers and update the location information
      */
     private void getCoordinates() {
-        midlet.location = "000000#111111";
+        try {
+            HttpConnection httpCon = (HttpConnection) Connector.open("http://www.ipaddressgeolocation.com");
+            InputStream is = httpCon.openDataInputStream();
+            StringBuffer content = new StringBuffer();
+            int next = is.read();
+            while(next !=  -1)
+            {
+                System.out.print((char)next);
+                next = is.read();
+                content.append((char)next);
+            }
+            midlet.lat = getLat(content);
+            midlet.lon = getLon(content);
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void reportIncidentProgress() {
@@ -241,5 +246,21 @@ public class ServiceRequests extends Thread {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    private String getLat(StringBuffer content) {
+        String c = content.toString();
+        int i = c.indexOf("My IP address latitude");
+        c = c.substring(i + 41, c.length());
+        int e = c.indexOf("&deg");
+        return c.substring(0, e);
+    }
+
+    private String getLon(StringBuffer content) {
+        String c = content.toString();
+        int i = c.indexOf("My IP address longitude");
+        c = c.substring(i + 42, c.length());
+        int e = c.indexOf("&deg");
+        return c.substring(0, e);
     }
 }
