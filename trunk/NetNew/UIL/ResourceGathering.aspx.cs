@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Utils.Exceptions;
+using Utils.Exceptions; 
 
 public partial class ResourceGathering : PageBase
 {
@@ -21,7 +21,7 @@ public partial class ResourceGathering : PageBase
         {
             SelectedRequest = null;
             DisablePage();
-            
+            Master.PageTitle = "Resource Gathering";
             // get the object upon first call to this page. (get id from url, load it)
             // save object to session for further usage
             DAL.Incident inc = null;
@@ -131,11 +131,16 @@ public partial class ResourceGathering : PageBase
     }
     protected void lbtRequest_Command(object sender, CommandEventArgs e)
     {
+        
+
         var reqidstr = (e.CommandArgument as string).Split('|')[0];
         var rowindex = Utils.Convert.ToInt( (e.CommandArgument as string).Split('|')[1],-1);
 
         int reqId = Utils.Convert.ToInt(reqidstr,0);
         var req = DAL.Container.Instance.Requests.SingleOrDefault(r => r.Id == reqId);
+        //DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, req);
+        DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, req.NeedItems);
+        
         SelectedRequest = req;
 
         gvNeedList.DataSource = req.NeedItems;
@@ -150,6 +155,9 @@ public partial class ResourceGathering : PageBase
         }
         //gvReqList.Rows[rowindex].Style["background-color"] = "green";
         gvReqList.Rows[rowindex].CssClass = "selectedrow";
+
+        gvVolunteers.DataSource = req.RequestResponses;
+        gvVolunteers.DataBind();
 
     }
     protected void gvNeedList_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -195,4 +203,46 @@ public partial class ResourceGathering : PageBase
     }
 
 
+    protected void gvVolunteers_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType != DataControlRowType.DataRow)
+        {
+            return;
+        }
+
+        var res = e.Row.DataItem as DAL.RequestRespons;
+        DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, res.NeedItems);
+
+        var hlVolName = e.Row.FindControl("hlVolName") as HyperLink;
+        var lbResponse = e.Row.FindControl("lbResponse") as Label;
+        var lbSupplied = e.Row.FindControl("lbSupplied") as Label;
+
+        hlVolName.Text = res.Volunteer.NameLastName;
+
+        hlVolName.NavigateUrl = "#";
+        if (res.Answer.HasValue && res.Answer.Value == true)
+            lbResponse.Text = "Accepted";
+        if (res.Answer.HasValue && res.Answer.Value == false)
+            lbResponse.Text = "Rejected";
+        if (!res.Answer.HasValue)
+            lbResponse.Text = "Waiting";
+
+        var supplied = "-";
+        foreach (DAL.NeedItem ni in res.NeedItems)
+        {
+            string s = ni.SuppliedAmount + " ";
+            if (ni.MetricType != Utils.Enumerations.MetricTypes.Item)
+                s += Utils.Reflection.GetEnumDescription(ni.MetricType)+" ";
+            s += ni.ItemType+ ", ";
+
+            supplied += s;
+        }
+        if (supplied != "-")
+            supplied = supplied.Substring(0, supplied.Length - 2).Replace("-","");
+
+        lbSupplied.Text = supplied;
+
+        
+        
+    }
 }
