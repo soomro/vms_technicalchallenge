@@ -158,6 +158,7 @@
           <Property Name="Address_Id" Type="int" />
           <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="Approved" Type="bit" />
         </EntityType>
         <EntityType Name="NeedItems">
           <Key>
@@ -429,16 +430,11 @@
           <EntitySet Name="Crises" EntityType="DataModel.Crisis" />
           <EntitySet Name="IncidentReports" EntityType="DataModel.IncidentReport" />
           <EntitySet Name="Incidents" EntityType="DataModel.Incident" />
-          <EntitySet Name="Managers" EntityType="DataModel.Manager" />
           <EntitySet Name="NeedItems" EntityType="DataModel.NeedItem" />
           <EntitySet Name="ProgressReports" EntityType="DataModel.ProgressReport" />
           <EntitySet Name="RequestResponses" EntityType="DataModel.RequestRespons" />
           <EntitySet Name="Requests" EntityType="DataModel.Request" />
           <EntitySet Name="StuffItems" EntityType="DataModel.StuffItem" />
-          <AssociationSet Name="FK_Aso_ManagerAddress" Association="DataModel.FK_Aso_ManagerAddress">
-            <End Role="Address" EntitySet="Addresses" />
-            <End Role="Manager" EntitySet="Managers" />
-          </AssociationSet>
           <AssociationSet Name="FK_Aso_AlertCrisis" Association="DataModel.FK_Aso_AlertCrisis">
             <End Role="Crisis" EntitySet="Crises" />
             <End Role="Alert" EntitySet="Alerts" />
@@ -496,6 +492,11 @@
             <End Role="Volunteer" EntitySet="Volunteers" />
             <End Role="StuffItem" EntitySet="StuffItems" />
           </AssociationSet>
+          <EntitySet Name="Managers" EntityType="DataModel.Manager" />
+          <AssociationSet Name="FK_Aso_ManagerAddress" Association="DataModel.FK_Aso_ManagerAddress">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Manager" EntitySet="Managers" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -508,8 +509,8 @@
           <Property Type="String" Name="HouseNumber" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="PostalCode" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Street" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Managers" Relationship="DataModel.FK_Aso_ManagerAddress" FromRole="Address" ToRole="Manager" />
           <NavigationProperty Name="Volunteers" Relationship="DataModel.FK_Aso_VolunteerAddress" FromRole="Address" ToRole="Volunteer" />
+          <NavigationProperty Name="Managers" Relationship="DataModel.FK_Aso_ManagerAddress" FromRole="Address" ToRole="Manager" />
         </EntityType>
         <EntityType Name="Alert">
           <Key>
@@ -575,20 +576,6 @@
           <NavigationProperty Name="NeedItems" Relationship="DataModel.FK_Aso_IncidentNeedItem" FromRole="Incident" ToRole="NeedItem" />
           <NavigationProperty Name="ProgressReports" Relationship="DataModel.FK_Aso_IncidentProgressReport" FromRole="Incident" ToRole="ProgressReport" />
           <NavigationProperty Name="Requests" Relationship="DataModel.FK_Aso_IncidentRequest" FromRole="Incident" ToRole="Request" />
-        </EntityType>
-        <EntityType Name="Manager">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="NameLastName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ExpertiseCrisisTypesStr" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="DateBirth" Nullable="false" />
-          <Property Type="Int16" Name="GenderVal" Nullable="false" />
-          <Property Type="Int32" Name="Address_Id" />
-          <NavigationProperty Name="Address" Relationship="DataModel.FK_Aso_ManagerAddress" FromRole="Manager" ToRole="Address" />
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="NeedItem">
           <Key>
@@ -660,18 +647,6 @@
           <Property Type="Int32" Name="VolunteerId" Nullable="false" />
           <NavigationProperty Name="Volunteer" Relationship="DataModel.FK_Aso_VolunteerStuffItem" FromRole="StuffItem" ToRole="Volunteer" />
         </EntityType>
-        <Association Name="FK_Aso_ManagerAddress">
-          <End Type="DataModel.Address" Role="Address" Multiplicity="0..1" />
-          <End Type="DataModel.Manager" Role="Manager" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Manager">
-              <PropertyRef Name="Address_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Aso_AlertCrisis">
           <End Type="DataModel.Crisis" Role="Crisis" Multiplicity="1" />
           <End Type="DataModel.Alert" Role="Alert" Multiplicity="*" />
@@ -867,6 +842,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="NameLastName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ExpertiseCrisisTypesStr" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="DateBirth" Nullable="false" />
+          <Property Type="Int16" Name="GenderVal" Nullable="false" />
+          <Property Type="Int32" Name="Address_Id" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Approved" />
+          <NavigationProperty Name="Address" Relationship="DataModel.FK_Aso_ManagerAddress" FromRole="Manager" ToRole="Address" />
+        </EntityType>
+        <Association Name="FK_Aso_ManagerAddress">
+          <End Type="DataModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="DataModel.Manager" Role="Manager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Manager">
+              <PropertyRef Name="Address_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -941,20 +943,6 @@
                 <ScalarProperty Name="Explanation" ColumnName="Explanation" />
                 <ScalarProperty Name="LocationCoordinatesStr" ColumnName="LocationCoordinatesStr" />
                 <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Managers">
-            <EntityTypeMapping TypeName="DataModel.Manager">
-              <MappingFragment StoreEntitySet="Managers">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
-                <ScalarProperty Name="GenderVal" ColumnName="GenderVal" />
-                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
-                <ScalarProperty Name="ExpertiseCrisisTypesStr" ColumnName="ExpertiseCrisisTypesStr" />
-                <ScalarProperty Name="NameLastName" ColumnName="NameLastName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1045,6 +1033,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Managers">
+            <EntityTypeMapping TypeName="DataModel.Manager">
+              <MappingFragment StoreEntitySet="Managers">
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+                <ScalarProperty Name="GenderVal" ColumnName="GenderVal" />
+                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+                <ScalarProperty Name="ExpertiseCrisisTypesStr" ColumnName="ExpertiseCrisisTypesStr" />
+                <ScalarProperty Name="NameLastName" ColumnName="NameLastName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1071,17 +1074,11 @@
         <EntityTypeShape EntityType="DataModel.Crisis" Width="1.5" PointX="1.5" PointY="4.5" Height="3.1340950520833388" />
         <EntityTypeShape EntityType="DataModel.IncidentReport" Width="1.5" PointX="5.25" PointY="11.5" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="DataModel.Incident" Width="1.5" PointX="3.75" PointY="2.5" Height="4.0956022135416656" />
-        <EntityTypeShape EntityType="DataModel.Manager" Width="1.5" PointX="3" PointY="8.375" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="DataModel.NeedItem" Width="1.5" PointX="10.5" PointY="12.875" Height="3.1340950520833388" />
         <EntityTypeShape EntityType="DataModel.ProgressReport" Width="1.5" PointX="5.25" PointY="16" Height="2.7494921875000031" />
         <EntityTypeShape EntityType="DataModel.RequestRespons" Width="1.5" PointX="8.25" PointY="13" Height="2.9417936197916656" />
         <EntityTypeShape EntityType="DataModel.Request" Width="1.5" PointX="6" PointY="4.125" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="DataModel.StuffItem" Width="1.5" PointX="5.25" PointY="22.375" Height="2.172587890624996" />
-        <AssociationConnector Association="DataModel.FK_Aso_ManagerAddress" >
-          <ConnectorPoint PointX="1.5" PointY="11.5" />
-          <ConnectorPoint PointX="1.5" PointY="9.74974609375" />
-          <ConnectorPoint PointX="3" PointY="9.74974609375" />
-        </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_AlertCrisis" >
           <ConnectorPoint PointX="2.25" PointY="4.5" />
           <ConnectorPoint PointX="2.25" PointY="1.59375" />
@@ -1152,6 +1149,12 @@
           <ConnectorPoint PointX="3.75" PointY="17.499410807291667" />
           <ConnectorPoint PointX="3.75" PointY="23.4612939453125" />
           <ConnectorPoint PointX="5.25" PointY="23.4612939453125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DataModel.Manager" Width="1.5" PointX="3" PointY="8.375" Height="2.9417936197916674" />
+        <AssociationConnector Association="DataModel.FK_Aso_ManagerAddress" >
+          <ConnectorPoint PointX="1.5" PointY="11.5" />
+          <ConnectorPoint PointX="1.5" PointY="9.8458968098958337" />
+          <ConnectorPoint PointX="3" PointY="9.8458968098958337" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
