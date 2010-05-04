@@ -167,6 +167,7 @@ public partial class Incident : PageBase
     }
 
     int needItemOrder = 0;
+
     protected void gvNeedList_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType!=DataControlRowType.DataRow)
