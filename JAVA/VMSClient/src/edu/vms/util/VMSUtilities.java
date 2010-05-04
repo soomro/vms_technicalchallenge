@@ -93,14 +93,15 @@ public class VMSUtilities {
     }
 
     //-------------------------------------------------------
+    /*
+     *
+     */
     public void calculateAmount() {
-        midlet.collectedAmount = new Vector();
         for (int i = 0; i < midlet.getRequest().size(); i++) {
             if (midlet.getRequest().get(i) instanceof TextField) {
                 TextField tf = (TextField) midlet.getRequest().get(i);
-                midlet.collectedAmount.addElement(tf.getString());
+                midlet.reqInfo.nCollected.addElement(tf.getString());
             }
-            i++;
         }
     }
 
@@ -126,7 +127,7 @@ public class VMSUtilities {
     }
 
     public void removeRequest() {
-        midlet.requestID = 0;
+        midlet.reqInfo = new Request();
         midlet.accepted = false;
         midlet.getChoiceGroup().set(0, "", null);
         midlet.getChoiceGroup().setSelectedIndex(0, false);
@@ -136,19 +137,24 @@ public class VMSUtilities {
     /*
      * drawRequest draws the page of request
      */
+    /*
+     *
+     * @param username - the username of the user
+     * @param password - the password of the user
+     */
     public void drawViewRequest(String rLocation, String rName, String rMessage, String[] iName, int[] iNumber) {
         midlet.getViewRequest().deleteAll();
         midlet.getViewRequest().append(rLocation);
         midlet.getViewRequest().append("\n");
-        midlet.getViewRequest().append(rMessage);
+        midlet.getViewRequest().append("Help to transport the victims to the hospital");
         midlet.getViewRequest().append("\n");
         midlet.getViewRequest().append("Need list");
         midlet.getViewRequest().append("\n");
         for (int i = 0; i < iName.length; i++) {
-            midlet.getViewRequest().append(iName[i] + "/ " + iNumber[i] + "/ " + (String) midlet.collectedAmount.elementAt(i));
+            midlet.getViewRequest().append(iName[i] + "/ " + iNumber[i] + "/ " + (String) midlet.reqInfo.nCollected.elementAt(i));
             midlet.getViewRequest().append("\n");            
-            midlet.getViewRequest().append("Fuel/ liter/ 5/ " + (String) midlet.collectedAmount.elementAt(i + 1));
-            midlet.getViewRequest().append("\n");
+            //midlet.getViewRequest().append("Fuel/ liter/ 5/ " + (String) midlet.collectedAmount.elementAt(i + 1));
+            //midlet.getViewRequest().append("\n");
         }
 
     }

@@ -159,14 +159,14 @@ public class WS_Stub implements WS, javax.xml.rpc.Stub {
     protected static final QName _qname_LoginResponse = new QName( "http://tempuri.org/", "LoginResponse" );
     protected static final QName _qname_GetRequest = new QName( "http://tempuri.org/", "GetRequest" );
     protected static final QName _qname_CheckUpdateResponse = new QName( "http://tempuri.org/", "CheckUpdateResponse" );
-    protected static final Element _type_GetRequest;
     protected static final Element _type_CheckUpdate;
-    protected static final Element _type_GetRequestResponse;
     protected static final Element _type_LoginResponse;
-    protected static final Element _type_Login;
     protected static final Element _type_HelloWorldResponse;
-    protected static final Element _type_CheckUpdateResponse;
     protected static final Element _type_HelloWorld;
+    protected static final Element _type_GetRequestResponse;
+    protected static final Element _type_GetRequest;
+    protected static final Element _type_Login;
+    protected static final Element _type_CheckUpdateResponse;
 
     static {
         _type_HelloWorldResponse = new Element( _qname_HelloWorldResponse, _complexType( new Element[] {
