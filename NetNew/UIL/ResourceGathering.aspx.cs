@@ -8,10 +8,20 @@ using Utils.Exceptions;
 
 public partial class ResourceGathering : PageBase
 {
+    DAL.Request SelectedRequest
+    {
+        get{
+            return Session["SelectedRequest"] as DAL.Request;
+        }
+        set { Session["SelectedRequest"] = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
+            SelectedRequest = null;
+            DisablePage();
+            
             // get the object upon first call to this page. (get id from url, load it)
             // save object to session for further usage
             DAL.Incident inc = null;
@@ -39,6 +49,9 @@ public partial class ResourceGathering : PageBase
     private void BindPage(DAL.Incident inc)
     {
         // TODO: enable panels.
+        pnIncident.Visible = true;       
+        pnRequestList.Visible = true;
+
         lbIncName.Text = inc.ShortDescription;
         lbSeverity.Text = Utils.Reflection.GetEnumDescription(inc.Severity);
         lbIncType.Text = Utils.Reflection.GetEnumDescription(inc.IncidentType);
@@ -57,20 +70,16 @@ public partial class ResourceGathering : PageBase
         gvReqList.DataSource = list;
         gvReqList.DataBind();
 
-        cblNeedlist.Items.Clear();
-        foreach (DAL.NeedItem item in inc.NeedItems)
-        {
-            ListItem li = new ListItem();
-            li.Text = item.ItemType + string.Format(" ({1} {0})",
-                Utils.Reflection.GetEnumDescription(item.MetricType), item.ItemAmount);
-            li.Value = item.Id+"";
-            cblNeedlist.Items.Add(li);
-        }
+        hlNewRequest.NavigateUrl = string.Format("~/CreateRequest.aspx?{0}={1}&Action={2}",Constants.IdIncidentId,inc.Id,PageActions.Create);
+
+      
     }
 
     private void DisablePage()
     {
-        //throw new NotImplementedException();
+        pnIncident.Visible = false;
+        pnNeedListStatus.Visible = false;
+        pnRequestList.Visible = false;
     }
 
     /// <summary>
@@ -98,39 +107,8 @@ public partial class ResourceGathering : PageBase
         Session[Constants.IdIncident] = incObj;
         return incObj;
     }
-    protected void btSaveRequest_Click(object sender, EventArgs e)
-    {
-        var req = DAL.Container.Instance.Requests.CreateObject();
-        GetIncident().Requests.Add(req);
 
-        var reqName = Utils.Convert.SafeString(txRequestName.Text);
-        var reqMessage = Utils.Convert.SafeString(txMessage.Text);
-        
-        req.Name = reqName;
-        req.Message = reqMessage;
-        req.IsActive = true;
-        req.Incident = GetIncident();
-
-        foreach (ListItem li in cblNeedlist.Items)
-        {
-            int liid = Convert.ToInt32(li.Value);
-            if (li.Selected)
-            {
-                var ni = DAL.Container.Instance.NeedItems.SingleOrDefault(n => n.Id == liid);
-                var nitemToBeAdded = DAL.Container.Instance.NeedItems.CreateObject();
-                nitemToBeAdded.ItemAmount = ni.ItemAmount;
-                nitemToBeAdded.ItemType = ni.ItemType;
-                nitemToBeAdded.MetricType = ni.MetricType;
-
-                req.NeedItems.Add(nitemToBeAdded);
-            }
-        }
-
-        req.SearchAreaCoordinatesStr = "test";
-        DAL.Container.Instance.Requests.AddObject(req);
-        DAL.Container.Instance.SaveChanges();
-        BindPage(GetIncident());
-    }
+    int rowindex = 0;
     protected void gvReqList_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType != DataControlRowType.DataRow)
@@ -142,20 +120,36 @@ public partial class ResourceGathering : PageBase
 
         var lbtRequest = e.Row.FindControl("lbtRequest") as LinkButton;
         var ltStatus = e.Row.FindControl("ltStatus") as Literal;
-
+        var hlEditRequest = e.Row.FindControl("hlEditRequest") as HyperLink;
+        
         lbtRequest.Text = req.Name;
-        lbtRequest.CommandArgument = req.Id+"";
-
+        lbtRequest.CommandArgument = req.Id+"|"+rowindex++;
+        hlEditRequest.NavigateUrl = string.Format("~/CreateRequest.aspx?{0}={1}&Action={2}&{3}={4}", Constants.IdIncidentId, GetIncident().Id, PageActions.Edit,Constants.IdRequestId,req.Id);
         ltStatus.Text = req.IsActive ? "Active" : "Not active";
 
 
     }
     protected void lbtRequest_Command(object sender, CommandEventArgs e)
     {
-        int reqId = Utils.Convert.ToInt(e.CommandArgument as string,0);
+        var reqidstr = (e.CommandArgument as string).Split('|')[0];
+        var rowindex = Utils.Convert.ToInt( (e.CommandArgument as string).Split('|')[1],-1);
+
+        int reqId = Utils.Convert.ToInt(reqidstr,0);
         var req = DAL.Container.Instance.Requests.SingleOrDefault(r => r.Id == reqId);
+        SelectedRequest = req;
+
         gvNeedList.DataSource = req.NeedItems;
         gvNeedList.DataBind();
+
+        pnNeedListStatus.Visible = true;
+
+        foreach (GridViewRow row in gvReqList.Rows)
+        {
+            //row.Style.Remove("background-color");
+            row.CssClass = "";
+        }
+        //gvReqList.Rows[rowindex].Style["background-color"] = "green";
+        gvReqList.Rows[rowindex].CssClass = "selectedrow";
 
     }
     protected void gvNeedList_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -186,20 +180,19 @@ public partial class ResourceGathering : PageBase
 
     }
 
-
     protected void ibtRemove_Command(object sender, CommandEventArgs e)
-    {
-        //PersistNeedList();
+    { 
+        int niid = Utils.Convert.ToInt(e.CommandArgument as string, 0);
+        var niToDel = DAL.Container.Instance.NeedItems.SingleOrDefault(ni => ni.Id == niid);
+        DAL.Container.Instance.NeedItems.DeleteObject(niToDel);
+        DAL.Container.Instance.SaveChanges();
+        DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, SelectedRequest);
 
-        //int order = 0;
-        //if (!Int32.TryParse(e.CommandArgument.ToString(), out order))
-        //    order = -1;
+        gvNeedList.DataSource = SelectedRequest.NeedItems;
+        gvNeedList.DataBind();
 
-        //if (order != -1)
-        //{
-        //    NeedList.RemoveAt(order);
-        //}
-        //BindData();
-
+        
     }
+
+
 }

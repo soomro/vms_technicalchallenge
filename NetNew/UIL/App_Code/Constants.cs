@@ -18,6 +18,7 @@ public class Constants
     public const string IdUserName = "UserName";
     public const string IdUserType = "IdUserType";
     public const string IdIncidentId = "iid";
+    public const string IdRequestId = "rid";
     public const string IdIncident = "Incident";
 
     //Constants for pages will begin with "Page" in identifier

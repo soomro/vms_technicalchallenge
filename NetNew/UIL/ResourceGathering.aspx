@@ -12,119 +12,101 @@
         <tr>
             <td valign="top">
                 <asp:Panel runat="server" ID="pnRequestList" GroupingText="Request List">
-                 
-                    <asp:GridView runat="server" ID="gvReqList" AutoGenerateColumns="False" BackColor="White"
-                        BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" EmptyDataText="This incident has no request"
-                        ShowHeader="False" Width="90%" onrowdatabound="gvReqList_RowDataBound" 
-                        ForeColor="Black" GridLines="Horizontal">
+                    <asp:GridView runat="server" ID="gvReqList" AutoGenerateColumns="False" BackColor="LightGoldenrodYellow"
+                        BorderColor="Tan" BorderWidth="1px" CellPadding="2" EmptyDataText="This incident has no request"
+                        ShowHeader="False" Width="90%" OnRowDataBound="gvReqList_RowDataBound" ForeColor="Black"
+                        GridLines="None">
+                        <AlternatingRowStyle BackColor="PaleGoldenrod" />
                         <Columns>
-                            
                             <asp:TemplateField HeaderText="Request">
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lbtRequest" runat="server" oncommand="lbtRequest_Command"></asp:LinkButton>
+                                    <asp:LinkButton ID="lbtRequest" runat="server" OnCommand="lbtRequest_Command"></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Status">
                                 <ItemTemplate>
                                     <asp:Literal ID="ltStatus" runat="server"></asp:Literal>
+                                    <asp:HyperLink runat="server" ID="hlEditRequest">
+                                    <asp:Image  ImageUrl="~/Images/edit.gif" runat="server" ToolTip="Edit Request"
+                                        ID="imgbtEdit" />
+                                    </asp:HyperLink>
+
+                                    
+                                   
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="Id" DataFormatString="{0}" />
+                            <asp:CommandField ShowSelectButton="True" />
                         </Columns>
-                        <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
-                        <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
-                        <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
-                        <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
-                        <SortedAscendingCellStyle BackColor="#F7F7F7" />
-                        <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
-                        <SortedDescendingCellStyle BackColor="#E5E5E5" />
-                        <SortedDescendingHeaderStyle BackColor="#242121" />
+                        <FooterStyle BackColor="Tan" />
+                        <HeaderStyle BackColor="Tan" Font-Bold="True" />
+                        <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
+                            HorizontalAlign="Center" />
+                        <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+                        <SortedAscendingCellStyle BackColor="#FAFAE7" />
+                        <SortedAscendingHeaderStyle BackColor="#DAC09E" />
+                        <SortedDescendingCellStyle BackColor="#E1DB9C" />
+                        <SortedDescendingHeaderStyle BackColor="#C2A47B" />
                     </asp:GridView>
-                    <asp:HyperLink runat="server" ID="hlNewRequest" NavigateUrl="#" Text="New Request" />
+                    <br />
+                  
+                        <asp:HyperLink runat="server" ID="hlNewRequest"  
+                        Text="Add new request"  ImageUrl="~/Images/add.png" Width="30px" Height="30px" > </asp:HyperLink>
+                       
+                    
                 </asp:Panel>
                 <asp:Panel runat="server" ID="pnNeedListStatus" GroupingText="Need List">
-                    
-                      <asp:GridView ID="gvNeedList" runat="server" AutoGenerateColumns="False" 
-                                 BorderWidth="0px" Width="100%" 
-                                EmptyDataText="No need item is defined" 
-                                onrowdatabound="gvNeedList_RowDataBound">
-                                <Columns>
-                                    <asp:TemplateField HeaderText="Type">
-                                        <ItemTemplate>                                        
-                                            <asp:Literal  runat="server" ID="ltType" />
-                                        </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" />
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Unit">
-                                        <ItemTemplate>
-                                            <asp:Literal runat="server" ID="ltUnit"></asp:Literal>
-                                        </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" />
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Amt.">
-                                        <ItemTemplate>
-                                            <asp:Literal ID="ltAmt" runat="server" />
-                                        </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" />
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Col.">
-                                        <ItemTemplate>
-                                            <asp:Literal ID="ltCollected" runat="server" />
-                                        </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" />
-                                    </asp:TemplateField>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:ImageButton ID="ibtRemove" runat="server" AlternateText="Remove" 
-                                                ImageUrl="~/Images/remove.jpg" oncommand="ibtRemove_Command" ToolTip="Remove" 
-                                                Width="15px" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <HeaderStyle Font-Bold="False" Font-Size="9pt" Font-Underline="True" />
-                            </asp:GridView>
-                    
-                    </asp:Panel>
-                <asp:Panel runat="server" ID="pnVolList" GroupingText="Volunteer List">
+                    <asp:GridView ID="gvNeedList" runat="server" AutoGenerateColumns="False" BorderWidth="1px"
+                        Width="100%" EmptyDataText="No need item is defined" 
+                        OnRowDataBound="gvNeedList_RowDataBound" BackColor="LightGoldenrodYellow" 
+                        BorderColor="Tan" CellPadding="2" ForeColor="Black" GridLines="None">
+                        <AlternatingRowStyle BackColor="PaleGoldenrod" />
+                        <Columns>
+                            <asp:TemplateField HeaderText="Type">
+                                <ItemTemplate>
+                                    <asp:Literal runat="server" ID="ltType" />
+                                </ItemTemplate>
+                                <HeaderStyle HorizontalAlign="Left" />
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Unit">
+                                <ItemTemplate>
+                                    <asp:Literal runat="server" ID="ltUnit"></asp:Literal>
+                                </ItemTemplate>
+                                <HeaderStyle HorizontalAlign="Left" />
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Amt.">
+                                <ItemTemplate>
+                                    <asp:Literal ID="ltAmt" runat="server" />
+                                </ItemTemplate>
+                                <HeaderStyle HorizontalAlign="Left" />
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Col.">
+                                <ItemTemplate>
+                                    <asp:Literal ID="ltCollected" runat="server" />
+                                </ItemTemplate>
+                                <HeaderStyle HorizontalAlign="Left" />
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="ibtRemove" runat="server" AlternateText="Remove" ImageUrl="~/Images/delete.gif"
+                                        OnCommand="ibtRemove_Command" ToolTip="Remove" Width="15px" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <FooterStyle BackColor="Tan" />
+                        <HeaderStyle Font-Bold="True" Font-Size="9pt" Font-Underline="True" 
+                            BackColor="Tan" />
+                        <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
+                            HorizontalAlign="Center" />
+                        <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+                        <SortedAscendingCellStyle BackColor="#FAFAE7" />
+                        <SortedAscendingHeaderStyle BackColor="#DAC09E" />
+                        <SortedDescendingCellStyle BackColor="#E1DB9C" />
+                        <SortedDescendingHeaderStyle BackColor="#C2A47B" />
+                    </asp:GridView>
+                
+
                     Vol List</asp:Panel>
-                <asp:Panel runat="server" ID="pnNewRequest" GroupingText="New Request" PopupControlID="pnNewRequest"
-                    BackColor="#FFCC66" Width="500px">
-                    <table border="0" cellpadding="0" cellspacing="0" width="99%">
-                        <tr>
-                            <td style="width: 200px;" valign="top">
-                                <p>Request name<br />
-                                <asp:TextBox ID="txRequestName" runat="server" Width="90%"></asp:TextBox>
-                                    <br />
-                                </p>
-                                <p>
-                                    &nbsp;</p>
-                                <p>
-                                Request message<br />
-                                <asp:TextBox runat="server" ID="txMessage" TextMode="MultiLine" Width="90%" />
-                                    <br />
-                             </p>  
-                                <p>
-                                    &nbsp;</p>
-                                Need items to be requested
-                                <div>
-                                    <asp:CheckBoxList runat="server" ID="cblNeedlist">
-                                    </asp:CheckBoxList>
-                                </div>  
-                                    
-                            </td>
-                            <td valign="top">
-                                <uc2:ucRequestMap ID="ucRequestMap1" runat="server" />
-                            </td>
-                        </tr>
-                    </table>
-                    <br />
-                    <asp:Button ID="btSaveRequest" runat="server" Text="Save" 
-                        onclick="btSaveRequest_Click" />
-                    &nbsp;<asp:Button ID="btCancel" runat="server" Text="Cancel" />
-                </asp:Panel>
-                <asp:ModalPopupExtender runat="server" ID="mpeNewRequest" PopupControlID="pnNewRequest"
-                    TargetControlID="hlNewRequest" BackgroundCssClass="modalBackground" 
-                    CancelControlID="btCancel" DropShadow="True" />
+                
             </td>
             <td style="width: 400px; vertical-align: top;">
                 <asp:Panel runat="server" ID="pnIncident" GroupingText="Incident">
