@@ -3153,13 +3153,11 @@ namespace DAL
         /// Create a new RequestRespons object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="answer">Initial value of the Answer property.</param>
         /// <param name="statusVal">Initial value of the StatusVal property.</param>
-        public static RequestRespons CreateRequestRespons(global::System.Int32 id, global::System.Byte[] answer, global::System.Int16 statusVal)
+        public static RequestRespons CreateRequestRespons(global::System.Int32 id, global::System.Int16 statusVal)
         {
             RequestRespons requestRespons = new RequestRespons();
             requestRespons.Id = id;
-            requestRespons.Answer = answer;
             requestRespons.StatusVal = statusVal;
             return requestRespons;
         }
@@ -3247,30 +3245,6 @@ namespace DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Byte[] Answer
-        {
-            get
-            {
-                return StructuralObject.GetValidValue(_Answer);
-            }
-            set
-            {
-                OnAnswerChanging(value);
-                ReportPropertyChanging("Answer");
-                _Answer = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Answer");
-                OnAnswerChanged();
-            }
-        }
-        private global::System.Byte[] _Answer;
-        partial void OnAnswerChanging(global::System.Byte[] value);
-        partial void OnAnswerChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Int16 StatusVal
         {
             get
@@ -3337,6 +3311,30 @@ namespace DAL
         private Nullable<global::System.Int32> _Volunteer_Id;
         partial void OnVolunteer_IdChanging(Nullable<global::System.Int32> value);
         partial void OnVolunteer_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Answer
+        {
+            get
+            {
+                return _Answer;
+            }
+            set
+            {
+                OnAnswerChanging(value);
+                ReportPropertyChanging("Answer");
+                _Answer = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Answer");
+                OnAnswerChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Answer;
+        partial void OnAnswerChanging(Nullable<global::System.Boolean> value);
+        partial void OnAnswerChanged();
 
         #endregion
     

@@ -34,8 +34,7 @@
                                     
                                    
                                 </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:CommandField ShowSelectButton="True" />
+                            </asp:TemplateField> 
                         </Columns>
                         <FooterStyle BackColor="Tan" />
                         <HeaderStyle BackColor="Tan" Font-Bold="True" />
@@ -105,7 +104,41 @@
                     </asp:GridView>
                 
 
-                    Vol List</asp:Panel>
+                    Vol List<br /> 
+                    <asp:GridView runat="server" AutoGenerateColumns="False" 
+                        BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
+                        CellPadding="2" ForeColor="Black" GridLines="None" ID="gvVolunteers" 
+                        EmptyDataText="This request has not been sent to any volunteer" 
+                        Width="90%" onrowdatabound="gvVolunteers_RowDataBound" >
+                        <AlternatingRowStyle BackColor="PaleGoldenrod" />
+                        <Columns>
+                           <asp:TemplateField HeaderText="Vol. Name">
+                                <ItemTemplate> <asp:HyperLink ID="hlVolName" runat="server">Vol Name</asp:HyperLink></ItemTemplate>
+                                  <HeaderStyle HorizontalAlign="Left" />
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Response">
+                                <ItemTemplate> <asp:Label ID="lbResponse" runat="server">Response</asp:Label></ItemTemplate>
+                                  <HeaderStyle HorizontalAlign="Left" />
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Supplied">
+                                <ItemTemplate> <asp:Label ID="lbSupplied" runat="server">Supplied</asp:Label></ItemTemplate>
+                                  <HeaderStyle HorizontalAlign="Left" />
+                            </asp:TemplateField>
+                        </Columns>
+                        <FooterStyle BackColor="Tan" />
+                        <HeaderStyle BackColor="Tan" Font-Bold="True" />
+                        <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
+                            HorizontalAlign="Center" />
+                        <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+                        <SortedAscendingCellStyle BackColor="#FAFAE7" />
+                        <SortedAscendingHeaderStyle BackColor="#DAC09E" />
+                        <SortedDescendingCellStyle BackColor="#E1DB9C" />
+                        <SortedDescendingHeaderStyle BackColor="#C2A47B" />
+                        <HeaderStyle Font-Bold="True" Font-Size="9pt" Font-Underline="True" 
+                            BackColor="Tan" />
+                    </asp:GridView>
+                    
+                    </asp:Panel>
                 
             </td>
             <td style="width: 400px; vertical-align: top;">
