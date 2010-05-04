@@ -18,7 +18,6 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_ManagerAddress", "Address", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Address), "Manager", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Manager), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_AlertCrisis", "Crisis", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Crisis), "Alert", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Alert), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_IncidentAlert", "Incident", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Incident), "Alert", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Alert), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_CrisisIncident", "Crisis", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Crisis), "Incident", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Incident), true)]
@@ -33,6 +32,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_VolunteerProgressReport", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "ProgressReport", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.ProgressReport), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_RequestResponseVolunteer", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Volunteer), "RequestRespons", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.RequestRespons), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_VolunteerStuffItem", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "StuffItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.StuffItem), true)]
+[assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_ManagerAddress", "Address", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Address), "Manager", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Manager), true)]
 
 #endregion
 
@@ -167,22 +167,6 @@ namespace DAL
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Manager> Managers
-        {
-            get
-            {
-                if ((_Managers == null))
-                {
-                    _Managers = base.CreateObjectSet<Manager>("Managers");
-                }
-                return _Managers;
-            }
-        }
-        private ObjectSet<Manager> _Managers;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<NeedItem> NeedItems
         {
             get
@@ -275,6 +259,22 @@ namespace DAL
             }
         }
         private ObjectSet<Volunteer> _Volunteers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Manager> Managers
+        {
+            get
+            {
+                if ((_Managers == null))
+                {
+                    _Managers = base.CreateObjectSet<Manager>("Managers");
+                }
+                return _Managers;
+            }
+        }
+        private ObjectSet<Manager> _Managers;
 
         #endregion
         #region AddTo Methods
@@ -317,14 +317,6 @@ namespace DAL
         public void AddToIncidents(Incident incident)
         {
             base.AddObject("Incidents", incident);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Managers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToManagers(Manager manager)
-        {
-            base.AddObject("Managers", manager);
         }
     
         /// <summary>
@@ -373,6 +365,14 @@ namespace DAL
         public void AddToVolunteers(Volunteer volunteer)
         {
             base.AddObject("Volunteers", volunteer);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Managers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToManagers(Manager manager)
+        {
+            base.AddObject("Managers", manager);
         }
 
         #endregion
@@ -600,28 +600,6 @@ namespace DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_Aso_ManagerAddress", "Manager")]
-        public EntityCollection<Manager> Managers
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Manager>("DataModel.FK_Aso_ManagerAddress", "Manager");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Manager>("DataModel.FK_Aso_ManagerAddress", "Manager", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_Aso_VolunteerAddress", "Volunteer")]
         public EntityCollection<Volunteer> Volunteers
         {
@@ -634,6 +612,28 @@ namespace DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Volunteer>("DataModel.FK_Aso_VolunteerAddress", "Volunteer", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_Aso_ManagerAddress", "Manager")]
+        public EntityCollection<Manager> Managers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Manager>("DataModel.FK_Aso_ManagerAddress", "Manager");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Manager>("DataModel.FK_Aso_ManagerAddress", "Manager", value);
                 }
             }
         }
@@ -2185,6 +2185,30 @@ namespace DAL
         private global::System.String _Password;
         partial void OnPasswordChanging(global::System.String value);
         partial void OnPasswordChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Approved
+        {
+            get
+            {
+                return _Approved;
+            }
+            set
+            {
+                OnApprovedChanging(value);
+                ReportPropertyChanging("Approved");
+                _Approved = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Approved");
+                OnApprovedChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Approved;
+        partial void OnApprovedChanging(Nullable<global::System.Boolean> value);
+        partial void OnApprovedChanged();
 
         #endregion
     
