@@ -5,9 +5,30 @@
     void Application_Start(object sender, EventArgs e) 
     {
         // Code that runs on application startup
+        //System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AutoRequesting));
 
+        System.Timers.Timer t = new System.Timers.Timer(5000);
+
+        t.Elapsed += new System.Timers.ElapsedEventHandler(ProcessRequests);
+        t.Enabled = true;
+        t.Start();
     }
-    
+
+    void AutoRequesting(object o)
+    {
+        
+    }
+
+    void ProcessRequests(object sender, System.Timers.ElapsedEventArgs e)
+    {
+        DAL.ApolloEntities c = new DAL.ApolloEntities();
+        c.ExecuteStoreCommand("TEST");
+    }
+
+    //void ProcessRequests(object sender, EventArgs e)
+    //{
+    //    DAL.Container.Instance.ExecuteStoreCommand("TEST");
+    //}
     void Application_End(object sender, EventArgs e) 
     {
         //  Code that runs on application shutdown
