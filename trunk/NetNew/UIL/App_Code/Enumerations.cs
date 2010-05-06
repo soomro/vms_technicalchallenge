@@ -8,7 +8,8 @@ public enum PageActions
     None,
     Create,
     Edit,
-    View
+    View,
+    Admin
     
 }
 
