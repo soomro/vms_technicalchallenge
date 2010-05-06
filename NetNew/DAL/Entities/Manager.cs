@@ -8,7 +8,7 @@ namespace DAL
 {
     public partial class Manager
     {
-        public IList<string> _expertiseCrisisTypes=null;
+        private IList<string> _expertiseCrisisTypes=null;
 
         public IList<string> ExpertiseCrisisTypes
         {
