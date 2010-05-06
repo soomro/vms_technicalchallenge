@@ -14,11 +14,11 @@ namespace Utils.Enumerations
     }
     public enum IncidentStatuses:short
     {
-        Created ,
+        Created =0,
         [Description("Resource Gathering")]
-        ResourceGathering ,
-        Working ,
-        Complete ,
+        ResourceGathering =1,
+        Working=2 ,
+        Complete =3,
     }
     public enum IncidentTypes:short
     {
@@ -47,12 +47,12 @@ namespace Utils.Enumerations
         Kg=3,
         Box=4 
     }
-    public enum RequestResponseStatuses
+    public enum RequestResponseStatuses:short
     {
-        Waiting ,
-        Responded ,
-        Timeout ,
-        Caceled 
+        Waiting =0,
+        Responded =1,
+        Timeout =2,
+        Canceled=3 
     }
     public enum Severities:short
     {
