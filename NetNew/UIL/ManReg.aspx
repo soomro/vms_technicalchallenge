@@ -16,7 +16,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-  <asp:Panel runat="server" id="divForm"> 
+  <asp:Panel runat="server" id="pnlDivForm"> 
    <table class="tblForm" >
         <tr>
             <td class="style1">
@@ -133,5 +133,54 @@
         </tr>
     </table> 
     </asp:Panel>
+   
+    <asp:Panel runat="server" ID="pnlAdmin" Visible="False">
+     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+          <asp:GridView ID="gvuManagers" runat="server" AutoGenerateColumns="False" 
+            Width="80%" onrowdatabound="gvuManagers_RowDataBound" BackColor="White" 
+                BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" 
+                DataKeyNames="Id">
+        <Columns>
+            <asp:TemplateField HeaderText="Approved">
+                <ItemTemplate>
+                    <asp:CheckBox ID="chkApproved" runat="server" AutoPostBack="True" 
+                        oncheckedchanged="chkApproved_CheckedChanged" />
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Full Name">
+                <ItemTemplate>
+                    <asp:Label ID="lblFullName" runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="User Name">
+                <ItemTemplate>
+                    <asp:Label ID="lblUserName" runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:ImageButton ID="ibtRemove" runat="server" AlternateText="Remove" 
+                        ImageUrl="~/Images/delete.gif" OnCommand="ibtRemove_Command" ToolTip="Remove" 
+                        Width="15px" />
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+              <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+              <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+              <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+              <RowStyle BackColor="White" ForeColor="#330099" />
+              <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+              <SortedAscendingCellStyle BackColor="#FEFCEB" />
+              <SortedAscendingHeaderStyle BackColor="#AF0101" />
+              <SortedDescendingCellStyle BackColor="#F6F0C0" />
+              <SortedDescendingHeaderStyle BackColor="#7E0000" />
+</asp:GridView>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+  
+        <br />
+    </asp:Panel>
 </asp:Content>
+
 
