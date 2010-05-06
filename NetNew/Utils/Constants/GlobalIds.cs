@@ -8,6 +8,7 @@ namespace Utils.Constants
     public class GlobalIds
     {
         public const string Container = "DataContainer";
+        public const string AdminUserName="Admin";
      
     }
 }
