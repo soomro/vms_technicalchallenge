@@ -1,0 +1,15 @@
+April29th2010   
+
+Attenders:
+
+    *Everyone
+
+Group meeting
+
+    * New members will work on the user manual. Others will review it.(Tigran, Gilana, Mustafa)
+    * Waseem will work on the packaging.
+    * Abdullah will provide installation manual.
+    * Sunday - 1st release with the changeLog and user manuals.
+
+    * Till 16th of May functionality implementation should be finished.
+    * last week team should work on use-cases, correcting the messy thing and on bugfixing.
