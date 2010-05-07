@@ -33,6 +33,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_RequestResponseVolunteer", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Volunteer), "RequestRespons", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.RequestRespons), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_VolunteerStuffItem", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "StuffItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.StuffItem), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_ManagerAddress", "Address", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Address), "Manager", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Manager), true)]
+[assembly: EdmRelationshipAttribute("DataModel", "FK_AlertsVolunteers_Alerts", "Alert", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Alert), "AlertsVolunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.AlertsVolunteer), true)]
+[assembly: EdmRelationshipAttribute("DataModel", "FK_AlertsVolunteers_Volunteers", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "AlertsVolunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.AlertsVolunteer), true)]
 
 #endregion
 
@@ -275,6 +277,22 @@ namespace DAL
             }
         }
         private ObjectSet<Manager> _Managers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AlertsVolunteer> AlertsVolunteers
+        {
+            get
+            {
+                if ((_AlertsVolunteers == null))
+                {
+                    _AlertsVolunteers = base.CreateObjectSet<AlertsVolunteer>("AlertsVolunteers");
+                }
+                return _AlertsVolunteers;
+            }
+        }
+        private ObjectSet<AlertsVolunteer> _AlertsVolunteers;
 
         #endregion
         #region AddTo Methods
@@ -373,6 +391,14 @@ namespace DAL
         public void AddToManagers(Manager manager)
         {
             base.AddObject("Managers", manager);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AlertsVolunteers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAlertsVolunteers(AlertsVolunteer alertsVolunteer)
+        {
+            base.AddObject("AlertsVolunteers", alertsVolunteer);
         }
 
         #endregion
@@ -894,6 +920,238 @@ namespace DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Incident>("DataModel.FK_Aso_IncidentAlert", "Incident", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_AlertsVolunteers_Alerts", "AlertsVolunteer")]
+        public EntityCollection<AlertsVolunteer> AlertsVolunteers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AlertsVolunteer>("DataModel.FK_AlertsVolunteers_Alerts", "AlertsVolunteer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AlertsVolunteer>("DataModel.FK_AlertsVolunteers_Alerts", "AlertsVolunteer", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DataModel", Name="AlertsVolunteer")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AlertsVolunteer : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AlertsVolunteer object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="volunteer_Id">Initial value of the Volunteer_Id property.</param>
+        /// <param name="alert_Id">Initial value of the Alert_Id property.</param>
+        public static AlertsVolunteer CreateAlertsVolunteer(global::System.Int32 id, global::System.Int32 volunteer_Id, global::System.Int32 alert_Id)
+        {
+            AlertsVolunteer alertsVolunteer = new AlertsVolunteer();
+            alertsVolunteer.Id = id;
+            alertsVolunteer.Volunteer_Id = volunteer_Id;
+            alertsVolunteer.Alert_Id = alert_Id;
+            return alertsVolunteer;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Volunteer_Id
+        {
+            get
+            {
+                return _Volunteer_Id;
+            }
+            set
+            {
+                OnVolunteer_IdChanging(value);
+                ReportPropertyChanging("Volunteer_Id");
+                _Volunteer_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Volunteer_Id");
+                OnVolunteer_IdChanged();
+            }
+        }
+        private global::System.Int32 _Volunteer_Id;
+        partial void OnVolunteer_IdChanging(global::System.Int32 value);
+        partial void OnVolunteer_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Alert_Id
+        {
+            get
+            {
+                return _Alert_Id;
+            }
+            set
+            {
+                OnAlert_IdChanging(value);
+                ReportPropertyChanging("Alert_Id");
+                _Alert_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Alert_Id");
+                OnAlert_IdChanged();
+            }
+        }
+        private global::System.Int32 _Alert_Id;
+        partial void OnAlert_IdChanging(global::System.Int32 value);
+        partial void OnAlert_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> DateShowed
+        {
+            get
+            {
+                return _DateShowed;
+            }
+            set
+            {
+                OnDateShowedChanging(value);
+                ReportPropertyChanging("DateShowed");
+                _DateShowed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateShowed");
+                OnDateShowedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _DateShowed;
+        partial void OnDateShowedChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateShowedChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_AlertsVolunteers_Alerts", "Alert")]
+        public Alert Alert
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Alert>("DataModel.FK_AlertsVolunteers_Alerts", "Alert").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Alert>("DataModel.FK_AlertsVolunteers_Alerts", "Alert").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Alert> AlertReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Alert>("DataModel.FK_AlertsVolunteers_Alerts", "Alert");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Alert>("DataModel.FK_AlertsVolunteers_Alerts", "Alert", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_AlertsVolunteers_Volunteers", "Volunteer")]
+        public Volunteer Volunteer
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Volunteer>("DataModel.FK_AlertsVolunteers_Volunteers", "Volunteer").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Volunteer>("DataModel.FK_AlertsVolunteers_Volunteers", "Volunteer").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Volunteer> VolunteerReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Volunteer>("DataModel.FK_AlertsVolunteers_Volunteers", "Volunteer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Volunteer>("DataModel.FK_AlertsVolunteers_Volunteers", "Volunteer", value);
                 }
             }
         }
@@ -4244,6 +4502,28 @@ namespace DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<StuffItem>("DataModel.FK_Aso_VolunteerStuffItem", "StuffItem", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_AlertsVolunteers_Volunteers", "AlertsVolunteer")]
+        public EntityCollection<AlertsVolunteer> AlertsVolunteers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AlertsVolunteer>("DataModel.FK_AlertsVolunteers_Volunteers", "AlertsVolunteer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AlertsVolunteer>("DataModel.FK_AlertsVolunteers_Volunteers", "AlertsVolunteer", value);
                 }
             }
         }
