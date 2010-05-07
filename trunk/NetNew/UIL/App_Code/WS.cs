@@ -35,17 +35,81 @@ public class WS : System.Web.Services.WebService
         else
             return true;
     }
+
     [WebMethod]
     public string GetRequest(int requestID, string userID)
     {
         return string.Format("Dear {0}, here is your info request for {1}", userID, requestID);
     }
-    [WebMethod]
-    public string CheckUpdate(string usename, string guid)
-    {
-        return "R?0001:Help needed#A?1101:Run away";
-    }
 
+    [WebMethod]
+    public string CheckUpdate(string username, string password, float lat, float lon)
+    {
+        char sep = Utils.Collection.SeparatorChar;
+
+        var res = "";
+         var vol = (from v in DAL.Container.Instance.Volunteers
+                   where v.Username == username && v.Password == password
+                   select v).SingleOrDefault();
+        if (vol == null)
+    	{
+                return "";
+    	}
+
+        var rrs =( from rr in DAL.Container.Instance.RequestResponses
+                  where rr.Volunteer_Id == vol.Id && 
+                  rr.Request.IsActive && (rr.StatusVal == 0 || (rr.StatusVal==1 && rr.Answer==true) )                
+                      select rr).Take(1).ToList();
+        if (rrs.Count>0)
+        {
+            res = sep + "R" + sep + rrs[0].Request_Id + sep;
+            rrs[0].DateShowed = DateTime.Now;
+        }
+
+        var alerts = (from av in DAL.Container.Instance.AlertsVolunteers
+                     where av.Volunteer_Id == vol.Id && av.DateShowed == null
+                     select av).Take(5).ToList();
+        foreach (var alert in alerts)
+        {
+            res += "A" + sep + alert.Alert.Message + sep;
+            alert.DateShowed = DateTime.Now;
+        }
+        DAL.Container.Instance.SaveChanges();
+        return res;
+
+    }
+    [WebMethod]
+    public string GetRequest(string requestresponseID, string username, string password)
+    {
+        char sep = Utils.Collection.SeparatorChar;
+
+        var vol = (from v in DAL.Container.Instance.Volunteers
+                   where v.Username == username && v.Password == password
+                   select v).SingleOrDefault();
+        if (vol == null)
+        {
+            return "";
+        }
+
+        var request = (from r in DAL.Container.Instance.RequestResponses
+                       where r.Volunteer_Id == vol.Id && r.Id == Utils.Convert.ToInt(requestresponseID, 0)
+                       select r.Request).SingleOrDefault();
+        if (request==null)
+        {
+            return "";
+        }
+
+        var res = sep + request.Name + sep
+            + request.Incident.ShortAddress + sep
+            + request.Message ;
+
+        foreach (DAL.NeedItem ni in request.NeedItems)
+        {
+            res += sep + ni.ItemType + sep + ni.MetricType + sep + (ni.ItemAmount-ni.SuppliedAmount);
+        }
+        return res + sep;
+
+    }
 }
 
 

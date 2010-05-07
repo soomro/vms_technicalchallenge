@@ -8,6 +8,7 @@
         <EntityContainer Name="DataModelStoreContainer">
           <EntitySet Name="Addresses" EntityType="DataModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Alerts" EntityType="DataModel.Store.Alerts" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AlertsVolunteers" EntityType="DataModel.Store.AlertsVolunteers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Crises" EntityType="DataModel.Store.Crises" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IncidentReports" EntityType="DataModel.Store.IncidentReports" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Incidents" EntityType="DataModel.Store.Incidents" store:Type="Tables" Schema="dbo" />
@@ -18,6 +19,14 @@
           <EntitySet Name="Requests" EntityType="DataModel.Store.Requests" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="StuffItems" EntityType="DataModel.Store.StuffItems" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Volunteers" EntityType="DataModel.Store.Volunteers" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_AlertsVolunteers_Alerts" Association="DataModel.Store.FK_AlertsVolunteers_Alerts">
+            <End Role="Alerts" EntitySet="Alerts" />
+            <End Role="AlertsVolunteers" EntitySet="AlertsVolunteers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlertsVolunteers_Volunteers" Association="DataModel.Store.FK_AlertsVolunteers_Volunteers">
+            <End Role="Volunteers" EntitySet="Volunteers" />
+            <End Role="AlertsVolunteers" EntitySet="AlertsVolunteers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Aso_AlertCrisis" Association="DataModel.Store.FK_Aso_AlertCrisis">
             <End Role="Crises" EntitySet="Crises" />
             <End Role="Alerts" EntitySet="Alerts" />
@@ -101,6 +110,15 @@
           <Property Name="DateSent" Type="datetime" />
           <Property Name="IncidentId" Type="int" />
           <Property Name="Crisis_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AlertsVolunteers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Volunteer_Id" Type="int" Nullable="false" />
+          <Property Name="Alert_Id" Type="int" Nullable="false" />
+          <Property Name="DateShowed" Type="datetime" />
         </EntityType>
         <EntityType Name="Crises">
           <Key>
@@ -240,6 +258,30 @@
           <Property Name="HealthProb" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_AlertsVolunteers_Alerts">
+          <End Role="Alerts" Type="DataModel.Store.Alerts" Multiplicity="1" />
+          <End Role="AlertsVolunteers" Type="DataModel.Store.AlertsVolunteers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alerts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlertsVolunteers">
+              <PropertyRef Name="Alert_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlertsVolunteers_Volunteers">
+          <End Role="Volunteers" Type="DataModel.Store.Volunteers" Multiplicity="1" />
+          <End Role="AlertsVolunteers" Type="DataModel.Store.AlertsVolunteers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlertsVolunteers">
+              <PropertyRef Name="Volunteer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Aso_AlertCrisis">
           <End Role="Crises" Type="DataModel.Store.Crises" Multiplicity="1" />
           <End Role="Alerts" Type="DataModel.Store.Alerts" Multiplicity="*" />
@@ -497,6 +539,15 @@
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Manager" EntitySet="Managers" />
           </AssociationSet>
+          <EntitySet Name="AlertsVolunteers" EntityType="DataModel.AlertsVolunteer" />
+          <AssociationSet Name="FK_AlertsVolunteers_Alerts" Association="DataModel.FK_AlertsVolunteers_Alerts">
+            <End Role="Alert" EntitySet="Alerts" />
+            <End Role="AlertsVolunteer" EntitySet="AlertsVolunteers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlertsVolunteers_Volunteers" Association="DataModel.FK_AlertsVolunteers_Volunteers">
+            <End Role="Volunteer" EntitySet="Volunteers" />
+            <End Role="AlertsVolunteer" EntitySet="AlertsVolunteers" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -524,6 +575,7 @@
           <Property Type="Int32" Name="Crisis_Id" Nullable="false" />
           <NavigationProperty Name="Crisis" Relationship="DataModel.FK_Aso_AlertCrisis" FromRole="Alert" ToRole="Crisis" />
           <NavigationProperty Name="Incident" Relationship="DataModel.FK_Aso_IncidentAlert" FromRole="Alert" ToRole="Incident" />
+          <NavigationProperty Name="AlertsVolunteers" Relationship="DataModel.FK_AlertsVolunteers_Alerts" FromRole="Alert" ToRole="AlertsVolunteer" />
         </EntityType>
         <EntityType Name="Crisis">
           <Key>
@@ -781,6 +833,7 @@
           <NavigationProperty Name="ProgressReports" Relationship="DataModel.FK_Aso_VolunteerProgressReport" FromRole="Volunteer" ToRole="ProgressReport" />
           <NavigationProperty Name="RequestResponses" Relationship="DataModel.FK_Aso_RequestResponseVolunteer" FromRole="Volunteer" ToRole="RequestRespons" />
           <NavigationProperty Name="StuffItems" Relationship="DataModel.FK_Aso_VolunteerStuffItem" FromRole="Volunteer" ToRole="StuffItem" />
+          <NavigationProperty Name="AlertsVolunteers" Relationship="DataModel.FK_AlertsVolunteers_Volunteers" FromRole="Volunteer" ToRole="AlertsVolunteer" />
         </EntityType>
         <Association Name="FK_Aso_VolunteerAddress">
           <End Type="DataModel.Address" Role="Address" Multiplicity="1" />
@@ -866,6 +919,41 @@
             </Principal>
             <Dependent Role="Manager">
               <PropertyRef Name="Address_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AlertsVolunteer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Volunteer_Id" Nullable="false" />
+          <Property Type="Int32" Name="Alert_Id" Nullable="false" />
+          <Property Type="DateTime" Name="DateShowed" />
+          <NavigationProperty Name="Alert" Relationship="DataModel.FK_AlertsVolunteers_Alerts" FromRole="AlertsVolunteer" ToRole="Alert" />
+          <NavigationProperty Name="Volunteer" Relationship="DataModel.FK_AlertsVolunteers_Volunteers" FromRole="AlertsVolunteer" ToRole="Volunteer" />
+        </EntityType>
+        <Association Name="FK_AlertsVolunteers_Alerts">
+          <End Type="DataModel.Alert" Role="Alert" Multiplicity="1" />
+          <End Type="DataModel.AlertsVolunteer" Role="AlertsVolunteer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alert">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlertsVolunteer">
+              <PropertyRef Name="Alert_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlertsVolunteers_Volunteers">
+          <End Type="DataModel.Volunteer" Role="Volunteer" Multiplicity="1" />
+          <End Type="DataModel.AlertsVolunteer" Role="AlertsVolunteer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlertsVolunteer">
+              <PropertyRef Name="Volunteer_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1048,6 +1136,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AlertsVolunteers">
+            <EntityTypeMapping TypeName="DataModel.AlertsVolunteer">
+              <MappingFragment StoreEntitySet="AlertsVolunteers">
+                <ScalarProperty Name="DateShowed" ColumnName="DateShowed" />
+                <ScalarProperty Name="Alert_Id" ColumnName="Alert_Id" />
+                <ScalarProperty Name="Volunteer_Id" ColumnName="Volunteer_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1068,93 +1166,99 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="DataModel">
+      <Diagram Name="DataModel" ZoomLevel="54">
         <EntityTypeShape EntityType="DataModel.Address" Width="1.5" PointX="0.75" PointY="11.5" Height="2.749492187499996" />
-        <EntityTypeShape EntityType="DataModel.Alert" Width="1.5" PointX="6" PointY="0.75" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="DataModel.Crisis" Width="1.5" PointX="1.5" PointY="4.5" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="DataModel.Alert" Width="1.5" PointX="3" PointY="1.125" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="DataModel.Crisis" Width="1.5" PointX="3.125" PointY="4.5" Height="3.1340950520833388" />
         <EntityTypeShape EntityType="DataModel.IncidentReport" Width="1.5" PointX="5.25" PointY="11.5" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="DataModel.Incident" Width="1.5" PointX="3.75" PointY="2.5" Height="4.0956022135416656" />
+        <EntityTypeShape EntityType="DataModel.Incident" Width="1.5" PointX="6.5" PointY="2.875" Height="4.0956022135416656" />
         <EntityTypeShape EntityType="DataModel.NeedItem" Width="1.5" PointX="10.5" PointY="12.875" Height="3.1340950520833388" />
-        <EntityTypeShape EntityType="DataModel.ProgressReport" Width="1.5" PointX="5.25" PointY="16" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="DataModel.ProgressReport" Width="1.5" PointX="6.25" PointY="8.375" Height="2.7494921875000031" />
         <EntityTypeShape EntityType="DataModel.RequestRespons" Width="1.5" PointX="8.25" PointY="13" Height="2.9417936197916656" />
-        <EntityTypeShape EntityType="DataModel.Request" Width="1.5" PointX="6" PointY="4.125" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="DataModel.Request" Width="1.5" PointX="8.875" PointY="7" Height="2.7494921874999996" />
         <EntityTypeShape EntityType="DataModel.StuffItem" Width="1.5" PointX="5.25" PointY="22.375" Height="2.172587890624996" />
         <AssociationConnector Association="DataModel.FK_Aso_AlertCrisis" >
-          <ConnectorPoint PointX="2.25" PointY="4.5" />
-          <ConnectorPoint PointX="2.25" PointY="1.59375" />
-          <ConnectorPoint PointX="6" PointY="1.59375" />
+          <ConnectorPoint PointX="3.8125" PointY="4.5" />
+          <ConnectorPoint PointX="3.8125" PointY="3.8744921874999996" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentAlert" >
-          <ConnectorPoint PointX="5.25" PointY="2.9035953776041694" />
-          <ConnectorPoint PointX="6" PointY="2.9035953776041694" />
+          <ConnectorPoint PointX="6.5" PointY="3.37474609375" />
+          <ConnectorPoint PointX="4.5" PointY="3.37474609375" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_CrisisIncident" >
-          <ConnectorPoint PointX="3" PointY="5.5478011067708328" />
-          <ConnectorPoint PointX="3.75" PointY="5.5478011067708328" />
+          <ConnectorPoint PointX="4.625" PointY="5.7353011067708328" />
+          <ConnectorPoint PointX="6.5" PointY="5.7353011067708328" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentNeedItem" >
-          <ConnectorPoint PointX="5.25" PointY="3.716095377604169" />
-          <ConnectorPoint PointX="11.45312625" PointY="3.716095377604169" />
-          <ConnectorPoint PointX="11.45312625" PointY="12.875" />
+          <ConnectorPoint PointX="8" PointY="4.9228011067708328" />
+          <ConnectorPoint PointX="11.25" PointY="4.9228011067708328" />
+          <ConnectorPoint PointX="11.25" PointY="12.875" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentProgressReport" >
-          <ConnectorPoint PointX="4.875" PointY="6.5956022135416656" />
-          <ConnectorPoint PointX="4.875" PointY="18.155701497395835" />
-          <ConnectorPoint PointX="5.25" PointY="18.155701497395835" />
+          <ConnectorPoint PointX="7.125" PointY="6.9706022135416656" />
+          <ConnectorPoint PointX="7.125" PointY="8.375" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentRequest" >
-          <ConnectorPoint PointX="5.25" PointY="5.3603011067708319" />
-          <ConnectorPoint PointX="6" PointY="5.3603011067708319" />
+          <ConnectorPoint PointX="8" PointY="5.97795416015625" />
+          <ConnectorPoint PointX="9.625" PointY="5.97795416015625" />
+          <ConnectorPoint PointX="9.625" PointY="7" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_RequestNeedItem" >
-          <ConnectorPoint PointX="7.5" PointY="5.4035953776041623" />
-          <ConnectorPoint PointX="10.8437475" PointY="5.4035953776041623" />
-          <ConnectorPoint PointX="10.8437475" PointY="12.875" />
+          <ConnectorPoint PointX="10.09375" PointY="9.7494921875" />
+          <ConnectorPoint PointX="10.09375" PointY="12.90625" />
+          <ConnectorPoint PointX="10.5" PointY="12.90625" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_RequestResponseNeedItem" >
           <ConnectorPoint PointX="9.75" PointY="14.470896809895834" />
           <ConnectorPoint PointX="10.5" PointY="14.470896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_RequestResponseRequest" >
-          <ConnectorPoint PointX="7.15625" PointY="6.8744921875" />
-          <ConnectorPoint PointX="7.15625" PointY="15.431631706284239" />
-          <ConnectorPoint PointX="8.25" PointY="15.431631706284239" />
+          <ConnectorPoint PointX="9.3125" PointY="9.7494921875" />
+          <ConnectorPoint PointX="9.3125" PointY="13" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="DataModel.Volunteer" Width="1.5" PointX="3" PointY="12.25" Height="5.2494108072916656" />
+        <EntityTypeShape EntityType="DataModel.Volunteer" Width="1.5" PointX="3" PointY="12.25" Height="5.2494108072916674" />
         <AssociationConnector Association="DataModel.FK_Aso_VolunteerAddress" >
-          <ConnectorPoint PointX="2.25" PointY="13.24974609375" />
-          <ConnectorPoint PointX="3" PointY="13.24974609375" />
+          <ConnectorPoint PointX="2.25" PointY="13.249746093749998" />
+          <ConnectorPoint PointX="3" PointY="13.249746093749998" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_IncidentReportVolunteer" >
           <ConnectorPoint PointX="4.5" PointY="13.345896809895834" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="13.345896809895834" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="13.345896809895834" />
           <ConnectorPoint PointX="5.25" PointY="13.345896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_VolunteerProgressReport" >
-          <ConnectorPoint PointX="4.5" PointY="16.749705403645834" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="16.749705403645834" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="16.749705403645834" />
-          <ConnectorPoint PointX="5.25" PointY="16.749705403645834" />
+          <ConnectorPoint PointX="4.5" PointY="16.329793405053973" />
+          <ConnectorPoint PointX="7.28125" PointY="16.329793405053973" />
+          <ConnectorPoint PointX="7.28125" PointY="11.124492187500003" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_RequestResponseVolunteer" >
-          <ConnectorPoint PointX="4.5" PointY="14.905462663037953" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="14.905462663037953" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="14.905462663037953" />
-          <ConnectorPoint PointX="7.072916666666667" PointY="14.905462663037953" />
-          <ConnectorPoint PointX="7.239583333333333" PointY="14.905462663037953" />
-          <ConnectorPoint PointX="8.25" PointY="14.905462663037953" />
+          <ConnectorPoint PointX="4.5" PointY="14.905369570524625" />
+          <ConnectorPoint PointX="7.197916666666667" PointY="14.905369570524625" />
+          <ConnectorPoint PointX="7.364583333333333" PointY="14.905369570524625" />
+          <ConnectorPoint PointX="8.25" PointY="14.905369570524625" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_VolunteerStuffItem" >
-          <ConnectorPoint PointX="3.75" PointY="17.499410807291667" />
-          <ConnectorPoint PointX="3.75" PointY="23.4612939453125" />
-          <ConnectorPoint PointX="5.25" PointY="23.4612939453125" />
+          <ConnectorPoint PointX="3.75" PointY="17.691712239583335" />
+          <ConnectorPoint PointX="3.75" PointY="23.461293945312498" />
+          <ConnectorPoint PointX="5.25" PointY="23.461293945312498" />
         </AssociationConnector>
         <EntityTypeShape EntityType="DataModel.Manager" Width="1.5" PointX="3" PointY="8.375" Height="2.9417936197916674" />
         <AssociationConnector Association="DataModel.FK_Aso_ManagerAddress" >
           <ConnectorPoint PointX="1.5" PointY="11.5" />
           <ConnectorPoint PointX="1.5" PointY="9.8458968098958337" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="9.8458968098958337" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="9.8458968098958337" />
           <ConnectorPoint PointX="3" PointY="9.8458968098958337" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DataModel.AlertsVolunteer" Width="1.5" PointX="0.75" PointY="1.625" Height="2.172587890624996" />
+        <AssociationConnector Association="DataModel.FK_AlertsVolunteers_Alerts" >
+          <ConnectorPoint PointX="3" PointY="2.711293945312498" />
+          <ConnectorPoint PointX="2.25" PointY="2.711293945312498" />
+        </AssociationConnector>
+        <AssociationConnector Association="DataModel.FK_AlertsVolunteers_Volunteers" >
+          <ConnectorPoint PointX="3.0011528461538459" PointY="12.25" />
+          <ConnectorPoint PointX="2.625" PointY="11.873847153846153" />
+          <ConnectorPoint PointX="2.625" PointY="3.2856929179687477" />
+          <ConnectorPoint PointX="2.25" PointY="3.2856929179687477" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
