@@ -24,7 +24,7 @@
            
         </div>
         <br class="spacer"></br>
-        <div id="pagePath" class="frame">
+        <div id="pagePath" class="frame" style="text-align:left;">
             &nbsp;<asp:SiteMapPath 
                 ID="SiteMapPath1" runat="server" Font-Names="Verdana" Font-Size="0.8em" 
                 PathSeparator=" : ">

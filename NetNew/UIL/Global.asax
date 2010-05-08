@@ -12,17 +12,14 @@
         t.Elapsed += new System.Timers.ElapsedEventHandler(ProcessRequests);
         t.Enabled = true;
         t.Start();
+        Application["autorequest"] = t;
     }
 
-    void AutoRequesting(object o)
-    {
-        
-    }
-
+   
     void ProcessRequests(object sender, System.Timers.ElapsedEventArgs e)
     {
         DAL.ApolloEntities c = new DAL.ApolloEntities();
-        c.ExecuteStoreCommand("TEST");
+        c.ExecuteStoreCommand("AutoRequestingSP");
     }
 
     //void ProcessRequests(object sender, EventArgs e)
