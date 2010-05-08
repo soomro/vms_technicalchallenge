@@ -73,14 +73,13 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public String lon;
     private String username;
     private String password;
-    /*
-     * Static variables
-     */
+    
+     // create a Command
     public static Command SUCCESS_LOGIN = new Command("Successful login", 1, 1);
 
-    /**
-     * The ClientMIDlet constructor.
-     */
+ /** @Gilana Ramezani */
+    /** The ClientMIDlet constructor */
+       
     public ClientMIDlet() {
         util = new VMSUtilities(this);
     }
@@ -99,14 +98,15 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     }//GEN-BEGIN:|0-initialize|2|
     //</editor-fold>//GEN-END:|0-initialize|2|
 
+    //** starting MIDlet
     //<editor-fold defaultstate="collapsed" desc=" Generated Method: startMIDlet ">//GEN-BEGIN:|3-startMIDlet|0|3-preAction
     /**
      * Performs an action assigned to the Mobile Device - MIDlet Started point.
      */
     public void startMIDlet() {//GEN-END:|3-startMIDlet|0|3-preAction
-        // write pre-action user code here
+        // Show Wait Screen
         switchDisplayable(null, getWaitScreen());//GEN-LINE:|3-startMIDlet|1|3-postAction
-        // write post-action user code here
+       
     }//GEN-BEGIN:|3-startMIDlet|2|
     //</editor-fold>//GEN-END:|3-startMIDlet|2|
 
@@ -115,12 +115,13 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
      * Performs an action assigned to the Mobile Device - MIDlet Resumed point.
      */
     public void resumeMIDlet() {//GEN-END:|4-resumeMIDlet|0|4-preAction
-        // write pre-action user code here
+        // Show Wait Screen
         switchDisplayable(null, getWaitScreen());//GEN-LINE:|4-resumeMIDlet|1|4-postAction
-        // write post-action user code here
+        
     }//GEN-BEGIN:|4-resumeMIDlet|2|
     //</editor-fold>//GEN-END:|4-resumeMIDlet|2|
 
+    // Defining switch dispay
     //<editor-fold defaultstate="collapsed" desc=" Generated Method: switchDisplayable ">//GEN-BEGIN:|5-switchDisplayable|0|5-preSwitch
     /**
      * Switches a current displayable in a display. The <code>display</code> instance is taken from <code>getDisplay</code> method. This method is used by all actions in the design for switching displayable.
@@ -128,17 +129,18 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
      * @param nextDisplayable the Displayable to be set
      */
     public void switchDisplayable(Alert alert, Displayable nextDisplayable) {//GEN-END:|5-switchDisplayable|0|5-preSwitch
-        // write pre-switch user code here
+
+        // Create a new display and show Displayable value
         Display display = getDisplay();//GEN-BEGIN:|5-switchDisplayable|1|5-postSwitch
         if (alert == null) {
             display.setCurrent(nextDisplayable);
         } else {
             display.setCurrent(alert, nextDisplayable);
         }//GEN-END:|5-switchDisplayable|1|5-postSwitch
-        // write post-switch user code here
+       // @Auther Gilana Ramezani
     }//GEN-BEGIN:|5-switchDisplayable|2|
     //</editor-fold>//GEN-END:|5-switchDisplayable|2|
-
+      // Get action from User
     //<editor-fold defaultstate="collapsed" desc=" Generated Method: commandAction for Displayables ">//GEN-BEGIN:|7-commandAction|0|7-preCommandAction
     /**
      * Called by a system to indicated that a command has been invoked on a particular displayable.
@@ -146,83 +148,87 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
      * @param displayable the Displayable where the command was invoked
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
-        // write pre-action user code here
+       // Select Alert command
         if (displayable == alert) {//GEN-BEGIN:|7-commandAction|1|132-preAction
             if (command == okCommand1) {//GEN-END:|7-commandAction|1|132-preAction
-                // write pre-action user code here
+               
 //GEN-LINE:|7-commandAction|2|132-postAction
-                // write post-action user code here
+        // Select login
             }//GEN-BEGIN:|7-commandAction|3|148-preAction
         } else if (displayable == login) {
             if (command == exitCommand1) {//GEN-END:|7-commandAction|3|148-preAction
-                // write pre-action user code here
+      // Select exitcommand
                 exitMIDlet();//GEN-LINE:|7-commandAction|4|148-postAction
-                // write post-action user code here
+     // Select login command
             } else if (command == loginCommand) {//GEN-LINE:|7-commandAction|5|146-preAction
-                // write pre-action user code here
+    // Show Wait Screen
                 switchDisplayable(null, getWaitScreen());//GEN-LINE:|7-commandAction|6|146-postAction
+   //Get Username and password for Login
                 username = ((TextField) login.get(1)).getString();
                 password = ((TextField) login.get(2)).getString();
-                util.checkUsernameAndPassword(username, password);// write post-action user code here
+  // Verifying Username and Password
+                util.checkUsernameAndPassword(username, password);
+                
+ // Select Exit button in main page
             }//GEN-BEGIN:|7-commandAction|7|19-preAction
         } else if (displayable == main) {
             if (command == exitCommand) {//GEN-END:|7-commandAction|7|19-preAction
-                // write pre-action user code here
+                // Exit mobile application
                 exitMIDlet();//GEN-LINE:|7-commandAction|8|19-postAction
-                // write post-action user code here
+                // Select logout Command
             } else if (command == logoutCommand) {//GEN-LINE:|7-commandAction|9|109-preAction
-                // write pre-action user code here
+              
                 switchDisplayable(null, getLogin());//GEN-LINE:|7-commandAction|10|109-postAction
                 util.logout();
-                // write post-action user code here
+                
             } else if (command == progressCommand) {//GEN-LINE:|7-commandAction|11|105-preAction
-                // write pre-action user code here
+                // Show Report Progress page
                 switchDisplayable(null, getReportProgress());//GEN-LINE:|7-commandAction|12|105-postAction
-                // write post-action user code here
+                // Show Report page
             } else if (command == reportCommand) {//GEN-LINE:|7-commandAction|13|88-preAction
-                // write pre-action user code here
+                // Show Report Incident page
                 switchDisplayable(null, getReportIncident());//GEN-LINE:|7-commandAction|14|88-postAction
-                // write post-action user code here
+               // Select Cancel and navigate to main page
             }//GEN-BEGIN:|7-commandAction|15|94-preAction
         } else if (displayable == reportIncident) {
             if (command == cancelCommand) {//GEN-END:|7-commandAction|15|94-preAction
-                // write pre-action user code here
+                
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|16|94-postAction
-                // write post-action user code here
+                // Select Send Command
             } else if (command == sendCommand) {//GEN-LINE:|7-commandAction|17|117-preAction
-                // write pre-action user code here
+               
                 util.sendReport();
 //GEN-LINE:|7-commandAction|18|117-postAction
-                // write post-action user code here
+              // Select Cancel and navigate to main page
             }//GEN-BEGIN:|7-commandAction|19|97-preAction
         } else if (displayable == reportProgress) {
             if (command == cancelCommand1) {//GEN-END:|7-commandAction|19|97-preAction
-                // write pre-action user code here
+                
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|20|97-postAction
-                // write post-action user code here
+                // Select Send Progress Command
             } else if (command == sendProgressCommand) {//GEN-LINE:|7-commandAction|21|103-preAction
-                // write pre-action user code here
+                
 //GEN-LINE:|7-commandAction|22|103-postAction
                 util.sendProgress();
-                // write post-action user code here
+                // Show Request page and select accept or  reject command
             }//GEN-BEGIN:|7-commandAction|23|78-preAction
         } else if (displayable == request) {
             if (command == acceptCommand) {//GEN-END:|7-commandAction|23|78-preAction
-                // write pre-action user code here
+                // Process request and answer
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|24|78-postAction
                 util.acceptRequest();
-                // write post-action user code here
+                
             } else if (command == rejectCommand) {//GEN-LINE:|7-commandAction|25|80-preAction
-                // write pre-action user code here
+                
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|26|80-postAction
                 util.removeRequest();
-                // write post-action user code here
+               
             }//GEN-BEGIN:|7-commandAction|27|120-preAction
         } else if (displayable == viewRequest) {
             if (command == backCommand) {//GEN-END:|7-commandAction|27|120-preAction
-                // write pre-action user code here
+                
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|28|120-postAction
-                // write post-action user code here
+                
             }//GEN-BEGIN:|7-commandAction|29|50-preAction
         } else if (displayable == waitScreen) {
             if (command == WaitScreen.FAILURE_COMMAND) {//GEN-END:|7-commandAction|29|50-preAction
