@@ -5,6 +5,7 @@
 <head runat="server">
     <title></title>
     <link href="~/Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/Gridview.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -34,7 +35,7 @@
                 <RootNodeStyle Font-Bold="True" ForeColor="#1C5E55" />
             </asp:SiteMapPath>
         </div>
-        <div >
+        <div style="text-align:left" align="left">
          <p id="massagePart">
                &nbsp;<asp:BulletedList ID="blMessages" runat="server" >
               

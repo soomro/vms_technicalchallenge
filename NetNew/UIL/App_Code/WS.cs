@@ -25,7 +25,7 @@ public class WS : System.Web.Services.WebService
     [WebMethod(Description="Validates the username and password and returns true if it is correct.")]
     public bool Login(string username, string password)
     {
-        var q=DAL.Container.Instance.Volunteers.SingleOrDefault(v => v.Username == username && v.Password == password);
+        var q=DAL.Container.WSInstance.Volunteers.SingleOrDefault(v => v.Username == username && v.Password == password);
         if (q == null)
             return false;
         else
@@ -38,7 +38,7 @@ public class WS : System.Web.Services.WebService
         char sep = Utils.Collection.SeparatorChar;
 
         var res = "";
-         var vol = (from v in DAL.Container.Instance.Volunteers
+         var vol = (from v in DAL.Container.WSInstance.Volunteers
                    where v.Username == username && v.Password == password
                    select v).SingleOrDefault();
         if (vol == null)
@@ -46,7 +46,7 @@ public class WS : System.Web.Services.WebService
                 return "";
     	}
 
-        var rrs =( from rr in DAL.Container.Instance.RequestResponses
+        var rrs =( from rr in DAL.Container.WSInstance.RequestResponses
                   where rr.Volunteer_Id == vol.Id && 
                   rr.Request.IsActive && (rr.StatusVal == 0 || (rr.StatusVal==1 && rr.Answer==true) )                
                       select rr).Take(1).ToList();
@@ -56,7 +56,7 @@ public class WS : System.Web.Services.WebService
             rrs[0].DateShowed = DateTime.Now;
         }
 
-        var alerts = (from av in DAL.Container.Instance.AlertsVolunteers
+        var alerts = (from av in DAL.Container.WSInstance.AlertsVolunteers
                      where av.Volunteer_Id == vol.Id && av.DateShowed == null
                      select av).Take(5).ToList();
         foreach (var alert in alerts)
@@ -64,7 +64,7 @@ public class WS : System.Web.Services.WebService
             res += "A" + sep + alert.Alert.Message + sep;
             alert.DateShowed = DateTime.Now;
         }
-        DAL.Container.Instance.SaveChanges();
+        DAL.Container.WSInstance.SaveChanges();
         return res;
 
     }
@@ -74,7 +74,7 @@ public class WS : System.Web.Services.WebService
     {
         char sep = Utils.Collection.SeparatorChar;
 
-        var vol = (from v in DAL.Container.Instance.Volunteers
+        var vol = (from v in DAL.Container.WSInstance.Volunteers
                    where v.Username == username && v.Password == password
                    select v).SingleOrDefault();
         if (vol == null)
@@ -83,7 +83,7 @@ public class WS : System.Web.Services.WebService
             return "";
         }
 
-        var request = (from r in DAL.Container.Instance.RequestResponses
+        var request = (from r in DAL.Container.WSInstance.RequestResponses
                        where r.Volunteer_Id == vol.Id && r.Id == Utils.Convert.ToInt(requestresponseID, 0)
                        select r.Request).SingleOrDefault();
         if (request==null)
@@ -110,7 +110,7 @@ public class WS : System.Web.Services.WebService
     { 
         char sep = Utils.Collection.SeparatorChar;
 
-        var vol = (from v in DAL.Container.Instance.Volunteers
+        var vol = (from v in DAL.Container.WSInstance.Volunteers
                    where v.Username == username && v.Password == password
                    select v).SingleOrDefault();
         if (vol == null)
@@ -118,7 +118,7 @@ public class WS : System.Web.Services.WebService
             msg = "Username or password is incorrect";
             return false;
         }
-        var requestres = (from r in DAL.Container.Instance.RequestResponses
+        var requestres = (from r in DAL.Container.WSInstance.RequestResponses
                        where r.Volunteer_Id == vol.Id && r.Id == Utils.Convert.ToInt(requestresponseID, 0)
                        select r).SingleOrDefault();
 
@@ -146,7 +146,7 @@ public class WS : System.Web.Services.WebService
         requestres.Answer = accepted;
         requestres.DateResponded = DateTime.Now;
 
-        DAL.Container.Instance.SaveChanges();
+        DAL.Container.WSInstance.SaveChanges();
         msg = "";
         return true;
     }
@@ -155,7 +155,7 @@ public class WS : System.Web.Services.WebService
     public string GetAlert(string alertID, string username, string password, out string msg)
     {
         var aid = Utils.Convert.ToInt(alertID,0);
-        var vol = (from v in DAL.Container.Instance.Volunteers
+        var vol = (from v in DAL.Container.WSInstance.Volunteers
                    where v.Username == username && v.Password == password
                    select v).SingleOrDefault();
         if (vol == null)
@@ -164,7 +164,7 @@ public class WS : System.Web.Services.WebService
             return ""; ;
         }
 
-        var alert = (from a in DAL.Container.Instance.AlertsVolunteers
+        var alert = (from a in DAL.Container.WSInstance.AlertsVolunteers
                      where a.Id == aid
                      select a).SingleOrDefault();
         if (alert==null)

@@ -132,4 +132,17 @@ public partial class UC_ucEnumSelector : System.Web.UI.UserControl
         }
 
     }
+
+    public bool Enabled
+    {
+        get
+        {
+            return rdlOptions.Enabled || ddlOptions.Enabled;
+        }
+        set
+        {
+            rdlOptions.Enabled = value;
+            ddlOptions.Enabled = value;
+        }
+    }
 }
