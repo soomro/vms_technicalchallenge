@@ -109,7 +109,7 @@
                         BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
                         CellPadding="2" ForeColor="Black" GridLines="None" ID="gvVolunteers" 
                         EmptyDataText="This request has not been sent to any volunteer" 
-                        Width="90%" onrowdatabound="gvVolunteers_RowDataBound" >
+                        Width="100%" onrowdatabound="gvVolunteers_RowDataBound" >
                         <AlternatingRowStyle BackColor="PaleGoldenrod" />
                         <Columns>
                            <asp:TemplateField HeaderText="Vol. Name">

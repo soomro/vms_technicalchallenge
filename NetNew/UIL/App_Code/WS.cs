@@ -118,8 +118,10 @@ public class WS : System.Web.Services.WebService
             msg = "Username or password is incorrect";
             return false;
         }
+        int reqId = Utils.Convert.ToInt(requestresponseID, 0);
+
         var requestres = (from r in DAL.Container.WSInstance.RequestResponses
-                       where r.Volunteer_Id == vol.Id && r.Id == Utils.Convert.ToInt(requestresponseID, 0)
+                       where r.Volunteer_Id == vol.Id && r.Id == reqId
                        select r).SingleOrDefault();
 
         if (requestres == null)
@@ -129,6 +131,7 @@ public class WS : System.Web.Services.WebService
         }
 
         requestres.DateResponded = DateTime.Now;
+        
         bool accepted = false;
         var parts = amountProvided.Split(new char[]{sep}, StringSplitOptions.RemoveEmptyEntries);
         for (int i = 0; i < parts.Length; i+=2)
@@ -137,10 +140,24 @@ public class WS : System.Web.Services.WebService
             var iamount = parts[i + 1];
             var ni = requestres.Request.NeedItems.SingleOrDefault(n => n.ItemType == itype);
             if (ni!=null)
-            {
+            { // we are sure that itype is requested. now add a new needitem record to save the supp amount.
+
                 ni.SuppliedAmount = Utils.Convert.ToDouble(iamount, 0);
                 if (ni.SuppliedAmount > 0)
+                {
                     accepted = true; // if any need is supplied then it means it is accepted.
+                    var dubCheckobj = (from niDub in requestres.NeedItems
+                                       where niDub.ItemType == itype
+                                       select niDub).FirstOrDefault();
+                    if (dubCheckobj != null) 
+                        dubCheckobj.SuppliedAmount = Utils.Convert.ToDouble(iamount,dubCheckobj.SuppliedAmount);
+                    else
+                    {
+                        requestres.NeedItems.Add(new DAL.NeedItem(){
+                         SuppliedAmount=Utils.Convert.ToDouble(iamount,0), ItemType=itype, MetricType=ni.MetricType});
+                        ni.ItemAmount += Utils.Convert.ToDouble(iamount, 0);
+                    }
+                }
             }
         } 
         requestres.Answer = accepted;

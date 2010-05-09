@@ -8,7 +8,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <table width="100%" border="0"  >
+    <table width="100%" border="0" runat="server" id="pgTable" >
         <tr>
             <td width="300px" valign="top">
                 <table border="0" 

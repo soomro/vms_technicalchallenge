@@ -32,24 +32,21 @@ public partial class Incident : PageBase
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        // DEMONSTRATION
-        if (MainCrisis==null)
-        {
-            var row = DAL.Container.Instance.Crises.SingleOrDefault(r => r.Id == 46);
-            MainCrisis = row;
-        }
-        // DEMONSTRATION
-
-
+       
         if (!IsPostBack)
         {
             ucIncidentType.EnumType = typeof(Utils.Enumerations.IncidentTypes);
-            //ucIncidentType.DefaultSelection = IncidentTypes.Bomb;
-
             ucSeverity.EnumType = typeof(Severities);
 
             if (PageAction == PageActions.Create)
-            {                
+            {
+                if (MainCrisis == null)
+                {
+                    Master.ShowMessage(MessageTypes.Error, "There is no active crisis to create incident");
+                    pgTable.Visible = false;
+                    return;
+                }
+
                 NeedList = null; // clear if it contains any.
                 NeedList.Add(new NeedItem()); // add an empty line for starting
                 BindData();
@@ -74,6 +71,11 @@ public partial class Incident : PageBase
             }
         }              
 
+    }
+
+    private void DisablePage()
+    {
+        
     }
 
     private void BindDataForEdit(DAL.Incident inc)
@@ -101,7 +103,19 @@ public partial class Incident : PageBase
         btClose.Visible = true;
         hlResourceGathering.Visible = true;
         hlResourceGathering.NavigateUrl = Constants.PageResourceGathering+  "?iid=" + inc.Id;
-       
+
+        var boolVal = true;
+        if (inc.Crisis.Status==CrisisStatuses.Closed)
+            boolVal = false;
+        txShortDesc.Enabled = boolVal;
+        txShortAddress.Enabled = boolVal;
+        txExplanation.Enabled = boolVal;
+        ucSeverity.Enabled = boolVal;
+        ucIncidentType.Enabled = boolVal;
+        UCIncidentMap1.Enabled = boolVal;
+        btAddNew.Visible = boolVal;
+        btClose.Visible = boolVal;
+        btSave.Visible = boolVal;
 
     }
     /// <summary>

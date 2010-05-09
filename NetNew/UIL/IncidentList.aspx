@@ -9,7 +9,7 @@
         DataKeyNames="Id" AllowPaging="True" 
         onpageindexchanging="gvIncidents_PageIndexChanging" 
         onrowdatabound="gvIncidents_RowDataBound" PageSize="10" 
-        EmptyDataText="This crisis doesnt contain any incident!"  >
+    EmptyDataText="This crisis doesnt contain any incident!"  >
         <Columns>
             <asp:TemplateField HeaderText="Name" 
                 SortExpression="Name">

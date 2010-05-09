@@ -9,6 +9,7 @@ public partial class CrisisList : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        Utils.GridStyleUtil gs = new Utils.GridStyleUtil(gvCrisisList, Utils.GridStyleEnum.Niko);
         if (!IsPostBack)
         {
             var clist = (from c in DAL.Container.Instance.Crises
@@ -43,16 +44,13 @@ public partial class CrisisList : System.Web.UI.Page
     }
     protected void gvCrisisList_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
+        gvCrisisList.PageIndex = e.NewPageIndex;
         var clist = (from c in DAL.Container.Instance.Crises
                      where c.StatusVal == (short)Utils.Enumerations.CrisisStatuses.Closed
-                     select c).OrderBy(c1 => c1.Name).Skip((e.NewPageIndex ) * gvCrisisList.PageCount).ToList();
+                     select c).OrderBy(c1 => c1.Name).ToList();
         gvCrisisList.DataSource = clist;
-
-        gvCrisisList.PageIndex = e.NewPageIndex;
-        
         gvCrisisList.DataBind();
 
-       
 
     }
 }

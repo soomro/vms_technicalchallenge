@@ -130,17 +130,20 @@ public partial class ResourceGathering : PageBase
 
     }
     protected void lbtRequest_Command(object sender, CommandEventArgs e)
-    {
-        
-
+    {        
         var reqidstr = (e.CommandArgument as string).Split('|')[0];
         var rowindex = Utils.Convert.ToInt( (e.CommandArgument as string).Split('|')[1],-1);
 
         int reqId = Utils.Convert.ToInt(reqidstr,0);
+        
+        DAL.Container.Instance.Requests.MergeOption = System.Data.Objects.MergeOption.OverwriteChanges;
         var req = DAL.Container.Instance.Requests.SingleOrDefault(r => r.Id == reqId);
         //DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, req);
-        DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, req.NeedItems);
+        //DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, req.NeedItems);
+        //DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, req.RequestResponses);
+        //DAL.Container.Instance.RequestResponses.MergeOption = System.Data.Objects.MergeOption.NoTracking;
         
+
         SelectedRequest = req;
 
         gvNeedList.DataSource = req.NeedItems;
@@ -209,8 +212,10 @@ public partial class ResourceGathering : PageBase
         {
             return;
         }
-
+        
         var res = e.Row.DataItem as DAL.RequestRespons;
+        
+        DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, res.Volunteer);
         DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, res.NeedItems);
 
         var hlVolName = e.Row.FindControl("hlVolName") as HyperLink;
@@ -230,6 +235,7 @@ public partial class ResourceGathering : PageBase
         var supplied = "-";
         foreach (DAL.NeedItem ni in res.NeedItems)
         {
+            DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, ni);
             string s = ni.SuppliedAmount + " ";
             if (ni.MetricType != Utils.Enumerations.MetricTypes.Item)
                 s += Utils.Reflection.GetEnumDescription(ni.MetricType)+" ";

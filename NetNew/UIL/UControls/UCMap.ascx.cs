@@ -79,6 +79,9 @@ public partial class UCMap : System.Web.UI.UserControl
         incInfo  = incInfo.Replace("[EDITURL]", 
             string.Format(Request.ApplicationPath+"/Incident.aspx?{0}={1}&iid={2}",Constants.IdAction,PageActions.Edit.ToString(),inc.Id)
             );
+        incInfo = incInfo.Replace("[RESURL]",
+            string.Format(Request.ApplicationPath + "/ResourceGathering.aspx?iid={0}", inc.Id)
+            );
         m.Text = incInfo;
         m.Bouncy = true;
         m.Title = inc.ShortDescription;
@@ -94,6 +97,9 @@ public partial class UCMap : System.Web.UI.UserControl
             </tr>
             <tr>
                 <td>Status:[INCSTATUS]</td> <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><a href='[RESURL]'>Resource Gathering</a></td> <td>&nbsp;</td>
             </tr>
             <tr>
                 <td><a href='[EDITURL]'>Edit Incident</a></td> <td>&nbsp;</td>
