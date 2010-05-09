@@ -26,5 +26,17 @@ namespace DAL
                 return (ApolloEntities)System.Web.HttpContext.Current.Session[Utils.Constants.GlobalIds.Container];
             }
         }
+
+        public static ApolloEntities WSInstance
+        {
+            get
+            {
+                if (System.Web.HttpContext.Current.Items[Utils.Constants.GlobalIds.Container] == null)
+                {
+                    System.Web.HttpContext.Current.Items[Utils.Constants.GlobalIds.Container] = new ApolloEntities();
+                }
+                return (ApolloEntities)System.Web.HttpContext.Current.Items[Utils.Constants.GlobalIds.Container];
+            }
+        }
     }
 }

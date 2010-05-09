@@ -2,6 +2,8 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="~/crisisboard.aspx" title="Crisis Board"  description="Crisis Board">
         <siteMapNode  url="incident.aspx" title="Incident"  description="Create Incident" />
-       
+        <siteMapNode  url="CrisisList.aspx" title="Crisis List"  description="Crisis List" >
+          <siteMapNode  url="Crisis.aspx" title="View and Edit Crisis"  description="View and Edit Crisis" />
+        </siteMapNode>
     </siteMapNode>
 </siteMap>

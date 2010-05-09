@@ -28,24 +28,25 @@ public partial class Crisis : PageBase
 
             if (PageAction == PageActions.Edit)
             {
-                if (MainCrisis == null)
+                // check cid first then edit current crisis if no cid is given
+                DAL.Crisis cr = GetCrisisFromCid();
+
+                if (cr !=null)
+                {
+                    BindPage(cr);
+                }
+                else if (MainCrisis != null)
+                {
+                    BindPage(MainCrisis);                   
+                }
+                else
                 {
                     Master.ShowMessage(MessageTypes.Error, "Crisis is not defined yet");
-                    RedirectAfter(4, Constants.PageCrisis+"?action=Create");
+                    RedirectAfter(4, Constants.PageCrisis + "?action=Create");
                     return;
                 }
 
-                txtCrisisName.Text = MainCrisis.Name;
-                txtExplanation.Text = MainCrisis.Explanation;
-                ucEnumSelector1.DefaultSelection = MainCrisis.CrisisType;
-                double latitude = 0, longitude = 0, radious = 0;
-                double.TryParse(MainCrisis.LocationCoordinates[0], out latitude);
-                double.TryParse(MainCrisis.LocationCoordinates[1], out longitude);
-                double.TryParse(MainCrisis.LocationCoordinates[2], out radious);
-                ddlRadious.SelectedValue = radious + "";
-                CrisisArea = UC_UCCreateCrisisMap.GetDefaultCirclePolygon(latitude, longitude, radious);
-                Master.PageTitle = "Edit Crisis";
-                btnClose.Visible = true;
+               
             }
 
             else if (PageAction == PageActions.Create)// Create crisis 
@@ -61,6 +62,61 @@ public partial class Crisis : PageBase
                 Response.Redirect(Constants.PageCrisis+"?action=Create");
             }
         }
+    }
+
+    private DAL.Crisis GetCrisisFromCid()
+    {
+        var cid = Utils.Convert.ToInt(Request["cid"], 0);
+        if (cid==0)
+        {
+            return null;
+        }
+        var crlist = (from c in DAL.Container.Instance.Crises
+                  where c.Id == cid
+                  select c).Take(1).ToList();
+        if (crlist.Count>0)
+        {
+            return crlist[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private void BindPage(DAL.Crisis cr)
+    {
+        bool enabledDisabled = true;
+        if (cr.Status== CrisisStatuses.Closed)
+        {
+            enabledDisabled = false;
+            Master.PageTitle = "View Crisis";
+        }
+        else 
+        {
+            enabledDisabled = true;
+            Master.PageTitle = "Edit Crisis";
+        }
+        txtCrisisName.Enabled = enabledDisabled;
+        txtExplanation.Enabled = enabledDisabled;
+        ucEnumSelector1.Enabled = enabledDisabled;
+        ddlRadious.Enabled = enabledDisabled;
+        UCCreateCrisisMap1.Enabled = enabledDisabled;
+        btnClose.Visible = enabledDisabled;
+        btnCancel.Visible = enabledDisabled;
+        btnSave.Visible = enabledDisabled;
+
+
+        txtCrisisName.Text = cr.Name;
+        txtExplanation.Text = cr.Explanation;
+        ucEnumSelector1.DefaultSelection = cr.CrisisType;
+        double latitude = 0, longitude = 0, radious = 0;
+        double.TryParse(cr.LocationCoordinates[0], out latitude);
+        double.TryParse(cr.LocationCoordinates[1], out longitude);
+        double.TryParse(cr.LocationCoordinates[2], out radious);
+        ddlRadious.SelectedValue = radious + "";
+        CrisisArea = UC_UCCreateCrisisMap.GetDefaultCirclePolygon(latitude, longitude, radious);
+        
     }
     public GoogleCirclePolygon CrisisArea
     {

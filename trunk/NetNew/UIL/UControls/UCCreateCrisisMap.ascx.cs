@@ -11,7 +11,14 @@ using System.IO;
 
 public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
 {
-     
+    public bool Enabled
+    {
+        get
+        {
+            return GoogleMap1.Enabled;
+        }
+        set { GoogleMap1.Enabled = value; }
+    }
     protected override void OnPreRender(EventArgs e)
     {
         GoogleMap1.Polygons.Clear();
