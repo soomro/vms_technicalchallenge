@@ -53,13 +53,14 @@ public class PageBase : System.Web.UI.Page
     public static DAL.Crisis MainCrisis
     {
         get
-        {
-            var c = HttpContext.Current.Session[Constants.IdMainCrisis] as DAL.Crisis;
-#if DEBUG
-            //if (c==null)
-            //    c =   Container.Instance.Crises.SingleOrDefault(cr => cr.Id == 46);
-#endif
-            return c;
+        {          
+            if (HttpContext.Current.Session[Constants.IdMainCrisis] == null)
+                HttpContext.Current.Session[Constants.IdMainCrisis] = (from cr in DAL.Container.Instance.Crises
+                     where cr.StatusVal == (short)Utils.Enumerations.CrisisStatuses.Active
+                     select cr).FirstOrDefault();
+
+
+            return HttpContext.Current.Session[Constants.IdMainCrisis] as DAL.Crisis; ;
  
         }
         set

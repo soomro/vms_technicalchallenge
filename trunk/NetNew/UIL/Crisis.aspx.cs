@@ -54,6 +54,7 @@ public partial class Crisis : PageBase
                 if (MainCrisis!=null && MainCrisis.Status!= CrisisStatuses.Closed)
                 {
                     Master.ShowMessage(MessageTypes.Error,"The current crisis is not closed yet! You must close it first.");
+                    Master.ShowMessage(MessageTypes.Info, "You will be redirected to the crisis editing page...");
                     RedirectAfter(5, Constants.PageCrisis + "?action=" + PageActions.Edit);
                 }
                 BindPageForCreate();
@@ -106,7 +107,6 @@ public partial class Crisis : PageBase
         {
             enabledDisabled = false;
             Master.PageTitle = "View Crisis";
-            
         }
         else 
         {
@@ -125,7 +125,7 @@ public partial class Crisis : PageBase
         btnClose.Visible = enabledDisabled;
         btnCancel.Visible = enabledDisabled;
         btnSave.Visible = enabledDisabled;
-
+        
         ltStatus.Text = Utils.Reflection.GetEnumDescription(cr.Status);
         ltDatecreated.Text = cr.DateCreated.ToString("dd MMM yy, hh:mm");
         ltDateclosed.Text = cr.DateClosed.HasValue ? cr.DateClosed.Value.ToString("dd MMM yy, hh:mm") : "";
@@ -133,9 +133,12 @@ public partial class Crisis : PageBase
         txtExplanation.Text = cr.Explanation;
         ucEnumSelector1.DefaultSelection = cr.CrisisType;
         double latitude = 0, longitude = 0, radious = 0;
-        double.TryParse(cr.LocationCoordinates[0], out latitude);
-        double.TryParse(cr.LocationCoordinates[1], out longitude);
-        double.TryParse(cr.LocationCoordinates[2], out radious);
+        if (cr.LocationCoordinates.Count >= 3)
+        {
+            double.TryParse(cr.LocationCoordinates[0], out latitude);
+            double.TryParse(cr.LocationCoordinates[1], out longitude);
+            double.TryParse(cr.LocationCoordinates[2], out radious);
+        }
         ddlRadious.SelectedValue = radious + "";
         CrisisArea = UC_UCCreateCrisisMap.GetDefaultCirclePolygon(latitude, longitude, radious);
         hlIncidents.NavigateUrl = Constants.PageIncidents + string.Format("?cid={0}", cr.Id);

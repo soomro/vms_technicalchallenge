@@ -10,6 +10,7 @@ public partial class IncidentList : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        
         Utils.GridStyleUtil gs = new Utils.GridStyleUtil(gvIncidents, Utils.GridStyleEnum.Niko);
 
         if (!IsPostBack)
@@ -20,6 +21,7 @@ public partial class IncidentList : System.Web.UI.Page
                 Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "Invalid parameter");
                 return;
             }
+
             gvIncidents.DataSource = cr.Incidents;
             gvIncidents.DataBind();
             Master.PageTitle = "Incident List";
@@ -64,7 +66,7 @@ public partial class IncidentList : System.Web.UI.Page
 
         Utils.GridUtil g = new Utils.GridUtil(e.Row);
         g.SetControlText("hlName", inc.ShortDescription, 20);
-        (g.GetControl("hlName") as HyperLink).NavigateUrl = Constants.PageIncident+"?iid="+inc.Id;
+        (g.GetControl("hlName") as HyperLink).NavigateUrl = Constants.PageIncident + "?iid=" + inc.Id + "&Action=Edit";
         g.SetControlText("lbDateCreated", inc.DateCreated.ToString("dd MMM yy, hh:mm"));
         g.SetControlText("lbDateClosed", inc.DateClosed.HasValue?inc.DateClosed.Value.ToString("dd MMM yy, hh:mm"):"-");
         g.SetControlText("lbStatus",Utils.Reflection.GetEnumDescription(inc.IncidentStatus));
@@ -74,10 +76,10 @@ public partial class IncidentList : System.Web.UI.Page
 
         var cell = e.Row.Cells[4];
         cell.BackColor = Color.FromArgb(255, 252, 3, 15);
-        if (inc.Severity == Utils.Enumerations.Severities.Critical) cell.Style["opacity"] = "1";
-        if (inc.Severity == Utils.Enumerations.Severities.High) cell.Style["opacity"] = "0.8";
-        if (inc.Severity == Utils.Enumerations.Severities.Medium) cell.Style["opacity"] = "0.7";
-        if (inc.Severity == Utils.Enumerations.Severities.Low) cell.Style["opacity"] = "0.4";
+        if (inc.Severity == Utils.Enumerations.Severities.Critical) { cell.Style["opacity"] = "1"; cell.Style["filter"] = "alpha(opacity=100)"; }
+        if (inc.Severity == Utils.Enumerations.Severities.High) { cell.Style["opacity"] = "0.8"; cell.Style["filter"] = "alpha(opacity=80)"; }
+        if (inc.Severity == Utils.Enumerations.Severities.Medium) { cell.Style["opacity"] = "0.7"; cell.Style["filter"] = "alpha(opacity=70)"; }
+        if (inc.Severity == Utils.Enumerations.Severities.Low) { cell.Style["opacity"] = "0.4"; cell.Style["filter"] = "alpha(opacity=40)"; }
         cell.ForeColor = Color.White;
 
         g.SetControlText("lbShortAddress", inc.ShortAddress, 10);

@@ -17,7 +17,11 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
         {
             return GoogleMap1.Enabled;
         }
-        set { GoogleMap1.Enabled = value; }
+        set { 
+            GoogleMap1.Enabled = value;
+            if (value == false)
+                GoogleMap1.Click -= GoogleMap1_Click;
+        }
     }
     protected override void OnPreRender(EventArgs e)
     {

@@ -24,7 +24,14 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
         }
         base.OnPreRender(e);
     }
-
+    public bool Enabled
+    {
+        get
+        {
+            return GoogleMap1.Enabled;
+        }
+        set { GoogleMap1.Enabled = value; }
+    }
     public bool ReadOnly
     {
         get

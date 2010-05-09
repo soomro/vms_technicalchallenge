@@ -42,6 +42,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
             blMessages.CssClass = "infolist";
         }
                  */
+            massagePart.Visible = true;
             var li = new ListItem(msg.MessageText);
             if (msg.MessageType==Utils.Enumerations.MessageTypes.Error)
             {
