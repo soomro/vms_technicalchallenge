@@ -34,3 +34,11 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+
+[assembly: System.Web.UI.WebResource("Utils.GridStyles.Grid_MaviSari.css", "text/css")]
+[assembly: System.Web.UI.WebResource("Utils.GridStyles.Grid_MaviYesil.css", "text/css")]
+[assembly: System.Web.UI.WebResource("Utils.GridStyles.Grid_CilginKirmizi.css", "text/css")]
+[assembly: System.Web.UI.WebResource("Utils.GridStyles.Grid_TableSpirit.css", "text/css")]
+[assembly: System.Web.UI.WebResource("Utils.GridStyles.Grid_OrangeYouGlad.css", "text/css")]
+[assembly: System.Web.UI.WebResource("Utils.GridStyles.Grid_Niko.css", "text/css")]

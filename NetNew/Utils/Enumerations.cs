@@ -14,10 +14,13 @@ namespace Utils.Enumerations
     }
     public enum IncidentStatuses:short
     {
+        [Description("New")]
         Created =0,
         [Description("Resource Gathering")]
         ResourceGathering =1,
+        [Description("Resolving")]
         Working=2 ,
+        [Description("Completed")]
         Complete =3,
     }
     public enum IncidentTypes:short

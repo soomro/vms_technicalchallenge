@@ -55,17 +55,38 @@
                     </asp:DropDownList>
                 </td>
             </tr>
+            <tr runat="server" id="rowStatus">
+                <td class="formField">
+                    Status</td>
+                <td class="value">
+                    <asp:Literal  runat="server" ID="ltStatus" /></td>
+            </tr>
+             <tr  runat="server" id="rowDatecreated">
+                <td class="formField">
+                    Date created</td>
+                <td class="value">
+                   <asp:Literal  runat="server" ID="ltDatecreated" /></td>
+            </tr>
+             <tr  runat="server" id="rowDateclosed">
+                <td class="formField">
+                    Date closed</td>
+                <td class="value">
+                   <asp:Literal  runat="server" ID="ltDateclosed" /></td>
+            </tr>
             <tr>
                 <td class="label">
                     &nbsp;
                 </td>
-                <td class="value" align="right">
+                <td class="value" align="left">
                     <asp:Button ID="btnClose" runat="server" Text="Close Crisis" CssClass="buttons" 
                         onclick="btnClose_Click"/>
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="buttons" 
                         onclick="btnCancel_Click"/>
                     &nbsp;<asp:Button ID="btnSave" runat="server" OnClick="btSave_Click" 
                         Text="Save" CssClass="buttons" />
+                    <br />
+                    <br />
+                    <asp:HyperLink ID="hlIncidents" runat="server">View incident list</asp:HyperLink>
                 </td>
             </tr>
         </table></td>

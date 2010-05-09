@@ -51,17 +51,32 @@ public partial class Crisis : PageBase
 
             else if (PageAction == PageActions.Create)// Create crisis 
             {
-                Master.PageTitle = "Create New Crisis";
-                UCCreateCrisisMap1.Radious = 20;
-                ddlRadious.SelectedValue = "20";
-                CrisisArea = null;
-                btnClose.Visible = false;
+                if (MainCrisis!=null && MainCrisis.Status!= CrisisStatuses.Closed)
+                {
+                    Master.ShowMessage(MessageTypes.Error,"The current crisis is not closed yet! You must close it first.");
+                    RedirectAfter(5, Constants.PageCrisis + "?action=" + PageActions.Edit);
+                }
+                BindPageForCreate();
             }
             else
             {
                 Response.Redirect(Constants.PageCrisis+"?action=Create");
             }
         }
+    }
+
+    private void BindPageForCreate()
+    {
+        Master.PageTitle = "Create New Crisis";
+
+        UCCreateCrisisMap1.Radious = 20;
+        ddlRadious.SelectedValue = "20";
+        CrisisArea = null;
+        btnClose.Visible = false;
+        rowDateclosed.Visible = false;
+        rowDatecreated.Visible = false;
+        rowStatus.Visible = false;
+        hlIncidents.Visible = false;
     }
 
     private DAL.Crisis GetCrisisFromCid()
@@ -91,12 +106,17 @@ public partial class Crisis : PageBase
         {
             enabledDisabled = false;
             Master.PageTitle = "View Crisis";
+            
         }
         else 
         {
             enabledDisabled = true;
             Master.PageTitle = "Edit Crisis";
         }
+
+        rowStatus.Visible = !enabledDisabled;
+        rowDatecreated.Visible = true;
+        rowDateclosed.Visible = !enabledDisabled;
         txtCrisisName.Enabled = enabledDisabled;
         txtExplanation.Enabled = enabledDisabled;
         ucEnumSelector1.Enabled = enabledDisabled;
@@ -106,7 +126,9 @@ public partial class Crisis : PageBase
         btnCancel.Visible = enabledDisabled;
         btnSave.Visible = enabledDisabled;
 
-
+        ltStatus.Text = Utils.Reflection.GetEnumDescription(cr.Status);
+        ltDatecreated.Text = cr.DateCreated.ToString("dd MMM yy, hh:mm");
+        ltDateclosed.Text = cr.DateClosed.HasValue ? cr.DateClosed.Value.ToString("dd MMM yy, hh:mm") : "";
         txtCrisisName.Text = cr.Name;
         txtExplanation.Text = cr.Explanation;
         ucEnumSelector1.DefaultSelection = cr.CrisisType;
@@ -116,6 +138,7 @@ public partial class Crisis : PageBase
         double.TryParse(cr.LocationCoordinates[2], out radious);
         ddlRadious.SelectedValue = radious + "";
         CrisisArea = UC_UCCreateCrisisMap.GetDefaultCirclePolygon(latitude, longitude, radious);
+        hlIncidents.NavigateUrl = Constants.PageIncidents + string.Format("?cid={0}", cr.Id);
         
     }
     public GoogleCirclePolygon CrisisArea

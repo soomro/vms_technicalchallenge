@@ -17,6 +17,8 @@ namespace DAL
             set
             {
                 StatusVal = (Int16)value;
+                if (value == Utils.Enumerations.CrisisStatuses.Closed)
+                    DateClosed = DateTime.Now;
             }
         }
         public Utils.Enumerations.LocationTypes LocationType
