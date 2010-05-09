@@ -1,0 +1,129 @@
+/*
+ "Table Sprite" CSS Table 
+ design by Parker Torrence 
+ of FrogLace WebDesign 
+ webdesign.parkertorrence.com 
+*/
+
+table.Grid {
+ background: #fff;
+ margin:0; padding:0;  border: none; 
+ border-collapse:collapse;  
+ font: 62.5%/1.5em Verdana, "Lucida Grande", "Lucida Sans Unicode", geneva, arial, sans-serif;	
+/* when font-size 62.5%=1em=10px */
+}
+* html table.Grid {
+ background: url(sprite.gif) repeat-y right -30px;
+}
+table.Grid thead, table.Grid tfoot,table.Grid ,table.Grid tr,table.Grid th,table.Grid td { 
+ margin:0; padding:5px; border: none; 
+ border-collapse:collapse;
+}
+table.Grid th
+{
+	font-size: 1.3em;
+	font-family: Georgia, "Times New Roman" , "Times Roman" , times, serif;
+	letter-spacing: 0.12em;
+	background: url(sprite.gif) #cc9966 no-repeat right -30px;
+	color: #700;
+	height: 50px;
+	margin: 0;
+	padding: 0;
+}
+table.Grid  th {
+ font-size: 1.2em;
+ font-family: Verdana, "Lucida Grande", "Lucida Sans Unicode", geneva, arial, sans-serif;	
+}
+table.Grid td {
+ font-size: 1.2em;
+}
+
+table.Grid caption {
+ font-size: 1px;
+ text-indent: -5000em;
+ height: 28px;
+ width:50%;
+ background: url(sprite.gif) no-repeat 0 0;
+}
+
+
+
+table.Grid th {
+ margin:0; padding:0 10px 0 5px; 
+ font-variant: small-caps;
+ font-size: 1.4em;
+}
+* html table.Grid thead {
+ background: url(clear.gif) no-repeat 0 0;
+}
+table.Grid tr
+{
+	background: url(sprite.gif) bisque no-repeat right -80px;
+	color: #222;
+	border-top: 1px solid #dd9;
+}
+
+table.Grid tr.AltRow
+{
+	background: url(sprite.gif) lightyellow no-repeat right -280px;
+	color: #900;
+	border-top: 1px solid #dd9;
+}
+table.Grid tr:hover
+{
+	background: url(sprite.gif) burlywood no-repeat right -280px;
+	color: #900;
+	border-top: 1px solid #dd9;
+}
+table.Grid tr th {
+ font-variant: small-caps;
+ font-weight: 500;
+ text-align: center;
+}
+table.Grid tr td {
+ border-left: 1px solid #dd9;
+} 
+table.Grid tfoot {
+ background: url(sprite.gif) no-repeat right -80px;
+ color: #666;
+ height: 30px;
+ border-top: 1px solid #dd9;
+ }
+
+table.Grid tfoot th {
+ background: url(sprite.gif) no-repeat left bottom; 
+ color: #666;
+ text-align: right;
+}
+
+
+/* Links */
+table.Grid tr th a {
+ color: #500;
+ text-decoration: none;
+}
+table.Grid  tr th a:hover {
+ color: #000;
+ text-decoration: underline;
+}
+
+table.Grid tr td a {
+ color: #900;
+ text-decoration: none;
+}
+table.Grid tr td a:hover {
+ color: #000;
+ text-decoration: underline;
+}
+
+table.Grid tr.AltRow td a {
+ color: #222;
+ text-decoration: none;
+}
+table.Grid tr.AltRow td a:hover {
+ color: #500;
+ text-decoration: underline;
+}
+
+/* This css design employs a single graphic for both the caption graphic and the background effects */
+/* **************************** end of css *************************** */
