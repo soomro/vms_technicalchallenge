@@ -77,6 +77,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
         {
             lblPageTitle.Text = value;
             Page.Title = value;
+            
         }
         
     }
