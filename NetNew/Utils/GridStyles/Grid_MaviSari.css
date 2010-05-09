@@ -1,0 +1,176 @@
+/*
+.Grid
+{
+	border-collapse: collapse;
+	border: 2px solid #3f7c5f;
+	font: normal 80%/140% arial, verdana, helvetica, sans-serif;
+	color: #000;
+	background: #fff;
+}
+.Grid td
+{
+	border: solid 1px #FFFFFF;
+	text-align: left;
+}
+.GridHeader
+{
+	font-weight: bold;
+	background-color: #8b8dbb;
+}
+.NormalRow
+{
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	background: #fff;
+	padding: 6px 6px 6px 12px;
+	color: #6D929B;
+}
+.NormalRow:hover, .AltRow:hover
+{
+	background-color: #ccccff;
+}
+
+.AltRow
+{
+	background: lightyellow;
+	color: #B4AA9D;
+}
+*/
+/*------------------------------------------------------------------------------------*/
+/* ********************************
+   Project: CSS Table Galery
+   Title: Like Adwords
+   Author: Cleiton Francisco
+   URL: http://www.cleiton.net/
+   Country: Brazil
+   Update: 2005-12-18
+ ****************************** */
+table.Grid {
+	border-collapse: collapse;
+	border: 2px solid #3f7c5f;
+	font: normal 80%/140% arial, verdana, helvetica, sans-serif;
+	color: #000;
+	background: #fff;
+	width:98%
+}
+table.Grid caption {
+	padding: 0 0.6em 0.8em;
+	font-size: 1.3em;
+	font-weight: bold;
+	text-align: left;
+	color: #000;
+	background: transparent;
+}
+table.Grid td, table.Grid th {
+	border: 1px solid #e0e0e0;
+	padding: 0.5em;
+}
+table.Grid th {
+	border: 1px solid #e0e0e0;
+	text-align: left;
+	font-size: 1.3em;
+	font-weight: bold;
+	padding-top:15px;
+	background: #c6d7cf;
+}
+table.Grid tfoot th, table.Grid tfoot td {
+	border: 1px solid #e0e0e0;
+	text-align: left;
+	font-size: 1em;
+	background: #e8e8cf;
+}
+table.Grid tfoot th {
+	font-weight: bold;
+}
+table.Grid td a {
+	background: transparent;
+	color: #00c;
+	text-decoration: underline;
+}
+table.Grid td a:hover {
+	background: transparent;
+	color: #00c;
+	text-decoration: underline;
+}
+table.Grid tbody th a {
+	background: transparent;
+	color: #3f7c5f;
+	text-decoration: underline;
+	font-weight: bold;
+}
+table.Grid tbody th a:visited {
+	color: #b98b00;
+}
+table.Grid tbody th, tbody td {
+	vertical-align: top;
+	text-align: left;
+}
+table.Grid tfoot td {
+	border: 1px solid #996;
+}
+table.Grid tbody tr:hover {
+	background: #ffffd9;
+}
+/*-----------------------------ASAGISI ESKI KOD --------------------------------
+
+This style sheet is intended to contain OFTEN CHANGED rules used when the GridView control adapter is enabled. 
+/* Empty rules are provided merely as a convenience for your future use or experimentation. 
+
+.PrettyGridView .AspNet-GridView
+{
+    width: 100%;
+}
+
+.PrettyGridView .AspNet-GridView div.AspNet-GridView-Pagination,
+.PrettyGridView .AspNet-GridView div.AspNet-GridView-Pagination a,
+.PrettyGridView .AspNet-GridView div.AspNet-GridView-Pagination span
+{
+    color: #00FFFF;
+    background: #284775;
+    font-weight: normal;
+    padding: 2px;
+}
+
+.PrettyGridView .AspNet-GridView table
+{
+    border: solid 1px #CCCCCC;
+    width: 100%;
+}
+
+.PrettyGridView .AspNet-GridView table thead tr th
+{
+    color: #F7F6F3;
+    background: #5D7B9D;
+    font-weight: bold;
+    border-bottom: solid 1px #CCCCCC;
+    border-right: solid 1px #CCCCCC;
+    padding: 2px;
+}
+
+.PrettyGridView .AspNet-GridView table thead tr th a
+{
+    color: #F7F6F3;
+}
+
+.PrettyGridView .AspNet-GridView table tbody tr td
+{
+    color: #333333;
+    background: White;
+    padding: 2px 20px 2px 2px;
+    border-bottom: solid 1px #CCCCCC;
+    border-right: solid 1px #CCCCCC;
+    text-align: right;
+}
+
+.PrettyGridView .AspNet-GridView table tbody tr.AspNet-GridView-Alternate td
+{
+    background: #F7F6F3;
+}
+
+.PrettyGridView .AspNet-GridView table tbody tr.AspNet-GridView-Selected td
+{
+}
+
+.PrettyGridView .AspNet-GridView table tfoot tr td
+{
+}*/

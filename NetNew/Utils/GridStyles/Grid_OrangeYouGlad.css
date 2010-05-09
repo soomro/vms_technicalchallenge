@@ -1,0 +1,99 @@
+/* 
+Style: OrangeYouGlad.css
+Created by Randy Peterman, September 2nd, 2005
+http://design.randypeterman.com
+using TopStyle Pro 3.12
+
+Requires one image: down_arrow.gif for {mostly} 
+Standards Compliant browsers like Firefox.
+*/
+table.Grid{
+	background: #FFEFD5;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+table.Grid caption{
+	width: 100%;
+	text-align: left;
+	font-weight: bolder;
+	border-top: 4px double #bbb;
+}
+table.Grid *{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+table.Grid th{
+	background: #FFA109;
+}
+table.Grid * th
+{
+	border-bottom: darkgray 1px outset;
+	border-top: 1px outset;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+table.Grid tfoot{
+	background: #FFA109;
+}
+
+table.Grid * a{
+	color: #000;
+}
+table.Grid * th
+{
+	background: #FFDCA2;
+	border-right: #956500 1px solid;
+	border-bottom: darkgray 1px solid;
+	font-size: medium;
+	font-weight: normal;
+	padding-left: 3px;
+	padding-bottom: 4px;
+	text-align: left;
+	vertical-align: top;
+}
+table.Grid * th a{
+		color: blue !important;
+}
+table.Grid * td{
+	border: 0px none;
+	border-bottom: 1px solid #ddd;
+	padding-left: 3px;
+	text-align: left;
+	vertical-align: top;
+}
+table.Grid tr.AltRow{
+	background: #FFF8EA;
+}
+table.Grid tr.AltRow th{
+	background: #FFE2B0;
+}
+table.Grid tfoot tr td[colspan='4']{
+	text-align: right;
+	font-style: italic;
+	padding-right: 4px;
+}
+table.Grid td a{
+	background: url(down_arrow.gif) no-repeat;
+	background-position: top left;
+	min-height: 20px;
+	padding-left: 20px;
+	float: left;
+	padding-right: 4px;
+}
+table.Grid tr th+td a{
+	background-image: none;
+	padding: inherit;
+	float: inherit;
+}
+/* Fake for IE, argh! Maybe IE 7 will resolve this. */
+table.Grid td a{
+	_background: none;
+	_background-position: inherit;
+	_padding-left: 2px;
+	_float: inherit;
+	_padding-right: inherit;
+}
+table.Gridtfoot * th{
+	border-bottom: 1px outset;
+	border-top: 1px outset;
+}
