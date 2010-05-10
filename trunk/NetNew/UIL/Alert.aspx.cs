@@ -19,11 +19,18 @@ public partial class Alert : PageBase
     {
         var alert = new DAL.Alert();
         alert.Message = txtMessage.Text;
-        alert.SearchCriteriaStr = ucSearchVolunteer.SelectedVolunteersString;
+        alert.SearchCriteriaStr = string.Empty;
         alert.DateSent = DateTime.Now;
         alert.Crisis_Id = MainCrisis.Id;
         DAL.Container.Instance.Alerts.AddObject(alert);
         DAL.Container.Instance.SaveChanges();
-
+        foreach (var item in ucSearchVolunteer.SelectedVolunteers)
+        {
+            var temp=new DAL.AlertsVolunteer();
+            temp.Alert_Id=alert.Id;
+            temp.Volunteer_Id=item;
+            DAL.Container.Instance.AlertsVolunteers.AddObject(temp);
+        }
+        DAL.Container.Instance.SaveChanges();
     }
 }
