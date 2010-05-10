@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\NLog\bin\net-2.0\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -49,6 +53,7 @@
     <Compile Include="Exceptions\VMSException.cs" />
     <Compile Include="GeoUtil.cs" />
     <Compile Include="GridUtil.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="ObservableList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection.cs" />
@@ -62,6 +67,11 @@
     <Content Include="GridStyles\Grid_MaviYesil.css" />
     <Content Include="GridStyles\Grid_OrangeYouGlad.css" />
     <Content Include="GridStyles\Grid_TableSpirit.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

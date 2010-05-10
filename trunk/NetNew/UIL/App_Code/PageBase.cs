@@ -91,5 +91,13 @@ public class PageBase : System.Web.UI.Page
             Session["CurrentVolunteer"] = value;
         }
     }
+
+    public NLog.Logger Logger
+    {
+        get
+        {
+            return NLog.LogManager.GetLogger("WEB");
+        }
+    }
 }
 

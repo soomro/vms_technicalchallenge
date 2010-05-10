@@ -18,7 +18,8 @@
 
     <br />
     
-&nbsp;
+&nbsp;<asp:Button ID="Button2" runat="server" Text="Button" 
+        onclick="Button2_Click" />
 
 
 </asp:Content>

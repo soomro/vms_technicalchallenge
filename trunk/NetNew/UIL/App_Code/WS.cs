@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using Log = Utils.WSLogger;
 
 /// <summary>
 /// Summary description for WS
@@ -13,7 +14,7 @@ using System.Web.Services;
 // [System.Web.Script.Services.ScriptService]
 public class WS : System.Web.Services.WebService
 {
-
+    
     public WS()
     {
 
@@ -25,16 +26,20 @@ public class WS : System.Web.Services.WebService
     [WebMethod(Description="Validates the username and password and returns true if it is correct.")]
     public bool Login(string username, string password)
     {
+        Log.Logger.Info("Login Callsed. Username:{0}, Password:{1}", username, password);
+
         var q=DAL.Container.WSInstance.Volunteers.SingleOrDefault(v => v.Username == username && v.Password == password);
         if (q == null)
-            return false;
+        { Log.Logger.Info("Login returned false"); return false; }
         else
-            return true;
+        { Log.Logger.Info("Login returned true"); return true; }
     }
      
     [WebMethod]
     public string CheckUpdate(string username, string password, float lat, float lon)
     {
+        Log.Logger.Info("username:{0}, password={1}, lat:{2}, lon:{3}", username, password, lat, lon);
+
         char sep = Utils.Collection.SeparatorChar;
 
         var res = "";
@@ -49,11 +54,11 @@ public class WS : System.Web.Services.WebService
         var rrs =( from rr in DAL.Container.WSInstance.RequestResponses
                   where rr.Volunteer_Id == vol.Id && 
                   rr.Request.IsActive && (rr.StatusVal == 0 || (rr.StatusVal==1 && rr.Answer==true) )                
-                      select rr).Take(1).ToList();
-        if (rrs.Count>0)
+                      select rr).FirstOrDefault();
+        if (rrs != null)
         {
-            res = sep + "R" + sep + rrs[0].Request_Id + sep;
-            rrs[0].DateShowed = DateTime.Now;
+            res = sep + "R" + sep + rrs.Id + sep + rrs.Request.Incident.ShortDescription+ sep;
+            rrs.DateShowed = DateTime.Now;
         }
 
         var alerts = (from av in DAL.Container.WSInstance.AlertsVolunteers
@@ -61,7 +66,7 @@ public class WS : System.Web.Services.WebService
                      select av).Take(5).ToList();
         foreach (var alert in alerts)
         {
-            res += "A" + sep + alert.Alert.Message + sep;
+            res += "A" + sep + alert.Id +sep+alert.Alert.Message + sep;
             alert.DateShowed = DateTime.Now;
         }
         DAL.Container.WSInstance.SaveChanges();
@@ -72,6 +77,8 @@ public class WS : System.Web.Services.WebService
     [WebMethod(Description = "Returns the request information of requestresponseid")]
     public string GetRequest(string requestresponseID, string username, string password, out string msg)
     {
+        Log.Logger.Info("username:{0}, password={1}, requestresponseID:{2} ", username, password, requestresponseID);
+
         char sep = Utils.Collection.SeparatorChar;
 
         var vol = (from v in DAL.Container.WSInstance.Volunteers
@@ -82,9 +89,9 @@ public class WS : System.Web.Services.WebService
             msg = "Username or password is incorrect.";
             return "";
         }
-
+        int reqidd = Utils.Convert.ToInt(requestresponseID, 0);
         var request = (from r in DAL.Container.WSInstance.RequestResponses
-                       where r.Volunteer_Id == vol.Id && r.Id == Utils.Convert.ToInt(requestresponseID, 0)
+                       where r.Volunteer_Id == vol.Id && r.Id == reqidd
                        select r.Request).SingleOrDefault();
         if (request==null)
         {
@@ -107,7 +114,9 @@ public class WS : System.Web.Services.WebService
 
     [WebMethod]
     public bool RespondToRequest(string requestresponseID, string username, string password, string amountProvided,out string msg)
-    { 
+    {
+        Log.Logger.Info("username:{0}, password={1}, requestresponseID:{2},amountProvided:{3} ", username, password, requestresponseID,amountProvided);
+
         char sep = Utils.Collection.SeparatorChar;
 
         var vol = (from v in DAL.Container.WSInstance.Volunteers
@@ -171,6 +180,8 @@ public class WS : System.Web.Services.WebService
     [WebMethod]
     public string GetAlert(string alertID, string username, string password, out string msg)
     {
+        Log.Logger.Info("username:{0}, password={1}, alertID:{2}  ", username, password, alertID);
+
         var aid = Utils.Convert.ToInt(alertID,0);
         var vol = (from v in DAL.Container.WSInstance.Volunteers
                    where v.Username == username && v.Password == password

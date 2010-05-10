@@ -31,11 +31,12 @@
         //  Code that runs on application shutdown
 
     }
-        
-    void Application_Error(object sender, EventArgs e) 
-    { 
-        // Code that runs when an unhandled error occurs
 
+    protected void Application_Error()
+    {
+        Exception lastException = Server.GetLastError();
+        NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        logger.Fatal(lastException);
     }
 
     void Session_Start(object sender, EventArgs e) 
