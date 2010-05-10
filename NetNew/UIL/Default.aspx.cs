@@ -9,6 +9,8 @@ public partial class _Default :PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        Logger.Info("deneme");
+
         if (!IsPostBack)
         {
             Master.PageTitle = "Starting page for test purposes";
@@ -25,5 +27,10 @@ public partial class _Default :PageBase
         var row = DAL.Container.Instance.Crises.SingleOrDefault(r => r.Id == id);
         MainCrisis = row;
         Response.Redirect(Constants.PageCrisis + "?action=Edit");
+    }
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+       
+
     }
 }
