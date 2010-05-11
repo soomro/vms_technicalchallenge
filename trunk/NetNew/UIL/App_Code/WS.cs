@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using Log = Utils.WSLogger;
+using System.Text;
 
 /// <summary>
 /// Summary description for WS
 /// </summary>
-[WebService(Namespace = "http://tempuri.org/")]
+[WebService(Namespace = "http://tempuri.org/" )]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 // [System.Web.Script.Services.ScriptService]
@@ -115,6 +116,9 @@ public class WS : System.Web.Services.WebService
     [WebMethod]
     public bool RespondToRequest(string requestresponseID, string username, string password, string amountProvided,out string msg)
     {
+        
+        amountProvided = amountProvided.Replace("??", ((char)254) + "");
+
         Log.Logger.Info("username:{0}, password={1}, requestresponseID:{2},amountProvided:{3} ", username, password, requestresponseID,amountProvided);
 
         char sep = Utils.Collection.SeparatorChar;
@@ -164,11 +168,14 @@ public class WS : System.Web.Services.WebService
                     {
                         requestres.NeedItems.Add(new DAL.NeedItem(){
                          SuppliedAmount=Utils.Convert.ToDouble(iamount,0), ItemType=itype, MetricType=ni.MetricType});
-                        ni.ItemAmount += Utils.Convert.ToDouble(iamount, 0);
+                                               
                     }
                 }
             }
         } 
+
+       
+
         requestres.Answer = accepted;
         requestres.DateResponded = DateTime.Now;
 
