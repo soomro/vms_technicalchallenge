@@ -39,6 +39,7 @@ public partial class UCMap : System.Web.UI.UserControl
         m.Clickable = true;
         m.Draggable = false;
         m.IconSize = new GoogleSize(30, 30);
+        
         string iconName = inc.IncidentType.ToString();
         iconName += ""+ //((short)inc.Severity)+
             "_";
@@ -71,7 +72,7 @@ public partial class UCMap : System.Web.UI.UserControl
 
         m.Latitude = Utils.Convert.ToDouble(inc.LocationCoordinates[0], 0);
         m.Longitude = Utils.Convert.ToDouble(inc.LocationCoordinates[1], 0);
-        var incInfo  = incContent.Replace("[INCTYPE]", inc.IncidentType.ToString());
+        var incInfo  = incContent.Replace("[INCTYPE]", Utils.Reflection.GetEnumDescription(inc.IncidentType));
         incInfo  = incInfo.Replace("[INCTITLE]", inc.ShortDescription);
         incInfo  = incInfo.Replace("[INCSEVERITY]", inc.Severity.ToString());
         incInfo  = incInfo.Replace("[INCSTATUS]", inc.IncidentStatus.ToString());
@@ -82,29 +83,33 @@ public partial class UCMap : System.Web.UI.UserControl
         incInfo = incInfo.Replace("[RESURL]",
             string.Format(Request.ApplicationPath + "/ResourceGathering.aspx?iid={0}", inc.Id)
             );
+        incInfo = incInfo.Replace("[IMG]",ResolveUrl( m.IconUrl));
+
         m.Text = incInfo;
         m.Bouncy = true;
         m.Title = inc.ShortDescription;
+ 
         m.Show();
         return m;
     }
 
-    string incContent = @"
-        <h3>[INCTITLE]</h3>
+    string incContent = @"<div class='dvIncInfo'>
+         <img src='[IMG]' width='25px' heigth='25px' /><span class='header'> [INCTITLE]</span>
         <table class='gmapincInfo'>
             <tr>
-                <td>Type:[INCTYPE]</td> <td>Severity:[INCSEVERITY]</td>
+                <td>Severity-Type: </td> <td class='sevType'>[INCSEVERITY]-[INCTYPE]</td>
             </tr>
-            <tr>
-                <td>Status:[INCSTATUS]</td> <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td><a href='[RESURL]'>Resource Gathering</a></td> <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td><a href='[EDITURL]'>Edit Incident</a></td> <td>&nbsp;</td>
+            <tr >
+                <td>Status:</td> <td> [INCSTATUS]</td>
             </tr>
         </table>
+        <table class='menu'>
+            <tr>
+                <td><a href='[RESURL]'>Resource<br/> Gathering</a></td> <td><a href='[EDITURL]'>Edit Incident</a></td>
+            </tr>
+             
+        </table>
+    </div>
     ";
 
     public System.Data.Objects.DataClasses.EntityCollection<DAL.Incident> Incidents

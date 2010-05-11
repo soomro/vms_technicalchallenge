@@ -53,5 +53,9 @@
         // or SQLServer, the event is not raised.
 
     }
-       
+
+    void Application_EndRequest(object sender, EventArgs e)
+    {
+        //DAL.Container.Instance.Dispose(); 
+    }
 </script>

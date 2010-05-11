@@ -17,7 +17,7 @@ public partial class CrisisBoard : PageBase
         }
 
         Master.PageTitle = "Crisis Dashboard: " + MainCrisis.Name;
-        MainCrisis = DAL.Container.Instance.Crises.SingleOrDefault(c => c.Id==46);
+        
         UCMap1.Incidents = MainCrisis.Incidents ;
 
         hlIncidentlist.HRef = Constants.PageIncidents + "?cid=" + MainCrisis.Id;

@@ -218,3 +218,49 @@ div, h1, h2, h3, h4, p, form, label, input, textarea, img, span{
     background-color: #FF8040;
     color: #FFFFFF;
 }
+
+/* Used for incident info table in crisisboard*/
+div.dvIncInfo .header
+{
+    font-family: Tahoma;
+    color: #CC0000;
+    font-size: large;
+    text-decoration: underline;
+} 
+table.gmapincInfo
+{
+    width: 90%;
+    font-family: System;
+    font-size: small;
+    color: #000066;
+}
+
+table.gmapincInfo td.sevType
+{
+    background-color: #FF0000;
+    color: #FFFFFF;
+    padding: 5px;
+} 
+div.dvIncInfo table.menu td a
+{
+    font-family: 'Lucida Sans';
+    font-size: small;
+    color: #FF0000;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 50%;
+}
+div.dvIncInfo table.menu
+{
+    width: 90%;
+    table-layout: fixed;
+    empty-cells: show;
+}
+table.gmapincInfo 
+{
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #FF0000;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
