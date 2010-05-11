@@ -23,11 +23,15 @@ public class VMSUtilities {
      * @param password - the password of the user
      * @return
      */
-    public void checkUsernameAndPassword(String username, String password) {
+    public void checkUsernameAndPassword() {
         try {
-            ServiceRequests service = new ServiceRequests(midlet);
-            service.operation = ServiceRequests.LOGIN;
-            service.start();
+            if (midlet.getUsername().equals("") || midlet.getPassword().equals("")) {
+                midlet.getLogin().getTicker().setString("username and/or password cannot be empty");
+            } else {
+                ServiceRequests service = new ServiceRequests(midlet);
+                service.operation = ServiceRequests.LOGIN;
+                service.start();
+            }
         } catch (Exception re) {
             re.printStackTrace();
         }
@@ -97,10 +101,20 @@ public class VMSUtilities {
      *
      */
     public void calculateAmount() {
+        int findex = 0;
         for (int i = 0; i < midlet.getRequest().size(); i++) {
             if (midlet.getRequest().get(i) instanceof TextField) {
                 TextField tf = (TextField) midlet.getRequest().get(i);
-                midlet.reqInfo.nCollected.addElement(tf.getString());
+                int c = 0;
+                if(!tf.getString().equals(""))
+                {
+                    c = Integer.parseInt(tf.getString());
+                }
+                if (c > Integer.parseInt((String) midlet.reqInfo.nAmount.elementAt(findex))) {
+                    c = Integer.parseInt((String) midlet.reqInfo.nAmount.elementAt(findex));
+                }
+                midlet.reqInfo.nCollected.addElement(Integer.toString(c));
+                findex++;
             }
         }
     }
@@ -142,19 +156,17 @@ public class VMSUtilities {
      * @param username - the username of the user
      * @param password - the password of the user
      */
-    public void drawViewRequest(String rLocation, String rName, String rMessage, String[] iName, int[] iNumber) {
+    public void drawViewRequest(Request request) {
         midlet.getViewRequest().deleteAll();
-        midlet.getViewRequest().append(rLocation);
+        midlet.getViewRequest().append(request.location);
         midlet.getViewRequest().append("\n");
-        midlet.getViewRequest().append("Help to transport the victims to the hospital");
+        midlet.getViewRequest().append(request.message);
         midlet.getViewRequest().append("\n");
         midlet.getViewRequest().append("Need list");
         midlet.getViewRequest().append("\n");
-        for (int i = 0; i < iName.length; i++) {
-            midlet.getViewRequest().append(iName[i] + "/ " + iNumber[i] + "/ " + (String) midlet.reqInfo.nCollected.elementAt(i));
-            midlet.getViewRequest().append("\n");            
-            //midlet.getViewRequest().append("Fuel/ liter/ 5/ " + (String) midlet.collectedAmount.elementAt(i + 1));
-            //midlet.getViewRequest().append("\n");
+        for (int i = 0; i < request.nType.size(); i++) {
+            midlet.getViewRequest().append(request.nType.elementAt(i) + "/ " + request.nUnit.elementAt(i) + "/ " +request.nAmount.elementAt(i) + "/ " + (String) midlet.reqInfo.nCollected.elementAt(i));
+            midlet.getViewRequest().append("\n");
         }
 
     }
@@ -173,6 +185,16 @@ public class VMSUtilities {
         try {
             ServiceRequests service = new ServiceRequests(midlet);
             service.operation = ServiceRequests.REPORTPROGRESS;
+            service.start();
+        } catch (Exception re) {
+            re.printStackTrace();
+        }
+    }
+
+    public void getAlert() {
+        try {
+            ServiceRequests service = new ServiceRequests(midlet);
+            service.operation = ServiceRequests.GETALERT;
             service.start();
         } catch (Exception re) {
             re.printStackTrace();

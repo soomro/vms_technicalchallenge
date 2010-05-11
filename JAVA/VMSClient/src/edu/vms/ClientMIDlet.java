@@ -6,15 +6,8 @@ package edu.vms;
 
 import edu.vms.util.Request;
 import edu.vms.util.VMSUtilities;
-import edu.vms.util.VideoCanvas;
-import java.io.IOException;
-import java.util.Vector;
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
-import javax.microedition.media.Manager;
-import javax.microedition.media.MediaException;
-import javax.microedition.media.Player;
-import javax.microedition.media.control.VideoControl;
 import org.netbeans.microedition.lcdui.WaitScreen;
 
 /**
@@ -42,11 +35,11 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     private Command backCommand;
     private Command sendCommand;
     private Command videoCommand;
+    private Command okCommand2;
     private Form login;
     private TextField textField5;
     private TextField textField6;
     private StringItem stringItem;
-    private Alert alert;
     private Form main;
     private ChoiceGroup choiceGroup2;
     private ChoiceGroup choiceGroup;
@@ -61,25 +54,27 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     private TextField textField4;
     private TextField textField3;
     private Form viewRequest;
+    private Form alert;
     private Image image1;
     private Ticker ticker;
     //</editor-fold>//GEN-END:|fields|0|
     private VMSUtilities util;
     public boolean loggedIn = false;
     public boolean accepted = false;
-    public Request reqInfo;
-    public int[] alertIDs = {0, 0, 0, 0, 0};
-    public String lat;
-    public String lon;
+    public Request reqInfo = new Request();
+    public String[] alertIDs = {"", "", "", "", ""};
+    public String[] alertN = {"", "", "", "", ""};
+    public float lat;
+    public float lon;
     private String username;
     private String password;
-    
-     // create a Command
+    public String errorMsg = "";
+    public int alertIndex = 0;
+    // create a Command
     public static Command SUCCESS_LOGIN = new Command("Successful login", 1, 1);
 
- /** @Gilana Ramezani */
+    /** @Gilana Ramezani */
     /** The ClientMIDlet constructor */
-       
     public ClientMIDlet() {
         util = new VMSUtilities(this);
     }
@@ -105,8 +100,8 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
      */
     public void startMIDlet() {//GEN-END:|3-startMIDlet|0|3-preAction
         // Show Wait Screen
-        switchDisplayable(null, getWaitScreen());//GEN-LINE:|3-startMIDlet|1|3-postAction
-       
+        switchDisplayable(null, getLogin());//GEN-LINE:|3-startMIDlet|1|3-postAction
+
     }//GEN-BEGIN:|3-startMIDlet|2|
     //</editor-fold>//GEN-END:|3-startMIDlet|2|
 
@@ -117,7 +112,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public void resumeMIDlet() {//GEN-END:|4-resumeMIDlet|0|4-preAction
         // Show Wait Screen
         switchDisplayable(null, getWaitScreen());//GEN-LINE:|4-resumeMIDlet|1|4-postAction
-        
+
     }//GEN-BEGIN:|4-resumeMIDlet|2|
     //</editor-fold>//GEN-END:|4-resumeMIDlet|2|
 
@@ -137,10 +132,10 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
         } else {
             display.setCurrent(alert, nextDisplayable);
         }//GEN-END:|5-switchDisplayable|1|5-postSwitch
-       // @Auther Gilana Ramezani
+        // @Auther Gilana Ramezani
     }//GEN-BEGIN:|5-switchDisplayable|2|
     //</editor-fold>//GEN-END:|5-switchDisplayable|2|
-      // Get action from User
+    // Get action from User
     //<editor-fold defaultstate="collapsed" desc=" Generated Method: commandAction for Displayables ">//GEN-BEGIN:|7-commandAction|0|7-preCommandAction
     /**
      * Called by a system to indicated that a command has been invoked on a particular displayable.
@@ -148,28 +143,36 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
      * @param displayable the Displayable where the command was invoked
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
-       // Select Alert command
-        if (displayable == alert) {//GEN-BEGIN:|7-commandAction|1|132-preAction
-            if (command == okCommand1) {//GEN-END:|7-commandAction|1|132-preAction
-               
-//GEN-LINE:|7-commandAction|2|132-postAction
-        // Select login
+        // Select Alert command
+        if (displayable == alert) {//GEN-BEGIN:|7-commandAction|1|163-preAction
+            if (command == okCommand2) {//GEN-END:|7-commandAction|1|163-preAction
+                // write pre-action user code here
+                for (int i = alertIndex; i < 4; i++) {
+                    alertIDs[i] = alertIDs[i + 1];
+                    alertN[i] = alertN[i + 1];
+                    getChoiceGroup2().set(i, alertN[i + 1], null);
+                }
+                alertIDs[3] = alertIDs[4];
+                alertN[3] = alertN[4];
+                getChoiceGroup2().set(4, alertN[4], null);
+                switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|2|163-postAction
+                // write post-action user code here
             }//GEN-BEGIN:|7-commandAction|3|148-preAction
         } else if (displayable == login) {
             if (command == exitCommand1) {//GEN-END:|7-commandAction|3|148-preAction
-      // Select exitcommand
+                // Select exitcommand
                 exitMIDlet();//GEN-LINE:|7-commandAction|4|148-postAction
-     // Select login command
+                // Select login command
             } else if (command == loginCommand) {//GEN-LINE:|7-commandAction|5|146-preAction
-    // Show Wait Screen
+                // Show Wait Screen
                 switchDisplayable(null, getWaitScreen());//GEN-LINE:|7-commandAction|6|146-postAction
-   //Get Username and password for Login
-                username = ((TextField) login.get(1)).getString();
-                password = ((TextField) login.get(2)).getString();
-  // Verifying Username and Password
-                util.checkUsernameAndPassword(username, password);
-                
- // Select Exit button in main page
+                //Get Username and password for Login
+                username = ((TextField) login.get(1)).getString().trim();
+                password = ((TextField) login.get(2)).getString().trim();
+                // Verifying Username and Password
+                util.checkUsernameAndPassword();
+
+                // Select Exit button in main page
             }//GEN-BEGIN:|7-commandAction|7|19-preAction
         } else if (displayable == main) {
             if (command == exitCommand) {//GEN-END:|7-commandAction|7|19-preAction
@@ -177,10 +180,10 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
                 exitMIDlet();//GEN-LINE:|7-commandAction|8|19-postAction
                 // Select logout Command
             } else if (command == logoutCommand) {//GEN-LINE:|7-commandAction|9|109-preAction
-              
+
                 switchDisplayable(null, getLogin());//GEN-LINE:|7-commandAction|10|109-postAction
                 util.logout();
-                
+
             } else if (command == progressCommand) {//GEN-LINE:|7-commandAction|11|105-preAction
                 // Show Report Progress page
                 switchDisplayable(null, getReportProgress());//GEN-LINE:|7-commandAction|12|105-postAction
@@ -188,26 +191,26 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
             } else if (command == reportCommand) {//GEN-LINE:|7-commandAction|13|88-preAction
                 // Show Report Incident page
                 switchDisplayable(null, getReportIncident());//GEN-LINE:|7-commandAction|14|88-postAction
-               // Select Cancel and navigate to main page
+                // Select Cancel and navigate to main page
             }//GEN-BEGIN:|7-commandAction|15|94-preAction
         } else if (displayable == reportIncident) {
             if (command == cancelCommand) {//GEN-END:|7-commandAction|15|94-preAction
-                
+
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|16|94-postAction
                 // Select Send Command
             } else if (command == sendCommand) {//GEN-LINE:|7-commandAction|17|117-preAction
-               
+
                 util.sendReport();
 //GEN-LINE:|7-commandAction|18|117-postAction
-              // Select Cancel and navigate to main page
+                // Select Cancel and navigate to main page
             }//GEN-BEGIN:|7-commandAction|19|97-preAction
         } else if (displayable == reportProgress) {
             if (command == cancelCommand1) {//GEN-END:|7-commandAction|19|97-preAction
-                
+
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|20|97-postAction
                 // Select Send Progress Command
             } else if (command == sendProgressCommand) {//GEN-LINE:|7-commandAction|21|103-preAction
-                
+
 //GEN-LINE:|7-commandAction|22|103-postAction
                 util.sendProgress();
                 // Show Request page and select accept or  reject command
@@ -217,18 +220,18 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
                 // Process request and answer
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|24|78-postAction
                 util.acceptRequest();
-                
+
             } else if (command == rejectCommand) {//GEN-LINE:|7-commandAction|25|80-preAction
-                
+
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|26|80-postAction
                 util.removeRequest();
-               
+
             }//GEN-BEGIN:|7-commandAction|27|120-preAction
         } else if (displayable == viewRequest) {
             if (command == backCommand) {//GEN-END:|7-commandAction|27|120-preAction
-                
+
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|28|120-postAction
-                
+
             }//GEN-BEGIN:|7-commandAction|29|50-preAction
         } else if (displayable == waitScreen) {
             if (command == WaitScreen.FAILURE_COMMAND) {//GEN-END:|7-commandAction|29|50-preAction
@@ -389,14 +392,9 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
                     System.out.println("accepted = " + accepted);
                     if (accepted) {
                         switchDisplayable(null, getViewRequest());
-                        String[] iName = {"Car/ Item"};
-                        int[] iNumber = {5};
-                        String location = "Angered Centre";
-                        String message = "Hello, we need your help";
-                        String name = "Angered disaster";
-                        util.drawViewRequest(location, name, message, iName, iNumber);
+                        util.drawViewRequest(reqInfo);
                     } else {
-                        if (!"".equals(reqInfo.name.trim())) {
+                        if (!"".equals(reqInfo.ID.trim())) {
                             switchDisplayable(null, getRequest());
                             util.getRequestInfo();
                         }
@@ -407,8 +405,11 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
             if (command == okCommand) {//GEN-END:|17-itemCommandAction|3|139-preAction
                 // write pre-action user code here
                 int selectedIndex = choiceGroup2.getSelectedIndex();
-                if (alertIDs[selectedIndex] != 0) {
-                    // shold get and show the alert here
+                System.out.println("selectedIndex " + selectedIndex);
+                System.out.println(alertIDs[selectedIndex]);
+                if (!alertIDs[selectedIndex].equals("")) {
+                    alertIndex = selectedIndex;
+                    util.getAlert();
                 }
 //GEN-LINE:|17-itemCommandAction|4|139-postAction
                 // write post-action user code here
@@ -783,23 +784,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     }
     //</editor-fold>//GEN-END:|135-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: alert ">//GEN-BEGIN:|129-getter|0|129-preInit
-    /**
-     * Returns an initiliazed instance of alert component.
-     * @return the initialized component instance
-     */
-    public Alert getAlert() {
-        if (alert == null) {//GEN-END:|129-getter|0|129-preInit
-            // write pre-init user code here
-            alert = new Alert("alert");//GEN-BEGIN:|129-getter|1|129-postInit
-            alert.addCommand(getOkCommand1());
-            alert.setCommandListener(this);
-            alert.setTimeout(Alert.FOREVER);//GEN-END:|129-getter|1|129-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|129-getter|2|
-        return alert;
-    }
-    //</editor-fold>//GEN-END:|129-getter|2|
+
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: image1 ">//GEN-BEGIN:|130-getter|0|130-preInit
     /**
@@ -829,6 +814,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
         if (login == null) {//GEN-END:|142-getter|0|142-preInit
             // write pre-init user code here
             login = new Form("Login", new Item[] { getStringItem(), getTextField5(), getTextField6() });//GEN-BEGIN:|142-getter|1|142-postInit
+            login.setTicker(getTicker());
             login.addCommand(getLoginCommand());
             login.addCommand(getExitCommand1());
             login.setCommandListener(this);//GEN-END:|142-getter|1|142-postInit
@@ -928,6 +914,38 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
         return stringItem;
     }
     //</editor-fold>//GEN-END:|158-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: alert ">//GEN-BEGIN:|161-getter|0|161-preInit
+    /**
+     * Returns an initiliazed instance of alert component.
+     * @return the initialized component instance
+     */
+    public Form getAlert() {
+        if (alert == null) {//GEN-END:|161-getter|0|161-preInit
+            // write pre-init user code here
+            alert = new Form("form");//GEN-BEGIN:|161-getter|1|161-postInit
+            alert.addCommand(getOkCommand2());
+            alert.setCommandListener(this);//GEN-END:|161-getter|1|161-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|161-getter|2|
+        return alert;
+    }
+    //</editor-fold>//GEN-END:|161-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand2 ">//GEN-BEGIN:|162-getter|0|162-preInit
+    /**
+     * Returns an initiliazed instance of okCommand2 component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand2() {
+        if (okCommand2 == null) {//GEN-END:|162-getter|0|162-preInit
+            // write pre-init user code here
+            okCommand2 = new Command("Ok", "OK", Command.OK, 0);//GEN-LINE:|162-getter|1|162-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|162-getter|2|
+        return okCommand2;
+    }
+    //</editor-fold>//GEN-END:|162-getter|2|
 
     /**
      * Returns a display instance.

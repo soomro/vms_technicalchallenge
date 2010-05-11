@@ -2,16 +2,6 @@
 <wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="HelloWorld">
-        <s:complexType />
-      </s:element>
-      <s:element name="HelloWorldResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="Login">
         <s:complexType>
           <s:sequence>
@@ -23,30 +13,17 @@
       <s:element name="LoginResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetRequest">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="requestID" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetRequestResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetRequestResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="LoginResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="CheckUpdate">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usename" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="guid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="lat" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="lon" type="s:float" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -57,25 +34,65 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="requestresponseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRequestResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RespondToRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="requestresponseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amountProvided" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RespondToRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RespondToRequestResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlert">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="alertID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlertResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAlertResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="HelloWorldSoapIn">
-    <wsdl:part name="parameters" element="tns:HelloWorld" />
-  </wsdl:message>
-  <wsdl:message name="HelloWorldSoapOut">
-    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
-  </wsdl:message>
   <wsdl:message name="LoginSoapIn">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
   <wsdl:message name="LoginSoapOut">
     <wsdl:part name="parameters" element="tns:LoginResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetRequestSoapIn">
-    <wsdl:part name="parameters" element="tns:GetRequest" />
-  </wsdl:message>
-  <wsdl:message name="GetRequestSoapOut">
-    <wsdl:part name="parameters" element="tns:GetRequestResponse" />
   </wsdl:message>
   <wsdl:message name="CheckUpdateSoapIn">
     <wsdl:part name="parameters" element="tns:CheckUpdate" />
@@ -83,46 +100,52 @@
   <wsdl:message name="CheckUpdateSoapOut">
     <wsdl:part name="parameters" element="tns:CheckUpdateResponse" />
   </wsdl:message>
+  <wsdl:message name="GetRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="RespondToRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:RespondToRequest" />
+  </wsdl:message>
+  <wsdl:message name="RespondToRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:RespondToRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAlertSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAlert" />
+  </wsdl:message>
+  <wsdl:message name="GetAlertSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAlertResponse" />
+  </wsdl:message>
   <wsdl:portType name="WSSoap">
-    <wsdl:operation name="HelloWorld">
-      <wsdl:input message="tns:HelloWorldSoapIn" />
-      <wsdl:output message="tns:HelloWorldSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="Login">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Validates the username and password and returns true if it is correct.</wsdl:documentation>
       <wsdl:input message="tns:LoginSoapIn" />
       <wsdl:output message="tns:LoginSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetRequest">
-      <wsdl:input message="tns:GetRequestSoapIn" />
-      <wsdl:output message="tns:GetRequestSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CheckUpdate">
       <wsdl:input message="tns:CheckUpdateSoapIn" />
       <wsdl:output message="tns:CheckUpdateSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetRequest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the request information of requestresponseid</wsdl:documentation>
+      <wsdl:input message="tns:GetRequestSoapIn" />
+      <wsdl:output message="tns:GetRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RespondToRequest">
+      <wsdl:input message="tns:RespondToRequestSoapIn" />
+      <wsdl:output message="tns:RespondToRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlert">
+      <wsdl:input message="tns:GetAlertSoapIn" />
+      <wsdl:output message="tns:GetAlertSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSSoap" type="tns:WSSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="HelloWorld">
-      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="Login">
       <soap:operation soapAction="http://tempuri.org/Login" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRequest">
-      <soap:operation soapAction="http://tempuri.org/GetRequest" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -139,11 +162,38 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetRequest">
+      <soap:operation soapAction="http://tempuri.org/GetRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RespondToRequest">
+      <soap:operation soapAction="http://tempuri.org/RespondToRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlert">
+      <soap:operation soapAction="http://tempuri.org/GetAlert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSSoap12" type="tns:WSSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="HelloWorld">
-      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://tempuri.org/Login" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -151,8 +201,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Login">
-      <soap12:operation soapAction="http://tempuri.org/Login" style="document" />
+    <wsdl:operation name="CheckUpdate">
+      <soap12:operation soapAction="http://tempuri.org/CheckUpdate" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -169,8 +219,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CheckUpdate">
-      <soap12:operation soapAction="http://tempuri.org/CheckUpdate" style="document" />
+    <wsdl:operation name="RespondToRequest">
+      <soap12:operation soapAction="http://tempuri.org/RespondToRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlert">
+      <soap12:operation soapAction="http://tempuri.org/GetAlert" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
