@@ -5,13 +5,13 @@
 package edu.vms.util;
 
 import edu.vms.ClientMIDlet;
+import edu.vms.web.GetAlertResponse;
+import edu.vms.web.GetRequestResponse;
 import edu.vms.web.WS_Stub;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.microedition.io.Connection;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
-import javax.microedition.io.HttpsConnection;
 import javax.microedition.lcdui.TextField;
 import javax.microedition.midlet.MIDlet;
 import org.netbeans.microedition.lcdui.WaitScreen;
@@ -34,6 +34,7 @@ public class ServiceRequests extends Thread {
     public static final String GETCOORDINATES = "GETCOORDINATES";
     public static final String REPORTINCIDENT = "REPORTINCIDENT";
     public static final String REPORTPROGRESS = "REPORTPROGRESS";
+    public static final String GETALERT = "GETALERT";
     private String username;
     private String password;
 
@@ -80,6 +81,10 @@ public class ServiceRequests extends Thread {
             reportIncidentProgress();
             return;
         }
+        if (operation.equals(GETALERT)) {
+            getAlert();
+            return;
+        }
 
     }
 
@@ -87,30 +92,37 @@ public class ServiceRequests extends Thread {
         System.out.println("method : login()");
         WS_Stub service = new WS_Stub();
         try {
-
-            answer = service.login(username, password);
-            if (!midlet.loggedIn) {
+            
+            midlet.loggedIn = service.login(username, password);
+            if (midlet.loggedIn) {
+                midlet.getLogin().getTicker().setString("");
                 midlet.commandAction(ClientMIDlet.SUCCESS_LOGIN, midlet.getWaitScreen());
             } else {
+                midlet.getLogin().getTicker().setString("Incorrect username and/or password");
                 midlet.commandAction(WaitScreen.FAILURE_COMMAND, midlet.getWaitScreen());
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            midlet.getLogin().getTicker().setString("Server error");
             midlet.commandAction(WaitScreen.FAILURE_COMMAND, midlet.getWaitScreen());
 
         }
     }
     //TODO: not implemented
+
     private void checkUpdate() {
         System.out.println("method : checkUpdate()");
         WS_Stub service = new WS_Stub();
         String request = new String();
         try {
-            answer = service.checkUpdate(username, password);
-            request = TextParser.getRequest(answer);
-            request = "Help to transport victims.";
-            midlet.getChoiceGroup().set(0, request, null);                        
             getCoordinates();
+            answer = service.checkUpdate(username, password, midlet.lat, midlet.lon);
+            System.out.println("answer \n" + answer);
+            TextParser.getRequest(answer, midlet);
+            midlet.getChoiceGroup().set(0,midlet.reqInfo.name, null);
+            for(int i = 0; i < 5; i++){
+                midlet.getChoiceGroup2().set(i, midlet.alertN[i], null);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -121,6 +133,13 @@ public class ServiceRequests extends Thread {
         System.out.println("method : getRequest()");
         WS_Stub service = new WS_Stub();
         try {
+            System.out.println("username : " + username);
+            System.out.println("password : " + password);
+            GetRequestResponse reqRespons = service.getRequest(midlet.reqInfo.ID, username, password);
+            System.out.println("msg : " + reqRespons.getMsg());
+            System.out.println("res : " + reqRespons.getGetRequestResult());
+            TextParser.getRequestInfo(reqRespons.getGetRequestResult(), midlet);
+            drawRequest();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -130,6 +149,13 @@ public class ServiceRequests extends Thread {
         System.out.println("method : acceptRequest()");
         WS_Stub service = new WS_Stub();
         try {
+
+            String responce = TextParser.createResponce(midlet);
+            System.out.println("responce " + responce);
+            System.out.println("ID " + midlet.reqInfo.ID);
+            System.out.println("username : " + username);
+            System.out.println("password : " + password);
+            service.respondToRequest(midlet.reqInfo.ID, username, password, responce);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -139,6 +165,9 @@ public class ServiceRequests extends Thread {
         System.out.println("method : rejectRequest()");
         WS_Stub service = new WS_Stub();
         try {
+            String responce = TextParser.createResponceForReject(midlet);
+            System.out.println("responce " + responce);
+            service.respondToRequest(midlet.reqInfo.ID, username, password, responce);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -157,8 +186,8 @@ public class ServiceRequests extends Thread {
         midlet.getRequest().append("Need list");
         midlet.getRequest().append("\n");
         for (int i = 0; i < request.nAmount.size(); i++) {
-            TextField tField = new TextField((String)request.nType.elementAt(i) +"/ " +  request.nUnit.elementAt(i) +
-                    "/ " + request.nAmount.elementAt(i), "", 3, 3);
+            TextField tField = new TextField((String) request.nType.elementAt(i) + "/ " + request.nUnit.elementAt(i)
+                    + "/ " + request.nAmount.elementAt(i), "", 3, 3);
             tField.setConstraints(TextField.NUMERIC);
             midlet.getRequest().append(tField);
             midlet.getRequest().append("\n");
@@ -171,7 +200,7 @@ public class ServiceRequests extends Thread {
             try {
                 synchronized (this) {
                     checkUpdate();
-                    wait(300000);
+                    wait(60000);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -188,62 +217,61 @@ public class ServiceRequests extends Thread {
             InputStream is = httpCon.openDataInputStream();
             StringBuffer content = new StringBuffer();
             int next = is.read();
-            while(next !=  -1)
-            {
-                System.out.print((char)next);
+            while (next != -1) {
+                //System.out.print((char) next);
                 next = is.read();
-                content.append((char)next);
+                content.append((char) next);
             }
-            midlet.lat = getLat(content);
-            midlet.lon = getLon(content);
+            httpCon.close();
+            String lt = getLat(content);
+            String ln = getLon(content);
             
+            midlet.lat = Float.parseFloat(lt);
+            midlet.lon = Float.parseFloat(ln);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     private void reportIncidentProgress() {
-        try{
+        try {
 
-        TextField prsFld = (TextField) midlet.getReportProgress().get(0);
-        TextField msgFld = (TextField) midlet.getReportProgress().get(1);
+            TextField prsFld = (TextField) midlet.getReportProgress().get(0);
+            TextField msgFld = (TextField) midlet.getReportProgress().get(1);
 
-        String persentage = prsFld.getString();
-        String message = msgFld.getString();
+            String persentage = prsFld.getString();
+            String message = msgFld.getString();
 
-        if(Integer.parseInt(persentage) > 100){
-            persentage = "100";
-        }
+            if (Integer.parseInt(persentage) > 100) {
+                persentage = "100";
+            }
 
-        prsFld.setString("");
-        msgFld.setString("");
-        System.out.println(persentage + " " + message);
-        //TODO: send the data to the server after the service is implemented
-        midlet.switchDisplayable(null, midlet.getMain());
-        }
-        catch(Exception e){
+            prsFld.setString("");
+            msgFld.setString("");
+            System.out.println(persentage + " " + message);
+            //TODO: send the data to the server after the service is implemented
+            midlet.switchDisplayable(null, midlet.getMain());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void reportIncident() {
-        try{
-        TextField locFld = (TextField) midlet.getReportIncident().get(0);
-        TextField typeFld = (TextField) midlet.getReportIncident().get(1);
-        TextField msgFld = (TextField) midlet.getReportIncident().get(2);
+        try {
+            TextField locFld = (TextField) midlet.getReportIncident().get(0);
+            TextField typeFld = (TextField) midlet.getReportIncident().get(1);
+            TextField msgFld = (TextField) midlet.getReportIncident().get(2);
 
-        String location = locFld.getString();
-        String type = typeFld.getString();
-        String message = typeFld.getString();
+            String location = locFld.getString();
+            String type = typeFld.getString();
+            String message = typeFld.getString();
 
-        locFld.setString("");
-        typeFld.setString("");
-        msgFld.setString("");
-        System.out.println(location + " " + type + " " + message);
-        //TODO: send the data to the server after the service is implemented
-        midlet.switchDisplayable(null, midlet.getMain());
-        }
-        catch(Exception e){
+            locFld.setString("");
+            typeFld.setString("");
+            msgFld.setString("");
+            System.out.println(location + " " + type + " " + message);            
+            midlet.switchDisplayable(null, midlet.getMain());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -262,5 +290,23 @@ public class ServiceRequests extends Thread {
         c = c.substring(i + 42, c.length());
         int e = c.indexOf("&deg");
         return c.substring(0, e);
+    }
+
+    private void getAlert() {
+        System.out.println("method : getAlert()");
+        WS_Stub service = new WS_Stub();
+        try {
+            System.out.println("username : " + username);
+            System.out.println("password : " + password);
+            GetAlertResponse alert = service.getAlert(midlet.alertIDs[midlet.alertIndex], username, password);
+            System.out.println("msg : " + alert.getMsg());
+            System.out.println("res : " + alert.getGetAlertResult());
+            midlet.getAlert().deleteAll();
+            midlet.getAlert().append(alert.getGetAlertResult());
+            midlet.switchDisplayable(null, midlet.getAlert());
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

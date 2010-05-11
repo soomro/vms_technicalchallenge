@@ -13,10 +13,10 @@ import java.util.Vector;
  * @author tiko
  */
 public class Request {
-    public String ID;
-    public String name;
-    public String location;
-    public String message;
+    public String ID = new String("");
+    public String name = new String("");
+    public String location = new String("");
+    public String message = new String("");
     public Vector nType = new Vector();
     public Vector nUnit = new Vector();
     public Vector nAmount = new Vector();
