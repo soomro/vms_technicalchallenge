@@ -44,24 +44,24 @@ public class PageBase : System.Web.UI.Page
         
     }
 
-    /// <summary>
-    /// Persisted to the session.
-    /// The reason for storing in session is: EF container can only work with object that are retrieved by same object.
-    /// That means: the crisis object that retrieved by one container instance can not be updated by another container instance.
-    /// So both the container and crisis should have same lifetime.
-    /// </summary>
-    public static DAL.Crisis MainCrisis
+
+     
+    public DAL.Crisis MainCrisis
     {
         get
-        {          
-            if (HttpContext.Current.Session[Constants.IdMainCrisis] == null)
-                HttpContext.Current.Session[Constants.IdMainCrisis] = (from cr in DAL.Container.Instance.Crises
-                     where cr.StatusVal == (short)Utils.Enumerations.CrisisStatuses.Active
-                     select cr).FirstOrDefault();
+        {
+            if ( ! System.Web.HttpContext.Current.Items.Contains(Constants.IdMainCrisis) )
+            {
+                var obj = (from cr in DAL.Container.Instance.Crises
+                                                                  where cr.StatusVal == (short)Utils.Enumerations.CrisisStatuses.Active
+                                                                  select cr).FirstOrDefault();
+                if (obj != null)
+                    System.Web.HttpContext.Current.Items.Add(Constants.IdMainCrisis, obj);
+            }
+
+            return System.Web.HttpContext.Current.Items[Constants.IdMainCrisis] as DAL.Crisis;
 
 
-            return HttpContext.Current.Session[Constants.IdMainCrisis] as DAL.Crisis; ;
- 
         }
         set
         {

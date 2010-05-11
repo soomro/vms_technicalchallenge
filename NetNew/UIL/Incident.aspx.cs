@@ -24,7 +24,7 @@ public partial class Incident : PageBase
             Session["_NeedList"] = value;
         }
     }
-
+    
     protected override void OnPreRender(EventArgs e)
     {
         txShortAddress.Text = HttpContext.Current.Items["adrName"] as string;
@@ -266,7 +266,19 @@ public partial class Incident : PageBase
         inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Longitude+"");
         foreach (var ni in NeedList)
         {
-            inc.NeedItems.Add(ni);
+            if (ni.EntityKey != null)
+            {// this need item was there before. just update values.
+                var orjni = inc.NeedItems.SingleOrDefault(nii => nii.Id == ni.Id);
+                orjni.ItemAmount = ni.ItemAmount;
+                orjni.ItemType = ni.ItemType;
+                orjni.MetricType = ni.MetricType;
+                orjni.SuppliedAmount = ni.SuppliedAmount;
+            }
+            else
+            {
+                inc.NeedItems.Add(ni);
+            }
+            
         }
         inc.DateCreated = DateTime.Now;
         inc.ShortDescription = txShortDesc.Text;
