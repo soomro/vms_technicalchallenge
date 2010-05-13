@@ -99,5 +99,7 @@ public class PageBase : System.Web.UI.Page
             return NLog.LogManager.GetLogger("WEB");
         }
     }
+
+
 }
 

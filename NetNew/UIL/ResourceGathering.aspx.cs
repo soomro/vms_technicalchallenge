@@ -22,6 +22,7 @@ public partial class ResourceGathering : PageBase
             SelectedRequest = null;
             DisablePage();
             Master.PageTitle = "Resource Gathering";
+           
             // get the object upon first call to this page. (get id from url, load it)
             // save object to session for further usage
             DAL.Incident inc = null;
@@ -72,6 +73,12 @@ public partial class ResourceGathering : PageBase
 
         hlNewRequest.NavigateUrl = string.Format("~/CreateRequest.aspx?{0}={1}&Action={2}",Constants.IdIncidentId,inc.Id,PageActions.Create);
 
+
+         Master.SetSiteMap(new[] { 
+                new[] { "Crisis Board", "CrisisBoard.aspx" },
+                new[] { "Incident:"+inc.ShortDescription, "Incident.aspx?iid="+inc.Id+"&action=Edit" },
+                new[] { "Resource Gathering", "" },
+            });
       
     }
 

@@ -14,8 +14,10 @@
     </asp:ScriptManager>
     <div id="mainFrame">
         <div id="topBox">
+        <a href="CrisisBoard.aspx">
             <img src="Styles/Logo.png" alt="VMS Logo" width="259" height="105" 
                 class="img1" />
+                </a>
             <h2>
                 &nbsp;</h2>
             <h2>
@@ -25,18 +27,20 @@
         </div>
         <br class="spacer"/>
         <div id="pagePath" class="frame" style="text-align:left;">
-            &nbsp;<asp:SiteMapPath 
-                ID="SiteMapPath1" runat="server" Font-Names="Verdana" Font-Size="0.8em" 
-                PathSeparator=" : ">
-                <CurrentNodeStyle ForeColor="#333333" />
-                <NodeStyle Font-Bold="True" ForeColor="#666666" />
-                <PathSeparatorStyle Font-Bold="True" ForeColor="#1C5E55" />
-                <RootNodeStyle Font-Bold="True" ForeColor="#1C5E55" />
-            </asp:SiteMapPath>
+            
+            <div id="navcontainer">
+
+
+            <asp:BulletedList ID="navlist" runat="server" DisplayMode="HyperLink" ClientIDMode="Static">
+                <asp:ListItem Value="http://www.google.com">aa</asp:ListItem>
+<asp:ListItem Value="http://www.google.com">aa</asp:ListItem><asp:ListItem Value="http://www.google.com">aa</asp:ListItem>
+            </asp:BulletedList>
+            
+            </div>
         </div>
         <div style="text-align:left" align="left">
          <p id="massagePart" runat="server" Visible="false">
-               <asp:BulletedList ID="blMessages" runat="server" >
+               &nbsp;<asp:BulletedList ID="blMessages" runat="server" >
               
                     </asp:BulletedList>
             </p>
@@ -47,7 +51,7 @@
         <div id="footerMain">
             <div id="footer">
                 <ul>
-                    <li><a href="#">Home</li>
+                    <li><a href="#">Home
                     <li><a href="#">About Us</a> |</li>
                     <li><a href="#">Solutions</a> |</li>
                     <li><a href="#">Support</a> |</li>

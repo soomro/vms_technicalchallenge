@@ -69,6 +69,10 @@ public partial class Crisis : PageBase
     private void BindPageForCreate()
     {
         Master.PageTitle = "Create New Crisis";
+        Master.SetSiteMap(new[] { 
+                new[] { "Crisis Board", "CrisisBoard.aspx" },
+                new[] { "Create Crisis", "" },
+            });
 
         UCCreateCrisisMap1.Radious = 20;
         ddlRadious.SelectedValue = "20";
@@ -107,11 +111,21 @@ public partial class Crisis : PageBase
         {
             enabledDisabled = false;
             Master.PageTitle = "View Crisis";
+
+            Master.SetSiteMap(new[] { 
+                new[] { "Crisis List", "CrisisList.aspx" },
+                new[] { "View Crisis", "" },
+            });
         }
         else 
         {
             enabledDisabled = true;
             Master.PageTitle = "Edit Crisis";
+
+            Master.SetSiteMap(new[] { 
+                new[] { "Crisis Board", "CrisisBoard.aspx" },
+                new[] { "Edit Crisis", "" },
+            });
         }
 
         rowStatus.Visible = !enabledDisabled;

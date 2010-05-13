@@ -18,6 +18,10 @@ public partial class CrisisList : System.Web.UI.Page
             gvCrisisList.DataSource = clist;
             gvCrisisList.DataBind();
             Master.PageTitle = "Closed Crises";
+
+            Master.SetSiteMap(new[] { 
+                new[] { "Closed Crises", "" } 
+            });
         }
     }
     protected void gvCrisisList_SelectedIndexChanged(object sender, EventArgs e)

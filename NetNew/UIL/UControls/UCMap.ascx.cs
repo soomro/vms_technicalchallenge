@@ -56,7 +56,7 @@ public partial class UCMap : System.Web.UI.UserControl
 
 
         if (inc.IncidentStatus==Utils.Enumerations.IncidentStatuses.Complete)
-            iconName += "complete";
+            iconName += "completed";
         if (inc.IncidentStatus==Utils.Enumerations.IncidentStatuses.Created)
             iconName += "created";
         if (inc.IncidentStatus==Utils.Enumerations.IncidentStatuses.ResourceGathering)
@@ -74,7 +74,16 @@ public partial class UCMap : System.Web.UI.UserControl
         m.Longitude = Utils.Convert.ToDouble(inc.LocationCoordinates[1], 0);
         var incInfo  = incContent.Replace("[INCTYPE]", Utils.Reflection.GetEnumDescription(inc.IncidentType));
         incInfo  = incInfo.Replace("[INCTITLE]", inc.ShortDescription);
+
         incInfo  = incInfo.Replace("[INCSEVERITY]", inc.Severity.ToString());
+        var style = "";
+        if (inc.Severity == Utils.Enumerations.Severities.Critical) style = "opacity:1; filter:alpha(opacity=100); background-color: #FF0000; color: #FFFFFF;padding: 5px;";
+        if (inc.Severity == Utils.Enumerations.Severities.High) style = "opacity:0.8; filter:alpha(opacity=80); background-color: #FF0000; color: #FFFFFF;padding: 5px;";
+        if (inc.Severity == Utils.Enumerations.Severities.Medium) style = "opacity:0.7; filter:alpha(opacity=70); background-color: #FF0000; color: #FFFFFF;padding: 5px;";
+        if (inc.Severity == Utils.Enumerations.Severities.Low) style = "opacity:0.4; filter:alpha(opacity=40); background-color: #FF0000; color: #FFFFFF;padding: 5px;";
+
+        incInfo = incInfo.Replace("[sevTypeStyle]", style);
+
         incInfo  = incInfo.Replace("[INCSTATUS]", inc.IncidentStatus.ToString());
         
         incInfo  = incInfo.Replace("[EDITURL]", 
@@ -97,7 +106,7 @@ public partial class UCMap : System.Web.UI.UserControl
          <img src='[IMG]' width='25px' heigth='25px' /><span class='header'> [INCTITLE]</span>
         <table class='gmapincInfo'>
             <tr>
-                <td>Severity-Type: </td> <td class='sevType'>[INCSEVERITY]-[INCTYPE]</td>
+                <td>Severity-Type: </td> <td  style='[sevTypeStyle]' >[INCSEVERITY]-[INCTYPE]</td>
             </tr>
             <tr >
                 <td>Status:</td> <td> [INCSTATUS]</td>
@@ -112,14 +121,14 @@ public partial class UCMap : System.Web.UI.UserControl
     </div>
     ";
 
-    public System.Data.Objects.DataClasses.EntityCollection<DAL.Incident> Incidents
+    public List<DAL.Incident> Incidents
     {
         get
         {
-            var incs = Session["incidents"] as System.Data.Objects.DataClasses.EntityCollection<DAL.Incident>;
+            var incs = Session["incidents"] as List<DAL.Incident>;
             if (incs==null)
             {
-                return new System.Data.Objects.DataClasses.EntityCollection<DAL.Incident>();
+                return new List<DAL.Incident>();
             }
             return incs;
         }

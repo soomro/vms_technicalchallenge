@@ -55,6 +55,13 @@ public partial class CreateRequest : PageBase
     private void BindPage(DAL.Incident inc)
     {
         Master.PageTitle = "Create Request";
+        Master.SetSiteMap(new[] { 
+                new[] { "Crisis Board", "CrisisBoard.aspx" },
+                new[] { "Incident:"+inc.ShortDescription, "Incident.aspx?iid="+inc.Id+"&action=Edit" },
+                new[] { "Resource Gathering", "ResourceGathering.aspx?iid="+inc.Id  },
+                new[] { "Create Request", "" },
+            });
+
         dvStatus.Visible = false;
         cblNeedlist.Items.Clear();
         foreach (DAL.NeedItem item in inc.NeedItems)

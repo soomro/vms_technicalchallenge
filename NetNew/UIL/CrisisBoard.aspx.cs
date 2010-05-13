@@ -18,8 +18,22 @@ public partial class CrisisBoard : PageBase
 
         Master.PageTitle = "Crisis Dashboard: " + MainCrisis.Name;
         
-        UCMap1.Incidents = MainCrisis.Incidents ;
+        UCMap1.Incidents = MainCrisis.Incidents.ToList() ;
 
         hlIncidentlist.HRef = Constants.PageIncidents + "?cid=" + MainCrisis.Id;
+        
+        Master.SetSiteMap(new[] { new[] { "Crisis Board", "CrisisBoard.aspx" } });
+    }
+
+    protected void cbxShowClosed_CheckedChanged(object sender, EventArgs e)
+    {
+        if (!cbxShowClosed.Checked)
+        {
+            UCMap1.Incidents = MainCrisis.Incidents.Where(c => c.IncidentStatusVal!= (short)Utils.Enumerations.IncidentStatuses.Complete).ToList();
+        }
+        else
+        {
+            UCMap1.Incidents = MainCrisis.Incidents.ToList();
+        }
     }
 }
