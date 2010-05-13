@@ -202,6 +202,7 @@
           <Property Name="StatusVal" Type="smallint" Nullable="false" />
           <Property Name="VolunteerId" Type="int" Nullable="false" />
           <Property Name="IncidentId" Type="int" Nullable="false" />
+          <Property Name="DateSent" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestResponses">
           <Key>
@@ -658,6 +659,7 @@
           <Property Type="Int32" Name="IncidentId" Nullable="false" />
           <NavigationProperty Name="Incident" Relationship="DataModel.FK_Aso_IncidentProgressReport" FromRole="ProgressReport" ToRole="Incident" />
           <NavigationProperty Name="Volunteer" Relationship="DataModel.FK_Aso_VolunteerProgressReport" FromRole="ProgressReport" ToRole="Volunteer" />
+          <Property Type="DateTime" Name="DateSent" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestRespons">
           <Key>
@@ -1052,6 +1054,7 @@
           <EntitySetMapping Name="ProgressReports">
             <EntityTypeMapping TypeName="DataModel.ProgressReport">
               <MappingFragment StoreEntitySet="ProgressReports">
+                <ScalarProperty Name="DateSent" ColumnName="DateSent" />
                 <ScalarProperty Name="IncidentId" ColumnName="IncidentId" />
                 <ScalarProperty Name="VolunteerId" ColumnName="VolunteerId" />
                 <ScalarProperty Name="StatusVal" ColumnName="StatusVal" />
@@ -1166,7 +1169,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="DataModel" ZoomLevel="54">
+      <Diagram Name="DataModel" ZoomLevel="81">
         <EntityTypeShape EntityType="DataModel.Address" Width="1.5" PointX="0.75" PointY="11.5" Height="2.749492187499996" />
         <EntityTypeShape EntityType="DataModel.Alert" Width="1.5" PointX="3" PointY="1.125" Height="2.7494921874999996" />
         <EntityTypeShape EntityType="DataModel.Crisis" Width="1.5" PointX="3.125" PointY="4.5" Height="3.1340950520833388" />

@@ -2881,7 +2881,8 @@ namespace DAL
         /// <param name="statusVal">Initial value of the StatusVal property.</param>
         /// <param name="volunteerId">Initial value of the VolunteerId property.</param>
         /// <param name="incidentId">Initial value of the IncidentId property.</param>
-        public static ProgressReport CreateProgressReport(global::System.Int32 id, global::System.String reportText, global::System.String imageFile, global::System.String videoFile, global::System.Int16 statusVal, global::System.Int32 volunteerId, global::System.Int32 incidentId)
+        /// <param name="dateSent">Initial value of the DateSent property.</param>
+        public static ProgressReport CreateProgressReport(global::System.Int32 id, global::System.String reportText, global::System.String imageFile, global::System.String videoFile, global::System.Int16 statusVal, global::System.Int32 volunteerId, global::System.Int32 incidentId, global::System.DateTime dateSent)
         {
             ProgressReport progressReport = new ProgressReport();
             progressReport.Id = id;
@@ -2891,6 +2892,7 @@ namespace DAL
             progressReport.StatusVal = statusVal;
             progressReport.VolunteerId = volunteerId;
             progressReport.IncidentId = incidentId;
+            progressReport.DateSent = dateSent;
             return progressReport;
         }
 
@@ -3067,6 +3069,30 @@ namespace DAL
         private global::System.Int32 _IncidentId;
         partial void OnIncidentIdChanging(global::System.Int32 value);
         partial void OnIncidentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateSent
+        {
+            get
+            {
+                return _DateSent;
+            }
+            set
+            {
+                OnDateSentChanging(value);
+                ReportPropertyChanging("DateSent");
+                _DateSent = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateSent");
+                OnDateSentChanged();
+            }
+        }
+        private global::System.DateTime _DateSent;
+        partial void OnDateSentChanging(global::System.DateTime value);
+        partial void OnDateSentChanged();
 
         #endregion
     

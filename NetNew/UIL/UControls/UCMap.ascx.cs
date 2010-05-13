@@ -79,7 +79,7 @@ public partial class UCMap : System.Web.UI.UserControl
         var style = "";
         if (inc.Severity == Utils.Enumerations.Severities.Critical) style = "opacity:1; filter:alpha(opacity=100); background-color: #FF0000; color: #FFFFFF;padding: 5px;";
         if (inc.Severity == Utils.Enumerations.Severities.High) style = "opacity:0.8; filter:alpha(opacity=80); background-color: #FF0000; color: #FFFFFF;padding: 5px;";
-        if (inc.Severity == Utils.Enumerations.Severities.Medium) style = "opacity:0.7; filter:alpha(opacity=70); background-color: #FF0000; color: #FFFFFF;padding: 5px;";
+        if (inc.Severity == Utils.Enumerations.Severities.Medium) style = "opacity:0.6; filter:alpha(opacity=70); background-color: #FF0000; color: #FFFFFF;padding: 5px;";
         if (inc.Severity == Utils.Enumerations.Severities.Low) style = "opacity:0.4; filter:alpha(opacity=40); background-color: #FF0000; color: #FFFFFF;padding: 5px;";
 
         incInfo = incInfo.Replace("[sevTypeStyle]", style);
@@ -92,6 +92,9 @@ public partial class UCMap : System.Web.UI.UserControl
         incInfo = incInfo.Replace("[RESURL]",
             string.Format(Request.ApplicationPath + "/ResourceGathering.aspx?iid={0}", inc.Id)
             );
+        incInfo = incInfo.Replace("[REPORTSURL]",
+            string.Format(Request.ApplicationPath + "/ProgressReports.aspx?iid={0}", inc.Id)
+            );
         incInfo = incInfo.Replace("[IMG]",ResolveUrl( m.IconUrl));
 
         m.Text = incInfo;
@@ -102,9 +105,9 @@ public partial class UCMap : System.Web.UI.UserControl
         return m;
     }
 
-    string incContent = @"<div class='dvIncInfo'>
+    string incContent = @"<div class='dvIncInfo' width='250px'>
          <img src='[IMG]' width='25px' heigth='25px' /><span class='header'> [INCTITLE]</span>
-        <table class='gmapincInfo'>
+        <table class='gmapincInfo' >
             <tr>
                 <td>Severity-Type: </td> <td  style='[sevTypeStyle]' >[INCSEVERITY]-[INCTYPE]</td>
             </tr>
@@ -114,7 +117,9 @@ public partial class UCMap : System.Web.UI.UserControl
         </table>
         <table class='menu'>
             <tr>
-                <td><a href='[RESURL]'>Resource<br/> Gathering</a></td> <td><a href='[EDITURL]'>Edit Incident</a></td>
+                <td><a href='[RESURL]'>Resource<br /> Gathering</a></td> 
+                <td><a href='[EDITURL]'>Edit Incident</a><br />
+                    <a href='[REPORTSURL]'>Progress Reports</a>    </td>
             </tr>
              
         </table>
