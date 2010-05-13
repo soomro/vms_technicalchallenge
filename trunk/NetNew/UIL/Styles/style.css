@@ -264,3 +264,66 @@ table.gmapincInfo
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
+
+/* Site map ************************** *********************** ************************/
+#navcontainer { margin-left: 30px; }
+
+/*Fat Erik's Breadcrumbs*/
+#navlist
+{
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+#navlist li
+{
+display: inline;
+padding: 5;
+margin: 0;
+}
+#navlist li a
+{
+    text-decoration: none;
+    color: #800000;
+    font-weight: bold;
+    font-size: medium;
+}
+
+#navlist li.active a
+{
+    text-decoration: underline;
+    color: #800000;
+    font-weight: normal;
+    font-size: medium;
+    cursor: text;
+}
+
+#navlist li:before { content: " > "; }
+#navlist li:first-child:before { content: ""; }
+
+/*IE workaround*/
+/*All IE browsers*/
+* html #navlist li
+{
+background-image: url("../images/gt.gif");
+background-repeat: no-repeat;
+background-position: 0 50%;
+padding: 0 0.5em 0 1em;
+margin: 0 1em 0 -1em;
+}
+
+/*Win IE browsers - hide from Mac IE\*/
+* html #navlist { height: 1%; }
+
+* html #navlist li
+{
+display: block;
+float: left;
+}
+
+/*End hide*/
+/*Mac IE 5*/
+* html #navlist li:first-child { background-image: none; }
+
+/* Site map************************** *********************** ********************** */ 

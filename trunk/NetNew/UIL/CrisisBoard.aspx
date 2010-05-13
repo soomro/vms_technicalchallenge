@@ -57,6 +57,19 @@
                                 <li>   <a href="AlertList.aspx">List all alerts</a></li></ul></div>
                                  </Content>
                         </asp:AccordionPane>
+
+                         <asp:AccordionPane runat="server" ID="pn5">
+                            <Header>
+                                Settings</Header>
+                            <Content>
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td><asp:CheckBox runat="server" AutoPostBack="true" OnCheckedChanged="cbxShowClosed_CheckedChanged" ID="cbxShowClosed" Text="Show closed incidents"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                 </Content>
+                        </asp:AccordionPane>
                        
                     </Panes>
                     

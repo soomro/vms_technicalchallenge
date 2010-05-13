@@ -52,6 +52,10 @@ public partial class Incident : PageBase
                 BindData();
                 UCIncidentMap1.Incident = null;
                 Master.PageTitle = "Create Incident";
+                Master.SetSiteMap(new[] { 
+                new[] { "Crisis Board", "CrisisBoard.aspx" },
+                new[] { "Create Incident", "" },
+            });
             }
             else if (PageAction == PageActions.Edit)
             {
@@ -105,8 +109,24 @@ public partial class Incident : PageBase
         hlResourceGathering.NavigateUrl = Constants.PageResourceGathering+  "?iid=" + inc.Id;
 
         var boolVal = true;
-        if (inc.Crisis.Status==CrisisStatuses.Closed)
-            boolVal = false;
+        if (inc.Crisis.Status == CrisisStatuses.Closed)
+             boolVal = false;
+
+        if (boolVal==true)
+        {
+            Master.SetSiteMap(new[] { 
+                new[] { "Crisis Board", "CrisisBoard.aspx" },
+                new[] { "Edit Incident","" },
+            });
+        }
+        else
+        {
+            Master.SetSiteMap(new[] { 
+                new[] { "Crisis:"+inc.Crisis.Name, "Crisis.aspx?cid="+inc.Crisis.Id+"&action=Edit" },
+                new[] { "Incident:"+inc.ShortDescription, "" },
+            });
+            Master.PageTitle = "View Incident";
+        }
         txShortDesc.Enabled = boolVal;
         txShortAddress.Enabled = boolVal;
         txExplanation.Enabled = boolVal;

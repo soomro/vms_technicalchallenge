@@ -8,6 +8,27 @@ using Utils.Enumerations;
 //TODO: add code comments for this file
 public partial class SiteMaster : System.Web.UI.MasterPage
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="vals">text-URL pairs</param>
+    public void SetSiteMap(params string[][] vals)
+    {
+        navlist.Items.Clear();
+        ListItem lastitem = null;
+        foreach (var pair in vals)
+        {
+            var text = pair[0];
+            var url = pair[1]==""?"javascript:void()":pair[1];
+            lastitem = new ListItem(text, url);
+            navlist.Items.Add(lastitem);
+        }
+        if (lastitem!=null)
+        {
+            lastitem.Selected = true;
+            lastitem.Attributes["class"] = "active";
+        }
+    }
 
     List<Utils.UIMessage> Messages
     {

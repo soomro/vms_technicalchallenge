@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Services;
-using Log = Utils.WSLogger;
+using System.Web.Services; 
 using System.Text;
 
 /// <summary>
@@ -27,19 +26,19 @@ public class WS : System.Web.Services.WebService
     [WebMethod(Description="Validates the username and password and returns true if it is correct.")]
     public bool Login(string username, string password)
     {
-        Log.Logger.Info("Login Callsed. Username:{0}, Password:{1}", username, password);
+        Utils.Log.WSLogger.Info("Login Callsed. Username:{0}, Password:{1}", username, password);
 
         var q=DAL.Container.WSInstance.Volunteers.SingleOrDefault(v => v.Username == username && v.Password == password);
         if (q == null)
-        { Log.Logger.Info("Login returned false"); return false; }
+        { Utils.Log.WSLogger.Info("Login returned false"); return false; }
         else
-        { Log.Logger.Info("Login returned true"); return true; }
+        { Utils.Log.WSLogger.Info("Login returned true"); return true; }
     }
      
     [WebMethod]
     public string CheckUpdate(string username, string password, float lat, float lon)
     {
-        Log.Logger.Info("username:{0}, password={1}, lat:{2}, lon:{3}", username, password, lat, lon);
+        Utils.Log.WSLogger.Info("username:{0}, password={1}, lat:{2}, lon:{3}", username, password, lat, lon);
 
         char sep = Utils.Collection.SeparatorChar;
 
@@ -78,7 +77,7 @@ public class WS : System.Web.Services.WebService
     [WebMethod(Description = "Returns the request information of requestresponseid")]
     public string GetRequest(string requestresponseID, string username, string password, out string msg)
     {
-        Log.Logger.Info("username:{0}, password={1}, requestresponseID:{2} ", username, password, requestresponseID);
+        Utils.Log.WSLogger.Info("username:{0}, password={1}, requestresponseID:{2} ", username, password, requestresponseID);
 
         char sep = Utils.Collection.SeparatorChar;
 
@@ -119,7 +118,7 @@ public class WS : System.Web.Services.WebService
         
         amountProvided = amountProvided.Replace("??", ((char)254) + "");
 
-        Log.Logger.Info("username:{0}, password={1}, requestresponseID:{2},amountProvided:{3} ", username, password, requestresponseID,amountProvided);
+        Utils.Log.WSLogger.Info("username:{0}, password={1}, requestresponseID:{2},amountProvided:{3} ", username, password, requestresponseID, amountProvided);
 
         char sep = Utils.Collection.SeparatorChar;
 
@@ -187,7 +186,7 @@ public class WS : System.Web.Services.WebService
     [WebMethod]
     public string GetAlert(string alertID, string username, string password, out string msg)
     {
-        Log.Logger.Info("username:{0}, password={1}, alertID:{2}  ", username, password, alertID);
+        Utils.Log.WSLogger.Info("username:{0}, password={1}, alertID:{2}  ", username, password, alertID);
 
         var aid = Utils.Convert.ToInt(alertID,0);
         var vol = (from v in DAL.Container.WSInstance.Volunteers
