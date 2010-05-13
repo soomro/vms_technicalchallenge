@@ -105,8 +105,9 @@ public partial class Incident : PageBase
             UCIncidentMap1.Zoom = Utils.Convert.ToInt(inc.LocationCoordinates[2], 8);
 
         btClose.Visible = true;
-        hlResourceGathering.Visible = true;
+        dvMenu.Visible = true;
         hlResourceGathering.NavigateUrl = Constants.PageResourceGathering+  "?iid=" + inc.Id;
+        hlProgressReports.NavigateUrl = Constants.PageProgressReports + "?iid=" + inc.Id;
 
         var boolVal = true;
         if (inc.Crisis.Status == CrisisStatuses.Closed)
@@ -162,7 +163,7 @@ public partial class Incident : PageBase
         gvNeedList.DataSource = NeedList;
         gvNeedList.DataBind();
         btClose.Visible = false;
-        hlResourceGathering.Visible = false;
+        dvMenu.Visible = false;
     }
 
 

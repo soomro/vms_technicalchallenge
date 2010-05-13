@@ -22,8 +22,7 @@
                 &nbsp;</h2>
             <h2>
                  <asp:Label ID="lblPageTitle" runat="server" Text="Page Title"></asp:Label></h2>
-            
-           
+                       
         </div>
         <br class="spacer"/>
         <div id="pagePath" class="frame" style="text-align:left;">
@@ -32,8 +31,7 @@
 
 
             <asp:BulletedList ID="navlist" runat="server" DisplayMode="HyperLink" ClientIDMode="Static">
-                <asp:ListItem Value="http://www.google.com">aa</asp:ListItem>
-<asp:ListItem Value="http://www.google.com">aa</asp:ListItem><asp:ListItem Value="http://www.google.com">aa</asp:ListItem>
+               
             </asp:BulletedList>
             
             </div>

@@ -6,6 +6,7 @@
 <%@ Register Src="UControls/ucEnumSelector.ascx" TagName="ucEnumSelector" TagPrefix="uc2" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
+<link href="Styles/Verticalmenu.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <table width="100%" border="0" runat="server" id="pgTable" >
@@ -125,8 +126,14 @@
                             <asp:Button ID="btSave" runat="server" Text="Save" onclick="btSave_Click" />
                         &nbsp;<br />
                             <br />
-                            <asp:HyperLink ID="hlResourceGathering" runat="server" 
-                                NavigateUrl="~/ResourceGathering.aspx">Resource Gathering</asp:HyperLink>
+
+                            <div class="markermenu" id="dvMenu" runat="server">
+                            <ul>
+                            <li><asp:HyperLink ID="hlResourceGathering" runat="server" 
+                                NavigateUrl="~/ResourceGathering.aspx">Resource Gathering</asp:HyperLink></li>
+                                <li>
+                                <asp:HyperLink ID="hlProgressReports" runat="server" 
+                                NavigateUrl="#"> Progress Reports</asp:HyperLink></li></ul></div>
                         </td>
                     </tr>
         </table> </td>

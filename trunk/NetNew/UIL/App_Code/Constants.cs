@@ -30,6 +30,7 @@ public class Constants
     public const string PageLogin = "Login.aspx";
     public const string PageResourceGathering = "ResourceGathering.aspx";
     public const string PageIncidents = "IncidentList.aspx";
+    public const string PageProgressReports = "ProgressReports.aspx";
 
     public const string ImgFire1 = "~/Images/fire1.gif";
     public const string ImgFire2 = "~/Images/fire2.gif";

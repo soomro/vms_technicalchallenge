@@ -28,6 +28,10 @@ public partial class IncidentList : System.Web.UI.Page
             hlCrisis.Text = cr.Name;
             hlCrisis.NavigateUrl = Constants.PageCrisis + "?cid=" + cr.Id+"&action=Edit";
 
+            Master.SetSiteMap(new[] { 
+                new[] { "Crisis Board", "CrisisBoard.aspx" },
+                new[] { "Incident List", "" },
+            });
         }
     }
 
@@ -38,17 +42,10 @@ public partial class IncidentList : System.Web.UI.Page
         {
             return null;
         }
-        var crlist = (from c in DAL.Container.Instance.Crises
+        var res = (from c in DAL.Container.Instance.Crises
                       where c.Id == cid
-                      select c).Take(1).ToList();
-        if (crlist.Count > 0)
-        {
-            return crlist[0];
-        }
-        else
-        {
-            return null;
-        }
+                      select c).FirstOrDefault();
+        return res;
     }
     protected void gvIncidents_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
