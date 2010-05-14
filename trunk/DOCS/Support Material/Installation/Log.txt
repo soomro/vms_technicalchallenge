@@ -1,0 +1,22 @@
+14 may tabareh
+Objectives:
+-provide an installation package for portal which after running program should be fully functional on any server
+--Deploys .net framework 4.0
+--Deploys sql server database
+--fix the configuration file according to current settings
+---------------------------
+14 may tabareh
+chose web packaging method for the following reasons:
+http://vishaljoshi.blogspot.com/2009/07/10-20-reasons-why-you-should-create-web.html
+-------------------------
+Problem raised: 
+-the solution is using web site while it should be converted to web application project to be able to use .net packaging features.
+Solution found:
+-We have to create a web application project and convert the website at the end of development to new wap using this article: http://gurustop.net/blog/2008/08/03/converting-vs-2008-website-to-web-application/
+----------------------
+Project coverted to wap and all errors fixed
+-------------------
+found article about  VS 2010 packaging features:
+http://msdn.microsoft.com/en-us/library/dd483479.aspx
+---------------
+used a part of that article to generate installation guide
