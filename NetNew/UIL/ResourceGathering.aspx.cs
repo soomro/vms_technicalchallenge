@@ -17,6 +17,7 @@ public partial class ResourceGathering : PageBase
     }
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Utils.GridStyleUtil gs = new Utils.GridStyleUtil(gvIncidentNeeds, Utils.GridStyleEnum.Niko);
         if (!IsPostBack)
         {
             SelectedRequest = null;
@@ -70,6 +71,9 @@ public partial class ResourceGathering : PageBase
         var list = inc.Requests.ToList();
         gvReqList.DataSource = list;
         gvReqList.DataBind();
+
+        gvIncidentNeeds.DataSource = inc.NeedItems;
+        gvIncidentNeeds.DataBind();
 
         hlNewRequest.NavigateUrl = string.Format("~/CreateRequest.aspx?{0}={1}&Action={2}",Constants.IdIncidentId,inc.Id,PageActions.Create);
 
@@ -257,5 +261,19 @@ public partial class ResourceGathering : PageBase
 
         
         
+    }
+    protected void gvIncidentNeeds_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType != DataControlRowType.DataRow)
+        {
+            return;
+        }
+        var ni = e.Row.DataItem as DAL.NeedItem;
+
+        Utils.GridUtil g = new Utils.GridUtil(e.Row);
+        g.SetControlText("lbType", ni.ItemType);
+        g.SetControlText("lbMetric", Utils.Reflection.GetEnumDescription( ni.MetricType));
+        g.SetControlText("lbAmount", ni.ItemAmount+"");
+        g.SetControlText("lbSupplied", ni.SuppliedAmount+"");
     }
 }

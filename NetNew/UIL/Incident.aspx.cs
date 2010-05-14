@@ -301,6 +301,19 @@ public partial class Incident : PageBase
             }
             
         }
+        List<NeedItem> removeList = new List<NeedItem>();
+        foreach (var ni in inc.NeedItems)
+        {
+            var obj = NeedList.Where(n => n.Id == ni.Id).FirstOrDefault();
+            if (obj == null) removeList.Add(ni);
+
+        }
+        while (removeList.Count>0)
+        {
+            var o = removeList[0];
+            DAL.Container.Instance.NeedItems.DeleteObject(o);
+            removeList.Remove(o);
+        }
         inc.DateCreated = DateTime.Now;
         inc.ShortDescription = txShortDesc.Text;
         inc.Explanation = txExplanation.Text;

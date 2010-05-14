@@ -12,11 +12,9 @@
         <tr>
             <td valign="top">
                 <asp:Panel runat="server" ID="pnRequestList" GroupingText="Request List">
-                    <asp:GridView runat="server" ID="gvReqList" AutoGenerateColumns="False" BackColor="LightGoldenrodYellow"
-                        BorderColor="Tan" BorderWidth="1px" CellPadding="2" EmptyDataText="This incident has no request"
-                        ShowHeader="False" Width="90%" OnRowDataBound="gvReqList_RowDataBound" ForeColor="Black"
-                        GridLines="None">
-                        <AlternatingRowStyle BackColor="PaleGoldenrod" />
+                    <asp:GridView runat="server" ID="gvReqList" AutoGenerateColumns="False" EmptyDataText="This incident has no request"
+                        ShowHeader="False" Width="90%" OnRowDataBound="gvReqList_RowDataBound" 
+                        CssClass="bluestyle">
                         <Columns>
                             <asp:TemplateField HeaderText="Request">
                                 <ItemTemplate>
@@ -36,18 +34,9 @@
                                 </ItemTemplate>
                             </asp:TemplateField> 
                         </Columns>
-                        <FooterStyle BackColor="Tan" />
-                        <HeaderStyle BackColor="Tan" Font-Bold="True" />
-                        <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
-                            HorizontalAlign="Center" />
-                        <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
-                        <SortedAscendingCellStyle BackColor="#FAFAE7" />
-                        <SortedAscendingHeaderStyle BackColor="#DAC09E" />
-                        <SortedDescendingCellStyle BackColor="#E1DB9C" />
-                        <SortedDescendingHeaderStyle BackColor="#C2A47B" />
                     </asp:GridView>
                     <br />
-                  
+                        
                         <asp:HyperLink runat="server" ID="hlNewRequest"  
                         Text="Add new request"  ImageUrl="~/Images/add.png" Width="30px" Height="30px" > </asp:HyperLink>
                        
@@ -143,29 +132,57 @@
             </td>
             <td style="width: 400px; vertical-align: top;">
                 <asp:Panel runat="server" ID="pnIncident" GroupingText="Incident">
-                    Incident Information
-                    <table>
+                   
+                    <table width="98%" class="formTable">
                         <tr>
-                            <td colspan="2">
-                                <asp:Label runat="server" ID="lbIncName"></asp:Label>
+                            <td colspan="2" align="center">
+                                <asp:Label runat="server" ID="lbIncName" class="strong"></asp:Label>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                <asp:Label ID="lbSeverity" runat="server" />,
+                        <td class="label">
+                                Status
+                            </td>
+                            <td class="value" >: <asp:Label ID="lbStatus" runat="server" />
+                            </td>
+                            
+                        </tr>
+                         <tr>
+                        <td class="label">
+                               Severity-Type    
+                            </td>
+                            <td class="value" >: <asp:Label ID="lbSeverity" runat="server" />-
                                 <asp:Label ID="lbIncType" runat="server" />
+                              
                             </td>
+                            
                         </tr>
                         <tr>
-                            <td>
-                                Status:
-                            </td>
-                            <td>
-                                <asp:Label ID="lbStatus" runat="server" />
+                            <td colspan="2"><div>
+                                <asp:GridView runat="server" AutoGenerateColumns="False" ID="gvIncidentNeeds" 
+                                    EmptyDataText="Incident has no need list!" 
+                                    onrowdatabound="gvIncidentNeeds_RowDataBound" CssClass="bluestyle">
+                             
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="Item Type">
+                                            <ItemTemplate><asp:Label ID="lbType" runat="server" /></ItemTemplate>                                             
+                                            </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Metric">
+                                             <ItemTemplate><asp:Label ID="lbMetric" runat="server" /></ItemTemplate> 
+                                             </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Amount">
+                                             <ItemTemplate><asp:Label ID="lbAmount" runat="server" /></ItemTemplate> 
+                                             </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Supplied">
+                                             <ItemTemplate><asp:Label ID="lbSupplied" runat="server" /></ItemTemplate> 
+                                             </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                             </div>
                             </td>
                         </tr>
                     </table>
-                    <uc1:UCIncidentMap ID="UCIncidentMap1" runat="server" />
+                    <uc1:UCIncidentMap ID="UCIncidentMap1" runat="server" width="98%"/>
                 </asp:Panel>
             </td>
         </tr>

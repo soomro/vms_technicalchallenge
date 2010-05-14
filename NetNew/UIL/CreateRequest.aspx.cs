@@ -87,15 +87,10 @@ public partial class CreateRequest : PageBase
         {
             throw new VMSException("Incident is not specified");
         }
-        var incObj = Session[Constants.IdIncident] as DAL.Incident;
-
-        if (refresh == false && incObj != null && incObj.Id == incId) // return it from session
-        {
-            return incObj;
-        }
+        
 
 
-        incObj = DAL.Container.Instance.Incidents.SingleOrDefault(inc => inc.Id == incId);
+         var incObj = DAL.Container.Instance.Incidents.SingleOrDefault(inc => inc.Id == incId);
         Session[Constants.IdIncident] = incObj;
         return incObj;
     }
@@ -107,15 +102,8 @@ public partial class CreateRequest : PageBase
         {
             throw new VMSException("Request is not specified");
         }
-        var obj = Session[Constants.IdRequestId] as DAL.Request;
-
-        if (refresh == false && obj != null && obj.Id == id) // return it from session
-        {
-            return obj;
-        }
-
-
-        obj = DAL.Container.Instance.Requests.SingleOrDefault(inc => inc.Id == id);
+        
+        var obj = DAL.Container.Instance.Requests.SingleOrDefault(inc => inc.Id == id);
         Session[Constants.IdRequestId] = obj;
         return obj;
     }
