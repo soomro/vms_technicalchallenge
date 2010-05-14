@@ -17,8 +17,9 @@ public partial class CrisisBoard : PageBase
         }
 
         Master.PageTitle = "Crisis Dashboard: " + MainCrisis.Name;
-        
-        UCMap1.Incidents = MainCrisis.Incidents.ToList() ;
+
+        // this will automatically set the data source.
+        cbxShowClosed_CheckedChanged(null, null); 
 
         hlIncidentlist.HRef = Constants.PageIncidents + "?cid=" + MainCrisis.Id;
         
