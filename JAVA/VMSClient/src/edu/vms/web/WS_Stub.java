@@ -104,6 +104,32 @@ public class WS_Stub implements WS, javax.xml.rpc.Stub {
         return GetAlertResponse_fromObject((Object[])resultObj);
     }
 
+    public String progressReport(String requestresponseID, String message, int status, String username, String password) throws java.rmi.RemoteException {
+        Object inputObject[] = new Object[] {
+            requestresponseID,
+            message,
+            new Integer(status),
+            username,
+            password
+        };
+
+        Operation op = Operation.newInstance( _qname_operation_ProgressReport, _type_ProgressReport, _type_ProgressReportResponse );
+        _prepOperation( op );
+        op.setProperty( Operation.SOAPACTION_URI_PROPERTY, "http://tempuri.org/ProgressReport" );
+        Object resultObj;
+        try {
+            resultObj = op.invoke( inputObject );
+        } catch( JAXRPCException e ) {
+            Throwable cause = e.getLinkedCause();
+            if( cause instanceof java.rmi.RemoteException ) {
+                throw (java.rmi.RemoteException) cause;
+            }
+            throw e;
+        }
+
+        return (String )((Object[])resultObj)[0];
+    }
+
     public RespondToRequestResponse respondToRequest(String requestresponseID, String username, String password, String amountProvided) throws java.rmi.RemoteException {
         Object inputObject[] = new Object[] {
             requestresponseID,
@@ -127,6 +153,32 @@ public class WS_Stub implements WS, javax.xml.rpc.Stub {
         }
 
         return RespondToRequestResponse_fromObject((Object[])resultObj);
+    }
+
+    public String incidentReport(String message, String location, int typeOfIncident, String username, String password) throws java.rmi.RemoteException {
+        Object inputObject[] = new Object[] {
+            message,
+            location,
+            new Integer(typeOfIncident),
+            username,
+            password
+        };
+
+        Operation op = Operation.newInstance( _qname_operation_IncidentReport, _type_IncidentReport, _type_IncidentReportResponse );
+        _prepOperation( op );
+        op.setProperty( Operation.SOAPACTION_URI_PROPERTY, "http://tempuri.org/IncidentReport" );
+        Object resultObj;
+        try {
+            resultObj = op.invoke( inputObject );
+        } catch( JAXRPCException e ) {
+            Throwable cause = e.getLinkedCause();
+            if( cause instanceof java.rmi.RemoteException ) {
+                throw (java.rmi.RemoteException) cause;
+            }
+            throw e;
+        }
+
+        return (String )((Object[])resultObj)[0];
     }
 
     public GetRequestResponse getRequest(String requestresponseID, String username, String password) throws java.rmi.RemoteException {
@@ -178,14 +230,6 @@ public class WS_Stub implements WS, javax.xml.rpc.Stub {
         return (String )((Object[])resultObj)[0];
     }
 
-    private static RespondToRequestResponse RespondToRequestResponse_fromObject( Object obj[] ) {
-        if(obj == null) return null;
-        RespondToRequestResponse result = new RespondToRequestResponse();
-        result.setRespondToRequestResult(((Boolean )obj[0]).booleanValue());
-        result.setMsg((String )obj[1]);
-        return result;
-    }
-
     private static GetAlertResponse GetAlertResponse_fromObject( Object obj[] ) {
         if(obj == null) return null;
         GetAlertResponse result = new GetAlertResponse();
@@ -202,41 +246,55 @@ public class WS_Stub implements WS, javax.xml.rpc.Stub {
         return result;
     }
 
+    private static RespondToRequestResponse RespondToRequestResponse_fromObject( Object obj[] ) {
+        if(obj == null) return null;
+        RespondToRequestResponse result = new RespondToRequestResponse();
+        result.setRespondToRequestResult(((Boolean )obj[0]).booleanValue());
+        result.setMsg((String )obj[1]);
+        return result;
+    }
+
     protected static final QName _qname_operation_GetAlert = new QName( "http://tempuri.org/", "GetAlert" );
     protected static final QName _qname_operation_Login = new QName( "http://tempuri.org/", "Login" );
     protected static final QName _qname_operation_CheckUpdate = new QName( "http://tempuri.org/", "CheckUpdate" );
     protected static final QName _qname_operation_GetRequest = new QName( "http://tempuri.org/", "GetRequest" );
+    protected static final QName _qname_operation_IncidentReport = new QName( "http://tempuri.org/", "IncidentReport" );
     protected static final QName _qname_operation_RespondToRequest = new QName( "http://tempuri.org/", "RespondToRequest" );
+    protected static final QName _qname_operation_ProgressReport = new QName( "http://tempuri.org/", "ProgressReport" );
+    protected static final QName _qname_ProgressReportResponse = new QName( "http://tempuri.org/", "ProgressReportResponse" );
     protected static final QName _qname_GetAlert = new QName( "http://tempuri.org/", "GetAlert" );
+    protected static final QName _qname_CheckUpdate = new QName( "http://tempuri.org/", "CheckUpdate" );
+    protected static final QName _qname_IncidentReportResponse = new QName( "http://tempuri.org/", "IncidentReportResponse" );
+    protected static final QName _qname_LoginResponse = new QName( "http://tempuri.org/", "LoginResponse" );
+    protected static final QName _qname_ProgressReport = new QName( "http://tempuri.org/", "ProgressReport" );
+    protected static final QName _qname_RespondToRequest = new QName( "http://tempuri.org/", "RespondToRequest" );
     protected static final QName _qname_GetRequestResponse = new QName( "http://tempuri.org/", "GetRequestResponse" );
     protected static final QName _qname_Login = new QName( "http://tempuri.org/", "Login" );
-    protected static final QName _qname_CheckUpdate = new QName( "http://tempuri.org/", "CheckUpdate" );
     protected static final QName _qname_RespondToRequestResponse = new QName( "http://tempuri.org/", "RespondToRequestResponse" );
-    protected static final QName _qname_LoginResponse = new QName( "http://tempuri.org/", "LoginResponse" );
+    protected static final QName _qname_IncidentReport = new QName( "http://tempuri.org/", "IncidentReport" );
     protected static final QName _qname_GetRequest = new QName( "http://tempuri.org/", "GetRequest" );
     protected static final QName _qname_CheckUpdateResponse = new QName( "http://tempuri.org/", "CheckUpdateResponse" );
-    protected static final QName _qname_RespondToRequest = new QName( "http://tempuri.org/", "RespondToRequest" );
     protected static final QName _qname_GetAlertResponse = new QName( "http://tempuri.org/", "GetAlertResponse" );
-    protected static final Element _type_LoginResponse;
     protected static final Element _type_CheckUpdateResponse;
-    protected static final Element _type_Login;
-    protected static final Element _type_RespondToRequestResponse;
-    protected static final Element _type_GetAlertResponse;
     protected static final Element _type_CheckUpdate;
-    protected static final Element _type_RespondToRequest;
-    protected static final Element _type_GetRequest;
-    protected static final Element _type_GetAlert;
     protected static final Element _type_GetRequestResponse;
+    protected static final Element _type_Login;
+    protected static final Element _type_ProgressReportResponse;
+    protected static final Element _type_IncidentReportResponse;
+    protected static final Element _type_LoginResponse;
+    protected static final Element _type_GetAlert;
+    protected static final Element _type_GetAlertResponse;
+    protected static final Element _type_GetRequest;
+    protected static final Element _type_ProgressReport;
+    protected static final Element _type_RespondToRequest;
+    protected static final Element _type_RespondToRequestResponse;
+    protected static final Element _type_IncidentReport;
 
     static {
-        _type_GetRequestResponse = new Element( _qname_GetRequestResponse, _complexType( new Element[] {
-            new Element( new QName( "http://tempuri.org/", "GetRequestResult" ), Type.STRING, 0, 1, false ),
+        _type_ProgressReportResponse = new Element( _qname_ProgressReportResponse, _complexType( new Element[] {
             new Element( new QName( "http://tempuri.org/", "msg" ), Type.STRING, 0, 1, false )}), 1, 1, false );
         _type_GetAlert = new Element( _qname_GetAlert, _complexType( new Element[] {
             new Element( new QName( "http://tempuri.org/", "alertID" ), Type.STRING, 0, 1, false ),
-            new Element( new QName( "http://tempuri.org/", "username" ), Type.STRING, 0, 1, false ),
-            new Element( new QName( "http://tempuri.org/", "password" ), Type.STRING, 0, 1, false )}), 1, 1, false );
-        _type_Login = new Element( _qname_Login, _complexType( new Element[] {
             new Element( new QName( "http://tempuri.org/", "username" ), Type.STRING, 0, 1, false ),
             new Element( new QName( "http://tempuri.org/", "password" ), Type.STRING, 0, 1, false )}), 1, 1, false );
         _type_CheckUpdate = new Element( _qname_CheckUpdate, _complexType( new Element[] {
@@ -244,22 +302,42 @@ public class WS_Stub implements WS, javax.xml.rpc.Stub {
             new Element( new QName( "http://tempuri.org/", "password" ), Type.STRING, 0, 1, false ),
             new Element( new QName( "http://tempuri.org/", "lat" ), Type.FLOAT ),
             new Element( new QName( "http://tempuri.org/", "lon" ), Type.FLOAT )}), 1, 1, false );
-        _type_RespondToRequestResponse = new Element( _qname_RespondToRequestResponse, _complexType( new Element[] {
-            new Element( new QName( "http://tempuri.org/", "RespondToRequestResult" ), Type.BOOLEAN ),
+        _type_IncidentReportResponse = new Element( _qname_IncidentReportResponse, _complexType( new Element[] {
             new Element( new QName( "http://tempuri.org/", "msg" ), Type.STRING, 0, 1, false )}), 1, 1, false );
-        _type_CheckUpdateResponse = new Element( _qname_CheckUpdateResponse, _complexType( new Element[] {
-            new Element( new QName( "http://tempuri.org/", "CheckUpdateResult" ), Type.STRING, 0, 1, false )}), 1, 1, false );
-        _type_GetRequest = new Element( _qname_GetRequest, _complexType( new Element[] {
-            new Element( new QName( "http://tempuri.org/", "requestresponseID" ), Type.STRING, 0, 1, false ),
-            new Element( new QName( "http://tempuri.org/", "username" ), Type.STRING, 0, 1, false ),
-            new Element( new QName( "http://tempuri.org/", "password" ), Type.STRING, 0, 1, false )}), 1, 1, false );
         _type_LoginResponse = new Element( _qname_LoginResponse, _complexType( new Element[] {
             new Element( new QName( "http://tempuri.org/", "LoginResult" ), Type.BOOLEAN )}), 1, 1, false );
+        _type_ProgressReport = new Element( _qname_ProgressReport, _complexType( new Element[] {
+            new Element( new QName( "http://tempuri.org/", "requestresponseID" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "message" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "status" ), Type.INT ),
+            new Element( new QName( "http://tempuri.org/", "username" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "password" ), Type.STRING, 0, 1, false )}), 1, 1, false );
         _type_RespondToRequest = new Element( _qname_RespondToRequest, _complexType( new Element[] {
             new Element( new QName( "http://tempuri.org/", "requestresponseID" ), Type.STRING, 0, 1, false ),
             new Element( new QName( "http://tempuri.org/", "username" ), Type.STRING, 0, 1, false ),
             new Element( new QName( "http://tempuri.org/", "password" ), Type.STRING, 0, 1, false ),
             new Element( new QName( "http://tempuri.org/", "amountProvided" ), Type.STRING, 0, 1, false )}), 1, 1, false );
+        _type_GetRequestResponse = new Element( _qname_GetRequestResponse, _complexType( new Element[] {
+            new Element( new QName( "http://tempuri.org/", "GetRequestResult" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "msg" ), Type.STRING, 0, 1, false )}), 1, 1, false );
+        _type_Login = new Element( _qname_Login, _complexType( new Element[] {
+            new Element( new QName( "http://tempuri.org/", "username" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "password" ), Type.STRING, 0, 1, false )}), 1, 1, false );
+        _type_RespondToRequestResponse = new Element( _qname_RespondToRequestResponse, _complexType( new Element[] {
+            new Element( new QName( "http://tempuri.org/", "RespondToRequestResult" ), Type.BOOLEAN ),
+            new Element( new QName( "http://tempuri.org/", "msg" ), Type.STRING, 0, 1, false )}), 1, 1, false );
+        _type_IncidentReport = new Element( _qname_IncidentReport, _complexType( new Element[] {
+            new Element( new QName( "http://tempuri.org/", "message" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "location" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "typeOfIncident" ), Type.INT ),
+            new Element( new QName( "http://tempuri.org/", "username" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "password" ), Type.STRING, 0, 1, false )}), 1, 1, false );
+        _type_GetRequest = new Element( _qname_GetRequest, _complexType( new Element[] {
+            new Element( new QName( "http://tempuri.org/", "requestresponseID" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "username" ), Type.STRING, 0, 1, false ),
+            new Element( new QName( "http://tempuri.org/", "password" ), Type.STRING, 0, 1, false )}), 1, 1, false );
+        _type_CheckUpdateResponse = new Element( _qname_CheckUpdateResponse, _complexType( new Element[] {
+            new Element( new QName( "http://tempuri.org/", "CheckUpdateResult" ), Type.STRING, 0, 1, false )}), 1, 1, false );
         _type_GetAlertResponse = new Element( _qname_GetAlertResponse, _complexType( new Element[] {
             new Element( new QName( "http://tempuri.org/", "GetAlertResult" ), Type.STRING, 0, 1, false ),
             new Element( new QName( "http://tempuri.org/", "msg" ), Type.STRING, 0, 1, false )}), 1, 1, false );

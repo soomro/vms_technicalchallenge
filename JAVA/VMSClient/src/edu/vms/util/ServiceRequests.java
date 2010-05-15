@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
+import javax.microedition.lcdui.ChoiceGroup;
 import javax.microedition.lcdui.TextField;
 import javax.microedition.midlet.MIDlet;
 import org.netbeans.microedition.lcdui.WaitScreen;
@@ -92,7 +93,7 @@ public class ServiceRequests extends Thread {
         System.out.println("method : login()");
         WS_Stub service = new WS_Stub();
         try {
-            
+
             midlet.loggedIn = service.login(username, password);
             if (midlet.loggedIn) {
                 midlet.getLogin().getTicker().setString("");
@@ -118,9 +119,9 @@ public class ServiceRequests extends Thread {
             getCoordinates();
             answer = service.checkUpdate(username, password, midlet.lat, midlet.lon);
             System.out.println("answer \n" + answer);
-            TextParser.getRequest(answer, midlet);
-            midlet.getChoiceGroup().set(0,midlet.reqInfo.name, null);
-            for(int i = 0; i < 5; i++){
+            TextParser.pasrUpdates(answer, midlet);
+            midlet.getChoiceGroup().set(0, midlet.reqInfo.name, null);
+            for (int i = 0; i < 5; i++) {
                 midlet.getChoiceGroup2().set(i, midlet.alertN[i], null);
             }
         } catch (Exception ex) {
@@ -139,9 +140,18 @@ public class ServiceRequests extends Thread {
             System.out.println("msg : " + reqRespons.getMsg());
             System.out.println("res : " + reqRespons.getGetRequestResult());
             TextParser.getRequestInfo(reqRespons.getGetRequestResult(), midlet);
-            drawRequest();
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+        System.out.println("accepted = " + midlet.accepted);
+        if (midlet.accepted) {
+            midlet.switchDisplayable(null, midlet.getViewRequest());
+            midlet.util.drawViewRequest(midlet.reqInfo);
+        } else {
+            if (!"".equals(midlet.reqInfo.ID.trim())) {
+                midlet.switchDisplayable(null, midlet.getRequest());
+                midlet.util.drawRequest();
+            }
         }
     }
 
@@ -176,24 +186,6 @@ public class ServiceRequests extends Thread {
     /*
      * drawRequest draws the page of request
      */
-    private void drawRequest() {
-        Request request = midlet.reqInfo;
-        midlet.getRequest().deleteAll();
-        midlet.getRequest().append(request.location);
-        midlet.getRequest().append("\n");
-        midlet.getRequest().append(request.message);
-        midlet.getRequest().append("\n");
-        midlet.getRequest().append("Need list");
-        midlet.getRequest().append("\n");
-        for (int i = 0; i < request.nAmount.size(); i++) {
-            TextField tField = new TextField((String) request.nType.elementAt(i) + "/ " + request.nUnit.elementAt(i)
-                    + "/ " + request.nAmount.elementAt(i), "", 3, 3);
-            tField.setConstraints(TextField.NUMERIC);
-            midlet.getRequest().append(tField);
-            midlet.getRequest().append("\n");
-        }
-    }
-
     private void checkPeriodically() {
         System.out.println("main.loggedIn" + midlet.loggedIn);
         while (midlet.loggedIn) {
@@ -225,7 +217,7 @@ public class ServiceRequests extends Thread {
             httpCon.close();
             String lt = getLat(content);
             String ln = getLon(content);
-            
+
             midlet.lat = Float.parseFloat(lt);
             midlet.lon = Float.parseFloat(ln);
         } catch (IOException ex) {
@@ -235,21 +227,15 @@ public class ServiceRequests extends Thread {
 
     private void reportIncidentProgress() {
         try {
+            WS_Stub service = new WS_Stub();
+            TextField msgFld = (TextField) midlet.getReportProgress().get(0);
 
-            TextField prsFld = (TextField) midlet.getReportProgress().get(0);
-            TextField msgFld = (TextField) midlet.getReportProgress().get(1);
-
-            String persentage = prsFld.getString();
+            int progress = ((ChoiceGroup) midlet.getReportProgress().get(1)).getSelectedIndex();
             String message = msgFld.getString();
 
-            if (Integer.parseInt(persentage) > 100) {
-                persentage = "100";
-            }
-
-            prsFld.setString("");
             msgFld.setString("");
-            System.out.println(persentage + " " + message);
-            //TODO: send the data to the server after the service is implemented
+            System.out.println(progress + " " + message);
+            service.progressReport(midlet.reqInfo.ID, message, progress, username, password);
             midlet.switchDisplayable(null, midlet.getMain());
         } catch (Exception e) {
             e.printStackTrace();
@@ -258,18 +244,18 @@ public class ServiceRequests extends Thread {
 
     private void reportIncident() {
         try {
+            WS_Stub service = new WS_Stub();
             TextField locFld = (TextField) midlet.getReportIncident().get(0);
-            TextField typeFld = (TextField) midlet.getReportIncident().get(1);
-            TextField msgFld = (TextField) midlet.getReportIncident().get(2);
+            TextField msgFld = (TextField) midlet.getReportIncident().get(1);
 
+            int type = ((ChoiceGroup) midlet.getReportIncident().get(2)).getSelectedIndex();
             String location = locFld.getString();
-            String type = typeFld.getString();
-            String message = typeFld.getString();
+            String message = msgFld.getString();
 
             locFld.setString("");
-            typeFld.setString("");
             msgFld.setString("");
-            System.out.println(location + " " + type + " " + message);            
+            System.out.println(location + " " + type + " " + message);
+            service.incidentReport(message, location, type, username, password);
             midlet.switchDisplayable(null, midlet.getMain());
         } catch (Exception e) {
             e.printStackTrace();

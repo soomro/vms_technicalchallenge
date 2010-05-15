@@ -17,11 +17,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
 
     private boolean midletPaused = false;
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
-    private Command itemCommand;
-    private Command okCommand1;
     private Command exitCommand;
-    private Command loginCommand;
-    private Command exitCommand1;
     private Command exitLogin;
     private Command okCommand;
     private Command acceptCommand;
@@ -35,30 +31,34 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     private Command backCommand;
     private Command sendCommand;
     private Command videoCommand;
+    private Command itemCommand;
+    private Command okCommand1;
+    private Command loginCommand;
+    private Command exitCommand1;
     private Command okCommand2;
-    private Form login;
-    private TextField textField5;
-    private TextField textField6;
-    private StringItem stringItem;
     private Form main;
-    private ChoiceGroup choiceGroup2;
     private ChoiceGroup choiceGroup;
     private Spacer spacer;
+    private ChoiceGroup choiceGroup2;
     private WaitScreen waitScreen;
     private Form request;
     private Form reportIncident;
     private TextField textField2;
-    private TextField textField1;
     private TextField textField;
+    private ChoiceGroup choiceGroup1;
     private Form reportProgress;
     private TextField textField4;
-    private TextField textField3;
+    private ChoiceGroup choiceGroup3;
     private Form viewRequest;
+    private Form login;
+    private TextField textField5;
+    private TextField textField6;
+    private StringItem stringItem;
     private Form alert;
-    private Image image1;
     private Ticker ticker;
+    private Image image1;
     //</editor-fold>//GEN-END:|fields|0|
-    private VMSUtilities util;
+    public VMSUtilities util;
     public boolean loggedIn = false;
     public boolean accepted = false;
     public Request reqInfo = new Request();
@@ -186,8 +186,9 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
 
             } else if (command == progressCommand) {//GEN-LINE:|7-commandAction|11|105-preAction
                 // Show Report Progress page
-                switchDisplayable(null, getReportProgress());//GEN-LINE:|7-commandAction|12|105-postAction
-                // Show Report page
+                if (!reqInfo.ID.equals("")) {
+                    switchDisplayable(null, getReportProgress());//GEN-LINE:|7-commandAction|12|105-postAction
+                }// Show Report page
             } else if (command == reportCommand) {//GEN-LINE:|7-commandAction|13|88-preAction
                 // Show Report Incident page
                 switchDisplayable(null, getReportIncident());//GEN-LINE:|7-commandAction|14|88-postAction
@@ -199,8 +200,9 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|16|94-postAction
                 // Select Send Command
             } else if (command == sendCommand) {//GEN-LINE:|7-commandAction|17|117-preAction
-
-                util.sendReport();
+                if (util.checkInRepor()) {
+                    util.sendReport();
+                }
 //GEN-LINE:|7-commandAction|18|117-postAction
                 // Select Cancel and navigate to main page
             }//GEN-BEGIN:|7-commandAction|19|97-preAction
@@ -208,11 +210,13 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
             if (command == cancelCommand1) {//GEN-END:|7-commandAction|19|97-preAction
 
                 switchDisplayable(null, getMain());//GEN-LINE:|7-commandAction|20|97-postAction
+
                 // Select Send Progress Command
             } else if (command == sendProgressCommand) {//GEN-LINE:|7-commandAction|21|103-preAction
-
 //GEN-LINE:|7-commandAction|22|103-postAction
-                util.sendProgress();
+                if (util.checkPrRepor()) {
+                    util.sendProgress();
+                }
                 // Show Request page and select accept or  reject command
             }//GEN-BEGIN:|7-commandAction|23|78-preAction
         } else if (displayable == request) {
@@ -389,16 +393,8 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
                 // write pre-action user code here
                 if (getChoiceGroup().isSelected(0)) {
 //GEN-LINE:|17-itemCommandAction|2|69-postAction
-                    System.out.println("accepted = " + accepted);
-                    if (accepted) {
-                        switchDisplayable(null, getViewRequest());
-                        util.drawViewRequest(reqInfo);
-                    } else {
-                        if (!"".equals(reqInfo.ID.trim())) {
-                            switchDisplayable(null, getRequest());
-                            util.getRequestInfo();
-                        }
-                    }
+                    util.getRequestInfo();
+
                 }// write post-action user code here
             }//GEN-BEGIN:|17-itemCommandAction|3|139-preAction
         } else if (item == choiceGroup2) {
@@ -565,7 +561,8 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public Form getReportIncident() {
         if (reportIncident == null) {//GEN-END:|85-getter|0|85-preInit
             // write pre-init user code here
-            reportIncident = new Form("Report Incident", new Item[] { getTextField(), getTextField1(), getTextField2() });//GEN-BEGIN:|85-getter|1|85-postInit
+            reportIncident = new Form("Report Incident", new Item[] { getTextField(), getTextField2(), getChoiceGroup1() });//GEN-BEGIN:|85-getter|1|85-postInit
+            reportIncident.setTicker(getTicker());
             reportIncident.addCommand(getCancelCommand());
             reportIncident.addCommand(getSendCommand());
             reportIncident.setCommandListener(this);//GEN-END:|85-getter|1|85-postInit
@@ -583,7 +580,8 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public Form getReportProgress() {
         if (reportProgress == null) {//GEN-END:|86-getter|0|86-preInit
             // write pre-init user code here
-            reportProgress = new Form("Progress report", new Item[] { getTextField3(), getTextField4() });//GEN-BEGIN:|86-getter|1|86-postInit
+            reportProgress = new Form("Progress report", new Item[] { getTextField4(), getChoiceGroup3() });//GEN-BEGIN:|86-getter|1|86-postInit
+            reportProgress.setTicker(getTicker());
             reportProgress.addCommand(getCancelCommand1());
             reportProgress.addCommand(getSendProgressCommand());
             reportProgress.setCommandListener(this);//GEN-END:|86-getter|1|86-postInit
@@ -685,21 +683,6 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     }
     //</editor-fold>//GEN-END:|122-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: textField1 ">//GEN-BEGIN:|124-getter|0|124-preInit
-    /**
-     * Returns an initiliazed instance of textField1 component.
-     * @return the initialized component instance
-     */
-    public TextField getTextField1() {
-        if (textField1 == null) {//GEN-END:|124-getter|0|124-preInit
-            // write pre-init user code here
-            textField1 = new TextField("Incident type", null, 32, TextField.ANY);//GEN-LINE:|124-getter|1|124-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|124-getter|2|
-        return textField1;
-    }
-    //</editor-fold>//GEN-END:|124-getter|2|
-
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: textField2 ">//GEN-BEGIN:|125-getter|0|125-preInit
     /**
      * Returns an initiliazed instance of textField2 component.
@@ -714,21 +697,6 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
         return textField2;
     }
     //</editor-fold>//GEN-END:|125-getter|2|
-
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: textField3 ">//GEN-BEGIN:|126-getter|0|126-preInit
-    /**
-     * Returns an initiliazed instance of textField3 component.
-     * @return the initialized component instance
-     */
-    public TextField getTextField3() {
-        if (textField3 == null) {//GEN-END:|126-getter|0|126-preInit
-            // write pre-init user code here
-            textField3 = new TextField("Progress (from 0 to 100)", null, 32, TextField.NUMERIC | TextField.NON_PREDICTIVE);//GEN-LINE:|126-getter|1|126-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|126-getter|2|
-        return textField3;
-    }
-    //</editor-fold>//GEN-END:|126-getter|2|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: textField4 ">//GEN-BEGIN:|127-getter|0|127-preInit
     /**
@@ -783,8 +751,6 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
         return choiceGroup2;
     }
     //</editor-fold>//GEN-END:|135-getter|2|
-
-
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: image1 ">//GEN-BEGIN:|130-getter|0|130-preInit
     /**
@@ -923,7 +889,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public Form getAlert() {
         if (alert == null) {//GEN-END:|161-getter|0|161-preInit
             // write pre-init user code here
-            alert = new Form("form");//GEN-BEGIN:|161-getter|1|161-postInit
+            alert = new Form("Alert");//GEN-BEGIN:|161-getter|1|161-postInit
             alert.addCommand(getOkCommand2());
             alert.setCommandListener(this);//GEN-END:|161-getter|1|161-postInit
             // write post-init user code here
@@ -946,6 +912,47 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
         return okCommand2;
     }
     //</editor-fold>//GEN-END:|162-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: choiceGroup1 ">//GEN-BEGIN:|165-getter|0|165-preInit
+    /**
+     * Returns an initiliazed instance of choiceGroup1 component.
+     * @return the initialized component instance
+     */
+    public ChoiceGroup getChoiceGroup1() {
+        if (choiceGroup1 == null) {//GEN-END:|165-getter|0|165-preInit
+            // write pre-init user code here
+            choiceGroup1 = new ChoiceGroup("Incident type", Choice.EXCLUSIVE);//GEN-BEGIN:|165-getter|1|165-postInit
+            choiceGroup1.append("Fire", null);
+            choiceGroup1.append("Collapsed Building ", null);
+            choiceGroup1.append("Bomb", null);
+            choiceGroup1.append("Accident", null);
+            choiceGroup1.setFitPolicy(Choice.TEXT_WRAP_DEFAULT);
+            choiceGroup1.setSelectedFlags(new boolean[] { false, false, false, false });//GEN-END:|165-getter|1|165-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|165-getter|2|
+        return choiceGroup1;
+    }
+    //</editor-fold>//GEN-END:|165-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: choiceGroup3 ">//GEN-BEGIN:|170-getter|0|170-preInit
+    /**
+     * Returns an initiliazed instance of choiceGroup3 component.
+     * @return the initialized component instance
+     */
+    public ChoiceGroup getChoiceGroup3() {
+        if (choiceGroup3 == null) {//GEN-END:|170-getter|0|170-preInit
+            // write pre-init user code here
+            choiceGroup3 = new ChoiceGroup("Status", Choice.EXCLUSIVE);//GEN-BEGIN:|170-getter|1|170-postInit
+            choiceGroup3.append("Created", null);
+            choiceGroup3.append("Resource Gathering", null);
+            choiceGroup3.append("Working", null);
+            choiceGroup3.append("Completed", null);
+            choiceGroup3.setSelectedFlags(new boolean[] { false, false, false, false });//GEN-END:|170-getter|1|170-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|170-getter|2|
+        return choiceGroup3;
+    }
+    //</editor-fold>//GEN-END:|170-getter|2|
 
     /**
      * Returns a display instance.
