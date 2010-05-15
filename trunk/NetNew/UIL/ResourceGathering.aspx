@@ -37,17 +37,15 @@
                     </asp:GridView>
                     <br />
                         
-                        <asp:HyperLink runat="server" ID="hlNewRequest"  
-                        Text="Add new request"  ImageUrl="~/Images/add.png" Width="30px" Height="30px" > </asp:HyperLink>
+                        <a href="#" runat="server" ID="hlNewRequest"  
+                           ><img src="./Images/add.png" width="30px" height="30px" alt="Add new" /> Add new request </a>
                        
                     
                 </asp:Panel>
                 <asp:Panel runat="server" ID="pnNeedListStatus" GroupingText="Need List">
-                    <asp:GridView ID="gvNeedList" runat="server" AutoGenerateColumns="False" BorderWidth="1px"
+                    <asp:GridView ID="gvNeedList" runat="server" AutoGenerateColumns="False"
                         Width="100%" EmptyDataText="No need item is defined" 
-                        OnRowDataBound="gvNeedList_RowDataBound" BackColor="LightGoldenrodYellow" 
-                        BorderColor="Tan" CellPadding="2" ForeColor="Black" GridLines="None">
-                        <AlternatingRowStyle BackColor="PaleGoldenrod" />
+                        OnRowDataBound="gvNeedList_RowDataBound" CssClass="smallbluestyle">
                         <Columns>
                             <asp:TemplateField HeaderText="Type">
                                 <ItemTemplate>
@@ -73,27 +71,18 @@
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Left" />
                             </asp:TemplateField>
-                            <asp:TemplateField>
+                            <asp:TemplateField Visible="False">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="ibtRemove" runat="server" AlternateText="Remove" ImageUrl="~/Images/delete.gif"
                                         OnCommand="ibtRemove_Command" ToolTip="Remove" Width="15px" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <FooterStyle BackColor="Tan" />
-                        <HeaderStyle Font-Bold="True" Font-Size="9pt" Font-Underline="True" 
-                            BackColor="Tan" />
-                        <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
-                            HorizontalAlign="Center" />
-                        <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
-                        <SortedAscendingCellStyle BackColor="#FAFAE7" />
-                        <SortedAscendingHeaderStyle BackColor="#DAC09E" />
-                        <SortedDescendingCellStyle BackColor="#E1DB9C" />
-                        <SortedDescendingHeaderStyle BackColor="#C2A47B" />
+                        <HeaderStyle Font-Size="9pt" Font-Underline="True" />
                     </asp:GridView>
                 
 
-                    Vol List<br /> 
+                    <span class="strong">Volunteer List</span><br /> 
                     <asp:GridView runat="server" AutoGenerateColumns="False" 
                         BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
                         CellPadding="2" ForeColor="Black" GridLines="None" ID="gvVolunteers" 

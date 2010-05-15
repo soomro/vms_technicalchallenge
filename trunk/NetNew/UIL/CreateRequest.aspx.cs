@@ -25,7 +25,7 @@ public partial class CreateRequest : PageBase
 
     private void BindPageForEdit(DAL.Request request)
     {
-        Master.PageTitle = "Edit Request";
+        
         
         rblStatus.SelectedValue = request.IsActive ? "Active" : "Suspended";
 
@@ -50,6 +50,13 @@ public partial class CreateRequest : PageBase
 
         } 
         dvStatus.Visible = true;
+        Master.PageTitle = "Edit Request";
+        Master.SetSiteMap(new[] { 
+                new[] { "Crisis Board", "CrisisBoard.aspx" },
+                new[] { "Incident:"+GetIncident().ShortDescription, "Incident.aspx?iid="+GetIncident().Id+"&action=Edit" },
+                new[] { "Resource Gathering", "ResourceGathering.aspx?iid="+GetIncident().Id  },
+                new[] { "Edit Request", "" },
+            });
     }
 
     private void BindPage(DAL.Incident inc)

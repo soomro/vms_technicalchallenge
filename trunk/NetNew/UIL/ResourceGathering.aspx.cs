@@ -11,9 +11,15 @@ public partial class ResourceGathering : PageBase
     DAL.Request SelectedRequest
     {
         get{
-            return Session["SelectedRequest"] as DAL.Request;
+            int rid = Utils.Convert.ToInt(Session["SelectedRequest"] + "", 0);
+            return (from r in DAL.Container.Instance.Requests 
+                    where r.Id == rid
+                        select r).FirstOrDefault();
         }
-        set { Session["SelectedRequest"] = value; }
+        set {
+            int rid = value==null?0:value.Id;
+            Session["SelectedRequest"] = rid;
+        }
     }
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -75,7 +81,7 @@ public partial class ResourceGathering : PageBase
         gvIncidentNeeds.DataSource = inc.NeedItems;
         gvIncidentNeeds.DataBind();
 
-        hlNewRequest.NavigateUrl = string.Format("~/CreateRequest.aspx?{0}={1}&Action={2}",Constants.IdIncidentId,inc.Id,PageActions.Create);
+        hlNewRequest.HRef = string.Format("./CreateRequest.aspx?{0}={1}&Action={2}",Constants.IdIncidentId,inc.Id,PageActions.Create);
 
 
          Master.SetSiteMap(new[] { 

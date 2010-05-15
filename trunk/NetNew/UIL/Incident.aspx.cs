@@ -356,5 +356,11 @@ public partial class Incident : PageBase
             return;
         }
     }
+
+    protected void btCancel_Click(object sender, EventArgs e)
+    {
+      
+        Response.Redirect(Constants.PageCrisisBoard);
+    }
      
 }
