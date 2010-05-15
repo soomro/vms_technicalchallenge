@@ -77,19 +77,17 @@ public partial class Incident : PageBase
 
     }
 
-    private void DisablePage()
-    {
-        
-    }
 
     private void BindDataForEdit(DAL.Incident inc)
     {
+        Master.PageTitle = "info";
         ucIncidentType.DefaultSelection = inc.IncidentType;
         ucSeverity.DefaultSelection = inc.Severity;
 
         txShortDesc.Text = inc.ShortDescription;
         txExplanation.Text = inc.Explanation;
         txShortAddress.Text = inc.ShortAddress;
+        lbStatus.Text = Utils.Reflection.GetEnumDescription(inc.IncidentStatus);
         NeedList = null;
         foreach (var ni in inc.NeedItems)
         {
@@ -135,8 +133,12 @@ public partial class Incident : PageBase
         ucIncidentType.Enabled = boolVal;
         UCIncidentMap1.Enabled = boolVal;
         btAddNew.Visible = boolVal;
-        btClose.Visible = boolVal;
+        btClose.Visible = !boolVal;
         btSave.Visible = boolVal;
+        btReactivate.Visible = boolVal;
+        rowStatus.Visible = true;
+
+        Master.PageTitle = boolVal + "";
 
     }
     /// <summary>
@@ -164,6 +166,8 @@ public partial class Incident : PageBase
         gvNeedList.DataBind();
         btClose.Visible = false;
         dvMenu.Visible = false;
+        rowStatus.Visible = false;
+        btReactivate.Visible = false;
     }
 
 
@@ -361,6 +365,21 @@ public partial class Incident : PageBase
     {
       
         Response.Redirect(Constants.PageCrisisBoard);
+    }
+
+    protected void btReactivate_Click(object sender, EventArgs e)
+    {
+
+        var inc = GetIncident();
+        if (inc==null)
+        {
+            Master.ShowMessage(MessageTypes.Error,"Incident could not be found!");
+            return;
+        }
+        inc.IncidentStatus = IncidentStatuses.ResourceGathering;
+        DAL.Container.Instance.SaveChanges();
+        Master.ShowMessage(MessageTypes.Info, "Incident reactivated!");
+        RedirectAfter(4, Request.RawUrl);
     }
      
 }
