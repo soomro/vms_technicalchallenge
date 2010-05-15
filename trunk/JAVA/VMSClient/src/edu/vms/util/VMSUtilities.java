@@ -1,7 +1,6 @@
 package edu.vms.util;
 
 import edu.vms.ClientMIDlet;
-import java.util.Vector;
 import javax.microedition.lcdui.TextField;
 
 /**
@@ -106,8 +105,7 @@ public class VMSUtilities {
             if (midlet.getRequest().get(i) instanceof TextField) {
                 TextField tf = (TextField) midlet.getRequest().get(i);
                 int c = 0;
-                if(!tf.getString().equals(""))
-                {
+                if (!tf.getString().equals("")) {
                     c = Integer.parseInt(tf.getString());
                 }
                 if (c > Integer.parseInt((String) midlet.reqInfo.nAmount.elementAt(findex))) {
@@ -158,6 +156,8 @@ public class VMSUtilities {
      */
     public void drawViewRequest(Request request) {
         midlet.getViewRequest().deleteAll();
+        midlet.getViewRequest().append(request.name);
+        midlet.getViewRequest().append("\n");
         midlet.getViewRequest().append(request.location);
         midlet.getViewRequest().append("\n");
         midlet.getViewRequest().append(request.message);
@@ -165,10 +165,30 @@ public class VMSUtilities {
         midlet.getViewRequest().append("Need list");
         midlet.getViewRequest().append("\n");
         for (int i = 0; i < request.nType.size(); i++) {
-            midlet.getViewRequest().append(request.nType.elementAt(i) + "/ " + request.nUnit.elementAt(i) + "/ " +request.nAmount.elementAt(i) + "/ " + (String) midlet.reqInfo.nCollected.elementAt(i));
+            midlet.getViewRequest().append(request.nType.elementAt(i) + "/ " + request.nUnit.elementAt(i) + "/ " + request.nAmount.elementAt(i) + "/ " + (String) midlet.reqInfo.nCollected.elementAt(i));
             midlet.getViewRequest().append("\n");
         }
 
+    }
+
+    public void drawRequest() {
+        Request request = midlet.reqInfo;
+        midlet.getRequest().deleteAll();
+        midlet.getViewRequest().append(request.name);
+        midlet.getViewRequest().append("\n");
+        midlet.getRequest().append(request.location);
+        midlet.getRequest().append("\n");
+        midlet.getRequest().append(request.message);
+        midlet.getRequest().append("\n");
+        midlet.getRequest().append("Need list");
+        midlet.getRequest().append("\n");
+        for (int i = 0; i < request.nAmount.size(); i++) {
+            TextField tField = new TextField((String) request.nType.elementAt(i) + "/ " + request.nUnit.elementAt(i)
+                    + "/ " + request.nAmount.elementAt(i), "", 3, 3);
+            tField.setConstraints(TextField.NUMERIC);
+            midlet.getRequest().append(tField);
+            midlet.getRequest().append("\n");
+        }
     }
 
     public void sendReport() {
@@ -199,5 +219,34 @@ public class VMSUtilities {
         } catch (Exception re) {
             re.printStackTrace();
         }
+    }
+
+    public boolean checkInRepor() {
+        TextField locFld = (TextField) midlet.getReportIncident().get(0);
+        TextField msgFld = (TextField) midlet.getReportIncident().get(1);
+
+        String location = locFld.getString();
+        String message = msgFld.getString();
+        if (location.trim().equals("")) {
+            midlet.getReportIncident().getTicker().setString("Location is mandatory");
+            return false;
+        }
+        if (message.trim().equals("")) {
+            midlet.getReportIncident().getTicker().setString("Message is mandatory");
+            return false;
+        }
+        return true;
+
+    }
+    public boolean checkPrRepor() {
+        TextField msgFld = (TextField) midlet.getReportProgress().get(0);
+
+        String message = msgFld.getString();
+        if (message.trim().equals("")) {
+            midlet.getReportProgress().getTicker().setString("Message is mandatory");
+            return false;
+        }
+        return true;
+
     }
 }

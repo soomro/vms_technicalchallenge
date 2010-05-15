@@ -15,9 +15,9 @@ import edu.vms.ClientMIDlet;
 public class TextParser {
     /*
      * s parameter is a text
-     * getRequest will pars the s and will return the request containing in text
+     * pasrUpdates will pars the s and will return the request containing in text
      */
-    public static void getRequest(String s, ClientMIDlet midlet){
+    public static void pasrUpdates(String s, ClientMIDlet midlet){
         char spc = (char)254;// special character
         char ass = s.substring(0,1).charAt(0);
         System.out.println("ass " + (int)ass);
@@ -67,6 +67,7 @@ public class TextParser {
         s = s.substring(1);
         int index = s.indexOf(spc);
         Request req = midlet.reqInfo;
+        boolean isAnswered = false;
         if(index != -1){
             req.name = s.substring(0, index);
             System.out.println("1 : " + s);
@@ -90,6 +91,17 @@ public class TextParser {
             req.nAmount.addElement(s.substring(0, index));
             s = s.substring(index + 1);
             index = s.indexOf(spc);
+            req.nCollected.addElement(s.substring(0, index));
+            if(!(req.nCollected.lastElement().equals("") || req.nCollected.lastElement().equals("0"))){
+                isAnswered = true;
+            }
+            s = s.substring(index + 1);
+            index = s.indexOf(spc);
+            }
+            if(isAnswered){
+                midlet.accepted = true;
+            } else {
+                midlet.accepted = false;
             }
         }
 
