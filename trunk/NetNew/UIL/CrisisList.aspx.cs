@@ -5,10 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class CrisisList : System.Web.UI.Page
+public partial class CrisisList : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        RequireManager();
+
         Utils.GridStyleUtil gs = new Utils.GridStyleUtil(gvCrisisList, Utils.GridStyleEnum.Niko);
         if (!IsPostBack)
         {

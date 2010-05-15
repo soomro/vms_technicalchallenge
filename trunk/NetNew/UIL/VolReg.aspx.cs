@@ -33,7 +33,7 @@ public partial class VolReg : PageBase
                 btnRegister.Text = "Register";
                 btnDeleteProfile.Visible = false;
                 CurrentVolunteer = null;
-                CurrentUser = null;
+                CurrentManager = null;
             }
             else
             {

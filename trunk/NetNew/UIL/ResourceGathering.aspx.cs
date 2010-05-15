@@ -23,6 +23,8 @@ public partial class ResourceGathering : PageBase
     }
     protected void Page_Load(object sender, EventArgs e)
     {
+        RequireManager();
+
         //Utils.GridStyleUtil gs = new Utils.GridStyleUtil(gvIncidentNeeds, Utils.GridStyleEnum.Niko);
         if (!IsPostBack)
         {

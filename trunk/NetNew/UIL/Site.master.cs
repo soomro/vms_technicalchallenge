@@ -85,10 +85,8 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 
         base.OnPreRender(e);
     }
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        
-    }
+   
+
     public string PageTitle
     {
         get

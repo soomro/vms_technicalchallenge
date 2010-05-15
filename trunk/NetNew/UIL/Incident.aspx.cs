@@ -32,7 +32,8 @@ public partial class Incident : PageBase
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-       
+        RequireManager();
+
         if (!IsPostBack)
         {
             ucIncidentType.EnumType = typeof(Utils.Enumerations.IncidentTypes);

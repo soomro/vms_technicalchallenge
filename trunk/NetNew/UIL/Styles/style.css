@@ -418,3 +418,13 @@ table.formTable .value
 {
     font-weight: bold;
 }
+
+.ErrorPage_ErrorMessage
+{
+	font-weight: bold;
+	font-size: medium;
+	color: #cc0066;
+	font-family: Verdana;
+	padding-left: 20px;
+	padding-top: 20px;
+}

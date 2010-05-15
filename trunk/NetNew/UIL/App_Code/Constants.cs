@@ -38,6 +38,8 @@ public class Constants
     public const string ImgBomb1 = "~/Images/bomb1.gif";
 
     public const string ImgAccident1 = "~/Images/accident1.gif";
+
+    public const string Error = "_Error";
     
 
 }

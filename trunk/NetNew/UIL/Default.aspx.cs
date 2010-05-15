@@ -9,12 +9,15 @@ public partial class _Default :PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        RequireManager();
+
         Logger.Info("deneme");
 
         if (!IsPostBack)
         {
             Master.PageTitle = "Starting page for test purposes";
         }
+         
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
@@ -32,5 +35,9 @@ public partial class _Default :PageBase
     {
        
 
+    }
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        CurrentManager = null;
     }
 }

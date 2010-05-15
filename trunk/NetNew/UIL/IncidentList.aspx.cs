@@ -6,10 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
 
-public partial class IncidentList : System.Web.UI.Page
+public partial class IncidentList : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        RequireManager();
+
         
         Utils.GridStyleUtil gs = new Utils.GridStyleUtil(gvIncidents, Utils.GridStyleEnum.Niko);
 

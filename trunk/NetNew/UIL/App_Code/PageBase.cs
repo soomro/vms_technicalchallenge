@@ -9,12 +9,14 @@ using DAL;
 /// </summary>
 public class PageBase : System.Web.UI.Page
 {
-    public PageBase()
+    protected void RequireManager()
     {
-        //
-        // TODO: Add constructor logic here
-        //
-    }
+        if (CurrentManager == null)
+        {
+            Response.Redirect("~/Login.aspx?ReturnUrl="+Server.UrlEncode(Request.RawUrl));
+        } 
+    } 
+   
 
     public PageActions PageAction
     {
@@ -69,19 +71,21 @@ public class PageBase : System.Web.UI.Page
         }
     }
 
-    public Manager CurrentUser
+    public Manager CurrentManager
     {
         get
         {
-            int id = Utils.Convert.ToInt(Session["currentuser"] + "", 0);
+            int id = Utils.Convert.ToInt(Session["CurrentManager"] + "", 0);
             return (from v in DAL.Container.Instance.Managers
                     where v.Id == id
                     select v).FirstOrDefault();
         }
         set
         {
-            if(value != null )
-                Session["currentuser"] = value.Id;
+            if (value != null)
+                Session["CurrentManager"] = value.Id;
+            else
+                Session["CurrentManager"] = 0;
         }
     }
     public Volunteer CurrentVolunteer
@@ -97,6 +101,8 @@ public class PageBase : System.Web.UI.Page
         {
             if (value != null)
                 Session["CurrentVolunteer"] = value.Id;
+            else
+                Session["CurrentVolunteer"] = 0;
         }
     }
 

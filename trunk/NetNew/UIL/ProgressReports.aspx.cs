@@ -5,10 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class ProgressReports : System.Web.UI.Page
+public partial class ProgressReports : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        RequireManager();
+
         Utils.GridStyleUtil gs = new Utils.GridStyleUtil(gvProgressReports, Utils.GridStyleEnum.Niko);
 
         if (!IsPostBack)
