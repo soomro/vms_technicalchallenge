@@ -12,25 +12,32 @@
         text-align: left;
     }
 </style>
-<table class="style1">
-    <tr>
-        <td class="formField" nowrap="nowrap" width="5%">
-            Words in profile:
-        </td>
-    </tr>
-    <tr>
-        <td class="formField" nowrap="nowrap" width="5%">
-            <asp:TextBox ID="txtCriteria" runat="server" AutoPostBack="True" CssClass="tx" Height="68px"
-                OnTextChanged="txtCriteria_TextChanged" TextMode="MultiLine" Width="100%"></asp:TextBox>
-        </td>
-    </tr>
-    <tr>
-        <td align="center">
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                <ContentTemplate>
-                    <asp:GridView ID="gvVolList" runat="server" AutoGenerateColumns="False" Width="100%"
-                        OnRowDataBound="gvVolList_RowDataBound" BackColor="White" BorderColor="#CC9966"
-                        BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Id">
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
+        <table class="style1">
+            <tr>
+                <td class="formField" nowrap="nowrap" width="5%">
+                    Words in profile:
+                </td>
+            </tr>
+            <tr>
+                <td class="formField" nowrap="nowrap" width="5%">
+                    <asp:TextBox ID="txtCriteria" runat="server" AutoPostBack="True" CssClass="tx" 
+                        Height="68px" TextMode="MultiLine" Width="100%"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnSearch" runat="server" CssClass="buttons" 
+                        OnClick="btnSearch_Click" Text="Search" ValidationGroup="1" />
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:GridView ID="gvVolList" runat="server" AutoGenerateColumns="False" 
+                        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" 
+                        CellPadding="4" DataKeyNames="Id" OnRowDataBound="gvVolList_RowDataBound" 
+                        Width="100%">
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
@@ -54,13 +61,11 @@
                         <SortedDescendingCellStyle BackColor="#F6F0C0" />
                         <SortedDescendingHeaderStyle BackColor="#7E0000" />
                     </asp:GridView>
-                </ContentTemplate>
-
-                <Triggers>
-                    <asp:PostBackTrigger ControlID="txtCriteria" />
-                </Triggers>
-
-            </asp:UpdatePanel>
-        </td>
-    </tr>
-</table>
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+    <Triggers>
+        <asp:PostBackTrigger ControlID="txtCriteria" />
+    </Triggers>
+</asp:UpdatePanel>

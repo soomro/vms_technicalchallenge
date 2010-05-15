@@ -61,7 +61,9 @@ public partial class UControls_UCSearchVolunteer : System.Web.UI.UserControl
 
         lblVolName.Text = ni.NameLastName;
     }
-    protected void txtCriteria_TextChanged(object sender, EventArgs e)
+   
+   
+    protected void btnSearch_Click(object sender, EventArgs e)
     {
         var array = txtCriteria.Text.Split(' ');
         List<DAL.Volunteer> vols = new List<DAL.Volunteer>();
