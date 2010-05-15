@@ -51,6 +51,11 @@ public class WS : System.Web.Services.WebService
                 return "";
     	}
 
+        vol.Coordinates.Clear();
+        vol.Coordinates.Add(lat+"");
+        vol.Coordinates.Add(lon+"");
+        vol.CoordinateLastUpdateTime = DateTime.Now;
+
         var rrs =( from rr in DAL.Container.WSInstance.RequestResponses
                   where rr.Volunteer_Id == vol.Id && 
                   rr.Request.IsActive && (rr.StatusVal == 0 || (rr.StatusVal==1 && rr.Answer==true) )                
@@ -90,9 +95,11 @@ public class WS : System.Web.Services.WebService
             return "";
         }
         int reqidd = Utils.Convert.ToInt(requestresponseID, 0);
-        var request = (from r in DAL.Container.WSInstance.RequestResponses
+        var rr = (from r in DAL.Container.WSInstance.RequestResponses
                        where r.Volunteer_Id == vol.Id && r.Id == reqidd
-                       select r.Request).SingleOrDefault();
+                       select r).SingleOrDefault();
+        var request = rr.Request;
+
         if (request==null)
         {
             msg = "Request could not be found";
@@ -105,7 +112,13 @@ public class WS : System.Web.Services.WebService
 
         foreach (DAL.NeedItem ni in request.NeedItems)
         {
-            res += sep + ni.ItemType + sep + ni.MetricType + sep + (ni.ItemAmount-ni.SuppliedAmount);
+            var nSupplied = (from n in DAL.Container.Instance.NeedItems
+                          where n.RequestResponseId == rr.Id && n.ItemType == ni.ItemType
+                          select n).FirstOrDefault();
+            var amSupp = nSupplied.SuppliedAmount;
+
+            res += sep + ni.ItemType + sep + ni.MetricType + sep + (ni.ItemAmount-ni.SuppliedAmount)
+                + sep + amSupp;
         }
         msg = "";
         return res + sep;
@@ -208,6 +221,81 @@ public class WS : System.Web.Services.WebService
         }
         msg = "";
         return alert.Alert.Message;
+    }
+
+    [WebMethod(Description = "Used to report the progress of incidents")]
+    public void ProgressReport(string requestresponseID, string message, Utils.Enumerations.IncidentStatuses status, string username, string password, out string msg)
+    {
+        Utils.Log.WSLogger.Trace("Progress Report: username:{0}, password={1}, requestresponseID:{2}, message:{3} ", username, password, requestresponseID, message);
+
+        char sep = Utils.Collection.SeparatorChar;
+
+        var vol = (from v in DAL.Container.WSInstance.Volunteers
+                   where v.Username == username && v.Password == password
+                   select v).SingleOrDefault();
+        if (vol == null)
+        {
+            msg = "Username or password is incorrect";
+            Utils.Log.WSLogger.Error(msg);
+            return ;
+        }
+        int rrId = Utils.Convert.ToInt(requestresponseID, 0);
+
+        var request = (from r in DAL.Container.WSInstance.RequestResponses
+                          where r.Volunteer_Id == vol.Id && r.Id == rrId
+                          select r.Request).SingleOrDefault();
+
+        if (request == null)
+        {
+            msg = "Request could be found";
+            Utils.Log.WSLogger.Error(msg);
+            return;
+        }
+        var pr = DAL.Container.Instance.ProgressReports.CreateObject();
+        pr.ReportText = message;
+        pr.DateSent = DateTime.Now;
+        pr.ImageFile = "";
+        pr.Incident = request.Incident;
+        pr.IncidentStatus = status;
+        pr.Volunteer = vol;
+        
+
+        msg = "";
+
+        DAL.Container.Instance.SaveChanges();
+    }
+
+    [WebMethod(Description = "Used to report new incidents")]
+    public void IncidentReport(string message, string location, Utils.Enumerations.IncidentTypes typeOfIncident, string username, string password, out string msg)
+    {
+        Utils.Log.WSLogger.Trace("Progress Report: username:{0}, password={1}, location:{2}, message:{3} ", username, password, location, message);
+
+        char sep = Utils.Collection.SeparatorChar;
+
+        var vol = (from v in DAL.Container.WSInstance.Volunteers
+                   where v.Username == username && v.Password == password
+                   select v).SingleOrDefault();
+        if (vol == null)
+        {
+            msg = "Username or password is incorrect";
+            Utils.Log.WSLogger.Error(msg);
+            return;
+        }
+
+        var ir = DAL.Container.Instance.IncidentReports.CreateObject();
+
+        ir.Description = message;
+        ir.ImageFile = "";
+        ir.VideoFile = "";
+        ir.Location = location;
+        ir.VideoFile = "";
+        ir.Volunteer = vol;
+        ir.IncidentType = typeOfIncident;
+        ir.LocationCoordinatesStr = "";
+
+        DAL.Container.Instance.SaveChanges();
+
+        msg = "";
     }
 }
 
