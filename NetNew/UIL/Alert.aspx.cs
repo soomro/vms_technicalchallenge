@@ -9,13 +9,12 @@ public partial class Alert : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //uncomment the line bellow after development
-        //RequireManager();
+        RequireManager();
 
         if (!IsPostBack)
         {
-          //for test purpose, remove this line
-            MainCrisis = DAL.Container.Instance.Crises.Single(r => r.Id==22);
+          //for test purpose uncomment line below
+          //  MainCrisis = DAL.Container.Instance.Crises.Single(r => r.Id==22);
             //filling up alerts
             var q = from alert in DAL.Container.Instance.Alerts
                     where alert.Crisis_Id == MainCrisis.Id

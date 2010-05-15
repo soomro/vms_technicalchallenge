@@ -47,8 +47,8 @@
             <tr>
                 <td class="formField" align="left" width="5%">
                     Alert Message:
-                    <asp:TextBox ID="txtMessage" runat="server" AutoPostBack="True" CssClass="tx" 
-                        Height="146px" ontextchanged="txtMessage_TextChanged" TextMode="MultiLine" 
+                    <asp:TextBox ID="txtMessage" runat="server" CssClass="tx" 
+                        Height="146px"  TextMode="MultiLine" 
                         Width="374px"></asp:TextBox>
                 </td>
                 <td class="value" rowspan="4">
