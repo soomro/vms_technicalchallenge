@@ -255,6 +255,7 @@ public class WS : System.Web.Services.WebService
         pr.ReportText = message;
         pr.DateSent = DateTime.Now;
         pr.ImageFile = "";
+        pr.VideoFile = "";
         pr.Incident = request.Incident;
         try
         {
@@ -276,7 +277,7 @@ public class WS : System.Web.Services.WebService
         }
         catch (Exception ex)
         {
-            msg = ex.Message;
+            msg = ex.Message + ":" + ex.InnerException.Message;
         }
     }
 
