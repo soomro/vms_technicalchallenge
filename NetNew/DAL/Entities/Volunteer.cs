@@ -60,6 +60,19 @@ namespace DAL
 
             return incorrects;
         }
+
+        public IList<string> _Coordinates;
+        public IList<string> Coordinates
+        {
+            get
+            {
+                if (_Coordinates == null)
+                {
+                    _Coordinates = new Utils.ObservableStringList(CoordinatesStr, "CoordinatesStr", this);
+                }
+                return _Coordinates;
+            }
+        }
     }
 
 }
