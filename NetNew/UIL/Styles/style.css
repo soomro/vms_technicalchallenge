@@ -49,12 +49,13 @@ div, h1, h2, h3, h4, p, form, label, input, textarea, img, span{
 }
 #topBox img.img1
 {
-	display:block;
-	font-size:0;
-	line-height:0;
-	float:left;
-	margin:10px 10px 10px 10px;
-	/*border:dashed 1px #000000;*/
+    border-style: none;
+    border-width: 0px;
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    float: left;
+    margin: 10px 10px 10px 10px; /*border:dashed 1px #000000;*/
 }
 #topBox h2
 {

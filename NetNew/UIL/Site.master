@@ -14,7 +14,7 @@
     </asp:ScriptManager>
     <div id="mainFrame">
         <div id="topBox">
-        <a href="CrisisBoard.aspx">
+        <a href="CrisisBoard.aspx" style="border-style: none;">
             <img src="Styles/Logo.png" alt="VMS Logo" width="259" height="105" 
                 class="img1" />
                 </a>
