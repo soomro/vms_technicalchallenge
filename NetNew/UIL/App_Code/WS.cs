@@ -224,7 +224,7 @@ public class WS : System.Web.Services.WebService
     }
 
     [WebMethod(Description = "Used to report the progress of incidents")]
-    public void ProgressReport(string requestresponseID, string message, Utils.Enumerations.IncidentStatuses status, string username, string password, out string msg)
+    public void ProgressReport(string requestresponseID, string message, int status, string username, string password, out string msg)
     {
         Utils.Log.WSLogger.Trace("Progress Report: username:{0}, password={1}, requestresponseID:{2}, message:{3} ", username, password, requestresponseID, message);
 
@@ -256,7 +256,7 @@ public class WS : System.Web.Services.WebService
         pr.DateSent = DateTime.Now;
         pr.ImageFile = "";
         pr.Incident = request.Incident;
-        pr.IncidentStatus = status;
+        pr.IncidentStatus = (Utils.Enumerations.IncidentStatuses)Enum.ToObject(typeof(Utils.Enumerations.IncidentStatuses), status);
         pr.Volunteer = vol;
         
 
@@ -266,7 +266,7 @@ public class WS : System.Web.Services.WebService
     }
 
     [WebMethod(Description = "Used to report new incidents")]
-    public void IncidentReport(string message, string location, Utils.Enumerations.IncidentTypes typeOfIncident, string username, string password, out string msg)
+    public void IncidentReport(string message, string location, string typeOfIncident, string username, string password, out string msg)
     {
         Utils.Log.WSLogger.Trace("Progress Report: username:{0}, password={1}, location:{2}, message:{3} ", username, password, location, message);
 
@@ -290,7 +290,7 @@ public class WS : System.Web.Services.WebService
         ir.Location = location;
         ir.VideoFile = "";
         ir.Volunteer = vol;
-        ir.IncidentType = typeOfIncident;
+        ir.IncidentType = (Utils.Enumerations.IncidentTypes)Enum.Parse(typeof(Utils.Enumerations.IncidentTypes), typeOfIncident);
         ir.LocationCoordinatesStr = "";
 
         DAL.Container.Instance.SaveChanges();
