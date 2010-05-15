@@ -11,10 +11,8 @@ public partial class UControls_UCSearchVolunteer : System.Web.UI.UserControl
     {
         if (!IsPostBack)
         {
-            lstVolunteers.DataSource = DAL.Container.Instance.Volunteers;
-            lstVolunteers.DataTextField = "NameLastName";
-            lstVolunteers.DataValueField = "Id";
-            lstVolunteers.DataBind();
+            gvVolList.DataSource = DAL.Container.Instance.Volunteers;
+            gvVolList.DataBind();
         }
     }
     public List<int> SelectedVolunteers
@@ -22,10 +20,11 @@ public partial class UControls_UCSearchVolunteer : System.Web.UI.UserControl
         get
         {
             var list = new List<int>();
-            foreach (ListItem item in lstVolunteers.Items)
+            foreach (GridViewRow row in gvVolList.Rows)
             {
-                if (item.Selected == true)
-                    list.Add(Convert.ToInt32(item.Value));
+                var chk = row.FindControl("chkSelected") as CheckBox;
+                if(chk.Checked)
+                    list.Add(Convert.ToInt32(this.gvVolList.DataKeys[row.RowIndex].Value.ToString()));
             }
             return list;
         }
@@ -36,5 +35,44 @@ public partial class UControls_UCSearchVolunteer : System.Web.UI.UserControl
         {
             return Utils.Collection.ToString<int>(SelectedVolunteers);
         }
+    }
+    public string SearchCriteriaString
+    {
+        get
+        {
+            return txtCriteria.Text;
+        }
+        set
+        {
+            txtCriteria.Text = value;
+        }
+    }
+
+    protected void gvVolList_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType != DataControlRowType.DataRow)
+        {
+            return;
+        }
+
+        var ni = e.Row.DataItem as DAL.Volunteer;
+        //var chkSent = e.Row.FindControl("chkSelected") as CheckBox;
+        var lblVolName = e.Row.FindControl("lblVolName") as Label;
+
+        lblVolName.Text = ni.NameLastName;
+    }
+    protected void txtCriteria_TextChanged(object sender, EventArgs e)
+    {
+        var array = txtCriteria.Text.Split(' ');
+        List<DAL.Volunteer> vols = new List<DAL.Volunteer>();
+        foreach (var item in array)
+        {
+            var q = from vol in DAL.Container.Instance.Volunteers
+                    where vol.EduAndTrainings.Contains(item)
+                    select vol;
+            vols.AddRange(q);
+        }
+        gvVolList.DataSource = vols;
+        gvVolList.DataBind();
     }
 }
