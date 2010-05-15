@@ -247,7 +247,7 @@ public class WS : System.Web.Services.WebService
 
         if (request == null)
         {
-            msg = "Request could be found";
+            msg = "Request could not be found";
             Utils.Log.WSLogger.Error(msg);
             return;
         }
@@ -256,9 +256,17 @@ public class WS : System.Web.Services.WebService
         pr.DateSent = DateTime.Now;
         pr.ImageFile = "";
         pr.Incident = request.Incident;
-        pr.IncidentStatus = (Utils.Enumerations.IncidentStatuses)Enum.ToObject(typeof(Utils.Enumerations.IncidentStatuses), status);
+        try
+        {
+            pr.IncidentStatus = (Utils.Enumerations.IncidentStatuses)status;
+        }
+        catch (Exception)
+        {
+            msg = "Status value is wrong";
+            return;
+        }
         pr.Volunteer = vol;
-        
+
 
         msg = "";
 
@@ -266,7 +274,7 @@ public class WS : System.Web.Services.WebService
     }
 
     [WebMethod(Description = "Used to report new incidents")]
-    public void IncidentReport(string message, string location, string typeOfIncident, string username, string password, out string msg)
+    public void IncidentReport(string message, string location, int typeOfIncident, string username, string password, out string msg)
     {
         Utils.Log.WSLogger.Trace("Progress Report: username:{0}, password={1}, location:{2}, message:{3} ", username, password, location, message);
 
@@ -290,7 +298,15 @@ public class WS : System.Web.Services.WebService
         ir.Location = location;
         ir.VideoFile = "";
         ir.Volunteer = vol;
-        ir.IncidentType = (Utils.Enumerations.IncidentTypes)Enum.Parse(typeof(Utils.Enumerations.IncidentTypes), typeOfIncident);
+        try
+        {
+            ir.IncidentType = (Utils.Enumerations.IncidentTypes)typeOfIncident;
+        }
+        catch (Exception)
+        {
+            msg = "Incident type value is wrong";
+            return;
+        }
         ir.LocationCoordinatesStr = "";
 
         DAL.Container.Instance.SaveChanges();
