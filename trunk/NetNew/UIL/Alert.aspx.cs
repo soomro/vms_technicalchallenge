@@ -9,12 +9,12 @@ public partial class Alert : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //RequireManager();
+        RequireManager();
 
         if (!IsPostBack)
         {
           //for test purpose uncomment line below
-            MainCrisis = DAL.Container.Instance.Crises.Single(r => r.Id==22);
+            //MainCrisis = DAL.Container.Instance.Crises.Single(r => r.Id==22);
             if (PageAction == PageActions.View)
             {
                 pnlAlertList.Visible = true;
