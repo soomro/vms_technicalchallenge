@@ -306,6 +306,7 @@ public class WS : System.Web.Services.WebService
         ir.Location = location;
         ir.VideoFile = "";
         ir.Volunteer = vol;
+        ir.ReportDate = DateTime.Now;
         try
         {
             ir.IncidentType = (Utils.Enumerations.IncidentTypes)typeOfIncident;
