@@ -73,22 +73,30 @@ public class PageBase : System.Web.UI.Page
     {
         get
         {
-            return Session["currentuser"] as Manager;
+            int id = Utils.Convert.ToInt(Session["currentuser"] + "", 0);
+            return (from v in DAL.Container.Instance.Managers
+                    where v.Id == id
+                    select v).FirstOrDefault();
         }
         set
         {
-            Session["currentuser"] = value;
+            if(value != null )
+                Session["currentuser"] = value.Id;
         }
     }
     public Volunteer CurrentVolunteer
     {
         get
         {
-            return Session["CurrentVolunteer"] as Volunteer;
+            int id = Utils.Convert.ToInt(Session["CurrentVolunteer"] + "", 0);
+            return (from v in DAL.Container.Instance.Volunteers
+                    where v.Id == id
+                    select v).FirstOrDefault();
         }
         set
         {
-            Session["CurrentVolunteer"] = value;
+            if (value != null)
+                Session["CurrentVolunteer"] = value.Id;
         }
     }
 
