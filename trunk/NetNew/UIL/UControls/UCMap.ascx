@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="UCMap" Codebehind="UCMap.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="UCMap.ascx.cs" Inherits="UCMap" %>
 
            
             

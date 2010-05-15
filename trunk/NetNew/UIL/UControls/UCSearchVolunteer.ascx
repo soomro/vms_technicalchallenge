@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="UControls_UCSearchVolunteer" Codebehind="UCSearchVolunteer.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="UCSearchVolunteer.ascx.cs" Inherits="UControls_UCSearchVolunteer" %>
 <style type="text/css">
 
 .tx

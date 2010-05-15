@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="UControls_UCIncidentMap" Codebehind="UCIncidentMap.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="UCIncidentMap.ascx.cs" Inherits="UControls_UCIncidentMap" %>
 
  <artem:GoogleMap ID="GoogleMap1" runat="server" Width="200px" Height="200px" 
              Key="ABQIAAAAC64nBBFT6BjEy-xaKDg-fhTCQnlm-Zk4MbF9g01i-wktUtPgyRSdP5g1d0wfYrLv-IjQmA9_w0iYMQ" 
