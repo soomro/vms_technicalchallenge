@@ -59,7 +59,7 @@ public class PageBase : System.Web.UI.Page
                     System.Web.HttpContext.Current.Items.Add(Constants.IdMainCrisis, obj);
             }
 
-            return System.Web.HttpContext.Current.Items[Constants.IdMainCrisis] as DAL.Crisis;
+            return System.Web.HttpContext.Current.Session[Constants.IdMainCrisis] as DAL.Crisis;
 
 
         }
