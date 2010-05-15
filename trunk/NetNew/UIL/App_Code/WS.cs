@@ -226,7 +226,7 @@ public class WS : System.Web.Services.WebService
     [WebMethod(Description = "Used to report the progress of incidents")]
     public void ProgressReport(string requestresponseID, string message, int status, string username, string password, out string msg)
     {
-        Utils.Log.WSLogger.Trace("Progress Report: username:{0}, password={1}, requestresponseID:{2}, message:{3} ", username, password, requestresponseID, message);
+        Utils.Log.WSLogger.Trace("Progress Report: username:{0}, password={1}, requestresponseID:{2}, message:{3}, status:{4} ", username, password, requestresponseID, message,status);
 
         char sep = Utils.Collection.SeparatorChar;
 
@@ -270,7 +270,14 @@ public class WS : System.Web.Services.WebService
 
         msg = "";
 
-        DAL.Container.Instance.SaveChanges();
+        try
+        {
+            DAL.Container.Instance.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            msg = ex.Message;
+        }
     }
 
     [WebMethod(Description = "Used to report new incidents")]

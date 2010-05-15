@@ -30,6 +30,14 @@
                                 SelectionType="DropDownList"    />
                         </td>
                     </tr>
+                     <tr>
+                        <td class="formField" runat="server" ID="rowStatus">
+                            Status
+                        </td>
+                        <td>
+                            <asp:Label ID="lbStatus" runat="server" />
+                        </td>
+                    </tr>
                     <tr>
                         <td class="formField">
                             Short Description
@@ -123,7 +131,8 @@
                         <td valign="top">
                           <asp:Button ID="btCancel" runat="server" Text="Cancel" onclick="btCancel_Click"  />
                         &nbsp;
-                            <asp:Button ID="btClose" runat="server" Text="Close" onclick="btClose_Click"  />
+                            <asp:Button ID="btClose" runat="server" Text="Close" OnClientClick="javascript:return confirm('Incident will be closed. Are you sure?');" onclick="btClose_Click"  />
+                            <asp:Button ID="btReactivate" runat="server" Text="Reactivate" onclick="btReactivate_Click"  />
                         &nbsp;
                             <asp:Button ID="btSave" runat="server" Text="Save" onclick="btSave_Click" />
                         &nbsp;<br />
