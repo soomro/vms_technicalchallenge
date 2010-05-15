@@ -11,7 +11,7 @@ CodeFile="Login.aspx.cs" Inherits="Login" %>
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">&nbsp;
     <table class="tblForm">
         <tr>
             <td class="style1">
