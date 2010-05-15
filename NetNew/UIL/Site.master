@@ -36,7 +36,7 @@
             
             </div>
         </div>
-        <div style="text-align:left" align="left">
+        <div style="text-align:left" align="left">&nbsp;
          <p id="massagePart" runat="server" Visible="false">
                &nbsp;<asp:BulletedList ID="blMessages" runat="server" >
               
