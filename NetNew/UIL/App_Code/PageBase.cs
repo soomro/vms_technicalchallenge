@@ -52,6 +52,7 @@ public class PageBase : System.Web.UI.Page
         {
             if ( ! System.Web.HttpContext.Current.Items.Contains(Constants.IdMainCrisis) )
             {
+                //Mohsen: I couldn't find the reason for this line. Maybe should be removed in final version
                 var obj = (from cr in DAL.Container.Instance.Crises
                                                                   where cr.StatusVal == (short)Utils.Enumerations.CrisisStatuses.Active
                                                                   select cr).FirstOrDefault();
