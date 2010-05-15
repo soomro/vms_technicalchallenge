@@ -28,13 +28,13 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_RequestResponseNeedItem", "RequestRespons", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.RequestRespons), "NeedItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.NeedItem), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_RequestResponseRequest", "Request", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Request), "RequestRespons", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.RequestRespons), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_VolunteerAddress", "Address", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Address), "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Volunteer), true)]
-[assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_IncidentReportVolunteer", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "IncidentReport", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.IncidentReport), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_VolunteerProgressReport", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "ProgressReport", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.ProgressReport), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_RequestResponseVolunteer", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Volunteer), "RequestRespons", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.RequestRespons), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_VolunteerStuffItem", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "StuffItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.StuffItem), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_ManagerAddress", "Address", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Address), "Manager", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Manager), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_AlertsVolunteers_Alerts", "Alert", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Alert), "AlertsVolunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.AlertsVolunteer), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_AlertsVolunteers_Volunteers", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "AlertsVolunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.AlertsVolunteer), true)]
+[assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_IncidentReportVolunteer", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "IncidentReport", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.IncidentReport), true)]
 
 #endregion
 
@@ -133,22 +133,6 @@ namespace DAL
             }
         }
         private ObjectSet<Crisis> _Crises;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<IncidentReport> IncidentReports
-        {
-            get
-            {
-                if ((_IncidentReports == null))
-                {
-                    _IncidentReports = base.CreateObjectSet<IncidentReport>("IncidentReports");
-                }
-                return _IncidentReports;
-            }
-        }
-        private ObjectSet<IncidentReport> _IncidentReports;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -293,6 +277,22 @@ namespace DAL
             }
         }
         private ObjectSet<AlertsVolunteer> _AlertsVolunteers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IncidentReport> IncidentReports
+        {
+            get
+            {
+                if ((_IncidentReports == null))
+                {
+                    _IncidentReports = base.CreateObjectSet<IncidentReport>("IncidentReports");
+                }
+                return _IncidentReports;
+            }
+        }
+        private ObjectSet<IncidentReport> _IncidentReports;
 
         #endregion
         #region AddTo Methods
@@ -319,14 +319,6 @@ namespace DAL
         public void AddToCrises(Crisis crisis)
         {
             base.AddObject("Crises", crisis);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the IncidentReports EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToIncidentReports(IncidentReport incidentReport)
-        {
-            base.AddObject("IncidentReports", incidentReport);
         }
     
         /// <summary>
@@ -399,6 +391,14 @@ namespace DAL
         public void AddToAlertsVolunteers(AlertsVolunteer alertsVolunteer)
         {
             base.AddObject("AlertsVolunteers", alertsVolunteer);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IncidentReports EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIncidentReports(IncidentReport incidentReport)
+        {
+            base.AddObject("IncidentReports", incidentReport);
         }
 
         #endregion
@@ -2167,6 +2167,30 @@ namespace DAL
         private global::System.Int32 _Volunteer_Id;
         partial void OnVolunteer_IdChanging(global::System.Int32 value);
         partial void OnVolunteer_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> ReportDate
+        {
+            get
+            {
+                return _ReportDate;
+            }
+            set
+            {
+                OnReportDateChanging(value);
+                ReportPropertyChanging("ReportDate");
+                _ReportDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ReportDate");
+                OnReportDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _ReportDate;
+        partial void OnReportDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnReportDateChanged();
 
         #endregion
     
@@ -4450,28 +4474,6 @@ namespace DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_Aso_IncidentReportVolunteer", "IncidentReport")]
-        public EntityCollection<IncidentReport> IncidentReports
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IncidentReport>("DataModel.FK_Aso_IncidentReportVolunteer", "IncidentReport");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IncidentReport>("DataModel.FK_Aso_IncidentReportVolunteer", "IncidentReport", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_Aso_VolunteerProgressReport", "ProgressReport")]
         public EntityCollection<ProgressReport> ProgressReports
         {
@@ -4550,6 +4552,28 @@ namespace DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AlertsVolunteer>("DataModel.FK_AlertsVolunteers_Volunteers", "AlertsVolunteer", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_Aso_IncidentReportVolunteer", "IncidentReport")]
+        public EntityCollection<IncidentReport> IncidentReports
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IncidentReport>("DataModel.FK_Aso_IncidentReportVolunteer", "IncidentReport");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IncidentReport>("DataModel.FK_Aso_IncidentReportVolunteer", "IncidentReport", value);
                 }
             }
         }
