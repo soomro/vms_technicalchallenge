@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeFile="Alert.aspx.cs" Inherits="Alert" %>
-
+    <%@ MasterType TypeName="SiteMaster" %>
 <%@ Register Src="UControls/UCSearchVolunteer.ascx" TagName="UCSearchVolunteer" TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>

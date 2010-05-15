@@ -13,10 +13,12 @@ public partial class Alert : PageBase
 
         if (!IsPostBack)
         {
+            
           //for test purpose uncomment line below
             //MainCrisis = DAL.Container.Instance.Crises.Single(r => r.Id==22);
             if (PageAction == PageActions.View)
             {
+                Master.PageTitle = "Alert List Page";
                 pnlAlertList.Visible = true;
                 pnlDivForm.Visible = false;
                 //filling up alerts
@@ -29,6 +31,7 @@ public partial class Alert : PageBase
             }
             else
             {
+                Master.PageTitle = "Create New Alert";
                 pnlAlertList.Visible = false;
                 pnlDivForm.Visible = true;
 
