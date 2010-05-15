@@ -9,19 +9,30 @@ public partial class Alert : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        RequireManager();
+        //RequireManager();
 
         if (!IsPostBack)
         {
           //for test purpose uncomment line below
-          //  MainCrisis = DAL.Container.Instance.Crises.Single(r => r.Id==22);
-            //filling up alerts
-            var q = from alert in DAL.Container.Instance.Alerts
-                    where alert.Crisis_Id == MainCrisis.Id
-                    orderby alert.DateSent
-                    select alert;
-            gvAlerts.DataSource = q;
-            gvAlerts.DataBind();
+            MainCrisis = DAL.Container.Instance.Crises.Single(r => r.Id==22);
+            if (PageAction == PageActions.View)
+            {
+                pnlAlertList.Visible = true;
+                pnlDivForm.Visible = false;
+                //filling up alerts
+                var q = from alert in DAL.Container.Instance.Alerts
+                        where alert.Crisis_Id == MainCrisis.Id
+                        orderby alert.DateSent
+                        select alert;
+                gvAlerts.DataSource = q;
+                gvAlerts.DataBind();
+            }
+            else
+            {
+                pnlAlertList.Visible = false;
+                pnlDivForm.Visible = true;
+
+            }
         }
     }
     protected void btnSend_Click(object sender, EventArgs e)
