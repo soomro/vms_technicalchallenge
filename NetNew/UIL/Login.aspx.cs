@@ -7,13 +7,14 @@ using System.Web.UI.WebControls;
 
 public partial class Login : PageBase
 {
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             Master.PageTitle = "Login Page";
         }
-        CurrentUser = null;
+        CurrentManager = null;
         CurrentVolunteer = null;
     }
     protected void btnRegister_Click(object sender, EventArgs e)
@@ -49,7 +50,11 @@ public partial class Login : PageBase
             var user = DAL.Container.Instance.Managers.SingleOrDefault(row => row.UserName == txtUserName.Text);
             if (user != null && user.Password == txtPassword.Text)
             {
-                CurrentUser = user;
+                CurrentManager = user;
+                if (!string.IsNullOrEmpty(Request["ReturnUrl"]))
+                {
+                    Response.Redirect(Server.UrlDecode(Request["ReturnUrl"]));
+                }
                 Response.Redirect(Constants.PageManagerProfile+"?Action=Edit");
             }
             else

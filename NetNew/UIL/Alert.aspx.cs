@@ -9,6 +9,8 @@ public partial class Alert : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        RequireManager();
+
         if (!IsPostBack)
         {
           //for test purpose, remove this line

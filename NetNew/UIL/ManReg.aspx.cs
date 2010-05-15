@@ -27,28 +27,28 @@ public partial class ManReg : PageBase
             { // initialize page for editing
 
                 // each manager can edit his own profile. check session for user info
-                if (CurrentUser==null)
+                if (CurrentManager == null)
                 {
                     Master.ShowMessage(MessageTypes.Error, "You must login to see your profile");
                     btnRegister.Enabled = false;
                     return;
                 }
 
-                txtFullName.Text = CurrentUser.NameLastName;
-                txtBirthDate.Text = CurrentUser.DateBirth.ToString("yyyy-MM-dd");
-                ucEnumSelectorGender.DefaultSelection = CurrentUser.GenderVal;
-                foreach (var item in CurrentUser.ExpertiseCrisisTypes)
+                txtFullName.Text = CurrentManager.NameLastName;
+                txtBirthDate.Text = CurrentManager.DateBirth.ToString("yyyy-MM-dd");
+                ucEnumSelectorGender.DefaultSelection = CurrentManager.GenderVal;
+                foreach (var item in CurrentManager.ExpertiseCrisisTypes)
                 {
                     txtExpertiseCrisisTypes.Text += item + Environment.NewLine;
                 }
-                txtCountry.Text = CurrentUser.Address.Country;
-                txtCity.Text= CurrentUser.Address.City;
-                txtStreet.Text = CurrentUser.Address.Street;
-                txtHouseNo.Text = CurrentUser.Address.HouseNumber;
-                txtFlatNo.Text = CurrentUser.Address.FlatNumber;
-                txtPostalCode.Text = CurrentUser.Address.PostalCode;
-                txtHouseNo.Text = CurrentUser.Address.HouseNumber;
-                txtUserName.Text = CurrentUser.UserName;
+                txtCountry.Text = CurrentManager.Address.Country;
+                txtCity.Text= CurrentManager.Address.City;
+                txtStreet.Text = CurrentManager.Address.Street;
+                txtHouseNo.Text = CurrentManager.Address.HouseNumber;
+                txtFlatNo.Text = CurrentManager.Address.FlatNumber;
+                txtPostalCode.Text = CurrentManager.Address.PostalCode;
+                txtHouseNo.Text = CurrentManager.Address.HouseNumber;
+                txtUserName.Text = CurrentManager.UserName;
                 txtUserName.Enabled = false;
 
                 btnRegister.Text = "Update";
@@ -56,7 +56,7 @@ public partial class ManReg : PageBase
 
             else if (PageAction == PageActions.Create)// Create crisis 
             {// initialize page for creating 
-                CurrentUser = null;
+                CurrentManager = null;
                 txtFullName.Text = "";
                 txtBirthDate.Text = "";
                 txtExpertiseCrisisTypes.Text  = "";
@@ -75,28 +75,28 @@ public partial class ManReg : PageBase
             else if (PageAction == PageActions.View)
             {
                 // each manager can view his own profile. check session for user info
-                if (CurrentUser==null)
+                if (CurrentManager==null)
                 {
                     Master.ShowMessage(MessageTypes.Error, "You must login to see your profile");
                     btnRegister.Enabled = false;
                     return;
                 }
 
-                txtFullName.Text = CurrentUser.NameLastName;
-                txtBirthDate.Text = CurrentUser.DateBirth.ToString("yyyy-MM-dd");
-                ucEnumSelectorGender.DefaultSelection = CurrentUser.GenderVal;
-                foreach (var item in CurrentUser.ExpertiseCrisisTypes)
+                txtFullName.Text = CurrentManager.NameLastName;
+                txtBirthDate.Text = CurrentManager.DateBirth.ToString("yyyy-MM-dd");
+                ucEnumSelectorGender.DefaultSelection = CurrentManager.GenderVal;
+                foreach (var item in CurrentManager.ExpertiseCrisisTypes)
                 {
                     txtExpertiseCrisisTypes.Text += item + Environment.NewLine;
                 }
-                txtCountry.Text = CurrentUser.Address.Country;
-                txtCity.Text= CurrentUser.Address.City;
-                txtStreet.Text = CurrentUser.Address.Street;
-                txtHouseNo.Text = CurrentUser.Address.HouseNumber;
-                txtFlatNo.Text = CurrentUser.Address.FlatNumber;
-                txtPostalCode.Text = CurrentUser.Address.PostalCode;
-                txtHouseNo.Text = CurrentUser.Address.HouseNumber;
-                txtUserName.Text = CurrentUser.UserName;
+                txtCountry.Text = CurrentManager.Address.Country;
+                txtCity.Text= CurrentManager.Address.City;
+                txtStreet.Text = CurrentManager.Address.Street;
+                txtHouseNo.Text = CurrentManager.Address.HouseNumber;
+                txtFlatNo.Text = CurrentManager.Address.FlatNumber;
+                txtPostalCode.Text = CurrentManager.Address.PostalCode;
+                txtHouseNo.Text = CurrentManager.Address.HouseNumber;
+                txtUserName.Text = CurrentManager.UserName;
                 txtUserName.Enabled = false;
 
                 btnRegister.Visible = false;
@@ -124,7 +124,7 @@ public partial class ManReg : PageBase
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
-        CurrentUser = null;
+        CurrentManager = null;
         Response.Redirect("~/Login.aspx");
     }
     protected void btnRegister_Click(object sender, EventArgs e)
@@ -136,9 +136,9 @@ public partial class ManReg : PageBase
         {
             Man = new DAL.Manager();
         }
-        else if (CurrentUser!=null && PageAction == PageActions.Edit)
+        else if (CurrentManager!=null && PageAction == PageActions.Edit)
         {
-            Man = CurrentUser;
+            Man = CurrentManager;
         }
         else
         {
@@ -201,7 +201,7 @@ public partial class ManReg : PageBase
 
         DAL.Container.Instance.SaveChanges();
 
-        CurrentUser = Man;
+        CurrentManager = Man;
         if (PageAction==PageActions.Create)
         {
             Master.ShowMessage(MessageTypes.Info, "Successfully saved.");

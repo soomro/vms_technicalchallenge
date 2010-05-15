@@ -37,6 +37,7 @@
         Exception lastException = Server.GetLastError();
         NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         logger.Fatal(lastException);
+        Utils.Errors.FireError("", lastException);
     }
 
     void Session_Start(object sender, EventArgs e) 

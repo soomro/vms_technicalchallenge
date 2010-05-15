@@ -9,6 +9,8 @@ public partial class CrisisBoard : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        RequireManager();
+
         if (MainCrisis==null)
         {
             Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "There is no active crisis!"

@@ -50,6 +50,7 @@
     <Compile Include="Constants\GlobalIds.cs" />
     <Compile Include="Convert.cs" />
     <Compile Include="Enumerations.cs" />
+    <Compile Include="ErrorUtil.cs" />
     <Compile Include="Exceptions\VMSException.cs" />
     <Compile Include="GeoUtil.cs" />
     <Compile Include="GridUtil.cs" />

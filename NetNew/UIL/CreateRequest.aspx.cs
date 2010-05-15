@@ -10,6 +10,8 @@ public partial class CreateRequest : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        RequireManager();
+
         if (!IsPostBack)
         {
             if (PageAction==PageActions.Create)

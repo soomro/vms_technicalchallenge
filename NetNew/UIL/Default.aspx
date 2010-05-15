@@ -22,4 +22,7 @@
         onclick="Button2_Click" />
 
 
+    <asp:Button ID="Button3" runat="server" onclick="Button3_Click" Text="Button" />
+
+
 </asp:Content>

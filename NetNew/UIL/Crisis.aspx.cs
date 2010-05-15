@@ -17,6 +17,8 @@ public partial class Crisis : PageBase
     //TODO: check user inputs
     protected void Page_Load(object sender, EventArgs e)
     {
+        RequireManager();
+
         if (!IsPostBack)
         {
             CrisisArea = null;
