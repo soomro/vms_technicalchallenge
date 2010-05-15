@@ -11,8 +11,7 @@ public partial class UControls_UCSearchVolunteer : System.Web.UI.UserControl
     {
         if (!IsPostBack)
         {
-            gvVolList.DataSource = DAL.Container.Instance.Volunteers;
-            gvVolList.DataBind();
+            
         }
     }
     public List<int> SelectedVolunteers
