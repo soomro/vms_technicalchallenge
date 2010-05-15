@@ -9,7 +9,8 @@ public partial class Alert : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        RequireManager();
+        //uncomment the line bellow after development
+        //RequireManager();
 
         if (!IsPostBack)
         {
@@ -58,8 +59,5 @@ public partial class Alert : PageBase
         lblSearch.Text = ni.SearchCriteriaStr;
         txtMessage.Text = ni.Message;
     }
-    protected void txtMessage_TextChanged(object sender, EventArgs e)
-    {
-
-    }
+    
 }
