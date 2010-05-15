@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ucRequestMap.ascx.cs" Inherits="UControls_ucRequestMap" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="UControls_ucRequestMap" Codebehind="ucRequestMap.ascx.cs" %>
 
 <asp:UpdatePanel runat="server" ID="up">
     <ContentTemplate>
