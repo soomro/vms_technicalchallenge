@@ -121,6 +121,8 @@
                         <td>
                             &nbsp;</td>
                         <td valign="top">
+                          <asp:Button ID="btCancel" runat="server" Text="Cancel" onclick="btCancel_Click"  />
+                        &nbsp;
                             <asp:Button ID="btClose" runat="server" Text="Close" onclick="btClose_Click"  />
                         &nbsp;
                             <asp:Button ID="btSave" runat="server" Text="Save" onclick="btSave_Click" />
