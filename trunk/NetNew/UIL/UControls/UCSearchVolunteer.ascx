@@ -22,8 +22,8 @@
             </tr>
             <tr>
                 <td class="formField" nowrap="nowrap" width="5%">
-                    <asp:TextBox ID="txtCriteria" runat="server" AutoPostBack="True" CssClass="tx" 
-                        Height="68px" TextMode="MultiLine" Width="100%"></asp:TextBox>
+                    <asp:TextBox ID="txtCriteria" runat="server" CssClass="tx" Height="68px" 
+                        TextMode="MultiLine" Width="100%"></asp:TextBox>
                 </td>
             </tr>
             <tr>
