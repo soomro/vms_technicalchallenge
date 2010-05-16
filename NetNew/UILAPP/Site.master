@@ -1,0 +1,66 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="SiteMaster" Codebehind="Site.master.cs" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title></title>
+    <link href="~/Styles/style.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <div id="mainFrame">
+        <div id="topBox">
+        <a href="CrisisBoard.aspx" style="border-style: none;">
+            <img src="Styles/Logo.png" alt="VMS Logo" width="259" height="105" 
+                class="img1" />
+                </a>
+            <h2>
+                &nbsp;</h2>
+            <h2>
+                 <asp:Label ID="lblPageTitle" runat="server" Text="Page Title"></asp:Label></h2>
+                       
+        </div>
+        <br class="spacer"/>
+        <div id="pagePath" class="frame" style="text-align:left;">
+            
+            <div id="navcontainer">
+
+
+            <asp:BulletedList ID="navlist" runat="server" DisplayMode="HyperLink" ClientIDMode="Static">
+               
+            </asp:BulletedList>
+            
+            </div>
+        </div>
+        <div style="text-align:left" align="left">&nbsp;
+         <p id="massagePart" runat="server" Visible="false">
+               &nbsp;<asp:BulletedList ID="blMessages" runat="server" >
+              
+                    </asp:BulletedList>
+            </p>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+         <br class="spacer"></br>
+        <!--footer start -->
+        <div id="footerMain">
+            <div id="footer">
+                <ul>
+                    <li><a href="#">Home
+                    <li><a href="#">About Us</a> |</li>
+                    <li><a href="#">Solutions</a> |</li>
+                    <li><a href="#">Support</a> |</li>
+                    <li><a href="#">Contact&nbsp;Us</a></li>
+                </ul>
+                <p class="copyright">
+                    Copyright © Apollo Group 2010. All Rights Reserved.</p>
+            </div>
+        </div>
+        <!--footer end -->
+    </div>
+    </form>
+</body>
+</html>

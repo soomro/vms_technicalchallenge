@@ -1,0 +1,430 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	padding:0;
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	background:#D5D08E;
+	
+
+}
+div, h1, h2, h3, h4, p, form, label, input, textarea, img, span{
+	margin:0; padding:0;
+    text-align: left;
+}
+/* ul{
+	margin:0; 
+	padding:0; 
+	list-style-type:none;
+	font-size:0;
+	line-height:0;
+}
+
+.spacer{
+	clear:both; 
+	font-size:0; 
+	line-height:5px;
+}
+/*------------------------------------------------main--------------------*/
+#mainFrame{
+	width:948px;
+	margin:10px auto 0 auto;
+}
+#topBox{
+	width:948px;
+	background:#D35406;
+	color:#FFBF98;
+	float:left;
+	margin:auto auto 5px auto;
+}
+
+
+#topBox p.rightTxt1{
+	display:block;
+	font:bold 12px/17px Arial, Helvetica, sans-serif;
+	color:#EEEABA;
+	background-color:inherit;
+	padding:0 0 5px 0;
+}
+#topBox img.img1
+{
+    border-style: none;
+    border-width: 0px;
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    float: left;
+    margin: 10px 10px 10px 10px; /*border:dashed 1px #000000;*/
+}
+#topBox h2
+{
+    display: block;
+    font: italic 28px/28px Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    background-color: inherit;
+    margin: 0 0 12px 0;
+    font-weight: bold;
+}
+.frame
+{
+    background-color:#E2DEA4;
+    margin:auto auto 5px auto;
+}
+.errorMessage
+{
+    background-color:Red;
+    color:White;
+}
+#pagePath
+{
+    width:948px;
+}
+#footerMain{
+	width:100%;
+	height:102px;
+}
+#footer{
+	width:948px;
+	margin:0 auto;
+	background:url(footer_bg.gif) 0 0 repeat-x;
+	height:102px;
+	position:relative;
+}
+#footer ul
+{
+    position:absolute;
+	left:305px;	
+    list-style-type: none;
+}
+#footer ul li{
+	float:left;
+	font:normal 11px/16px Arial, Helvetica, sans-serif;
+	color:#FFFFFA;
+	background-color:inherit;
+}
+#footer ul li a{
+	padding:0 7px;
+	font:normal 11px/16px Arial, Helvetica, sans-serif;
+	color:#FFFFFA;
+	background-color:inherit;
+	text-decoration:none;
+}
+#footer ul li a:hover{
+	color:#000;
+	background-color:inherit;
+}
+#footer p.copyright{
+	font:normal 11px/16px Arial, Helvetica, sans-serif;
+	color:#FFFFFA;
+	background-color:inherit;
+	position:absolute;
+	left:378px;
+	top:53px;
+}
+.tx
+{
+    border: thin solid #000080;
+    font-size: 11px;
+    font-family: Verdana;
+    font-weight: bold;
+    padding: 2px;
+}
+.buttons
+{
+    border: 3px solid #000080;
+    background-color: #FFFFFF;
+    color: #000000;
+    font-weight: bold;
+     padding: 2px;
+}
+.formField
+        {
+            font-size: 10px;
+            font-family: sans-serif;
+            color: #800000;
+        }
+
+/* Accordion */
+.accordionHeader
+{
+    border: 1px solid #2F4F4F;
+    color: white;
+    background-color: #2E4d7B;
+	font-family: Arial, Sans-Serif;
+	font-size: 12px;
+	font-weight: bold;
+    padding: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+#master_content .accordionHeader a
+{
+	color: #FFFFFF;
+	background: none;
+	text-decoration: none;
+}
+
+#master_content .accordionHeader a:hover
+{
+	background: none;
+	text-decoration: underline;
+}
+
+.accordionHeaderSelected
+{
+    border: 1px solid #2F4F4F;
+    color: white;
+    background-color: #5078B3;
+	font-family: Arial, Sans-Serif;
+	font-size: 12px;
+	font-weight: bold;
+    padding: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+#master_content .accordionHeaderSelected a
+{
+	color: #FFFFFF;
+	background: none;
+	text-decoration: none;
+}
+
+#master_content .accordionHeaderSelected a:hover
+{
+	background: none;
+	text-decoration: underline;
+}
+
+.accordionContent
+{
+    background-color: #D3DEEF;
+    border: 1px dashed #2F4F4F;
+    border-top: none;
+    padding: 5px;
+    padding-top: 10px;
+}
+/*******************************************/
+
+.modalBackground {
+	background-color:Gray;
+	filter:alpha(opacity=70);
+	opacity:0.7;
+}
+
+.selectedrow, .selectedrow td
+{
+    background-color: #FF8040;
+    color: #FFFFFF;
+}
+
+/* Used for incident info table in crisisboard*/
+div.dvIncInfo  
+{width:250px;
+} 
+div.dvIncInfo .header
+{
+    font-family: Tahoma;
+    color: #CC0000;
+    font-size: large;
+    text-decoration: underline;
+} 
+table.gmapincInfo
+{
+    width: 90%;
+    font-family: System;
+    font-size: small;
+    color: #000066;
+}
+
+table.gmapincInfo td.sevType
+{
+    background-color: #FF0000;
+    color: #FFFFFF;
+    padding: 5px;
+} 
+div.dvIncInfo table.menu td a
+{
+    font-family: 'font-family: Lucida Grande' , 'Trebuchet MS' , Verdana, Helvetica, sans-serif;
+    font-size: small;
+    color: #FF0000;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 50%;
+    letter-spacing: 90%;
+    overflow: visible;
+}
+div.dvIncInfo table.menu
+{
+    width: 90%;
+    table-layout: fixed;
+    empty-cells: show;
+}
+table.gmapincInfo 
+{
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #FF0000;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+/* Site map ************************** *********************** ************************/
+#navcontainer { margin-left: 30px; }
+
+/*Fat Erik's Breadcrumbs*/
+#navlist
+{
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+#navlist li
+{
+display: inline;
+padding: 5;
+margin: 0;
+}
+#navlist li a
+{
+    text-decoration: none;
+    color: #800000;
+    font-weight: bold;
+    font-size: medium;
+}
+
+#navlist li.active a
+{
+    text-decoration: underline;
+    color: #800000;
+    font-weight: normal;
+    font-size: medium;
+    cursor: text;
+}
+
+#navlist li:before { content: " > "; }
+#navlist li:first-child:before { content: ""; }
+
+/*IE workaround*/
+/*All IE browsers*/
+* html #navlist li
+{
+background-image: url("../images/gt.gif");
+background-repeat: no-repeat;
+background-position: 0 50%;
+padding: 0 0.5em 0 1em;
+margin: 0 1em 0 -1em;
+}
+
+/*Win IE browsers - hide from Mac IE\*/
+* html #navlist { height: 1%; }
+
+* html #navlist li
+{
+display: block;
+float: left;
+}
+
+/*End hide*/
+/*Mac IE 5*/
+* html #navlist li:first-child { background-image: none; }
+
+/* Site map************************** *********************** ********************** */ 
+
+
+
+/**********BLUE STYLE*******************************/
+
+table.bluestyle
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: smaller;
+	background: #fff;
+	margin: 15px;
+	width: 98%;
+	border-collapse: collapse;
+	text-align: left;
+}
+table.bluestyle th
+{
+	font-size: small;
+	font-weight: normal;
+	color: #039;
+	padding: 10px 8px;
+	border-bottom: 2px solid #6678b1;
+}
+table.bluestyle td
+{
+	border-bottom: 1px solid #ccc;
+	color: #669;
+	padding: 6px 8px;
+}
+table.bluestyle tbody tr:hover td
+{
+	color: #009;
+}/**********BLUE STYLE*******************************/
+
+/**********Small BLUE STYLE*******************************/
+
+table.smallbluestyle
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: smaller;
+	background: #fff;
+	margin: 5px;
+	width: 98%;
+	border-collapse: collapse;
+	text-align: left;
+}
+table.smallbluestyle th
+{
+	font-size: small;
+	font-weight: normal;
+	color: #039;
+	padding: 4px 5px;
+	border-bottom: 2px solid #6678b1;
+}
+table.smallbluestyle td
+{
+	border-bottom: 1px solid #ccc;
+	color: #669;
+	padding: 1px 2px;
+}
+table.smallbluestyle tbody tr:hover td
+{
+	color: #009;
+}/**********small BLUE STYLE*******************************/
+table.formTable
+{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: smaller;
+	color: #669;
+}
+
+table.formTable .strong, .strong
+{
+    font-weight: bold;
+    color: #000066;
+    font-size:larger;
+}
+table.formTable .label
+{
+    
+}
+table.formTable .value
+{
+    font-weight: bold;
+}
+
+.ErrorPage_ErrorMessage
+{
+	font-weight: bold;
+	font-size: medium;
+	color: #cc0066;
+	font-family: Verdana;
+	padding-left: 20px;
+	padding-top: 20px;
+}
