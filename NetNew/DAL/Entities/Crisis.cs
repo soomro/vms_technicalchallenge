@@ -3,11 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
+using Utils.Enumerations;
 
 namespace DAL
 {
     public partial class Crisis
     {
+        public IList<string> Validate()
+        {
+           // this string list will be filled with messages.
+            List<string> incorrects = new List<string>();
+
+            string msg;
+            if (!Utils.Validation.Check(Name, 3, 50, out msg, ValRules._StartsWith_abc, ValRules._Space, ValRules._abc,
+                                   ValRules._123))
+                incorrects.Add("Crisis name is not correct! " + msg);
+
+            if (this.DateCreated.Year < DateTime.Now.Year - 10 || this.DateCreated.Year > DateTime.Now.Year)
+                incorrects.Add("Creation date is incorrect.");
+
+            if (string.IsNullOrEmpty(this.Explanation))
+            {
+                incorrects.Add("Explanation can not be empty.");
+            }
+
+            if (this.LocationCoordinates.Count == 0 )
+            {
+                incorrects.Add("Location has not been defined.");
+            }
+           
+            return incorrects;
+        }
+
         public Utils.Enumerations.CrisisStatuses Status
         {
             get

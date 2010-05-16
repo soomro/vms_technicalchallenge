@@ -325,6 +325,12 @@ public partial class Incident : PageBase
         inc.ShortAddress = txShortAddress.Text;
         inc.LocationCoordinates.Add(UCIncidentMap1.Zoom+"");
 
+        var msgs = inc.Validate();
+        if (msgs.Count>0)
+        {
+            Master.ShowMessage(MessageTypes.Error,msgs.ToArray());
+            return;
+        }
         if(PageAction == PageActions.Create)
             Container.Instance.Incidents.AddObject(inc);
 

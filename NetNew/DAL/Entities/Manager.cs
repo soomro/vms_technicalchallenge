@@ -44,18 +44,18 @@ namespace DAL
              * Utils.Validation.Check(NameLastName, 5, 50, ValRules._abc,ValRules._123,ValRules._Space)
              * 
              */
-            if (!Utils.Validation.Check(NameLastName, 5, 50, ValRules._abc,ValRules._Space))
-                incorrects.Add("Name/Lastname can only be 5 to 50 long letters");
+            string msg;
+            if (!Utils.Validation.Check(NameLastName, 5, 50,out msg, ValRules._abc,ValRules._Space))
+                incorrects.Add("Name / Lastname is not correct. "+msg);
 
             if (this.Address.City == "" || this.Address.Country == "")
                 incorrects.Add("Country and city can not be empty");
 
-            if (!Utils.Validation.Check(UserName, 4, 16, ValRules._abc))
-                incorrects.Add("User name can only be 4 to 16 long letters");
+            if (!Utils.Validation.Check(UserName, 4, 16, out msg, ValRules._abc))
+                incorrects.Add("User name is not correct. "+ msg);
 
-            //password can be anything
-            //if (!Utils.Validation.Check(this.Password,3,16))
-            //    incorrects.Add("Password should be min. 3, max. 16 long");
+            if (!Utils.Validation.Check(this.Password, 3, 16,out msg))
+                incorrects.Add("Password should be min. 3, max. 16 long");
 
             if (this.ExpertiseCrisisTypes.Count==0)
                 incorrects.Add("At least one crisis expertise area is required");

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Utils.Enumerations;
 using Utils.Exceptions;
 
 public partial class CreateRequest : PageBase
@@ -168,6 +169,14 @@ public partial class CreateRequest : PageBase
         }
 
         req.SearchAreaCoordinatesStr = "";
+
+        var msg = req.Validate();
+        if (msg.Count > 0)
+        {
+            Master.ShowMessage(MessageTypes.Error, msg.ToArray());
+            return;
+        }
+
         if(PageAction== PageActions.Create)
             DAL.Container.Instance.Requests.AddObject(req);
         DAL.Container.Instance.SaveChanges();
