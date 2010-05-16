@@ -9,11 +9,12 @@ public partial class IncidentReports : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //RequireManager();
+        RequireManager();
         if (!IsPostBack)
         {
             Master.PageTitle = "Incident Reports";
             var q = from report in DAL.Container.Instance.IncidentReports
+                    //where crisisid=maincrisis.id
                     orderby report.ReportDate
                     select report;
             gvReports.DataSource = q;
