@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{396EFDBE-F74F-4547-9875-6B78B9216EA5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UILAPP</RootNamespace>
+    <AssemblyName>UILAPP</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\UIL\Bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Artem.GoogleMap">
+      <HintPath>..\UIL\Bin\Artem.GoogleMap.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\UIL\Bin\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="Alert.aspx" />
+    <Content Include="CreateRequest.aspx" />
+    <Content Include="Crisis.aspx" />
+    <Content Include="CrisisBoard.aspx" />
+    <Content Include="CrisisList.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\accident.jpg" />
+    <Content Include="Images\accident1.gif" />
+    <Content Include="Images\accident_created.gif" />
+    <Content Include="Images\add.png" />
+    <Content Include="Images\arrow-list-red.gif" />
+    <Content Include="Images\arrow-list.gif" />
+    <Content Include="Images\bomb2_created.gif" />
+    <Content Include="Images\bomb3_created.gif" />
+    <Content Include="Images\bomb_completed.gif" />
+    <Content Include="Images\bomb_created.gif" />
+    <Content Include="Images\bomb_resource.gif" />
+    <Content Include="Images\bomb_working.gif" />
+    <Content Include="Images\CollapsedBuilding_completed.gif" />
+    <Content Include="Images\CollapsedBuilding_Created.gif" />
+    <Content Include="Images\CollapsedBuilding_Resource.gif" />
+    <Content Include="Images\CollapsedBuilding_working.gif" />
+    <Content Include="Images\delete.gif" />
+    <Content Include="Images\earthquake-house-259x300.jpg" />
+    <Content Include="Images\edit.gif" />
+    <Content Include="Images\fire %281%29.jpg" />
+    <Content Include="Images\fire.jpg" />
+    <Content Include="Images\fire1_created.gif" />
+    <Content Include="Images\fire2.jpg" />
+    <Content Include="Images\fire2_created %282%29.gif" />
+    <Content Include="Images\fire2_created.gif" />
+    <Content Include="Images\fire3_created.gif" />
+    <Content Include="Images\fire_completed.gif" />
+    <Content Include="Images\fire_created.gif" />
+    <Content Include="Images\Fire_Extinguisher.jpg" />
+    <Content Include="Images\fire_resource.gif" />
+    <Content Include="Images\fire_working.gif" />
+    <Content Include="Images\flame.jpg" />
+    <Content Include="Images\flame2.jpeg" />
+    <Content Include="Images\flame2.jpg" />
+    <Content Include="Images\grd_alt.png" />
+    <Content Include="Images\grd_head.png" />
+    <Content Include="Images\grd_images %281%29.png" />
+    <Content Include="Images\grd_images %282%29.png" />
+    <Content Include="Images\grd_images.png" />
+    <Content Include="Images\grd_pgr.png" />
+    <Content Include="Images\gt.gif" />
+    <Content Include="Images\HeaderChrome.jpg" />
+    <Content Include="Images\HeaderChromeBlack.jpg" />
+    <Content Include="Images\HeaderGamer.jpg" />
+    <Content Include="Images\HeaderGamer_Hover.jpg" />
+    <Content Include="Images\HeaderGamer_left.jpg" />
+    <Content Include="Images\HeaderGlassBlack.jpg" />
+    <Content Include="Images\HeaderSoftGrey.jpg" />
+    <Content Include="Images\HeaderWhiteChrome.jpg" />
+    <Content Include="Images\icons_203.gif" />
+    <Content Include="Images\images %281%29.jpg" />
+    <Content Include="Images\images.jpg" />
+    <Content Include="Images\l1_down.gif" />
+    <Content Include="Images\l1_over.gif" />
+    <Content Include="Images\n_092_Wispectre_by_White__Flame.png" />
+    <Content Include="Images\PagerGamer.jpg" />
+    <Content Include="Images\remove.jpg" />
+    <Content Include="Images\storm_btn_on.jpg" />
+    <Content Include="Images\traffic_accident_CoolClips_tran0512.jpg" />
+    <Content Include="Images\YahooSprite.gif" />
+    <Content Include="Incident.aspx" />
+    <Content Include="IncidentList.aspx" />
+    <Content Include="IncidentReports.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="ManReg.aspx" />
+    <Content Include="ProgressReports.aspx" />
+    <Content Include="ResourceGathering.aspx" />
+    <Content Include="Scripts\jquery-1.3.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.3.2.js" />
+    <Content Include="Scripts\jquery-1.3.2.min.js" />
+    <Content Include="Styles\footer_bg.gif" />
+    <Content Include="Styles\Logo.png" />
+    <Content Include="Styles\LogoOrg.png" />
+    <Content Include="Styles\main_bg.gif" />
+    <Content Include="Styles\style.css" />
+    <Content Include="Styles\Verticalmenu.css" />
+    <Content Include="UControls\UCCreateCrisisMap.ascx" />
+    <Content Include="UControls\ucEnumSelector.ascx" />
+    <Content Include="UControls\UCIncidentMap.ascx" />
+    <Content Include="UControls\UCMap.ascx" />
+    <Content Include="UControls\ucRequestMap.ascx" />
+    <Content Include="UControls\UCSearchVolunteer.ascx" />
+    <Content Include="VolReg.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="NLog.config" />
+    <Content Include="WS.asmx" />
+    <None Include="Web.config_oldforapp" />
+    <None Include="Web.Debug.config_oldforapp">
+      <DependentUpon>Web.config_oldforapp</DependentUpon>
+    </None>
+    <None Include="Web.Release.config_oldforapp">
+      <DependentUpon>Web.config_oldforapp</DependentUpon>
+    </None>
+    <Content Include="WebForm1.aspx" />
+    <Content Include="Web.sitemap" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Alert.aspx.cs">
+      <DependentUpon>Alert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alert.aspx.designer.cs">
+      <DependentUpon>Alert.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Constants.cs" />
+    <Compile Include="Code\Enumerations.cs" />
+    <Compile Include="Code\PageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateRequest.aspx.cs">
+      <DependentUpon>CreateRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateRequest.aspx.designer.cs">
+      <DependentUpon>CreateRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Crisis.aspx.cs">
+      <DependentUpon>Crisis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Crisis.aspx.designer.cs">
+      <DependentUpon>Crisis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CrisisBoard.aspx.cs">
+      <DependentUpon>CrisisBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CrisisBoard.aspx.designer.cs">
+      <DependentUpon>CrisisBoard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CrisisList.aspx.cs">
+      <DependentUpon>CrisisList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CrisisList.aspx.designer.cs">
+      <DependentUpon>CrisisList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Incident.aspx.cs">
+      <DependentUpon>Incident.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Incident.aspx.designer.cs">
+      <DependentUpon>Incident.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="IncidentList.aspx.cs">
+      <DependentUpon>IncidentList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IncidentList.aspx.designer.cs">
+      <DependentUpon>IncidentList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="IncidentReports.aspx.cs">
+      <DependentUpon>IncidentReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IncidentReports.aspx.designer.cs">
+      <DependentUpon>IncidentReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManReg.aspx.cs">
+      <DependentUpon>ManReg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManReg.aspx.designer.cs">
+      <DependentUpon>ManReg.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProgressReports.aspx.cs">
+      <DependentUpon>ProgressReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProgressReports.aspx.designer.cs">
+      <DependentUpon>ProgressReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceGathering.aspx.cs">
+      <DependentUpon>ResourceGathering.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResourceGathering.aspx.designer.cs">
+      <DependentUpon>ResourceGathering.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\UCCreateCrisisMap.ascx.cs">
+      <DependentUpon>UCCreateCrisisMap.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UControls\UCCreateCrisisMap.ascx.designer.cs">
+      <DependentUpon>UCCreateCrisisMap.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\ucEnumSelector.ascx.cs">
+      <DependentUpon>ucEnumSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UControls\ucEnumSelector.ascx.designer.cs">
+      <DependentUpon>ucEnumSelector.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\UCIncidentMap.ascx.cs">
+      <DependentUpon>UCIncidentMap.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UControls\UCIncidentMap.ascx.designer.cs">
+      <DependentUpon>UCIncidentMap.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\UCMap.ascx.cs">
+      <DependentUpon>UCMap.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UControls\UCMap.ascx.designer.cs">
+      <DependentUpon>UCMap.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\ucRequestMap.ascx.cs">
+      <DependentUpon>ucRequestMap.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UControls\ucRequestMap.ascx.designer.cs">
+      <DependentUpon>ucRequestMap.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\UCSearchVolunteer.ascx.cs">
+      <DependentUpon>UCSearchVolunteer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UControls\UCSearchVolunteer.ascx.designer.cs">
+      <DependentUpon>UCSearchVolunteer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="VolReg.aspx.cs">
+      <DependentUpon>VolReg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VolReg.aspx.designer.cs">
+      <DependentUpon>VolReg.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.master.cs">
+      <DependentUpon>Site.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.master.designer.cs">
+      <DependentUpon>Site.master</DependentUpon>
+    </Compile>
+    <Compile Include="WS.asmx.cs">
+      <DependentUpon>WS.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{43500E36-4EA5-488B-91DA-EE19C16AB00C}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{6AFC6FE3-AE32-467D-B060-765A8D5E160F}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{D69A977D-72EF-43F7-8905-D447E95B5890}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Site.master" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>61848</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/APOLLO</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
