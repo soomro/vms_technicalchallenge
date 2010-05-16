@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using DAL;
+using Utils.Enumerations;
 
 public partial class Login : PageBase
 {
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -17,37 +14,37 @@ public partial class Login : PageBase
         CurrentManager = null;
         CurrentVolunteer = null;
     }
+
     protected void btnRegister_Click(object sender, EventArgs e)
     {
-        
-        if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Volunteer.ToString())
+        if (ddlUserType.SelectedValue == UserTypes.Volunteer.ToString())
         {
-            Response.Redirect(Constants.PageVolunteerProfile+"?Action=Create");
-
+            Response.Redirect(Constants.PageVolunteerProfile + "?Action=Create");
         }
-        else if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Manager.ToString())
+        else if (ddlUserType.SelectedValue == UserTypes.Manager.ToString())
         {
-            Response.Redirect(Constants.PageManagerProfile+"?Action=Create");
+            Response.Redirect(Constants.PageManagerProfile + "?Action=Create");
         }
     }
+
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Volunteer.ToString())
+        if (ddlUserType.SelectedValue == UserTypes.Volunteer.ToString())
         {
-            var user =DAL.Container.Instance.Volunteers.SingleOrDefault(row => row.Username == txtUserName.Text);
+            Volunteer user = Container.Instance.Volunteers.SingleOrDefault(row => row.Username == txtUserName.Text);
             if (user != null && user.Password == txtPassword.Text)
             {
                 CurrentVolunteer = user;
-                Response.Redirect(Constants.PageVolunteerProfile+"?Action=Edit");
+                Response.Redirect(Constants.PageVolunteerProfile + "?Action=Edit");
             }
             else
             {
-                Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "Username or password is wrong!");
+                Master.ShowMessage(MessageTypes.Error, "Username or password is wrong!");
             }
         }
-        if (ddlUserType.SelectedValue == Utils.Enumerations.UserTypes.Manager.ToString())
+        if (ddlUserType.SelectedValue == UserTypes.Manager.ToString())
         {
-            var user = DAL.Container.Instance.Managers.SingleOrDefault(row => row.UserName == txtUserName.Text);
+            Manager user = Container.Instance.Managers.SingleOrDefault(row => row.UserName == txtUserName.Text);
             if (user != null && user.Password == txtPassword.Text)
             {
                 CurrentManager = user;
@@ -55,11 +52,11 @@ public partial class Login : PageBase
                 {
                     Response.Redirect(Server.UrlDecode(Request["ReturnUrl"]));
                 }
-                Response.Redirect(Constants.PageManagerProfile+"?Action=Edit");
+                Response.Redirect(Constants.PageManagerProfile + "?Action=Edit");
             }
             else
             {
-                Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "Username or password is wrong!");
+                Master.ShowMessage(MessageTypes.Error, "Username or password is wrong!");
             }
         }
     }

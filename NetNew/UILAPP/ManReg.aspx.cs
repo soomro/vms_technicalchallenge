@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using DAL;
+using Utils.Constants;
 using Utils.Enumerations;
-
+using Convert = Utils.Convert;
 
 public partial class ManReg : PageBase
 {
@@ -14,17 +14,18 @@ public partial class ManReg : PageBase
         if (!IsPostBack)
         {
             Master.PageTitle = "Manager Registration";
-            ucEnumSelectorGender.EnumType = typeof(Utils.Enumerations.Gender);
-            ucEnumSelectorGender.DefaultSelection = Utils.Enumerations.Gender.Man;
+            ucEnumSelectorGender.EnumType = typeof (Gender);
+            ucEnumSelectorGender.DefaultSelection = Gender.Man;
 
 
             btnRegister.Visible = true;
-            btnCancel.Visible=true;
+            btnCancel.Visible = true;
 
-            pnlDivForm.Enabled =true;
+            pnlDivForm.Enabled = true;
 
             if (PageAction == PageActions.Edit)
-            { // initialize page for editing
+            {
+                // initialize page for editing
 
                 // each manager can edit his own profile. check session for user info
                 if (CurrentManager == null)
@@ -37,12 +38,12 @@ public partial class ManReg : PageBase
                 txtFullName.Text = CurrentManager.NameLastName;
                 txtBirthDate.Text = CurrentManager.DateBirth.ToString("yyyy-MM-dd");
                 ucEnumSelectorGender.DefaultSelection = CurrentManager.GenderVal;
-                foreach (var item in CurrentManager.ExpertiseCrisisTypes)
+                foreach (string item in CurrentManager.ExpertiseCrisisTypes)
                 {
                     txtExpertiseCrisisTypes.Text += item + Environment.NewLine;
                 }
                 txtCountry.Text = CurrentManager.Address.Country;
-                txtCity.Text= CurrentManager.Address.City;
+                txtCity.Text = CurrentManager.Address.City;
                 txtStreet.Text = CurrentManager.Address.Street;
                 txtHouseNo.Text = CurrentManager.Address.HouseNumber;
                 txtFlatNo.Text = CurrentManager.Address.FlatNumber;
@@ -54,28 +55,28 @@ public partial class ManReg : PageBase
                 btnRegister.Text = "Update";
             }
 
-            else if (PageAction == PageActions.Create)// Create crisis 
-            {// initialize page for creating 
+            else if (PageAction == PageActions.Create) // Create crisis 
+            {
+// initialize page for creating 
                 CurrentManager = null;
                 txtFullName.Text = "";
                 txtBirthDate.Text = "";
-                txtExpertiseCrisisTypes.Text  = "";
+                txtExpertiseCrisisTypes.Text = "";
                 txtCountry.Text = "";
-                txtCity.Text="";
+                txtCity.Text = "";
                 txtStreet.Text = "";
-                txtHouseNo.Text ="";
+                txtHouseNo.Text = "";
                 txtFlatNo.Text = "";
                 txtPostalCode.Text = "";
                 txtHouseNo.Text = "";
                 txtUserName.Text = "";
                 txtPassword.Text = "";
                 btnRegister.Text = "Register";
-
             }
             else if (PageAction == PageActions.View)
             {
                 // each manager can view his own profile. check session for user info
-                if (CurrentManager==null)
+                if (CurrentManager == null)
                 {
                     Master.ShowMessage(MessageTypes.Error, "You must login to see your profile");
                     btnRegister.Enabled = false;
@@ -85,12 +86,12 @@ public partial class ManReg : PageBase
                 txtFullName.Text = CurrentManager.NameLastName;
                 txtBirthDate.Text = CurrentManager.DateBirth.ToString("yyyy-MM-dd");
                 ucEnumSelectorGender.DefaultSelection = CurrentManager.GenderVal;
-                foreach (var item in CurrentManager.ExpertiseCrisisTypes)
+                foreach (string item in CurrentManager.ExpertiseCrisisTypes)
                 {
                     txtExpertiseCrisisTypes.Text += item + Environment.NewLine;
                 }
                 txtCountry.Text = CurrentManager.Address.Country;
-                txtCity.Text= CurrentManager.Address.City;
+                txtCity.Text = CurrentManager.Address.City;
                 txtStreet.Text = CurrentManager.Address.Street;
                 txtHouseNo.Text = CurrentManager.Address.HouseNumber;
                 txtFlatNo.Text = CurrentManager.Address.FlatNumber;
@@ -100,20 +101,18 @@ public partial class ManReg : PageBase
                 txtUserName.Enabled = false;
 
                 btnRegister.Visible = false;
-                btnCancel.Visible=false;
-                pnlDivForm.Enabled =false;
-                
+                btnCancel.Visible = false;
+                pnlDivForm.Enabled = false;
             }
             else if (PageAction == PageActions.Admin)
             {
                 pnlAdmin.Visible = true;
                 pnlDivForm.Visible = false;
-                var q = from man in DAL.Container.Instance.Managers
-                        where man.UserName!=Utils.Constants.GlobalIds.AdminUserName
-                        select man;
+                IQueryable<Manager> q = from man in Container.Instance.Managers
+                                        where man.UserName != GlobalIds.AdminUserName
+                                        select man;
                 gvuManagers.DataSource = q;
                 gvuManagers.DataBind();
-
             }
 
             else
@@ -122,21 +121,21 @@ public partial class ManReg : PageBase
             }
         }
     }
+
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         CurrentManager = null;
         Response.Redirect("~/Login.aspx");
     }
+
     protected void btnRegister_Click(object sender, EventArgs e)
     {
-
-
-        DAL.Manager Man;
-        if (PageAction ==PageActions.Create)
+        Manager Man;
+        if (PageAction == PageActions.Create)
         {
-            Man = new DAL.Manager();
+            Man = new Manager();
         }
-        else if (CurrentManager!=null && PageAction == PageActions.Edit)
+        else if (CurrentManager != null && PageAction == PageActions.Edit)
         {
             Man = CurrentManager;
         }
@@ -146,19 +145,19 @@ public partial class ManReg : PageBase
             pnlDivForm.Enabled = false;
             return;
         }
-        Man.Address = new DAL.Address
+        Man.Address = new Address
                           {
-                              City = Utils.Convert.SafeString(txtCity.Text),
-                              Country = Utils.Convert.SafeString(txtCountry.Text),
-                              FlatNumber = Utils.Convert.SafeString(txtFlatNo.Text),
-                              HouseNumber = Utils.Convert.SafeString(txtHouseNo.Text),
-                              PostalCode = Utils.Convert.SafeString(txtPostalCode.Text),
-                              Street = Utils.Convert.SafeString(txtStreet.Text)
+                              City = Convert.SafeString(txtCity.Text),
+                              Country = Convert.SafeString(txtCountry.Text),
+                              FlatNumber = Convert.SafeString(txtFlatNo.Text),
+                              HouseNumber = Convert.SafeString(txtHouseNo.Text),
+                              PostalCode = Convert.SafeString(txtPostalCode.Text),
+                              Street = Convert.SafeString(txtStreet.Text)
                           };
 
         var tempDate = new DateTime();
 
-        var succeed = DateTime.TryParse(Utils.Convert.SafeString(txtBirthDate.Text), out tempDate);
+        bool succeed = DateTime.TryParse(Convert.SafeString(txtBirthDate.Text), out tempDate);
         if (!succeed)
         {
             Master.ShowMessage(MessageTypes.Error, "Birth date is not correct");
@@ -166,32 +165,35 @@ public partial class ManReg : PageBase
         }
         Man.DateBirth = tempDate;
 
-        Man.NameLastName = Utils.Convert.SafeString(txtFullName.Text);
-        Man.GenderVal = (short)ucEnumSelectorGender.SelectedValue<Utils.Enumerations.Gender>();
+        Man.NameLastName = Convert.SafeString(txtFullName.Text);
+        Man.GenderVal = (short) ucEnumSelectorGender.SelectedValue<Gender>();
 
 
-        var lines = txtExpertiseCrisisTypes.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-        foreach (var line in lines)
+        string[] lines = txtExpertiseCrisisTypes.Text.Split(new[] {Environment.NewLine},
+                                                            StringSplitOptions.RemoveEmptyEntries);
+        foreach (string line in lines)
         {
-            var et = Utils.Convert.SafeString(line);
-            if (et!="")
+            string et = Convert.SafeString(line);
+            if (et != "")
                 Man.ExpertiseCrisisTypes.Add(et);
         }
 
-        Man.UserName = Utils.Convert.SafeString(txtUserName.Text);
-        Man.Password = Utils.Convert.SafeString(txtPassword.Text);
+        Man.UserName = Convert.SafeString(txtUserName.Text);
+        Man.Password = Convert.SafeString(txtPassword.Text);
 
-        if (PageAction == PageActions.Create && // if we are creating new profile and there is already someone with that username
-                DAL.Container.Instance.Managers.Count(man => man.UserName == Man.UserName) > 0)
+        if (PageAction == PageActions.Create &&
+            // if we are creating new profile and there is already someone with that username
+            Container.Instance.Managers.Count(man => man.UserName == Man.UserName) > 0)
         {
-            Master.ShowMessage(MessageTypes.Error, string.Format("'{0}' is not available. Please select another username", Man.UserName));
+            Master.ShowMessage(MessageTypes.Error,
+                               string.Format("'{0}' is not available. Please select another username", Man.UserName));
             return; // show error message and cancel operation
         }
 
-        var messages = Man.Validate(); // check the fields and return error messages if any
-        if (messages.Count>0) // there are error messages
+        IList<string> messages = Man.Validate(); // check the fields and return error messages if any
+        if (messages.Count > 0) // there are error messages
         {
-            Master.ShowMessage(MessageTypes.Error, messages.ToArray<string>()); // show them
+            Master.ShowMessage(MessageTypes.Error, messages.ToArray()); // show them
             return; // cancel operation
         }
 
@@ -199,43 +201,39 @@ public partial class ManReg : PageBase
         /* TODO: Login/Password functionality needs to be added later*/
 
         //save the object in db
-        if(PageAction==PageActions.Create)
-            DAL.Container.Instance.Managers.AddObject(Man);
+        if (PageAction == PageActions.Create)
+            Container.Instance.Managers.AddObject(Man);
 
-        DAL.Container.Instance.SaveChanges();
+        Container.Instance.SaveChanges();
 
         CurrentManager = Man;
-        if (PageAction==PageActions.Create)
+        if (PageAction == PageActions.Create)
         {
             Master.ShowMessage(MessageTypes.Info, "Successfully saved.");
-            RedirectAfter(4, Constants.PageManagerProfile+"?Action=Edit");
-            
+            RedirectAfter(4, Constants.PageManagerProfile + "?Action=Edit");
         }
-        else if (PageAction==PageActions.Edit)
+        else if (PageAction == PageActions.Edit)
         {
             //redirecting to Managers's profile page
-            Master.ShowMessage(MessageTypes.Info, "Successfully updated."); 
+            Master.ShowMessage(MessageTypes.Info, "Successfully updated.");
         }
-        
-        
-
-
     }
-   
+
     protected void ibtRemove_Command(object sender, CommandEventArgs e)
     {
-        int id = Utils.Convert.ToInt(e.CommandArgument as string, 0);
-        var rec = DAL.Container.Instance.Managers.SingleOrDefault(ni => ni.Id == id);
-        DAL.Container.Instance.Managers.DeleteObject(rec);
-        DAL.Container.Instance.SaveChanges();
+        int id = Convert.ToInt(e.CommandArgument as string, 0);
+        Manager rec = Container.Instance.Managers.SingleOrDefault(ni => ni.Id == id);
+        Container.Instance.Managers.DeleteObject(rec);
+        Container.Instance.SaveChanges();
 
-        gvuManagers.DataSource = DAL.Container.Instance.Managers;
+        gvuManagers.DataSource = Container.Instance.Managers;
         gvuManagers.DataBind();
     }
+
     protected void btnSaveChanges_Click(object sender, EventArgs e)
     {
-
     }
+
     protected void gvuManagers_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType != DataControlRowType.DataRow)
@@ -243,7 +241,7 @@ public partial class ManReg : PageBase
             return;
         }
 
-        var ni = e.Row.DataItem as DAL.Manager;
+        var ni = e.Row.DataItem as Manager;
         var chkApproved = e.Row.FindControl("chkApproved") as CheckBox;
         var lblFullName = e.Row.FindControl("lblFullName") as Label;
         var lblUserName = e.Row.FindControl("lblUserName") as Label;
@@ -251,20 +249,21 @@ public partial class ManReg : PageBase
 
         lblFullName.Text = ni.NameLastName;
         lblUserName.Text = ni.UserName;
-        chkApproved.Checked = (ni.Approved==null)?false:(bool)ni.Approved;
+        chkApproved.Checked = (ni.Approved == null) ? false : (bool) ni.Approved;
         ibtRemove.CommandArgument = ni.Id.ToString();
     }
+
     protected void chkApproved_CheckedChanged(object sender, EventArgs e)
     {
-        var chk=sender as CheckBox;
+        var chk = sender as CheckBox;
         var row = chk.NamingContainer as GridViewRow;
-        var id=Convert.ToInt32(this.gvuManagers.DataKeys[row.RowIndex].Value.ToString());
-        var rec = DAL.Container.Instance.Managers.SingleOrDefault(ni => ni.Id == id);
+        int id = System.Convert.ToInt32(gvuManagers.DataKeys[row.RowIndex].Value.ToString());
+        Manager rec = Container.Instance.Managers.SingleOrDefault(ni => ni.Id == id);
         rec.Approved = chk.Checked;
-        DAL.Container.Instance.SaveChanges();
+        Container.Instance.SaveChanges();
 
-        gvuManagers.DataSource = DAL.Container.Instance.Managers;
+        gvuManagers.DataSource = Container.Instance.Managers;
         gvuManagers.DataBind();
-        Master.ShowMessage(MessageTypes.Info, "Manager "+rec.NameLastName+" approve status changed");
+        Master.ShowMessage(MessageTypes.Info, "Manager " + rec.NameLastName + " approve status changed");
     }
 }

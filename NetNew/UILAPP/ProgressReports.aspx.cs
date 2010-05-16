@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using DAL;
+using Utils;
+using Utils.Enumerations;
+using Convert = Utils.Convert;
 
 public partial class ProgressReports : PageBase
 {
@@ -11,14 +12,14 @@ public partial class ProgressReports : PageBase
     {
         RequireManager();
 
-        Utils.GridStyleUtil gs = new Utils.GridStyleUtil(gvProgressReports, Utils.GridStyleEnum.Niko);
+        var gs = new GridStyleUtil(gvProgressReports, GridStyleEnum.Niko);
 
         if (!IsPostBack)
         {
             DAL.Incident i = GetIncidentFromIid();
             if (i == null)
             {
-                Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "Invalid parameter");
+                Master.ShowMessage(MessageTypes.Error, "Invalid parameter");
                 return;
             }
 
@@ -26,24 +27,25 @@ public partial class ProgressReports : PageBase
             gvProgressReports.DataBind();
             Master.PageTitle = "Progress Reports";
 
-            Master.SetSiteMap(new[] { 
-                new[] { "Crisis Board", "CrisisBoard.aspx" },
-                new[] { "Incident:"+i.ShortDescription, "Incident.aspx?action=Edit&iid="+i.Id },
-                new[] { "Progress Reports", "" },
-            });
+            Master.SetSiteMap(new[]
+                                  {
+                                      new[] {"Crisis Board", "CrisisBoard.aspx"},
+                                      new[] {"Incident:" + i.ShortDescription, "Incident.aspx?action=Edit&iid=" + i.Id},
+                                      new[] {"Progress Reports", ""},
+                                  });
         }
     }
 
     private DAL.Incident GetIncidentFromIid()
     {
-        var iid = Utils.Convert.ToInt(Request["iid"], 0);
+        int iid = Convert.ToInt(Request["iid"], 0);
         if (iid == 0)
         {
             return null;
         }
-        var obj = (from i in DAL.Container.Instance.Incidents
-                   where i.Id == iid
-                   select i).FirstOrDefault();
+        DAL.Incident obj = (from i in Container.Instance.Incidents
+                            where i.Id == iid
+                            select i).FirstOrDefault();
         return obj;
     }
 
@@ -53,21 +55,22 @@ public partial class ProgressReports : PageBase
         gvProgressReports.DataSource = GetIncidentFromIid().ProgressReports;
         gvProgressReports.DataBind();
     }
+
     protected void gv_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType != DataControlRowType.DataRow)
         {
             return;
         }
-        var p = e.Row.DataItem as DAL.ProgressReport;
+        var p = e.Row.DataItem as ProgressReport;
 
-        Utils.GridUtil g = new Utils.GridUtil(e.Row);
+        var g = new GridUtil(e.Row);
         //g.SetControlText("hlName", inc.ShortDescription, 20);
         //(g.GetControl("hlName") as HyperLink).NavigateUrl = Constants.PageIncident + "?iid=" + inc.Id + "&Action=Edit";
         g.SetControlText("lbDateSent", p.DateSent.ToString("dd MMM yy, hh:mm"));
         g.SetControlText("lbVolunteer", p.Volunteer.NameLastName);
         g.SetControlText("lbReportText", p.ReportText, 20);
-        g.SetControlText("lbStatus", Utils.Reflection.GetEnumDescription(p.IncidentStatus));
+        g.SetControlText("lbStatus", Reflection.GetEnumDescription(p.IncidentStatus));
         //g.SetControlText("lbIncidentType", Utils.Reflection.GetEnumDescription(inc.IncidentType));
 
 

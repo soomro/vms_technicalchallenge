@@ -1,19 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using Artem.Web.UI.Controls;
+using DAL;
+using Utils;
+using Utils.Enumerations;
 using Utils.Exceptions;
+using Convert = Utils.Convert;
 
 public partial class ResourceGathering : PageBase
 {
-    private DAL.Request SelectedRequest
+    private int rowindex;
+
+    private Request SelectedRequest
     {
         get
         {
-            int rid = Utils.Convert.ToInt(Session["SelectedRequest"] + "", 0);
-            return (from r in DAL.Container.Instance.Requests
+            int rid = Convert.ToInt(Session["SelectedRequest"] + "", 0);
+            return (from r in Container.Instance.Requests
                     where r.Id == rid
                     select r).FirstOrDefault();
         }
@@ -42,14 +48,14 @@ public partial class ResourceGathering : PageBase
             }
             catch (VMSException ex)
             {
-                Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, ex.Messages.ToArray());
+                Master.ShowMessage(MessageTypes.Error, ex.Messages.ToArray());
                 DisablePage();
                 return;
             }
 
             if (inc == null)
             {
-                Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "Specified incident could not be found");
+                Master.ShowMessage(MessageTypes.Error, "Specified incident could not be found");
                 return;
             }
 
@@ -64,20 +70,20 @@ public partial class ResourceGathering : PageBase
         pnRequestList.Visible = true;
 
         lbIncName.Text = inc.ShortDescription;
-        lbSeverity.Text = Utils.Reflection.GetEnumDescription(inc.Severity);
-        lbIncType.Text = Utils.Reflection.GetEnumDescription(inc.IncidentType);
-        lbStatus.Text = Utils.Reflection.GetEnumDescription(inc.IncidentStatus);
-        UCIncidentMap1.Incident = new Artem.Web.UI.Controls.GoogleMarker(
-            Utils.Convert.ToDouble(inc.LocationCoordinates[0], 0),
-            Utils.Convert.ToDouble(inc.LocationCoordinates[1], 0));
+        lbSeverity.Text = Reflection.GetEnumDescription(inc.Severity);
+        lbIncType.Text = Reflection.GetEnumDescription(inc.IncidentType);
+        lbStatus.Text = Reflection.GetEnumDescription(inc.IncidentStatus);
+        UCIncidentMap1.Incident = new GoogleMarker(
+            Convert.ToDouble(inc.LocationCoordinates[0], 0),
+            Convert.ToDouble(inc.LocationCoordinates[1], 0));
         if (inc.LocationCoordinates.Count > 2)
-            UCIncidentMap1.Zoom = Utils.Convert.ToInt(inc.LocationCoordinates[2], 8);
+            UCIncidentMap1.Zoom = Convert.ToInt(inc.LocationCoordinates[2], 8);
         UCIncidentMap1.ReadOnly = true;
 
-        DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, DAL.Container.Instance.Requests);
-        DAL.Container.Instance.DetectChanges();
+        Container.Instance.Refresh(RefreshMode.StoreWins, Container.Instance.Requests);
+        Container.Instance.DetectChanges();
         // Request List
-        var list = inc.Requests.ToList();
+        List<Request> list = inc.Requests.ToList();
         gvReqList.DataSource = list;
         gvReqList.DataBind();
 
@@ -115,7 +121,7 @@ public partial class ResourceGathering : PageBase
     /// <returns>Incident object that is specified in the URL</returns>
     private DAL.Incident GetIncident(bool refresh = false)
     {
-        var incId = Utils.Convert.ToInt(Request[Constants.IdIncidentId], 0);
+        int incId = Convert.ToInt(Request[Constants.IdIncidentId], 0);
         if (incId == 0)
         {
             throw new VMSException("Incident is not specified");
@@ -128,12 +134,10 @@ public partial class ResourceGathering : PageBase
         }
 
 
-        incObj = DAL.Container.Instance.Incidents.SingleOrDefault(inc => inc.Id == incId);
+        incObj = Container.Instance.Incidents.SingleOrDefault(inc => inc.Id == incId);
         Session[Constants.IdIncident] = incObj;
         return incObj;
     }
-
-    private int rowindex = 0;
 
     protected void gvReqList_RowDataBound(object sender, GridViewRowEventArgs e)
     {
@@ -142,7 +146,7 @@ public partial class ResourceGathering : PageBase
             return;
         }
 
-        var req = e.Row.DataItem as DAL.Request;
+        var req = e.Row.DataItem as Request;
 
         var lbtRequest = e.Row.FindControl("lbtRequest") as LinkButton;
         var ltStatus = e.Row.FindControl("ltStatus") as Literal;
@@ -158,13 +162,13 @@ public partial class ResourceGathering : PageBase
 
     protected void lbtRequest_Command(object sender, CommandEventArgs e)
     {
-        var reqidstr = (e.CommandArgument as string).Split('|')[0];
-        var rowindex = Utils.Convert.ToInt((e.CommandArgument as string).Split('|')[1], -1);
+        string reqidstr = (e.CommandArgument as string).Split('|')[0];
+        int rowindex = Convert.ToInt((e.CommandArgument as string).Split('|')[1], -1);
 
-        int reqId = Utils.Convert.ToInt(reqidstr, 0);
+        int reqId = Convert.ToInt(reqidstr, 0);
 
-        DAL.Container.Instance.Requests.MergeOption = System.Data.Objects.MergeOption.OverwriteChanges;
-        var req = DAL.Container.Instance.Requests.SingleOrDefault(r => r.Id == reqId);
+        Container.Instance.Requests.MergeOption = MergeOption.OverwriteChanges;
+        Request req = Container.Instance.Requests.SingleOrDefault(r => r.Id == reqId);
         //DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, req);
         //DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, req.NeedItems);
         //DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, req.RequestResponses);
@@ -197,7 +201,7 @@ public partial class ResourceGathering : PageBase
             return;
         }
 
-        var ni = e.Row.DataItem as DAL.NeedItem;
+        var ni = e.Row.DataItem as NeedItem;
 
         var ltType = e.Row.FindControl("ltType") as Literal;
         var ltUnit = e.Row.FindControl("ltUnit") as Literal;
@@ -210,18 +214,18 @@ public partial class ResourceGathering : PageBase
         ltType.Text = ni.ItemType;
         ltAmt.Text = ni.ItemAmount + "";
         ltCollected.Text = ni.SuppliedAmount + "";
-        ltUnit.Text = Utils.Reflection.GetEnumDescription(ni.MetricType);
+        ltUnit.Text = Reflection.GetEnumDescription(ni.MetricType);
 
         ibtRemove.CommandArgument = ni.Id + "";
     }
 
     protected void ibtRemove_Command(object sender, CommandEventArgs e)
     {
-        int niid = Utils.Convert.ToInt(e.CommandArgument as string, 0);
-        var niToDel = DAL.Container.Instance.NeedItems.SingleOrDefault(ni => ni.Id == niid);
-        DAL.Container.Instance.NeedItems.DeleteObject(niToDel);
-        DAL.Container.Instance.SaveChanges();
-        DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, SelectedRequest);
+        int niid = Convert.ToInt(e.CommandArgument as string, 0);
+        NeedItem niToDel = Container.Instance.NeedItems.SingleOrDefault(ni => ni.Id == niid);
+        Container.Instance.NeedItems.DeleteObject(niToDel);
+        Container.Instance.SaveChanges();
+        Container.Instance.Refresh(RefreshMode.StoreWins, SelectedRequest);
 
         gvNeedList.DataSource = SelectedRequest.NeedItems;
         gvNeedList.DataBind();
@@ -235,10 +239,10 @@ public partial class ResourceGathering : PageBase
             return;
         }
 
-        var res = e.Row.DataItem as DAL.RequestRespons;
+        var res = e.Row.DataItem as RequestRespons;
 
-        DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, res.Volunteer);
-        DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, res.NeedItems);
+        Container.Instance.Refresh(RefreshMode.StoreWins, res.Volunteer);
+        Container.Instance.Refresh(RefreshMode.StoreWins, res.NeedItems);
 
         var hlVolName = e.Row.FindControl("hlVolName") as HyperLink;
         var lbResponse = e.Row.FindControl("lbResponse") as Label;
@@ -247,20 +251,20 @@ public partial class ResourceGathering : PageBase
         hlVolName.Text = res.Volunteer.NameLastName;
 
         hlVolName.NavigateUrl = "#";
-        if (res.Answer.HasValue && res.Answer.Value == true)
+        if (res.Answer.HasValue && res.Answer.Value)
             lbResponse.Text = "Accepted";
         if (res.Answer.HasValue && res.Answer.Value == false)
             lbResponse.Text = "Rejected";
         if (!res.Answer.HasValue)
             lbResponse.Text = "Waiting";
 
-        var supplied = "-";
-        foreach (DAL.NeedItem ni in res.NeedItems)
+        string supplied = "-";
+        foreach (NeedItem ni in res.NeedItems)
         {
-            DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, ni);
+            Container.Instance.Refresh(RefreshMode.StoreWins, ni);
             string s = ni.SuppliedAmount + " ";
-            if (ni.MetricType != Utils.Enumerations.MetricTypes.Item)
-                s += Utils.Reflection.GetEnumDescription(ni.MetricType) + " ";
+            if (ni.MetricType != MetricTypes.Item)
+                s += Reflection.GetEnumDescription(ni.MetricType) + " ";
             s += ni.ItemType + ", ";
 
             supplied += s;
@@ -277,11 +281,11 @@ public partial class ResourceGathering : PageBase
         {
             return;
         }
-        var ni = e.Row.DataItem as DAL.NeedItem;
+        var ni = e.Row.DataItem as NeedItem;
 
-        Utils.GridUtil g = new Utils.GridUtil(e.Row);
+        var g = new GridUtil(e.Row);
         g.SetControlText("lbType", ni.ItemType);
-        g.SetControlText("lbMetric", Utils.Reflection.GetEnumDescription(ni.MetricType));
+        g.SetControlText("lbMetric", Reflection.GetEnumDescription(ni.MetricType));
         g.SetControlText("lbAmount", ni.ItemAmount + "");
         g.SetControlText("lbSupplied", ni.SuppliedAmount + "");
     }

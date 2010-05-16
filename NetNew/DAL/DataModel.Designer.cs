@@ -35,6 +35,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DataModel", "FK_AlertsVolunteers_Alerts", "Alert", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Alert), "AlertsVolunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.AlertsVolunteer), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_AlertsVolunteers_Volunteers", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "AlertsVolunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.AlertsVolunteer), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_Aso_IncidentReportVolunteer", "Volunteer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Volunteer), "IncidentReport", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.IncidentReport), true)]
+[assembly: EdmRelationshipAttribute("DataModel", "FK_IncidentReports_Crises", "Crisis", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DAL.Crisis), "IncidentReport", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.IncidentReport), true)]
 
 #endregion
 
@@ -1463,6 +1464,28 @@ namespace DAL
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_IncidentReports_Crises", "IncidentReport")]
+        public EntityCollection<IncidentReport> IncidentReports
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IncidentReport>("DataModel.FK_IncidentReports_Crises", "IncidentReport");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IncidentReport>("DataModel.FK_IncidentReports_Crises", "IncidentReport", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -2191,6 +2214,30 @@ namespace DAL
         private Nullable<global::System.DateTime> _ReportDate;
         partial void OnReportDateChanging(Nullable<global::System.DateTime> value);
         partial void OnReportDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Crisis_Id
+        {
+            get
+            {
+                return _Crisis_Id;
+            }
+            set
+            {
+                OnCrisis_IdChanging(value);
+                ReportPropertyChanging("Crisis_Id");
+                _Crisis_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Crisis_Id");
+                OnCrisis_IdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Crisis_Id;
+        partial void OnCrisis_IdChanging(Nullable<global::System.Int32> value);
+        partial void OnCrisis_IdChanged();
 
         #endregion
     
@@ -2230,6 +2277,44 @@ namespace DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Volunteer>("DataModel.FK_Aso_IncidentReportVolunteer", "Volunteer", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "FK_IncidentReports_Crises", "Crisis")]
+        public Crisis Crisis
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Crisis>("DataModel.FK_IncidentReports_Crises", "Crisis").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Crisis>("DataModel.FK_IncidentReports_Crises", "Crisis").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Crisis> CrisisReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Crisis>("DataModel.FK_IncidentReports_Crises", "Crisis");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Crisis>("DataModel.FK_IncidentReports_Crises", "Crisis", value);
                 }
             }
         }

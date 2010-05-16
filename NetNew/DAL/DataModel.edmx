@@ -87,6 +87,10 @@
             <End Role="Volunteers" EntitySet="Volunteers" />
             <End Role="StuffItems" EntitySet="StuffItems" />
           </AssociationSet>
+          <AssociationSet Name="FK_IncidentReports_Crises" Association="DataModel.Store.FK_IncidentReports_Crises">
+            <End Role="Crises" EntitySet="Crises" />
+            <End Role="IncidentReports" EntitySet="IncidentReports" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Addresses">
           <Key>
@@ -148,6 +152,7 @@
           <Property Name="IncidentId" Type="int" Nullable="false" />
           <Property Name="Volunteer_Id" Type="int" Nullable="false" />
           <Property Name="ReportDate" Type="datetime" />
+          <Property Name="Crisis_Id" Type="int" />
         </EntityType>
         <EntityType Name="Incidents">
           <Key>
@@ -464,6 +469,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_IncidentReports_Crises">
+          <End Role="Crises" Type="DataModel.Store.Crises" Multiplicity="0..1" />
+          <End Role="IncidentReports" Type="DataModel.Store.IncidentReports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Crises">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncidentReports">
+              <PropertyRef Name="Crisis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -550,6 +567,10 @@
             <End Role="Volunteer" EntitySet="Volunteers" />
             <End Role="IncidentReport" EntitySet="IncidentReports" />
           </AssociationSet>
+          <AssociationSet Name="FK_IncidentReports_Crises" Association="DataModel.FK_IncidentReports_Crises">
+            <End Role="Crisis" EntitySet="Crises" />
+            <End Role="IncidentReport" EntitySet="IncidentReports" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -594,6 +615,7 @@
           <Property Type="DateTime" Name="DateClosed" />
           <NavigationProperty Name="Alerts" Relationship="DataModel.FK_Aso_AlertCrisis" FromRole="Crisis" ToRole="Alert" />
           <NavigationProperty Name="Incidents" Relationship="DataModel.FK_Aso_CrisisIncident" FromRole="Crisis" ToRole="Incident" />
+          <NavigationProperty Name="IncidentReports" Relationship="DataModel.FK_IncidentReports_Crises" FromRole="Crisis" ToRole="IncidentReport" />
         </EntityType>
         <EntityType Name="Incident">
           <Key>
@@ -948,6 +970,8 @@
           <Property Type="Int32" Name="Volunteer_Id" Nullable="false" />
           <Property Type="DateTime" Name="ReportDate" />
           <NavigationProperty Name="Volunteer" Relationship="DataModel.FK_Aso_IncidentReportVolunteer" FromRole="IncidentReport" ToRole="Volunteer" />
+          <Property Type="Int32" Name="Crisis_Id" />
+          <NavigationProperty Name="Crisis" Relationship="DataModel.FK_IncidentReports_Crises" FromRole="IncidentReport" ToRole="Crisis" />
         </EntityType>
         <Association Name="FK_Aso_IncidentReportVolunteer">
           <End Type="DataModel.Volunteer" Role="Volunteer" Multiplicity="1" />
@@ -958,6 +982,18 @@
             </Principal>
             <Dependent Role="IncidentReport">
               <PropertyRef Name="Volunteer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IncidentReports_Crises">
+          <End Type="DataModel.Crisis" Role="Crisis" Multiplicity="0..1" />
+          <End Type="DataModel.IncidentReport" Role="IncidentReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Crisis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncidentReport">
+              <PropertyRef Name="Crisis_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1139,6 +1175,7 @@
           <EntitySetMapping Name="IncidentReports">
             <EntityTypeMapping TypeName="DataModel.IncidentReport">
               <MappingFragment StoreEntitySet="IncidentReports">
+                <ScalarProperty Name="Crisis_Id" ColumnName="Crisis_Id" />
                 <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
                 <ScalarProperty Name="Volunteer_Id" ColumnName="Volunteer_Id" />
                 <ScalarProperty Name="IncidentId" ColumnName="IncidentId" />
@@ -1233,6 +1270,8 @@
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_Aso_RequestResponseVolunteer" >
           <ConnectorPoint PointX="4.5" PointY="13.15625" />
+          <ConnectorPoint PointX="5.635416666666667" PointY="13.15625" />
+          <ConnectorPoint PointX="5.802083333333333" PointY="13.15625" />
           <ConnectorPoint PointX="7.197916666666667" PointY="13.15625" />
           <ConnectorPoint PointX="7.364583333333333" PointY="13.15625" />
           <ConnectorPoint PointX="8.25" PointY="13.15625" />
@@ -1263,8 +1302,13 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="DataModel.IncidentReport" Width="1.5" PointX="5.25" PointY="13.375" Height="3.1340950520833406" />
         <AssociationConnector Association="DataModel.FK_Aso_IncidentReportVolunteer" >
-          <ConnectorPoint PointX="4.5" PointY="14.942047526041669" />
-          <ConnectorPoint PointX="5.25" PointY="14.942047526041669" />
+          <ConnectorPoint PointX="4.5" PointY="15.134348958333334" />
+          <ConnectorPoint PointX="5.25" PointY="15.134348958333334" />
+        </AssociationConnector>
+        <AssociationConnector Association="DataModel.FK_IncidentReports_Crises" >
+          <ConnectorPoint PointX="4.625" PointY="7.4297493489583326" />
+          <ConnectorPoint PointX="5.71875" PointY="7.4297493489583326" />
+          <ConnectorPoint PointX="5.71875" PointY="13.375" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

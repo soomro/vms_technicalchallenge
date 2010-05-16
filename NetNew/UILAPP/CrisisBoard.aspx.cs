@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using Utils.Enumerations;
 
 public partial class CrisisBoard : PageBase
 {
@@ -11,28 +8,29 @@ public partial class CrisisBoard : PageBase
     {
         RequireManager();
 
-        if (MainCrisis==null)
+        if (MainCrisis == null)
         {
-            Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "There is no active crisis!"
-                ,"You will directed to crisis page to create one.");
+            Master.ShowMessage(MessageTypes.Error, "There is no active crisis!"
+                               , "You will directed to crisis page to create one.");
             RedirectAfter(4, Constants.PageCrisis);
         }
 
         Master.PageTitle = "Crisis Dashboard: " + MainCrisis.Name;
 
         // this will automatically set the data source.
-        cbxShowClosed_CheckedChanged(null, null); 
+        cbxShowClosed_CheckedChanged(null, null);
 
         hlIncidentlist.HRef = Constants.PageIncidents + "?cid=" + MainCrisis.Id;
-        
-        Master.SetSiteMap(new[] { new[] { "Crisis Board", "CrisisBoard.aspx" } });
+
+        Master.SetSiteMap(new[] {new[] {"Crisis Board", "CrisisBoard.aspx"}});
     }
 
     protected void cbxShowClosed_CheckedChanged(object sender, EventArgs e)
     {
         if (!cbxShowClosed.Checked)
         {
-            UCMap1.Incidents = MainCrisis.Incidents.Where(c => c.IncidentStatusVal!= (short)Utils.Enumerations.IncidentStatuses.Complete).ToList();
+            UCMap1.Incidents =
+                MainCrisis.Incidents.Where(c => c.IncidentStatusVal != (short) IncidentStatuses.Complete).ToList();
         }
         else
         {

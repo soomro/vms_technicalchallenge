@@ -2,12 +2,14 @@
 using System.Linq;
 using System.Web.UI.WebControls;
 using DAL;
+using Utils;
 
 public partial class IncidentReports : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         RequireManager();
+        GridStyleUtil gs = new GridStyleUtil(gvReports, GridStyleEnum.Niko);
         if (!IsPostBack)
         {
             Master.PageTitle = "Incident Reports";
@@ -26,18 +28,16 @@ public partial class IncidentReports : PageBase
         {
             return;
         }
-
+        Utils.GridUtil gu = new GridUtil(e.Row);
+        
         var ni = e.Row.DataItem as IncidentReport;
-        var lblSent = e.Row.FindControl("lblSent") as Label;
-        var lblLocation = e.Row.FindControl("lblLocation") as Label;
-        var lblType = e.Row.FindControl("lblType") as Label;
-        var txtMessage = e.Row.FindControl("txtMessage") as TextBox;
-
-// ReSharper disable PossibleNullReferenceException
-        lblSent.Text = (ni.ReportDate.HasValue) ? ni.ReportDate.Value.ToString() : string.Empty;
-        lblLocation.Text = ni.Location;
-        txtMessage.Text = ni.Description;
-        lblType.Text = ni.IncidentType.ToString();
-// ReSharper restore PossibleNullReferenceException
+        gu.SetControlText("lbMessage",ni.Description,30);
+        if (ni.ReportDate != null) gu.SetControlText("lbSent",ni.ReportDate.Value.ToString("dd MM yyyy, hh:MM"));
+        gu.SetControlText("lbLocation",ni.Location);
+        gu.SetControlText("lbType", Utils.Reflection.GetEnumDescription(ni.IncidentType));
+        var hl = gu.GetControl("hlReporter") as HyperLink;
+        hl.Text = ni.Volunteer.NameLastName;
+        hl.NavigateUrl = Constants.PageVolunteerProfile + "?vid=" + ni.Volunteer_Id;
+      
     }
 }
