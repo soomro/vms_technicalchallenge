@@ -11,7 +11,7 @@ namespace DAL
         {
             get
             {
-                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.IncidentTypes>(this.IncidentTypeVal, Utils.Enumerations.IncidentTypes.Accident);
+                return Utils.Reflection.SafeConvertToEnum(this.IncidentTypeVal, Utils.Enumerations.IncidentTypes.Accident);
             }
             set
             {

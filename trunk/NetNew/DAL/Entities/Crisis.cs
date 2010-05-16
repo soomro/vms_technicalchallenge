@@ -1,87 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
+using Utils;
 using Utils.Enumerations;
 
 namespace DAL
 {
     public partial class Crisis
     {
-        public IList<string> Validate()
+        public IList<string> _locationCoordinates;
+
+        public CrisisStatuses Status
         {
-           // this string list will be filled with messages.
-            List<string> incorrects = new List<string>();
-
-            string msg;
-            if (!Utils.Validation.Check(Name, 3, 50, out msg, ValRules._StartsWith_abc, ValRules._Space, ValRules._abc,
-                                   ValRules._123))
-                incorrects.Add("Crisis name is not correct! " + msg);
-
-            if (this.DateCreated.Year < DateTime.Now.Year - 10 || this.DateCreated.Year > DateTime.Now.Year)
-                incorrects.Add("Creation date is incorrect.");
-
-            if (string.IsNullOrEmpty(this.Explanation))
-            {
-                incorrects.Add("Explanation can not be empty.");
-            }
-
-            if (this.LocationCoordinates.Count == 0 )
-            {
-                incorrects.Add("Location has not been defined.");
-            }
-           
-            return incorrects;
-        }
-
-        public Utils.Enumerations.CrisisStatuses Status
-        {
-            get
-            {
-                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.CrisisStatuses>(StatusVal, Utils.Enumerations.CrisisStatuses.Active);
-            }
+            get { return Reflection.SafeConvertToEnum(StatusVal, CrisisStatuses.Active); }
             set
             {
-                StatusVal = (Int16)value;
-                if (value == Utils.Enumerations.CrisisStatuses.Closed)
+                StatusVal = (short) value;
+                if (value == CrisisStatuses.Closed)
                     DateClosed = DateTime.Now;
             }
         }
-        public Utils.Enumerations.LocationTypes LocationType
-        {
-            get
-            {
-                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.LocationTypes>(LocationTypeVal, Utils.Enumerations.LocationTypes.Rectangle);
-            }
-            set
-            {
-                LocationTypeVal = (Int16)value;
-            }
-        }
-        public Utils.Enumerations.CrisisTypes CrisisType
-        {
-            get
-            {
-                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.CrisisTypes>(CrisisTypeVal, Utils.Enumerations.CrisisTypes.Earthquake);
-            }
-            set
-            {
-                CrisisTypeVal = (Int16)value;
-            }
-        }
-        public IList<string> _locationCoordinates = null;
 
+        [Obsolete("Different crisis location types have not been implemented.")]
+        public LocationTypes LocationType
+        {
+            get { return Reflection.SafeConvertToEnum(LocationTypeVal, LocationTypes.Rectangle); }
+            set { LocationTypeVal = (Int16) value; }
+        }
+
+        public CrisisTypes CrisisType
+        {
+            get { return Reflection.SafeConvertToEnum(CrisisTypeVal, CrisisTypes.Earthquake); }
+            set { CrisisTypeVal = (Int16) value; }
+        }
+
+        /// <summary>
+        /// Contains Latitude, Longitude and Radius values for the location.
+        /// </summary>
         public IList<string> LocationCoordinates
         {
             get
             {
-                if (_locationCoordinates == null)
-                {
-                    _locationCoordinates = new Utils.ObservableStringList(LocationCoordinatesStr, "LocationCoordinatesStr", this);
-                }
+                if (_locationCoordinates != null) return _locationCoordinates;
+                _locationCoordinates = new ObservableStringList(LocationCoordinatesStr, "LocationCoordinatesStr", this);
                 return _locationCoordinates;
             }
+        }
+
+        /// <summary>
+        /// Checks important values and returns a string collection containing error messages.
+        /// </summary>
+        /// <returns>Error messages</returns>
+        public IList<string> Validate()
+        {
+            // this string list will be filled with messages.
+            var incorrects = new List<string>();
+
+            string msg;
+            if (!Validation.Check(Name, 3, 50, out msg, ValRules._StartsWith_abc, ValRules._Space, ValRules._abc,
+                                  ValRules._123))
+                incorrects.Add("Crisis name is not correct! " + msg);
+
+            if (DateCreated.Year < DateTime.Now.Year - 10 || DateCreated.Year > DateTime.Now.Year)
+                incorrects.Add("Creation date is incorrect.");
+
+            if (string.IsNullOrEmpty(Explanation))
+            {
+                incorrects.Add("Explanation can not be empty.");
+            }
+
+            if (LocationCoordinates.Count == 0)
+            {
+                incorrects.Add("Location has not been defined.");
+            }
+
+            return incorrects;
         }
     }
 }

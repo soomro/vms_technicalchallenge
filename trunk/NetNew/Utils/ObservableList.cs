@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Utils
 {
-    [Obsolete("This class is no longer used.")]
+
     public class ObservableStringList:ObservableCollection<string>
     {
         PropertySetter setterMethod = null;

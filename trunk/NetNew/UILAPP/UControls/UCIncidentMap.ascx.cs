@@ -1,61 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Artem.Web.UI.Controls;
-using System.Drawing;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
+using Utils;
+using Convert = Utils.Convert;
 
-public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
-{     
-    protected override void OnPreRender(EventArgs e)
-    {
-        GoogleMap1.Polygons.Clear();
-        GoogleMap1.Markers.Clear();
-
-        if (Incident!=null)
-        {
-            GoogleMap1.Markers.Add(Incident);
-            GoogleMap1.Latitude = Incident.Latitude;
-            GoogleMap1.Longitude = Incident.Longitude;
-        }
-        base.OnPreRender(e);
-    }
+public partial class UControls_UCIncidentMap : UserControl
+{
     public bool Enabled
     {
-        get
-        {
-            return GoogleMap1.Enabled;
-        }
+        get { return GoogleMap1.Enabled; }
         set { GoogleMap1.Enabled = value; }
     }
+
     public bool ReadOnly
     {
         get
         {
-            bool r = false;
-
             try
             {
-                r = (bool)ViewState["readonly"];
+                var r = (bool) ViewState["readonly"];
                 return r;
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+            }
 
             return false;
         }
         set
         {
             ViewState["readonly"] = value;
-            if (value==true)
+            if (value)
             {
                 GoogleMap1.Click -= GoogleMap1_Click;
                 GoogleMap1.EnableGoogleBar = false;
-                GoogleMap1.EnableInfoWindow = false; 
-
+                GoogleMap1.EnableInfoWindow = false;
             }
             else
             {
@@ -63,42 +44,23 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
             }
         }
     }
+
     public GoogleMarker Incident
     {
-        get
-        {
-            return Session["_Incident"] as GoogleMarker;
-        }
-        set
-        {
-            Session["_Incident"] = value;
-        }
-    } 
-     
-    protected void Page_Load(object sender, EventArgs e)
-    { 
-        if (!IsPostBack)
-        {
-            // set default location 57.7070820644457, lon:11.9915771484375 
-
-            GoogleMap1.Latitude= 57.7070820644457;
-            GoogleMap1.Longitude = 11.9915771484375;
-            //GoogleMap1.Zoom = 8;
-
-            
-        }
+        get { return Session["_Incident"] as GoogleMarker; }
+        set { Session["_Incident"] = value; }
     }
-    
+
     public Unit Width
     {
         get
         {
-            if (ViewState["mapWidth"]==null)
+            if (ViewState["mapWidth"] == null)
             {
                 ViewState["mapWidth"] = new Unit(300);
             }
 
-            return (int)ViewState["mapWidth"];
+            return (int) ViewState["mapWidth"];
         }
         set
         {
@@ -106,16 +68,18 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
             GoogleMap1.Width = value;
         }
     }
+
     public Unit Heigth
     {
         get
         {
-            if (ViewState["mapHeigth"]==null)
+            if (ViewState["mapHeigth"] == null)
             {
-                ViewState["mapHeigth"] = new Unit(300); ;
+                ViewState["mapHeigth"] = new Unit(300);
+                ;
             }
 
-            return (int)ViewState["mapHeigth"];
+            return (int) ViewState["mapHeigth"];
         }
         set
         {
@@ -123,38 +87,60 @@ public partial class UControls_UCIncidentMap : System.Web.UI.UserControl
             GoogleMap1.Height = value;
         }
     }
+
     public int Zoom
     {
-        get
-        {
-            return Utils.Convert.ToInt(ViewState["Zoom"]+"", 8);
-        }
+        get { return Convert.ToInt(ViewState["Zoom"] + "", 8); }
         set
         {
             ViewState["Zoom"] = value;
             GoogleMap1.Zoom = value;
         }
     }
-     
-    protected void GoogleMap1_Click(object sender, Artem.Web.UI.Controls.GoogleLocationEventArgs e)
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        GoogleMap1.Polygons.Clear();
+        GoogleMap1.Markers.Clear();
+
+        if (Incident != null)
+        {
+            GoogleMap1.Markers.Add(Incident);
+            GoogleMap1.Latitude = Incident.Latitude;
+            GoogleMap1.Longitude = Incident.Longitude;
+        }
+        base.OnPreRender(e);
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            // set default location 57.7070820644457, lon:11.9915771484375 
+
+            GoogleMap1.Latitude = 57.7070820644457;
+            GoogleMap1.Longitude = 11.9915771484375;
+            //GoogleMap1.Zoom = 8;
+        }
+    }
+
+    protected void GoogleMap1_Click(object sender, GoogleLocationEventArgs e)
     {
         Label1.Text = string.Format("lat:{0}, lon:{1}", e.Location.Latitude, e.Location.Longitude);
 
-        if (e.Location.Longitude==0 || e.Location.Latitude==0)
+        if (e.Location.Longitude == 0 || e.Location.Latitude == 0)
         {
             return;
         }
-         
-        GoogleMarker inc = new GoogleMarker(e.Location.Latitude, e.Location.Longitude);
-        inc.Clickable=false;
+
+        var inc = new GoogleMarker(e.Location.Latitude, e.Location.Longitude);
+        inc.Clickable = false;
         inc.Draggable = true;
         Incident = inc;
 
-        var name = Utils.GeoUtil.GetAddressName(e.Location.Latitude+"", e.Location.Longitude+"");
+        string name = GeoUtil.GetAddressName(e.Location.Latitude + "", e.Location.Longitude + "");
         HttpContext.Current.Items["adrName"] = name;
-        
+
         Zoom = GoogleMap1.Zoom;
-        
     }
-          
 }

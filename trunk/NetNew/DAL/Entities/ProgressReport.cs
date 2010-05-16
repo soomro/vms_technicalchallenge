@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Utils;
+using Utils.Enumerations;
 
-namespace DAL 
+namespace DAL
 {
     public partial class ProgressReport
     {
-        public Utils.Enumerations.IncidentStatuses IncidentStatus
+        public IncidentStatuses IncidentStatus
         {
-            get
-            {
-                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.IncidentStatuses>(StatusVal, Utils.Enumerations.IncidentStatuses.Working);
-            }
-            set
-            {
-                StatusVal = (Int16)value;
-            }
+            get { return Reflection.SafeConvertToEnum(StatusVal, IncidentStatuses.Working); }
+            set { StatusVal = (Int16) value; }
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using DAL;
 
 public partial class Alert : PageBase
 {
@@ -13,8 +11,7 @@ public partial class Alert : PageBase
 
         if (!IsPostBack)
         {
-            
-          //for test purpose uncomment line below
+            //for test purpose uncomment line below
             //MainCrisis = DAL.Container.Instance.Crises.Single(r => r.Id==22);
             if (PageAction == PageActions.View)
             {
@@ -22,10 +19,10 @@ public partial class Alert : PageBase
                 pnlAlertList.Visible = true;
                 pnlDivForm.Visible = false;
                 //filling up alerts
-                var q = from alert in DAL.Container.Instance.Alerts
-                        where alert.Crisis_Id == MainCrisis.Id
-                        orderby alert.DateSent
-                        select alert;
+                IOrderedQueryable<DAL.Alert> q = from alert in Container.Instance.Alerts
+                                                 where alert.Crisis_Id == MainCrisis.Id
+                                                 orderby alert.DateSent
+                                                 select alert;
                 gvAlerts.DataSource = q;
                 gvAlerts.DataBind();
             }
@@ -34,10 +31,10 @@ public partial class Alert : PageBase
                 Master.PageTitle = "Create New Alert";
                 pnlAlertList.Visible = false;
                 pnlDivForm.Visible = true;
-
             }
         }
     }
+
     protected void btnSend_Click(object sender, EventArgs e)
     {
         var alert = new DAL.Alert();
@@ -45,17 +42,18 @@ public partial class Alert : PageBase
         alert.SearchCriteriaStr = ucSearchVolunteer.SearchCriteriaString;
         alert.DateSent = DateTime.Now;
         alert.Crisis_Id = MainCrisis.Id;
-        DAL.Container.Instance.Alerts.AddObject(alert);
-        DAL.Container.Instance.SaveChanges();
-        foreach (var item in ucSearchVolunteer.SelectedVolunteers)
+        Container.Instance.Alerts.AddObject(alert);
+        Container.Instance.SaveChanges();
+        foreach (int item in ucSearchVolunteer.SelectedVolunteers)
         {
-            var temp=new DAL.AlertsVolunteer();
-            temp.Alert_Id=alert.Id;
-            temp.Volunteer_Id=item;
-            DAL.Container.Instance.AlertsVolunteers.AddObject(temp);
+            var temp = new AlertsVolunteer();
+            temp.Alert_Id = alert.Id;
+            temp.Volunteer_Id = item;
+            Container.Instance.AlertsVolunteers.AddObject(temp);
         }
-        DAL.Container.Instance.SaveChanges();
+        Container.Instance.SaveChanges();
     }
+
     protected void gvAlerts_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType != DataControlRowType.DataRow)
@@ -72,5 +70,4 @@ public partial class Alert : PageBase
         lblSearch.Text = ni.SearchCriteriaStr;
         txtMessage.Text = ni.Message;
     }
-    
 }

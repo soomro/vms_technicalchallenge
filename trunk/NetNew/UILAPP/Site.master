@@ -44,7 +44,7 @@
             </p>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
-         <br class="spacer"></br>
+         <br class="spacer"><br />
         <!--footer start -->
         <div id="footerMain">
             <div id="footer">

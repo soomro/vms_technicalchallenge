@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using DAL;
+using Utils;
 using Utils.Enumerations;
 using Utils.Exceptions;
+using Convert = Utils.Convert;
 
 public partial class CreateRequest : PageBase
 {
@@ -15,21 +16,19 @@ public partial class CreateRequest : PageBase
 
         if (!IsPostBack)
         {
-            if (PageAction==PageActions.Create)
+            if (PageAction == PageActions.Create)
             {
-                BindPage(GetIncident(true));
+                BindPage(GetIncident());
             }
-            else if (PageAction==PageActions.Edit)
+            else if (PageAction == PageActions.Edit)
             {
                 BindPageForEdit(GetRequest());
             }
         }
     }
 
-    private void BindPageForEdit(DAL.Request request)
+    private void BindPageForEdit(Request request)
     {
-        
-        
         rblStatus.SelectedValue = request.IsActive ? "Active" : "Suspended";
 
         BindPage(request.Incident);
@@ -40,9 +39,8 @@ public partial class CreateRequest : PageBase
         foreach (ListItem li in cblNeedlist.Items)
         {
             bool found = false;
-            foreach (DAL.NeedItem ni in request.NeedItems)
+            foreach (NeedItem ni in request.NeedItems)
             {
-
                 if (li.Text.StartsWith(ni.ItemType))
                 {
                     found = true;
@@ -50,35 +48,44 @@ public partial class CreateRequest : PageBase
                 }
             }
             if (found) li.Selected = true;
-
-        } 
+        }
         dvStatus.Visible = true;
         Master.PageTitle = "Edit Request";
-        Master.SetSiteMap(new[] { 
-                new[] { "Crisis Board", "CrisisBoard.aspx" },
-                new[] { "Incident:"+GetIncident().ShortDescription, "Incident.aspx?iid="+GetIncident().Id+"&action=Edit" },
-                new[] { "Resource Gathering", "ResourceGathering.aspx?iid="+GetIncident().Id  },
-                new[] { "Edit Request", "" },
-            });
+        Master.SetSiteMap(new[]
+                              {
+                                  new[] {"Crisis Board", "CrisisBoard.aspx"},
+                                  new[]
+                                      {
+                                          "Incident:" + GetIncident().ShortDescription,
+                                          "Incident.aspx?iid=" + GetIncident().Id + "&action=Edit"
+                                      },
+                                  new[] {"Resource Gathering", "ResourceGathering.aspx?iid=" + GetIncident().Id},
+                                  new[] {"Edit Request", ""},
+                              });
     }
 
     private void BindPage(DAL.Incident inc)
     {
         Master.PageTitle = "Create Request";
-        Master.SetSiteMap(new[] { 
-                new[] { "Crisis Board", "CrisisBoard.aspx" },
-                new[] { "Incident:"+inc.ShortDescription, "Incident.aspx?iid="+inc.Id+"&action=Edit" },
-                new[] { "Resource Gathering", "ResourceGathering.aspx?iid="+inc.Id  },
-                new[] { "Create Request", "" },
-            });
+        Master.SetSiteMap(new[]
+                              {
+                                  new[] {"Crisis Board", "CrisisBoard.aspx"},
+                                  new[]
+                                      {
+                                          "Incident:" + inc.ShortDescription,
+                                          "Incident.aspx?iid=" + inc.Id + "&action=Edit"
+                                      },
+                                  new[] {"Resource Gathering", "ResourceGathering.aspx?iid=" + inc.Id},
+                                  new[] {"Create Request", ""},
+                              });
 
         dvStatus.Visible = false;
         cblNeedlist.Items.Clear();
-        foreach (DAL.NeedItem item in inc.NeedItems)
+        foreach (NeedItem item in inc.NeedItems)
         {
-            ListItem li = new ListItem();
+            var li = new ListItem();
             li.Text = item.ItemType + string.Format(" ({1} {0})",
-                Utils.Reflection.GetEnumDescription(item.MetricType), item.ItemAmount);
+                                                    Reflection.GetEnumDescription(item.MetricType), item.ItemAmount);
             li.Value = item.Id + "";
             cblNeedlist.Items.Add(li);
         }
@@ -88,32 +95,30 @@ public partial class CreateRequest : PageBase
     ///<para> Retrieves the incident with the id in url, stores it in the session for further calls.</para>
     ///<para>if refresh=true then the incident re-read from DB. Otherwise it is returned from session</para>
     /// </summary>
-    /// <param name="refresh">If true, incident is re-read from DB</param>
-    /// <returns>Incident object that is specified in the URL</returns>
-    DAL.Incident GetIncident(bool refresh = false)
+    ///<returns>Incident object that is specified in the URL</returns>
+    private DAL.Incident GetIncident()
     {
-        var incId = Utils.Convert.ToInt(Request[Constants.IdIncidentId], 0);
+        int incId = Convert.ToInt(Request[Constants.IdIncidentId], 0);
         if (incId == 0)
         {
             throw new VMSException("Incident is not specified");
         }
-        
 
 
-         var incObj = DAL.Container.Instance.Incidents.SingleOrDefault(inc => inc.Id == incId);
+        DAL.Incident incObj = Container.Instance.Incidents.SingleOrDefault(inc => inc.Id == incId);
         Session[Constants.IdIncident] = incObj;
         return incObj;
     }
 
-    DAL.Request GetRequest(bool refresh = false)
+    private Request GetRequest()
     {
-        var id = Utils.Convert.ToInt(Request[Constants.IdRequestId], 0);
+        int id = Convert.ToInt(Request[Constants.IdRequestId], 0);
         if (id == 0)
         {
             throw new VMSException("Request is not specified");
         }
-        
-        var obj = DAL.Container.Instance.Requests.SingleOrDefault(inc => inc.Id == id);
+
+        Request obj = Container.Instance.Requests.SingleOrDefault(inc => inc.Id == id);
         Session[Constants.IdRequestId] = obj;
         return obj;
     }
@@ -121,19 +126,18 @@ public partial class CreateRequest : PageBase
 
     protected void btSaveRequest_Click(object sender, EventArgs e)
     {
-        DAL.Request req = null;
+        Request req;
         if (PageAction == PageActions.Create)
         {
-            req = DAL.Container.Instance.Requests.CreateObject();
+            req = Container.Instance.Requests.CreateObject();
             GetIncident().Requests.Add(req);
         }
         else
             req = GetRequest();
 
-        
 
-        var reqName = Utils.Convert.SafeString(txRequestName.Text);
-        var reqMessage = Utils.Convert.SafeString(txMessage.Text);
+        string reqName = Convert.SafeString(txRequestName.Text);
+        string reqMessage = Convert.SafeString(txMessage.Text);
 
         req.Name = reqName;
         req.Message = reqMessage;
@@ -142,20 +146,25 @@ public partial class CreateRequest : PageBase
         req.IsActive = rblStatus.SelectedValue == "Active" ? true : false;
         foreach (ListItem li in cblNeedlist.Items)
         {
-            int liid = Convert.ToInt32(li.Value);
+            int liid = System.Convert.ToInt32(li.Value);
 
             // check if list item is already in req.NeedItems
             bool found = false;
-            DAL.NeedItem reqniToRemove = null;
-            foreach (DAL.NeedItem reqni in req.NeedItems)
+            NeedItem reqniToRemove = null;
+            foreach (NeedItem reqni in req.NeedItems)
             {
-                if (li.Text.StartsWith(reqni.ItemType)) { found = true; reqniToRemove = reqni; break; }
+                if (li.Text.StartsWith(reqni.ItemType))
+                {
+                    found = true;
+                    reqniToRemove = reqni;
+                    break;
+                }
             }
 
             if (!found && li.Selected) // if it is not already in req.NeedItems and listitem is selected, add it
             {
-                var ni = DAL.Container.Instance.NeedItems.SingleOrDefault(n => n.Id == liid);
-                var nitemToBeAdded = DAL.Container.Instance.NeedItems.CreateObject();
+                NeedItem ni = Container.Instance.NeedItems.SingleOrDefault(n => n.Id == liid);
+                NeedItem nitemToBeAdded = Container.Instance.NeedItems.CreateObject();
                 nitemToBeAdded.ItemAmount = ni.ItemAmount;
                 nitemToBeAdded.ItemType = ni.ItemType;
                 nitemToBeAdded.MetricType = ni.MetricType;
@@ -165,24 +174,24 @@ public partial class CreateRequest : PageBase
             {
                 req.NeedItems.Remove(reqniToRemove);
             }
-
         }
 
         req.SearchAreaCoordinatesStr = "";
 
-        var msg = req.Validate();
+        IList<string> msg = req.Validate();
         if (msg.Count > 0)
         {
             Master.ShowMessage(MessageTypes.Error, msg.ToArray());
             return;
         }
 
-        if(PageAction== PageActions.Create)
-            DAL.Container.Instance.Requests.AddObject(req);
-        DAL.Container.Instance.SaveChanges();
+        if (PageAction == PageActions.Create)
+            Container.Instance.Requests.AddObject(req);
+        Container.Instance.SaveChanges();
 
         RedirectToResourceGathering();
     }
+
     protected void btCancel_Click(object sender, EventArgs e)
     {
         RedirectToResourceGathering();
@@ -190,7 +199,7 @@ public partial class CreateRequest : PageBase
 
     private void RedirectToResourceGathering()
     {
-        var iid = "";
+        string iid = "";
         if (PageAction == PageActions.Create)
             iid = GetIncident().Id + "";
         else if (PageAction == PageActions.Edit)

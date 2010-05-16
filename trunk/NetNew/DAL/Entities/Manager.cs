@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using Utils;
 using Utils.Enumerations;
 
 namespace DAL
 {
     public partial class Manager
     {
-        private IList<string> _expertiseCrisisTypes=null;
+        private IList<string> _expertiseCrisisTypes;
 
         public IList<string> ExpertiseCrisisTypes
         {
             get
             {
-                if (_expertiseCrisisTypes==null)
-                {
-                    _expertiseCrisisTypes = new Utils.ObservableStringList(ExpertiseCrisisTypesStr, "ExpertiseCrisisTypesStr", this);
-                }
-                return _expertiseCrisisTypes;
+                return _expertiseCrisisTypes ??
+                       (_expertiseCrisisTypes =
+                        new ObservableStringList(ExpertiseCrisisTypesStr, "ExpertiseCrisisTypesStr", this));
             }
         }
 
@@ -31,9 +27,9 @@ namespace DAL
             // TODO: Modify the error messages with better ones.
 
             // this string list will be filled with messages.
-            List<string> incorrects = new List<string>();
-           
-            
+            var incorrects = new List<string>();
+
+
             /*
              * Explanation of Utils.Validation.Check method:
              * This method is used to check for many rules at one time.
@@ -45,19 +41,19 @@ namespace DAL
              * 
              */
             string msg;
-            if (!Utils.Validation.Check(NameLastName, 5, 50,out msg, ValRules._abc,ValRules._Space))
-                incorrects.Add("Name / Lastname is not correct. "+msg);
+            if (!Validation.Check(NameLastName, 5, 50, out msg, ValRules._abc, ValRules._Space))
+                incorrects.Add("Name / Lastname is not correct. " + msg);
 
-            if (this.Address.City == "" || this.Address.Country == "")
+            if (Address.City == "" || Address.Country == "")
                 incorrects.Add("Country and city can not be empty");
 
-            if (!Utils.Validation.Check(UserName, 4, 16, out msg, ValRules._abc))
-                incorrects.Add("User name is not correct. "+ msg);
+            if (!Validation.Check(UserName, 4, 16, out msg, ValRules._abc))
+                incorrects.Add("User name is not correct. " + msg);
 
-            if (!Utils.Validation.Check(this.Password, 3, 16,out msg))
+            if (!Validation.Check(Password, 3, 16, out msg))
                 incorrects.Add("Password should be min. 3, max. 16 long");
 
-            if (this.ExpertiseCrisisTypes.Count==0)
+            if (ExpertiseCrisisTypes.Count == 0)
                 incorrects.Add("At least one crisis expertise area is required");
 
             return incorrects;
