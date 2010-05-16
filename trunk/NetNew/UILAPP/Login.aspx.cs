@@ -52,7 +52,7 @@ public partial class Login : PageBase
                 {
                     Response.Redirect(Server.UrlDecode(Request["ReturnUrl"]));
                 }
-                Response.Redirect(Constants.PageManagerProfile + "?Action=Edit");
+                Response.Redirect(Constants.PageCrisisBoard);
             }
             else
             {

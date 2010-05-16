@@ -67,6 +67,10 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <div class="markermenu">
+                            <ul>
+                            <li> <asp:Hyperlink runat="server" ID="hlProfile"  >Profile Settings</asp:Hyperlink></li>
+                               </ul></div>
                                  </Content>
                         </asp:AccordionPane>
                        
