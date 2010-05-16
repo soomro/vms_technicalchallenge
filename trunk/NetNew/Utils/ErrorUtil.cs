@@ -9,9 +9,11 @@ namespace Utils
     {
         public static void FireAuthenticationError(string message)
         {
-            ErrorInfo inf = new ErrorInfo(message);
-            inf.ErType = ErrorType.Authentication;
-            inf.ReturnUrl = HttpContext.Current.Request.Path;
+            var inf = new ErrorInfo(message)
+                                {
+                                    ErType = ErrorType.Authentication,
+                                    ReturnUrl = HttpContext.Current.Request.Path
+                                };
 
             HttpContext.Current.Session["_Error"] = inf;
             HttpContext.Current.Server.Transfer("~/Error.aspx");
@@ -19,17 +21,21 @@ namespace Utils
         }
         public static void FireAuthenticationError(string message, string link)
         {
-            ErrorInfo inf = new ErrorInfo(message,link);
-            inf.ReturnUrl = HttpContext.Current.Request.Url.AbsoluteUri;
-            inf.ErType = ErrorType.Authentication;
+            var inf = new ErrorInfo(message,link)
+                          {
+                              ReturnUrl = HttpContext.Current.Request.Url.AbsoluteUri,
+                              ErType = ErrorType.Authentication
+                          };
             HttpContext.Current.Session["_Error"] = inf;
             HttpContext.Current.Server.Transfer("~/Error.aspx");
         }
 
         public static void FireError(string message)
         {
-            ErrorInfo inf = new ErrorInfo(message);
-            inf.ReturnUrl = HttpContext.Current.Request.Url.AbsoluteUri;
+            var inf = new ErrorInfo(message)
+                          {
+                              ReturnUrl = HttpContext.Current.Request.Url.AbsoluteUri
+                          };
 
             HttpContext.Current.Session["_Error"] = inf;
             HttpContext.Current.Server.Transfer("~/Error.aspx");
@@ -37,9 +43,7 @@ namespace Utils
         }
         public static void FireError(string message,Exception ex)
         {
-            ErrorInfo inf = new ErrorInfo(message);
-            inf.Exception = ex;
-            inf.ReturnUrl = HttpContext.Current.Request.Url.AbsoluteUri;
+            var inf = new ErrorInfo(message) {Exception = ex, ReturnUrl = HttpContext.Current.Request.Url.AbsoluteUri};
 
             HttpContext.Current.Session["_Error"] = inf;
             HttpContext.Current.Server.Transfer("~/Error.aspx");

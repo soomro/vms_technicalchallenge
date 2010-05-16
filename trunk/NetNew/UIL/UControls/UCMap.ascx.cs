@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Artem.Web.UI.Controls;
 using System.Drawing;
+using DAL;
 
 public partial class UCMap : System.Web.UI.UserControl
 {
@@ -25,9 +26,8 @@ public partial class UCMap : System.Web.UI.UserControl
     protected override void OnPreRender(EventArgs e)
     {
         GoogleMap1.Markers.Clear();
-        foreach (var inc in Incidents)
+        foreach (var m in Incidents.Select(BuildMarker))
         {
-            var m = BuildMarker(inc);
             GoogleMap1.Markers.Add(m);
         }
         base.OnPreRender(e);
