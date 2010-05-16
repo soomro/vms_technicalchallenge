@@ -1,100 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Artem.Web.UI.Controls;
-using System.Drawing;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 
-public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
+public partial class UC_UCCreateCrisisMap : UserControl
 {
     public bool Enabled
     {
-        get
+        get { return GoogleMap1.Enabled; }
+        set
         {
-            return GoogleMap1.Enabled;
-        }
-        set { 
             GoogleMap1.Enabled = value;
             if (value == false)
                 GoogleMap1.Click -= GoogleMap1_Click;
         }
     }
-    protected override void OnPreRender(EventArgs e)
-    {
-        GoogleMap1.Polygons.Clear();
 
-        if (CrisisArea!=null)
-        {            
-            GoogleMap1.Polygons.Add(CrisisArea);
-            GoogleMap1.Latitude = CrisisArea.Latitude;
-            GoogleMap1.Longitude = CrisisArea.Longitude;
-            Label1.Text = string.Format("lat:{0}, lon:{1}", CrisisArea.Latitude, CrisisArea.Longitude);
-
-        }
-        base.OnPreRender(e);
-    }
-     
 
     public GoogleCirclePolygon CrisisArea
     {
-        get
-        {
-            return Session[Constants.IdCrisisArea] as GoogleCirclePolygon;
-        }
-        set
-        {
-            Session[Constants.IdCrisisArea] = value;
-        }
-    } 
+        get { return Session[Constants.IdCrisisArea] as GoogleCirclePolygon; }
+        set { Session[Constants.IdCrisisArea] = value; }
+    }
 
     public double Radious
     {
         get
         {
             double r = 0;
-            var res = double.TryParse(ViewState["Radious"]+"", out r);
+            bool res = double.TryParse(ViewState["Radious"] + "", out r);
             if (res) return r;
             else return 20;
         }
         set
         {
-            ViewState["Radious"]=value;
-            if (CrisisArea!=null)
+            ViewState["Radious"] = value;
+            if (CrisisArea != null)
             {
                 CrisisArea.Radius = value;
             }
         }
-    } 
-    protected void Page_Load(object sender, EventArgs e)
-    { 
-        if (!IsPostBack)
-        {
-            // set default location 57.7070820644457, lon:11.9915771484375 
-
-            GoogleMap1.Latitude= 57.7070820644457;
-            GoogleMap1.Longitude = 11.9915771484375;
-            GoogleMap1.Zoom = 8;
-
-            
-        }
     }
 
-   
 
     public Unit Width
     {
         get
         {
-            if (ViewState["mapWidth"]==null)
+            if (ViewState["mapWidth"] == null)
             {
                 ViewState["mapWidth"] = new Unit(300);
             }
 
-            return (int)ViewState["mapWidth"];
+            return (int) ViewState["mapWidth"];
         }
         set
         {
@@ -102,16 +61,18 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
             GoogleMap1.Width = value;
         }
     }
+
     public Unit Heigth
     {
         get
         {
-            if (ViewState["mapHeigth"]==null)
+            if (ViewState["mapHeigth"] == null)
             {
-                ViewState["mapHeigth"] = new Unit(300); ;
+                ViewState["mapHeigth"] = new Unit(300);
+                ;
             }
 
-            return (int)ViewState["mapHeigth"];
+            return (int) ViewState["mapHeigth"];
         }
         set
         {
@@ -120,40 +81,65 @@ public partial class UC_UCCreateCrisisMap : System.Web.UI.UserControl
         }
     }
 
-     
-    protected void GoogleMap1_Click(object sender, Artem.Web.UI.Controls.GoogleLocationEventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
-        
-        if (e.Location.Longitude==0 || e.Location.Latitude==0)
+        GoogleMap1.Polygons.Clear();
+
+        if (CrisisArea != null)
+        {
+            GoogleMap1.Polygons.Add(CrisisArea);
+            GoogleMap1.Latitude = CrisisArea.Latitude;
+            GoogleMap1.Longitude = CrisisArea.Longitude;
+            Label1.Text = string.Format("lat:{0}, lon:{1}", CrisisArea.Latitude, CrisisArea.Longitude);
+        }
+        base.OnPreRender(e);
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            // set default location 57.7070820644457, lon:11.9915771484375 
+
+            GoogleMap1.Latitude = 57.7070820644457;
+            GoogleMap1.Longitude = 11.9915771484375;
+            GoogleMap1.Zoom = 8;
+        }
+    }
+
+
+    protected void GoogleMap1_Click(object sender, GoogleLocationEventArgs e)
+    {
+        if (e.Location.Longitude == 0 || e.Location.Latitude == 0)
         {
             return;
         }
 
 
-        GoogleCirclePolygon area = GetDefaultCirclePolygon(e.Location.Latitude,e.Location.Longitude,Radious);
+        GoogleCirclePolygon area = GetDefaultCirclePolygon(e.Location.Latitude, e.Location.Longitude, Radious);
 
         CrisisArea = area;
-         
     }
 
     public static GoogleCirclePolygon GetDefaultCirclePolygon(double latitude, double longitude, double radious)
     {
-        GoogleCirclePolygon area = new GoogleCirclePolygon();
+        var area = new GoogleCirclePolygon();
         area.Latitude = latitude;
         area.Longitude = longitude;
         area.FillColor = Color.Blue;
         area.FillOpacity = 0.3F;
         area.Radius = radious;
 
-        area.IsClickable=true;
+        area.IsClickable = true;
         return area;
     }
+
     protected void GoogleMap1_ZoomEnd(object sender, GoogleZoomEventArgs e)
     {
-        if (GoogleMap1.Polygons.Count >0)
+        if (GoogleMap1.Polygons.Count > 0)
         {
             var gc = GoogleMap1.Polygons[0] as GoogleCirclePolygon;
-            if (gc!=null)
+            if (gc != null)
             {
                 gc.Radius = e.NewLevel*10;
             }

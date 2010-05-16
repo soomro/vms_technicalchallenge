@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DAL;
+using Utils;
+using Convert = System.Convert;
 
-public partial class UControls_UCSearchVolunteer : System.Web.UI.UserControl
+public partial class UControls_UCSearchVolunteer : UserControl
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        if (!IsPostBack)
-        {
-            
-        }
-    }
     public List<int> SelectedVolunteers
     {
         get
@@ -22,28 +17,28 @@ public partial class UControls_UCSearchVolunteer : System.Web.UI.UserControl
             foreach (GridViewRow row in gvVolList.Rows)
             {
                 var chk = row.FindControl("chkSelected") as CheckBox;
-                if(chk.Checked)
-                    list.Add(Convert.ToInt32(this.gvVolList.DataKeys[row.RowIndex].Value.ToString()));
+                if (chk.Checked)
+                    list.Add(Convert.ToInt32(gvVolList.DataKeys[row.RowIndex].Value.ToString()));
             }
             return list;
         }
     }
+
     public string SelectedVolunteersString
     {
-        get
-        {
-            return Utils.Collection.ToString<int>(SelectedVolunteers);
-        }
+        get { return Collection.ToString(SelectedVolunteers); }
     }
+
     public string SearchCriteriaString
     {
-        get
+        get { return txtCriteria.Text; }
+        set { txtCriteria.Text = value; }
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
         {
-            return txtCriteria.Text;
-        }
-        set
-        {
-            txtCriteria.Text = value;
         }
     }
 
@@ -54,23 +49,23 @@ public partial class UControls_UCSearchVolunteer : System.Web.UI.UserControl
             return;
         }
 
-        var ni = e.Row.DataItem as DAL.Volunteer;
+        var ni = e.Row.DataItem as Volunteer;
         //var chkSent = e.Row.FindControl("chkSelected") as CheckBox;
         var lblVolName = e.Row.FindControl("lblVolName") as Label;
 
         lblVolName.Text = ni.NameLastName;
     }
-   
-   
+
+
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        var array = txtCriteria.Text.Split(' ');
-        List<DAL.Volunteer> vols = new List<DAL.Volunteer>();
-        foreach (var item in array)
+        string[] array = txtCriteria.Text.Split(' ');
+        var vols = new List<Volunteer>();
+        foreach (string item in array)
         {
-            var q = from vol in DAL.Container.Instance.Volunteers
-                    where vol.EduAndTrainings.Contains(item)
-                    select vol;
+            IQueryable<Volunteer> q = from vol in Container.Instance.Volunteers
+                                      where vol.EduAndTrainings.Contains(item)
+                                      select vol;
             vols.AddRange(q);
         }
         gvVolList.DataSource = vols;

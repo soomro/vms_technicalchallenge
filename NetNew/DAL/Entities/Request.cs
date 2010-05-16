@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using Utils;
 using Utils.Enumerations;
 
 namespace DAL
@@ -11,19 +9,18 @@ namespace DAL
         public IList<string> Validate()
         {
             // this string list will be filled with messages.
-            List<string> incorrects = new List<string>();
+            var incorrects = new List<string>();
 
             string msg;
-            if (!Utils.Validation.Check(this.Message, 3, 200, out msg, ValRules._AllowAll))
+            if (!Validation.Check(Message, 3, 200, out msg, ValRules._AllowAll))
                 incorrects.Add("The message is not correct! " + msg);
 
-            if (!Utils.Validation.Check(this.Name, 3, 30, out msg, ValRules._AllowAll))
+            if (!Validation.Check(Name, 3, 30, out msg, ValRules._AllowAll))
                 incorrects.Add("The name is not correct! " + msg);
-            if (NeedItems.Count==0)
+            if (NeedItems.Count == 0)
                 incorrects.Add("It must be contain at least one need item.");
 
             return incorrects;
         }
-
     }
 }

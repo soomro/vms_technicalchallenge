@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Utils;
+using Utils.Enumerations;
 
 namespace DAL
 {
     public partial class NeedItem
     {
-        public Utils.Enumerations.MetricTypes MetricType
+        public MetricTypes MetricType
         {
-            get
-            {
-                return Utils.Reflection.SafeConvertToEnum<Utils.Enumerations.MetricTypes>(this.MetricTypeVal, Utils.Enumerations.MetricTypes.Item);
-            }
-            set
-            {
-                this.MetricTypeVal = (Int16)value;
-            }
+            get { return Reflection.SafeConvertToEnum(MetricTypeVal, MetricTypes.Item); }
+            set { MetricTypeVal = (Int16) value; }
         }
     }
 }

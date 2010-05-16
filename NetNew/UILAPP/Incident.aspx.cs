@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -292,9 +293,10 @@ public partial class Incident : PageBase
         inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Longitude+"");
         foreach (var ni in NeedList)
         {
-            if (ni.EntityKey != null)
+            var orjni = inc.NeedItems.SingleOrDefault(nii => nii.Id == ni.Id);
+            if (orjni!=null)
             {// this need item was there before. just update values.
-                var orjni = inc.NeedItems.SingleOrDefault(nii => nii.Id == ni.Id);
+                
                 orjni.ItemAmount = ni.ItemAmount;
                 orjni.ItemType = ni.ItemType;
                 orjni.MetricType = ni.MetricType;
@@ -302,7 +304,16 @@ public partial class Incident : PageBase
             }
             else
             {
-                inc.NeedItems.Add(ni);
+                if (ni.EntityState != EntityState.Detached)
+                    inc.NeedItems.Add(new NeedItem()
+                                          {
+                                              ItemAmount = ni.ItemAmount,
+                                              ItemType = ni.ItemType,
+                                              MetricType = ni.MetricType,
+                                              SuppliedAmount = ni.SuppliedAmount
+                                          });
+                else
+                    inc.NeedItems.Add(ni);
             }
             
         }

@@ -1,102 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections.ObjectModel;
+using System.Linq;
+using DAL;
+using Utils;
 using Utils.Enumerations;
 using Utils.Exceptions;
+using Convert = Utils.Convert;
 
 namespace BLL.BWorkflows
 {
     public class CrisisOperations
     {
-        public static DAL.Crisis CreateCrisis(string name, string explanation, Utils.Enumerations.CrisisTypes ctype, Utils.Enumerations.LocationTypes locationType
-           , ObservableCollection<string> locationCoordinates)
+        public static Crisis CreateCrisis(string name, string explanation, CrisisTypes ctype, LocationTypes locationType
+                                          , ObservableCollection<string> locationCoordinates)
         {
-
-            var c = new DAL.Crisis();
-            c.Name = Utils.Convert.SafeString(name);
-            c.Explanation = Utils.Convert.SafeString(explanation);
+            var c = new Crisis();
+            c.Name = Convert.SafeString(name);
+            c.Explanation = Convert.SafeString(explanation);
             if (locationCoordinates != null)
             {
-                c.LocationCoordinatesStr=Utils.Collection.ToString<string>(locationCoordinates);
+                c.LocationCoordinatesStr = Collection.ToString(locationCoordinates);
             }
             c.DateCreated = DateTime.Now;
-            c.StatusVal = (short)Utils.Enumerations.CrisisStatuses.Active;
-            c.LocationTypeVal = (short)locationType;
-            c.CrisisTypeVal = (short)ctype;
-            //  validate fields 
-            var valRes = c.Validate();
-            if (valRes.Count>0)
-            {
-                throw new VMSException(valRes);
-            }
-            
-            DAL.Container.Instance.Crises.AddObject(c);
-            DAL.Container.Instance.SaveChanges();
+            c.StatusVal = (short) CrisisStatuses.Active;
+            c.LocationTypeVal = (short) locationType;
+            c.CrisisTypeVal = (short) ctype;
 
-           
-            return (c);
-        }
-        
-        public static DAL.Crisis UpdateCrisis(int id, string name, string explanation, Utils.Enumerations.CrisisTypes ctype, Utils.Enumerations.LocationTypes locationType, ObservableCollection<string> coords)
-        {
-            var c = DAL.Container.Instance.Crises.FirstOrDefault(cr => cr.Id == id);
-            if (c == null)
-            {
-                throw new VMSException("There is no crisis with such an id");
-            }
-            //Setting new values
-            c.Name = Utils.Convert.SafeString(name);
-            c.Explanation = Utils.Convert.SafeString(explanation);
-            c.LocationCoordinates.Clear();
-            if (coords != null)
-            {                
-                foreach (var coord in coords)
-                {
-                    c.LocationCoordinates.Add(coord);
-                }
-            }
-            c.StatusVal = (short)Utils.Enumerations.CrisisStatuses.Active;
-            c.LocationTypeVal = (short)locationType;
-            c.CrisisTypeVal = (short)ctype;
-
-            // validate fields.
             //  validate fields 
-            var valRes = c.Validate();
+            IList<string> valRes = c.Validate();
             if (valRes.Count > 0)
             {
                 throw new VMSException(valRes);
             }
 
-            //Reflecting to DB
-            DAL.Container.Instance.SaveChanges();
-          
+            Container.Instance.Crises.AddObject(c);
+            Container.Instance.SaveChanges();
+
+
             return (c);
         }
 
-        public void Validate()
+        public static Crisis UpdateCrisis(int id, string name, string explanation, CrisisTypes ctype,
+                                          LocationTypes locationType, ObservableCollection<string> coords)
         {
-            
+            Crisis c = Container.Instance.Crises.FirstOrDefault(cr => cr.Id == id);
+            if (c == null)
+                throw new VMSException("There is no crisis with such an id");
+
+            //Setting new values
+            c.Name = Convert.SafeString(name);
+            c.Explanation = Convert.SafeString(explanation);
+            c.LocationCoordinates.Clear();
+
+            if (coords != null)
+                foreach (string coord in coords)
+                    c.LocationCoordinates.Add(coord);
+
+            c.StatusVal = (short) CrisisStatuses.Active;
+            c.LocationTypeVal = (short) locationType;
+            c.CrisisTypeVal = (short) ctype;
+
+
+            //  validate fields 
+            IList<string> valRes = c.Validate();
+            if (valRes.Count > 0)
+                throw new VMSException(valRes);
+
+            //Reflecting to DB
+            Container.Instance.SaveChanges();
+
+            return (c);
         }
+
 
         public static bool CloseCrisis(int id)
         {
-
-            var cr = DAL.Container.Instance.Crises.Single(c => c.Id == id);
-            if (cr.Status == Utils.Enumerations.CrisisStatuses.Closed)
+            Crisis cr = Container.Instance.Crises.Single(c => c.Id == id);
+            if (cr.Status == CrisisStatuses.Closed)
                 throw new VMSException("Crisis is already closed");
 
-            foreach (var inc in cr.Incidents)
+            if (cr.Incidents.Any(inc => inc.IncidentStatus != IncidentStatuses.Complete))
             {
-                if (inc.IncidentStatus!=Utils.Enumerations.IncidentStatuses.Complete)
-                {
-                    throw new VMSException("Crisis has incomplete incidents");
-                }
+                throw new VMSException("Crisis has incomplete incidents");
             }
 
-            cr.Status = Utils.Enumerations.CrisisStatuses.Closed;
-            DAL.Container.Instance.SaveChanges();
+            cr.Status = CrisisStatuses.Closed;
+            Container.Instance.SaveChanges();
             return true;
         }
     }
