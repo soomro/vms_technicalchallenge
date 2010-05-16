@@ -21,6 +21,7 @@ public partial class CrisisBoard : PageBase
         cbxShowClosed_CheckedChanged(null, null);
 
         hlIncidentlist.HRef = Constants.PageIncidents + "?cid=" + MainCrisis.Id;
+        hlProfile.NavigateUrl = Constants.PageManagerProfile+"?Action=Edit";
 
         Master.SetSiteMap(new[] {new[] {"Crisis Board", "CrisisBoard.aspx"}});
     }

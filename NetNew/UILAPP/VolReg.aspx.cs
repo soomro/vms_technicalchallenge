@@ -16,7 +16,14 @@ public partial class VolReg : PageBase
         {
             ucEnumGender1.EnumType = typeof (Gender);
             ucEnumGender1.DefaultSelection = Gender.Man;
-            if (PageAction == PageActions.Edit)
+            DAL.Volunteer vol = GetVolunteer();
+            if (vol!=null)
+            {
+                Master.PageTitle = "View Volunteer's Profile";
+                FillUiWithVolunteer(vol);
+                Disablepage();
+            }
+            else if (PageAction == PageActions.Edit)
             {
                 Master.PageTitle = "Edit Volunteer's Profile";
                 if (CurrentVolunteer == null)
@@ -39,6 +46,21 @@ public partial class VolReg : PageBase
                 Response.Redirect(Constants.PageVolunteerProfile + "?Action=Create");
             }
         }
+    }
+
+    private void Disablepage()
+    {
+        btnRegister.Enabled = false;
+        btnConfirm.Enabled = false;
+        btnDeleteProfile.Enabled = false;
+    }
+
+    private Volunteer GetVolunteer()
+    {
+        int vid = Utils.Convert.ToInt(Request["vid"] + "", 0);
+        return (from v in DAL.Container.Instance.Volunteers
+                where v.Id == vid
+                select v).FirstOrDefault();
     }
 
     private void FillUiWithVolunteer(Volunteer vol)
@@ -165,7 +187,7 @@ public partial class VolReg : PageBase
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         CurrentVolunteer = null;
-        Response.Redirect(Constants.PageLogin);
+        Response.Redirect(Constants.PageCrisisBoard);
     }
 
     protected void btnDeleteProfile_Click(object sender, EventArgs e)

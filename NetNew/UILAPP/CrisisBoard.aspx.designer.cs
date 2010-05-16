@@ -84,6 +84,15 @@ public partial class CrisisBoard {
     protected global::System.Web.UI.WebControls.CheckBox cbxShowClosed;
     
     /// <summary>
+    /// hlProfile control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.HyperLink hlProfile;
+    
+    /// <summary>
     /// UCMap1 control.
     /// </summary>
     /// <remarks>
