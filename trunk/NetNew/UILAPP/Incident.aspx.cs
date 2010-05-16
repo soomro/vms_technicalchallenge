@@ -1,15 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Objects;
+using System.Globalization;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI.WebControls;
-using Utils.Enumerations;
+using Artem.Web.UI.Controls;
+using BLL.BWorkflows;
 using DAL;
+using Utils;
+using Utils.Enumerations;
+using Utils.Exceptions;
+using Convert = Utils.Convert;
 
 public partial class Incident : PageBase
 {
+    private int needItemOrder;
+
     public List<NeedItem> NeedList
     {
         get
@@ -20,25 +30,23 @@ public partial class Incident : PageBase
             }
             return Session["_NeedList"] as List<NeedItem>;
         }
-        set
-        {
-            Session["_NeedList"] = value;
-        }
+        set { Session["_NeedList"] = value; }
     }
-    
+
     protected override void OnPreRender(EventArgs e)
     {
         txShortAddress.Text = HttpContext.Current.Items["adrName"] as string;
         base.OnPreRender(e);
     }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         RequireManager();
 
         if (!IsPostBack)
         {
-            ucIncidentType.EnumType = typeof(Utils.Enumerations.IncidentTypes);
-            ucSeverity.EnumType = typeof(Severities);
+            ucIncidentType.EnumType = typeof (IncidentTypes);
+            ucSeverity.EnumType = typeof (Severities);
 
             if (PageAction == PageActions.Create)
             {
@@ -54,29 +62,28 @@ public partial class Incident : PageBase
                 BindData();
                 UCIncidentMap1.Incident = null;
                 Master.PageTitle = "Create Incident";
-                Master.SetSiteMap(new[] { 
-                new[] { "Crisis Board", "CrisisBoard.aspx" },
-                new[] { "Create Incident", "" },
-            });
+                Master.SetSiteMap(new[]
+                                      {
+                                          new[] {"Crisis Board", "CrisisBoard.aspx"},
+                                          new[] {"Create Incident", ""},
+                                      });
             }
             else if (PageAction == PageActions.Edit)
             {
-                var inc = GetIncident();
-                if (inc==null)
+                DAL.Incident inc = GetIncident();
+                if (inc == null)
                 {
                     Master.ShowMessage(MessageTypes.Error, "Invalid paramater");
                     return;
                 }
                 BindDataForEdit(inc);
                 Master.PageTitle = "Edit Incident";
-
             }
             else
             {
-                Response.Redirect(Constants.PageIncident+"?Action=Create",true);
+                Response.Redirect(Constants.PageIncident + "?Action=Create", true);
             }
-        }              
-
+        }
     }
 
 
@@ -89,43 +96,49 @@ public partial class Incident : PageBase
         txShortDesc.Text = inc.ShortDescription;
         txExplanation.Text = inc.Explanation;
         txShortAddress.Text = inc.ShortAddress;
-        lbStatus.Text = Utils.Reflection.GetEnumDescription(inc.IncidentStatus);
+        lbStatus.Text = Reflection.GetEnumDescription(inc.IncidentStatus);
         NeedList = null;
-        foreach (var ni in inc.NeedItems)
+        foreach (NeedItem ni in inc.NeedItems)
         {
             NeedList.Add(ni);
         }
 
         gvNeedList.DataSource = NeedList;
         gvNeedList.DataBind();
-        UCIncidentMap1.Incident = new Artem.Web.UI.Controls.GoogleMarker(
-            Utils.Convert.ToDouble(inc.LocationCoordinates[0], 0),
-            Utils.Convert.ToDouble(inc.LocationCoordinates[1], 0));
-        if(inc.LocationCoordinates.Count>2)
-            UCIncidentMap1.Zoom = Utils.Convert.ToInt(inc.LocationCoordinates[2], 8);
+        UCIncidentMap1.Incident = new GoogleMarker(
+            Convert.ToDouble(inc.LocationCoordinates[0], 0),
+            Convert.ToDouble(inc.LocationCoordinates[1], 0));
+        if (inc.LocationCoordinates.Count > 2)
+            UCIncidentMap1.Zoom = Convert.ToInt(inc.LocationCoordinates[2], 8);
 
         btClose.Visible = true;
         dvMenu.Visible = true;
-        hlResourceGathering.NavigateUrl = Constants.PageResourceGathering+  "?iid=" + inc.Id;
+        hlResourceGathering.NavigateUrl = Constants.PageResourceGathering + "?iid=" + inc.Id;
         hlProgressReports.NavigateUrl = Constants.PageProgressReports + "?iid=" + inc.Id;
 
-        var boolVal = true;
+        bool boolVal = true;
         if (inc.Crisis.Status == CrisisStatuses.Closed)
-             boolVal = false;
+            boolVal = false;
 
-        if (boolVal==true)
+        if (boolVal)
         {
-            Master.SetSiteMap(new[] { 
-                new[] { "Crisis Board", "CrisisBoard.aspx" },
-                new[] { "Edit Incident","" },
-            });
+            Master.SetSiteMap(new[]
+                                  {
+                                      new[] {"Crisis Board", "CrisisBoard.aspx"},
+                                      new[] {"Edit Incident", ""},
+                                  });
         }
         else
         {
-            Master.SetSiteMap(new[] { 
-                new[] { "Crisis:"+inc.Crisis.Name, "Crisis.aspx?cid="+inc.Crisis.Id+"&action=Edit" },
-                new[] { "Incident:"+inc.ShortDescription, "" },
-            });
+            Master.SetSiteMap(new[]
+                                  {
+                                      new[]
+                                          {
+                                              "Crisis:" + inc.Crisis.Name,
+                                              "Crisis.aspx?cid=" + inc.Crisis.Id + "&action=Edit"
+                                          },
+                                      new[] {"Incident:" + inc.ShortDescription, ""},
+                                  });
             Master.PageTitle = "View Incident";
         }
         txShortDesc.Enabled = boolVal;
@@ -141,27 +154,28 @@ public partial class Incident : PageBase
         rowStatus.Visible = true;
 
         Master.PageTitle = boolVal + "";
-
     }
+
     /// <summary>
     /// Gets the incidentid from url and retrieves the object from db.
     /// </summary>
     /// <returns></returns>
-    DAL.Incident GetIncident()
+    private DAL.Incident GetIncident()
     {
-        int iid = Utils.Convert.ToInt(Request[Constants.IdIncidentId], 0);
-        if (iid==0)
+        int iid = Convert.ToInt(Request[Constants.IdIncidentId], 0);
+        if (iid == 0)
             return null;
-        var incObj = DAL.Container.Instance.Incidents.SingleOrDefault(inc => inc.Id==iid);
+        DAL.Incident incObj = Container.Instance.Incidents.SingleOrDefault(inc => inc.Id == iid);
         return incObj;
-
     }
+
     protected override void OnPreLoad(EventArgs e)
     {
         PersistNeedList();
 
         base.OnPreLoad(e);
     }
+
     private void BindData()
     {
         gvNeedList.DataSource = NeedList;
@@ -171,7 +185,6 @@ public partial class Incident : PageBase
         rowStatus.Visible = false;
         btReactivate.Visible = false;
     }
-
 
 
     protected void btAddNew_Click(object sender, EventArgs e)
@@ -184,11 +197,11 @@ public partial class Incident : PageBase
     private void PersistNeedList()
     {
         // since the need items doesnt have IDs initialy, we can only match values by order.
-        int count =0;
-        
+        int count = 0;
+
         foreach (GridViewRow row in gvNeedList.Rows)
         {
-            if (count>NeedList.Count-1)
+            if (count > NeedList.Count - 1)
             {
                 break;
             }
@@ -198,20 +211,18 @@ public partial class Incident : PageBase
             var txCollected = row.FindControl("txCollected") as TextBox;
 
             NeedList[count].MetricType = ucUnit.SelectedValue<MetricTypes>();
-            
-            NeedList[count].ItemAmount = Utils.Convert.ToDouble(txAmount.Text, 0);
-            NeedList[count].SuppliedAmount =  Utils.Convert.ToDouble(txCollected.Text, 0);
+
+            NeedList[count].ItemAmount = Convert.ToDouble(txAmount.Text, 0);
+            NeedList[count].SuppliedAmount = Convert.ToDouble(txCollected.Text, 0);
             NeedList[count].ItemType = txItemType.Text;
-     
+
             count++;
         }
     }
 
-    int needItemOrder = 0;
-
     protected void gvNeedList_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Row.RowType!=DataControlRowType.DataRow)
+        if (e.Row.RowType != DataControlRowType.DataRow)
         {
             return;
         }
@@ -224,7 +235,7 @@ public partial class Incident : PageBase
         var txCollected = e.Row.FindControl("txCollected") as TextBox;
         var ibtRemove = e.Row.FindControl("ibtRemove") as ImageButton;
 
-        ucUnit.EnumType = typeof(MetricTypes);
+        ucUnit.EnumType = typeof (MetricTypes);
         ucUnit.SelectionType = EnumSelectionTypes.DropDownList;
         ucUnit.DefaultSelection = ni.MetricType;
         ucUnit.Bind();
@@ -233,24 +244,25 @@ public partial class Incident : PageBase
         txAmount.Text = ni.ItemAmount + "";
         txCollected.Text = ni.SuppliedAmount + "";
 
-        ibtRemove.CommandArgument = needItemOrder+"";
-        
+        ibtRemove.CommandArgument = needItemOrder + "";
+
         needItemOrder++;
     }
 
-    [System.Web.Services.WebMethodAttribute(), System.Web.Script.Services.ScriptMethodAttribute()]
+    [WebMethod, ScriptMethod]
     public static string[] GetCompletionList(string prefixText, int count, string contextKey)
     {
         // TODO: change this method so that return from database
 
-        string[] needItemTypes = new string[]
-        { "Car","Water","Tire","Clothe","Rope","Knife","Shoe","Radio","TV","Computer"
-        };
-         
-        return needItemTypes.Where(m => m.StartsWith(prefixText,true,System.Globalization.CultureInfo.CurrentCulture)).Select(m => m).ToArray();
-       
+        var needItemTypes = new[]
+                                {
+                                    "Car", "Water", "Tire", "Clothe", "Rope", "Knife", "Shoe", "Radio", "TV", "Computer"
+                                };
+
+        return
+            needItemTypes.Where(m => m.StartsWith(prefixText, true, CultureInfo.CurrentCulture)).Select(m => m).ToArray();
     }
-    
+
     protected void ibtRemove_Command(object sender, CommandEventArgs e)
     {
         //PersistNeedList();
@@ -259,18 +271,17 @@ public partial class Incident : PageBase
         if (!Int32.TryParse(e.CommandArgument.ToString(), out order))
             order = -1;
 
-        if (order!=-1)
+        if (order != -1)
         {
             NeedList.RemoveAt(order);
         }
         BindData();
-
     }
+
     protected void btSave_Click(object sender, EventArgs e)
     {
-
-        DAL.Incident inc =null;
-        if (PageAction==PageActions.Create)
+        DAL.Incident inc = null;
+        if (PageAction == PageActions.Create)
         {
             inc = new DAL.Incident();
         }
@@ -283,20 +294,21 @@ public partial class Incident : PageBase
         inc.IncidentType = ucIncidentType.SelectedValue<IncidentTypes>();
         inc.Severity = ucSeverity.SelectedValue<Severities>();
 
-        if (UCIncidentMap1.Incident==null)
+        if (UCIncidentMap1.Incident == null)
         {
-            Master.ShowMessage(MessageTypes.Error,"Define incident location on the map.");
+            Master.ShowMessage(MessageTypes.Error, "Define incident location on the map.");
             return;
         }
         inc.LocationCoordinates.Clear();
-        inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Latitude+"");
-        inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Longitude+"");
-        foreach (var ni in NeedList)
+        inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Latitude + "");
+        inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Longitude + "");
+        foreach (NeedItem ni in NeedList)
         {
-            var orjni = inc.NeedItems.SingleOrDefault(nii => nii.Id == ni.Id);
-            if (orjni!=null)
-            {// this need item was there before. just update values.
-                
+            NeedItem orjni = inc.NeedItems.SingleOrDefault(nii => nii.Id == ni.Id);
+            if (orjni != null)
+            {
+// this need item was there before. just update values.
+
                 orjni.ItemAmount = ni.ItemAmount;
                 orjni.ItemType = ni.ItemType;
                 orjni.MetricType = ni.MetricType;
@@ -305,7 +317,7 @@ public partial class Incident : PageBase
             else
             {
                 if (ni.EntityState != EntityState.Detached)
-                    inc.NeedItems.Add(new NeedItem()
+                    inc.NeedItems.Add(new NeedItem
                                           {
                                               ItemAmount = ni.ItemAmount,
                                               ItemType = ni.ItemType,
@@ -315,34 +327,32 @@ public partial class Incident : PageBase
                 else
                     inc.NeedItems.Add(ni);
             }
-            
         }
-        List<NeedItem> removeList = new List<NeedItem>();
-        foreach (var ni in inc.NeedItems)
+        var removeList = new List<NeedItem>();
+        foreach (NeedItem ni in inc.NeedItems)
         {
-            var obj = NeedList.Where(n => n.Id == ni.Id).FirstOrDefault();
+            NeedItem obj = NeedList.Where(n => n.Id == ni.Id).FirstOrDefault();
             if (obj == null) removeList.Add(ni);
-
         }
-        while (removeList.Count>0)
+        while (removeList.Count > 0)
         {
-            var o = removeList[0];
-            DAL.Container.Instance.NeedItems.DeleteObject(o);
+            NeedItem o = removeList[0];
+            Container.Instance.NeedItems.DeleteObject(o);
             removeList.Remove(o);
         }
         inc.DateCreated = DateTime.Now;
         inc.ShortDescription = txShortDesc.Text;
         inc.Explanation = txExplanation.Text;
         inc.ShortAddress = txShortAddress.Text;
-        inc.LocationCoordinates.Add(UCIncidentMap1.Zoom+"");
+        inc.LocationCoordinates.Add(UCIncidentMap1.Zoom + "");
 
-        var msgs = inc.Validate();
-        if (msgs.Count>0)
+        IList<string> msgs = inc.Validate();
+        if (msgs.Count > 0)
         {
-            Master.ShowMessage(MessageTypes.Error,msgs.ToArray());
+            Master.ShowMessage(MessageTypes.Error, msgs.ToArray());
             return;
         }
-        if(PageAction == PageActions.Create)
+        if (PageAction == PageActions.Create)
             Container.Instance.Incidents.AddObject(inc);
 
         Container.Instance.SaveChanges();
@@ -357,22 +367,23 @@ public partial class Incident : PageBase
             Master.ShowMessage(MessageTypes.Info, "Successfully updated.");
         }
     }
+
     protected void btClose_Click(object sender, EventArgs e)
     {
-        var inc = GetIncident();
-        if (inc==null)
+        DAL.Incident inc = GetIncident();
+        if (inc == null)
         {
             Master.ShowMessage(MessageTypes.Error, "Invalid paramater");
             return;
         }
         try
         {
-            BLL.BWorkflows.IncidentOperations.CloseIncident(inc.Id);
-            Master.ShowMessage(MessageTypes.Info,"Incident set to \"Completed\"");
-            DAL.Container.Instance.Refresh(System.Data.Objects.RefreshMode.StoreWins, inc);
+            IncidentOperations.CloseIncident(inc.Id);
+            Master.ShowMessage(MessageTypes.Info, "Incident set to \"Completed\"");
+            Container.Instance.Refresh(RefreshMode.StoreWins, inc);
             BindDataForEdit(inc);
         }
-        catch (Utils.Exceptions.VMSException ex)
+        catch (VMSException ex)
         {
             Master.ShowMessage(MessageTypes.Error, ex.Messages.ToArray());
             return;
@@ -381,23 +392,20 @@ public partial class Incident : PageBase
 
     protected void btCancel_Click(object sender, EventArgs e)
     {
-      
         Response.Redirect(Constants.PageCrisisBoard);
     }
 
     protected void btReactivate_Click(object sender, EventArgs e)
     {
-
-        var inc = GetIncident();
-        if (inc==null)
+        DAL.Incident inc = GetIncident();
+        if (inc == null)
         {
-            Master.ShowMessage(MessageTypes.Error,"Incident could not be found!");
+            Master.ShowMessage(MessageTypes.Error, "Incident could not be found!");
             return;
         }
         inc.IncidentStatus = IncidentStatuses.ResourceGathering;
-        DAL.Container.Instance.SaveChanges();
+        Container.Instance.SaveChanges();
         Master.ShowMessage(MessageTypes.Info, "Incident reactivated!");
         RedirectAfter(4, Request.RawUrl);
     }
-     
 }
