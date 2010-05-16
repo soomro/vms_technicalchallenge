@@ -8,8 +8,7 @@ using System.Web.UI.WebControls;
 public partial class _Default :PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
-    {
-        RequireManager();
+    { 
 
         Logger.Info("deneme");
 
@@ -39,5 +38,9 @@ public partial class _Default :PageBase
     protected void Button3_Click(object sender, EventArgs e)
     {
         CurrentManager = null;
+    }
+    protected void TextBox1_TextChanged(object sender, EventArgs e)
+    {
+
     }
 }

@@ -40,7 +40,7 @@ public class WS : System.Web.Services.WebService
     {
         Utils.Log.WSLogger.Info("username:{0}, password={1}, lat:{2}, lon:{3}", username, password, lat, lon);
 
-        char sep = Utils.Collection.SeparatorChar;
+        const char sep = Utils.Collection.SeparatorChar;
 
         var res = "";
          var vol = (from v in DAL.Container.WSInstance.Volunteers

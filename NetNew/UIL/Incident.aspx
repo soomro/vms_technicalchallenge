@@ -12,7 +12,7 @@
     <table width="100%" border="0" runat="server" id="pgTable" >
         <tr>
             <td width="300px" valign="top">
-                <table border="0" 
+                <table border="0" >
                     <tr>
                         <td width="30px" class="formField">
                             Incident Type

@@ -131,7 +131,7 @@ public partial class ManReg : PageBase
     {
 
 
-        DAL.Manager Man = null;
+        DAL.Manager Man;
         if (PageAction ==PageActions.Create)
         {
             Man = new DAL.Manager();
@@ -144,16 +144,19 @@ public partial class ManReg : PageBase
         {
             Master.ShowMessage(MessageTypes.Error, "Login first");
             pnlDivForm.Enabled = false;
+            return;
         }
-        Man.Address = new DAL.Address();
-        Man.Address.City =  Utils.Convert.SafeString(txtCity.Text);
-        Man.Address.Country = Utils.Convert.SafeString(txtCountry.Text);
-        Man.Address.FlatNumber = Utils.Convert.SafeString(txtFlatNo.Text);
-        Man.Address.HouseNumber = Utils.Convert.SafeString(txtHouseNo.Text);
-        Man.Address.PostalCode = Utils.Convert.SafeString(txtPostalCode.Text);
-        Man.Address.Street = Utils.Convert.SafeString(txtStreet.Text);
+        Man.Address = new DAL.Address
+                          {
+                              City = Utils.Convert.SafeString(txtCity.Text),
+                              Country = Utils.Convert.SafeString(txtCountry.Text),
+                              FlatNumber = Utils.Convert.SafeString(txtFlatNo.Text),
+                              HouseNumber = Utils.Convert.SafeString(txtHouseNo.Text),
+                              PostalCode = Utils.Convert.SafeString(txtPostalCode.Text),
+                              Street = Utils.Convert.SafeString(txtStreet.Text)
+                          };
 
-        DateTime tempDate = new DateTime();
+        var tempDate = new DateTime();
 
         var succeed = DateTime.TryParse(Utils.Convert.SafeString(txtBirthDate.Text), out tempDate);
         if (!succeed)

@@ -167,7 +167,7 @@ public partial class CreateRequest : PageBase
 
         }
 
-        req.SearchAreaCoordinatesStr = "test";
+        req.SearchAreaCoordinatesStr = "";
         if(PageAction== PageActions.Create)
             DAL.Container.Instance.Requests.AddObject(req);
         DAL.Container.Instance.SaveChanges();
