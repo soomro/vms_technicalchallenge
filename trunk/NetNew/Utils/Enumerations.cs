@@ -86,7 +86,8 @@ namespace Utils.Enumerations
         _123,
         _SpeChars, // special characters ( symbols and punctiations )
         _Space,
-        _StartsWith_abc
+        _StartsWith_abc,
+        _AllowAll
     }
 
     public enum MessageTypes
