@@ -8,22 +8,30 @@ public partial class CrisisBoard : PageBase
     {
         RequireManager();
 
-        if (MainCrisis == null)
+       
+        if(MainCrisis==null)
         {
-            Master.ShowMessage(MessageTypes.Error, "There is no active crisis!"
-                               , "You will directed to crisis page to create one.");
-            RedirectAfter(4, Constants.PageCrisis);
+            Master.PageTitle = "Main Page";
+            cbxShowClosed.Visible = false;
+            pn2.Visible = false;
+            pn3.Visible = false;
+            pn4.Visible = false;
+            hlEditCrisis.Visible = false;
+            UCMap1.Visible = false;
+
+        }else
+        {
+            Master.PageTitle = "Crisis Dashboard: " + MainCrisis.Name;
+
+            // this will automatically set the data source.
+            cbxShowClosed_CheckedChanged(null, null);
+
+            hlIncidentlist.HRef = Constants.PageIncidents + "?cid=" + MainCrisis.Id;
+           
         }
-
-        Master.PageTitle = "Crisis Dashboard: " + MainCrisis.Name;
-
-        // this will automatically set the data source.
-        cbxShowClosed_CheckedChanged(null, null);
-
-        hlIncidentlist.HRef = Constants.PageIncidents + "?cid=" + MainCrisis.Id;
         hlProfile.NavigateUrl = Constants.PageManagerProfile+"?Action=Edit";
-
         Master.SetSiteMap(new[] {new[] {"Crisis Board", "CrisisBoard.aspx"}});
+        
     }
 
     protected void cbxShowClosed_CheckedChanged(object sender, EventArgs e)

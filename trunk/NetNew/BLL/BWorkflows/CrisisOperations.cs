@@ -95,7 +95,7 @@ namespace BLL.BWorkflows
             }
 
             cr.Status = CrisisStatuses.Closed;
-            Utils.Log.BLLogger.Info("Crisis is closed:" + cr.ID);
+            Utils.Log.BLLogger.Info("Crisis is closed:" + cr.Id);
             Container.Instance.SaveChanges();
             return true;
         }

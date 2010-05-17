@@ -23,7 +23,7 @@
                             <div class="markermenu">
                             <ul>
                             <li><a  href="Crisis.aspx">Define new crisis</a></li>    
-                            <li><a  href="Crisis.aspx?Action=Edit">Edit crisis</a></li> 
+                            <li><a  runat="server"  id="hlEditCrisis" href="Crisis.aspx?Action=Edit">Edit crisis</a></li> 
                               <li>  <a  href="CrisisList.aspx">List all crises</a></li>  </ul></div>
                                 </Content>
                         </asp:AccordionPane>
@@ -33,7 +33,7 @@
                             <Content>
                                <div class="markermenu">
                             <ul>
-                            <li><a href="Incident.aspx">Create new incident</a></li>
+                            <li><a  runat="server"  id="hlNewIncident" href="Incident.aspx">Create new incident</a></li>
                               <li> <a runat="server" href="IncidentList.aspx" ID="hlIncidentlist">List all incidents</a></li></ul></div>
                             </Content>
                         </asp:AccordionPane>
