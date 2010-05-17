@@ -148,9 +148,9 @@ public partial class Incident : PageBase
         ucIncidentType.Enabled = boolVal;
         UCIncidentMap1.Enabled = boolVal;
         btAddNew.Visible = boolVal;
-        btClose.Visible = !boolVal;
+        btClose.Visible = boolVal;
         btSave.Visible = boolVal;
-        btReactivate.Visible = boolVal;
+        btReactivate.Visible = !boolVal;
         rowStatus.Visible = true;
 
         Master.PageTitle = boolVal + "";
