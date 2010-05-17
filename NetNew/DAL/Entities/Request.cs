@@ -12,7 +12,7 @@ namespace DAL
             var incorrects = new List<string>();
 
             string msg;
-            if (!Validation.Check(Message, 3, 200, out msg, ValRules._AllowAll))
+            if (!Validation.Check(Message, 3, 100, out msg, ValRules._AllowAll))
                 incorrects.Add("The message is not correct! " + msg);
 
             if (!Validation.Check(Name, 3, 30, out msg, ValRules._AllowAll))

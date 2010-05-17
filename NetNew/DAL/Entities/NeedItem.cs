@@ -11,5 +11,7 @@ namespace DAL
             get { return Reflection.SafeConvertToEnum(MetricTypeVal, MetricTypes.Item); }
             set { MetricTypeVal = (Int16) value; }
         }
+
+        // TODO : Put validate mehtod and use it.
     }
 }
