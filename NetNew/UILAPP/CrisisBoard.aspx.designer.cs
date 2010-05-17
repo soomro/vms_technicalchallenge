@@ -30,6 +30,15 @@ public partial class CrisisBoard {
     protected global::AjaxControlToolkit.AccordionPane pn1;
     
     /// <summary>
+    /// hlEditCrisis control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlAnchor hlEditCrisis;
+    
+    /// <summary>
     /// pn2 control.
     /// </summary>
     /// <remarks>
@@ -37,6 +46,15 @@ public partial class CrisisBoard {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::AjaxControlToolkit.AccordionPane pn2;
+    
+    /// <summary>
+    /// hlNewIncident control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlAnchor hlNewIncident;
     
     /// <summary>
     /// hlIncidentlist control.

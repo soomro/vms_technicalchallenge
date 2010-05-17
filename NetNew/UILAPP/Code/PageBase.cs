@@ -51,8 +51,7 @@ public class PageBase : Page
             }
 
             var m = HttpContext.Current.Items[Constants.IdMainCrisis] as DAL.Crisis;
-            if (m == null)
-                throw new VMSException("No active crisis is found!");
+     
 
             return m;
         }
