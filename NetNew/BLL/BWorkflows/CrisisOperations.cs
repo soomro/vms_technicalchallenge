@@ -31,13 +31,15 @@ namespace BLL.BWorkflows
             IList<string> valRes = c.Validate();
             if (valRes.Count > 0)
             {
+                Utils.Log.BLLogger.Error("Crisis could not validated in create");
                 throw new VMSException(valRes);
             }
 
             Container.Instance.Crises.AddObject(c);
             Container.Instance.SaveChanges();
 
-
+            Utils.Log.BLLogger.Info(string.Format("Crisis created with:{0}, {1}, {2}, {3}, {4}",
+                                                  c.Id, c.Name, c.CrisisType, c.Explanation, c.LocationCoordinates));
             return (c);
         }
 
@@ -65,11 +67,18 @@ namespace BLL.BWorkflows
             //  validate fields 
             IList<string> valRes = c.Validate();
             if (valRes.Count > 0)
+            {
+                Utils.Log.BLLogger.Error("Crisis could not validated in create"); 
                 throw new VMSException(valRes);
+            }
+               
 
             //Reflecting to DB
             Container.Instance.SaveChanges();
 
+            Utils.Log.BLLogger.Info(string.Format("Crisis updated with:{0}, {1}, {2}, {3}, {4}",
+                                                  c.Id, c.Name, c.CrisisType, c.Explanation, c.LocationCoordinates));
+            
             return (c);
         }
 
@@ -86,6 +95,7 @@ namespace BLL.BWorkflows
             }
 
             cr.Status = CrisisStatuses.Closed;
+            Utils.Log.BLLogger.Info("Crisis is closed:" + cr.ID);
             Container.Instance.SaveChanges();
             return true;
         }

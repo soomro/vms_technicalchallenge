@@ -95,22 +95,6 @@ public partial class UC_ucEnumSelector : UserControl
             }
         }
 
-        //foreach (var name in names)
-        //{
-
-        //    var li = new ListItem(name);
-        //    if (string.IsNullOrEmpty(selVal) 
-        //        && (Enum.Parse(EnumType, name)).ToString() == DefaultSelection+"")
-        //    {
-        //        li.Selected = true;
-        //    }
-        //    if (!string.IsNullOrEmpty(selVal) && name==selVal)
-        //    {
-        //        li.Selected = true;
-        //    }
-        //    rdlOptions.Items.Add(li);
-        //    ddlOptions.Items.Add(li);
-        //}
     }
 
     public T SelectedValue<T>()

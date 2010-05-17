@@ -18,6 +18,7 @@ namespace BLL.BWorkflows
 
             inc.IncidentStatus = Utils.Enumerations.IncidentStatuses.Complete;
             DAL.Container.Instance.SaveChanges();
+            Utils.Log.BLLogger.Info("Incident is closed:"+inc.ID); 
             return true;
         }
     }
