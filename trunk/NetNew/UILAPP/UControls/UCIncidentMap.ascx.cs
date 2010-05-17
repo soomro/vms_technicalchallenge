@@ -25,9 +25,10 @@ public partial class UControls_UCIncidentMap : UserControl
             }
             catch (Exception ex)
             {
+                return false;
             }
 
-            return false;
+            
         }
         set
         {
@@ -76,7 +77,6 @@ public partial class UControls_UCIncidentMap : UserControl
             if (ViewState["mapHeigth"] == null)
             {
                 ViewState["mapHeigth"] = new Unit(300);
-                ;
             }
 
             return (int) ViewState["mapHeigth"];

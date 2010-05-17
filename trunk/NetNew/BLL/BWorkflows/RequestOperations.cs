@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BLL.BWorkflows
 {
-    public class RequestOperations
+    public partial class RequestOperations
     {
     }
 }

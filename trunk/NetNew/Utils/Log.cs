@@ -10,7 +10,14 @@ namespace Utils
 
         static NLog.Logger _wslogger = NLog.LogManager.GetLogger("WS");
         static NLog.Logger _weblogger = NLog.LogManager.GetLogger("WEB");
-
+        static NLog.Logger _blllogger = NLog.LogManager.GetLogger("BLL");
+        public static NLog.Logger BLLogger
+        {
+            get
+            {
+                return _blllogger;
+            }
+        }
         /// <summary>
         /// Default logger for quick usage
         /// </summary>
@@ -21,6 +28,7 @@ namespace Utils
                 return _wslogger;
             }            
         }
+
         public static NLog.Logger WEBLogger
         {
             get
