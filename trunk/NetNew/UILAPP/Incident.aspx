@@ -30,8 +30,8 @@
                                 SelectionType="DropDownList"    />
                         </td>
                     </tr>
-                     <tr>
-                        <td class="formField" runat="server" ID="rowStatus">
+                     <tr runat="server" ID="rowStatus">
+                        <td class="formField" >
                             Status
                         </td>
                         <td>

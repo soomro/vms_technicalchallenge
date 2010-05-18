@@ -44,7 +44,7 @@ public partial class ResourceGathering : PageBase
             DAL.Incident inc = null;
             try
             {
-                inc = GetIncident(true);
+                inc = GetIncident();
             }
             catch (VMSException ex)
             {
@@ -65,7 +65,7 @@ public partial class ResourceGathering : PageBase
 
     private void BindPage(DAL.Incident inc)
     {
-        // TODO: enable panels.
+        
         pnIncident.Visible = true;
         pnRequestList.Visible = true;
 
@@ -92,7 +92,10 @@ public partial class ResourceGathering : PageBase
 
         hlNewRequest.HRef = string.Format("./CreateRequest.aspx?{0}={1}&Action={2}", Constants.IdIncidentId, inc.Id,
                                           PageActions.Create);
-
+        if (inc.IncidentStatus==IncidentStatuses.Complete)
+        {
+            hlNewRequest.Visible = false;
+        }
 
         Master.SetSiteMap(new[]
                               {
@@ -119,23 +122,16 @@ public partial class ResourceGathering : PageBase
     /// </summary>
     /// <param name="refresh">If true, incident is re-read from DB</param>
     /// <returns>Incident object that is specified in the URL</returns>
-    private DAL.Incident GetIncident(bool refresh = false)
+    private DAL.Incident GetIncident()
     {
         int incId = Convert.ToInt(Request[Constants.IdIncidentId], 0);
         if (incId == 0)
         {
             throw new VMSException("Incident is not specified");
         }
-        var incObj = Session[Constants.IdIncident] as DAL.Incident;
-
-        if (refresh == false && incObj != null && incObj.Id == incId) // return it from session
-        {
-            return incObj;
-        }
-
-
-        incObj = Container.Instance.Incidents.SingleOrDefault(inc => inc.Id == incId);
-        Session[Constants.IdIncident] = incObj;
+         
+        var incObj = Container.Instance.Incidents.SingleOrDefault(inc => inc.Id == incId);
+ 
         return incObj;
     }
 
@@ -154,7 +150,10 @@ public partial class ResourceGathering : PageBase
 
         lbtRequest.Text = req.Name;
         lbtRequest.CommandArgument = req.Id + "|" + rowindex++;
-        hlEditRequest.NavigateUrl = string.Format("~/CreateRequest.aspx?{0}={1}&Action={2}&{3}={4}",
+        if (req.Incident.IncidentStatus==IncidentStatuses.Complete)
+            hlEditRequest.Visible = false;
+        else
+            hlEditRequest.NavigateUrl = string.Format("~/CreateRequest.aspx?{0}={1}&Action={2}&{3}={4}",
                                                   Constants.IdIncidentId, GetIncident().Id, PageActions.Edit,
                                                   Constants.IdRequestId, req.Id);
         ltStatus.Text = req.IsActive ? "Active" : "Not active";
@@ -192,6 +191,10 @@ public partial class ResourceGathering : PageBase
 
         gvVolunteers.DataSource = req.RequestResponses;
         gvVolunteers.DataBind();
+
+        // update incident needs statuses
+        gvIncidentNeeds.DataSource = GetIncident().NeedItems;
+        gvIncidentNeeds.DataBind();
     }
 
     protected void gvNeedList_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -250,7 +253,7 @@ public partial class ResourceGathering : PageBase
 
         hlVolName.Text = res.Volunteer.NameLastName;
 
-        hlVolName.NavigateUrl = "#";
+        hlVolName.NavigateUrl = Constants.PageVolunteerProfile+"?vid="+res.Volunteer_Id;
         if (res.Answer.HasValue && res.Answer.Value)
             lbResponse.Text = "Accepted";
         if (res.Answer.HasValue && res.Answer.Value == false)

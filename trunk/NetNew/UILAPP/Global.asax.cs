@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using Utils;
 
 namespace UILAPP
 {
@@ -43,8 +44,12 @@ namespace UILAPP
         protected void Application_Error()
         {
             Exception lastException = Server.GetLastError();
-            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-            logger.Fatal(lastException);
+            if (lastException.InnerException != null)
+            {
+                lastException = lastException.InnerException;
+            }
+            Utils.Log.WEBLogger.FatalException("Unhandled expection",lastException);
+            
             Utils.Errors.FireError("", lastException);
         }
 

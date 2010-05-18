@@ -16,6 +16,11 @@ public partial class Alert : PageBase
             if (PageAction == PageActions.View)
             {
                 Master.PageTitle = "Alert List Page";
+                Master.SetSiteMap(new[]{
+                                 new[] {"Crisis Board", "CrisisBoard.aspx"},
+                                  new[]{"Alert List Page","" }
+                              });
+
                 pnlAlertList.Visible = true;
                 pnlDivForm.Visible = false;
                 //filling up alerts
@@ -29,6 +34,11 @@ public partial class Alert : PageBase
             else
             {
                 Master.PageTitle = "Create New Alert";
+                Master.SetSiteMap(new[]{
+                                 new[] {"Crisis Board", "CrisisBoard.aspx"},
+                                  new[]{"Alert List Page:","Alert.aspx?Action=View" },
+                                  new[]{"Create New Alert","" }                        
+                              });
                 pnlAlertList.Visible = false;
                 pnlDivForm.Visible = true;
             }

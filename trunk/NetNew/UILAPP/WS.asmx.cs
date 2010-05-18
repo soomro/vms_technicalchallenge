@@ -20,22 +20,24 @@ namespace UILAPP
     // [System.Web.Script.Services.ScriptService]
     public class WS : WebService
     {
+        char sep = Collection.SeparatorChar;
+
         [WebMethod(Description = "Validates the username and password and returns true if it is correct.")]
         public bool Login(string username, string password)
         {
-            Log.WSLogger.Info("Login: Username:{0}, Password:{1}", username, password);
+            Log.WSLogger.Trace("Login: Username:{0}, Password:{1}", username, password);
 
             Volunteer q =
                 DAL.Container.WSInstance.Volunteers.SingleOrDefault(
                     v => v.Username == username && v.Password == password);
             if (q == null)
             {
-                Log.WSLogger.Info("Login returned false");
+                Log.WSLogger.Trace("Login returned false");
                 return false;
             }
             else
             {
-                Log.WSLogger.Info("Login returned true");
+                Log.WSLogger.Trace("Login returned true");
                 return true;
             }
         }
@@ -43,16 +45,16 @@ namespace UILAPP
         [WebMethod]
         public string CheckUpdate(string username, string password, float lat, float lon)
         {
-            Log.WSLogger.Info("Check Update: username:{0}, password={1}, lat:{2}, lon:{3}", username, password, lat, lon);
+            Log.WSLogger.Trace("Check Update: username:{0}, password={1}, lat:{2}, lon:{3}", username, password, lat, lon);
 
-            const char sep = Collection.SeparatorChar;
-
+           
             string res = "";
             Volunteer vol = (from v in DAL.Container.WSInstance.Volunteers
                              where v.Username == username && v.Password == password
                              select v).SingleOrDefault();
             if (vol == null)
             {
+                Log.WSLogger.Trace("Check Update:Volunteer can not be found.");
                 return "";
             }
 
@@ -91,10 +93,8 @@ namespace UILAPP
         {
             //try
             //{
-            Log.WSLogger.Info("username:{0}, password={1}, requestresponseID:{2} ", username, password,
+            Log.WSLogger.Trace("username:{0}, password={1}, requestresponseID:{2} ", username, password,
                                  requestresponseID);
-
-            char sep = Collection.SeparatorChar;
 
             Volunteer vol = (from v in DAL.Container.WSInstance.Volunteers
                              where v.Username == username && v.Password == password
@@ -102,6 +102,7 @@ namespace UILAPP
             if (vol == null)
             {
                 msg = "Username or password is incorrect.";
+                Log.WSLogger.Error("Get Request: "+msg);
                 return "";
             }
             int reqidd = Convert.ToInt(requestresponseID, 0);
@@ -113,6 +114,7 @@ namespace UILAPP
             if (request == null)
             {
                 msg = "Request could not be found";
+                Log.WSLogger.Error("Get Request: "+msg);
                 return "";
             }
 
@@ -149,96 +151,86 @@ namespace UILAPP
             amountProvided = amountProvided.Replace("??", ((char)254) + "");
             amountProvided = amountProvided.Replace("?", ((char)254) + "");
 
-            Log.WSLogger.Info("RespondeToRequest: username:{0}, password={1}, requestresponseID:{2},amountProvided:{3} ", username,
+            Log.WSLogger.Trace("RespondToRequest: username:{0}, password={1}, requestresponseID:{2},amountProvided:{3} ", username,
                               password, requestresponseID, amountProvided);
 
-            char sep = Collection.SeparatorChar;
 
             Volunteer vol = (from v in DAL.Container.WSInstance.Volunteers
                              where v.Username == username && v.Password == password
                              select v).SingleOrDefault();
 
-            Log.WSLogger.Info("1");
 
             if (vol == null)
-            {
-                Log.WSLogger.Info("2");
+            { 
                 msg = "Username or password is incorrect";
-                Log.WSLogger.Info("ResponsToReq:"+msg);
+                Log.WSLogger.Error("RespondToRequest:"+msg);
                 return false;
-            }
-            Log.WSLogger.Info("3");
-            int reqId = Convert.ToInt(requestresponseID, 0);
-            Log.WSLogger.Info("4");
+            } 
+            int reqId = Convert.ToInt(requestresponseID, 0); 
+
             RequestRespons requestres = (from r in DAL.Container.WSInstance.RequestResponses
                                          where r.Volunteer_Id == vol.Id && r.Id == reqId
                                          select r).SingleOrDefault();
-            Log.WSLogger.Info("5");
+    
             if (requestres == null)
-            {
-                Log.WSLogger.Info("6");
+            { 
                 msg = "Request cannot be found"+ reqId;
-                Log.WSLogger.Info("ResponsToReq:"+msg);
+                Log.WSLogger.Error("RespondToRequest:"+msg);
                 return false;
-            }
-            Log.WSLogger.Info("7");
+            } 
             requestres.DateResponded = DateTime.Now;
-            requestres.Status =  RequestResponseStatuses.Responded;
-            Log.WSLogger.Info("8");
+            requestres.Status =  RequestResponseStatuses.Responded; 
             bool accepted = false;
             string[] parts = amountProvided.Split(new[] { sep }, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < parts.Length; i += 2)
-            {
-                Log.WSLogger.Info("9");
+            { 
                 string itype = parts[i];
                 string iamount = parts[i + 1];
+                
                 NeedItem ni = requestres.Request.NeedItems.SingleOrDefault(n => n.ItemType == itype);
-                Log.WSLogger.Info("10");
+    
                 if (ni != null)
                 {
                     // we are sure that itype is requested. now add a new needitem record to save the supp amount.
-                    Log.WSLogger.Info("11");
-                    ni.SuppliedAmount = Convert.ToDouble(iamount, 0);
-                    if (ni.SuppliedAmount > 0)
+                    
+                    var supAm = Utils.Convert.ToDouble(iamount, 0);
+                    // can only supply needed amount at most
+                    supAm = ni.ItemAmount < supAm ? ni.ItemAmount : supAm;
+
+                    if (supAm> 0)
                     {
-                        Log.WSLogger.Info("12");
+            
                         accepted = true; // if any need is supplied then it means it is accepted.
                         NeedItem dubCheckobj = (from niDub in requestres.NeedItems
                                                 where niDub.ItemType == itype
                                                 select niDub).FirstOrDefault();
                         if (dubCheckobj != null)
-                        {
-                            Log.WSLogger.Info("13");
-                            dubCheckobj.SuppliedAmount = Convert.ToDouble(iamount, dubCheckobj.SuppliedAmount);
+                        { // updating previously accepted one
+                            dubCheckobj.SuppliedAmount = supAm;
                         }
                         else
-                        {
-                            Log.WSLogger.Info("14");
+                        { 
                             requestres.NeedItems.Add(new NeedItem
                                                          {
-                                                             SuppliedAmount = Convert.ToDouble(iamount, 0),
+                                                             SuppliedAmount =supAm,
                                                              ItemType = itype,
                                                              MetricType = ni.MetricType
                                                          });
-                        }
-                        Log.WSLogger.Info("15");
-                    }
-                    Log.WSLogger.Info("16");
+                        } 
+                    } 
                 }
                 else
                 {
-                    Log.WSLogger.Info("ResponsToReq: Request need item is not found");
+                    Log.WSLogger.Error("RespondToRequest: Request need item is not found");
                 }
-            }
-            Log.WSLogger.Info("17");
+            } 
 
             requestres.Answer = accepted;
             requestres.DateResponded = DateTime.Now;
-
-            Log.WSLogger.Info("18");
+             
 
             DAL.Container.WSInstance.SaveChanges();
-            Log.WSLogger.Info("Responde to request succeed-> ReqId:{0}, Answer:{1},"
+            Log.WSLogger.Trace("RespondToRequest succeed-> ReqId:{0}, Answer:{1},"
                 , requestres.Request_Id, requestres.Answer);
             msg = "";
             return true;
@@ -247,7 +239,7 @@ namespace UILAPP
         [WebMethod]
         public string GetAlert(string alertID, string username, string password, out string msg)
         {
-            Log.WSLogger.Info("username:{0}, password={1}, alertID:{2}  ", username, password, alertID);
+            Log.WSLogger.Info("GetAlert:username:{0}, password={1}, alertID:{2}  ", username, password, alertID);
 
             int aid = Convert.ToInt(alertID, 0);
             Volunteer vol = (from v in DAL.Container.WSInstance.Volunteers
@@ -256,8 +248,8 @@ namespace UILAPP
             if (vol == null)
             {
                 msg = "Username or password is incorrect";
-                return "";
-                ;
+                Log.WSLogger.Error("GetAlert: "+msg);
+                return ""; 
             }
 
             AlertsVolunteer alert = (from a in DAL.Container.WSInstance.AlertsVolunteers
@@ -266,6 +258,7 @@ namespace UILAPP
             if (alert == null)
             {
                 msg = "Alert can not be found";
+                Log.WSLogger.Error("GetAlert:" + msg);
                 return "";
             }
             msg = "";
@@ -280,7 +273,7 @@ namespace UILAPP
                 "Progress Report: username:{0}, password={1}, requestresponseID:{2}, message:{3}, status:{4} ", username,
                 password, requestresponseID, message, status);
 
-            char sep = Collection.SeparatorChar;
+            
 
             Volunteer vol = (from v in DAL.Container.WSInstance.Volunteers
                              where v.Username == username && v.Password == password
@@ -288,7 +281,8 @@ namespace UILAPP
             if (vol == null)
             {
                 msg = "Username or password is incorrect";
-                Log.WSLogger.Error(msg);
+                Log.WSLogger.Error("ProgressReport:" + msg);
+          
                 return;
             }
             int rrId = Convert.ToInt(requestresponseID, 0);
@@ -300,7 +294,7 @@ namespace UILAPP
             if (request == null)
             {
                 msg = "Request could not be found";
-                Log.WSLogger.Error(msg);
+                Log.WSLogger.Error("ProgressReport:" + msg);
                 return;
             }
             ProgressReport pr = DAL.Container.Instance.ProgressReports.CreateObject();
@@ -316,6 +310,7 @@ namespace UILAPP
             catch (Exception)
             {
                 msg = "Status value is wrong";
+                Log.WSLogger.Error("ProgressReport:" + msg);
                 return;
             }
             pr.Volunteer = vol;
@@ -330,6 +325,7 @@ namespace UILAPP
             catch (Exception ex)
             {
                 msg = ex.Message + ":" + ex.InnerException.Message;
+                Log.WSLogger.Error("ProgressReport:" + msg);
             }
         }
 
@@ -339,16 +335,14 @@ namespace UILAPP
         {
             Log.WSLogger.Trace("Incident Report: username:{0}, password={1}, location:{2}, message:{3} ", username,
                                password, location, message);
-
-            char sep = Collection.SeparatorChar;
-
+            
             Volunteer vol = (from v in DAL.Container.WSInstance.Volunteers
                              where v.Username == username && v.Password == password
                              select v).SingleOrDefault();
             if (vol == null)
             {
                 msg = "Username or password is incorrect";
-                Log.WSLogger.Error(msg);
+                Log.WSLogger.Error("IncidentReport:" + msg);
                 return;
             }
 
@@ -373,6 +367,7 @@ namespace UILAPP
             catch (Exception)
             {
                 msg = "Incident type value is wrong";
+                Log.WSLogger.Error("IncidentReport:" + msg);
                 return;
             }
             ir.LocationCoordinatesStr = "";
@@ -380,6 +375,12 @@ namespace UILAPP
             DAL.Container.Instance.SaveChanges();
 
             msg = "";
+        }
+
+        [WebMethod]
+        public string CheckUpdateTest()
+        {
+            return CheckUpdate("aaa", "aaa", 0, 0);
         }
     }
 }

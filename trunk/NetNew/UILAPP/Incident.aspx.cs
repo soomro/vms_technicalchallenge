@@ -36,6 +36,8 @@ public partial class Incident : PageBase
     protected override void OnPreRender(EventArgs e)
     {
         txShortAddress.Text = HttpContext.Current.Items["adrName"] as string;
+        Session["adrName"] = HttpContext.Current.Items["adrName"] as string;
+        
         base.OnPreRender(e);
     }
 
@@ -45,6 +47,8 @@ public partial class Incident : PageBase
 
         if (!IsPostBack)
         {
+            Session["adrName"] = null;
+
             ucIncidentType.EnumType = typeof (IncidentTypes);
             ucSeverity.EnumType = typeof (Severities);
 
@@ -117,7 +121,8 @@ public partial class Incident : PageBase
         hlProgressReports.NavigateUrl = Constants.PageProgressReports + "?iid=" + inc.Id;
 
         bool boolVal = true;
-        if (inc.Crisis.Status == CrisisStatuses.Closed)
+        if (inc.Crisis.Status == CrisisStatuses.Closed
+            ||inc.IncidentStatus == IncidentStatuses.Complete)
             boolVal = false;
 
         if (boolVal)
@@ -151,8 +156,7 @@ public partial class Incident : PageBase
         btClose.Visible = boolVal;
         btSave.Visible = boolVal;
         btReactivate.Visible = !boolVal;
-        rowStatus.Visible = true;
-
+        gvNeedList.Enabled =  boolVal;
         Master.PageTitle = boolVal + "";
     }
 
@@ -222,6 +226,12 @@ public partial class Incident : PageBase
 
     protected void gvNeedList_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+        if (e.Row.RowType == DataControlRowType.Header)
+        {
+            e.Row.Cells[2].Attributes.Add("title", "Needed amount");
+            e.Row.Cells[3].Attributes.Add("title", "Collected amount");
+        }
+
         if (e.Row.RowType != DataControlRowType.DataRow)
         {
             return;
@@ -304,7 +314,7 @@ public partial class Incident : PageBase
         inc.LocationCoordinates.Add(UCIncidentMap1.Incident.Longitude + "");
         foreach (NeedItem ni in NeedList)
         {
-            NeedItem orjni = inc.NeedItems.SingleOrDefault(nii => nii.Id == ni.Id);
+            NeedItem orjni = inc.NeedItems.SingleOrDefault(nii => nii.Id == ni.Id && ni.Id!=0);
             if (orjni != null)
             {
 // this need item was there before. just update values.
@@ -343,7 +353,7 @@ public partial class Incident : PageBase
         inc.DateCreated = DateTime.Now;
         inc.ShortDescription = Utils.Convert.SafeString(txShortDesc.Text);
         inc.Explanation = Utils.Convert.SafeString(txExplanation.Text);
-        inc.ShortAddress = Utils.Convert.SafeString(txShortAddress.Text);
+        inc.ShortAddress = Session["adrName"] + "";
         inc.LocationCoordinates.Add(UCIncidentMap1.Zoom + "");
 
         IList<string> msgs = inc.Validate();
@@ -406,6 +416,7 @@ public partial class Incident : PageBase
         inc.IncidentStatus = IncidentStatuses.ResourceGathering;
         Container.Instance.SaveChanges();
         Master.ShowMessage(MessageTypes.Info, "Incident reactivated!");
-        RedirectAfter(4, Request.RawUrl);
+        BindDataForEdit(inc);
+        //RedirectAfter(4, Request.RawUrl);
     }
 }

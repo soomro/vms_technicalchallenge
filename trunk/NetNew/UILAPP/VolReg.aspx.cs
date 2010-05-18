@@ -145,10 +145,12 @@ public partial class VolReg : PageBase
     /// <param name="vol">volunteer instance</param>
     private bool FillVolunteer(Volunteer vol)
     {
-        // creating address instance and assigning values into 
+        
+        List<string> messages = new List<string>();
+
         vol.Address = new Address();
         vol.NameLastName = Convert.SafeString(txtName.Text);
-        vol.BirthDate = System.Convert.ToDateTime(Convert.SafeString(txtBirthDate.Text));
+        vol.BirthDate = Utils.Convert.ToDateTime(txtBirthDate.Text);
         vol.Address.City = Convert.SafeString(txtCity.Text);
         vol.Address.Country = Convert.SafeString(txtCountry.Text);
         vol.Address.FlatNumber = Convert.SafeString(txtFlatNo.Text);
@@ -181,6 +183,8 @@ public partial class VolReg : PageBase
         vol.Height = tmpDecimal;
         vol.HealthProb = txtHealthProblem.Text;
         vol.Phone = txtPhone.Text;
+
+        
         return true;
     }
 

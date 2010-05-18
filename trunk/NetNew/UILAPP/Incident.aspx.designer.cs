@@ -45,7 +45,7 @@ public partial class Incident {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlTableCell rowStatus;
+    protected global::System.Web.UI.HtmlControls.HtmlTableRow rowStatus;
     
     /// <summary>
     /// lbStatus control.
