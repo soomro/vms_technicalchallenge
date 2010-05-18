@@ -9,7 +9,7 @@ public partial class Alert : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        RequireManager();
+        //RequireManager();
 
         if (!IsPostBack)
         {
@@ -40,6 +40,17 @@ public partial class Alert : PageBase
     }
     protected void btnSend_Click(object sender, EventArgs e)
     {
+        if (txtMessage.Text.Trim()==string.Empty)
+        {
+            Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "Message field should not be empty.");
+            return;
+        }
+        if (ucSearchVolunteer.SearchCriteriaString.Trim() == string.Empty)
+        {
+            Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "Search criteria field should not be empty.");
+            return;
+        }
+
         var alert = new DAL.Alert();
         alert.Message = txtMessage.Text;
         alert.SearchCriteriaStr = ucSearchVolunteer.SearchCriteriaString;
@@ -47,6 +58,11 @@ public partial class Alert : PageBase
         alert.Crisis_Id = MainCrisis.Id;
         DAL.Container.Instance.Alerts.AddObject(alert);
         DAL.Container.Instance.SaveChanges();
+        if (ucSearchVolunteer.SelectedVolunteers.Count < 1)
+        {
+            Master.ShowMessage(Utils.Enumerations.MessageTypes.Error, "No volunteers have been selected.");
+            return;
+        }
         foreach (var item in ucSearchVolunteer.SelectedVolunteers)
         {
             var temp=new DAL.AlertsVolunteer();
@@ -55,6 +71,7 @@ public partial class Alert : PageBase
             DAL.Container.Instance.AlertsVolunteers.AddObject(temp);
         }
         DAL.Container.Instance.SaveChanges();
+        Master.ShowMessage(Utils.Enumerations.MessageTypes.Info, "Message successfully sent.");
     }
     protected void gvAlerts_RowDataBound(object sender, GridViewRowEventArgs e)
     {
