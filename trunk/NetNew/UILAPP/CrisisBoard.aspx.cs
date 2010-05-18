@@ -27,7 +27,15 @@ public partial class CrisisBoard : PageBase
             cbxShowClosed_CheckedChanged(null, null);
 
             hlIncidentlist.HRef = Constants.PageIncidents + "?cid=" + MainCrisis.Id;
-           
+
+            if (MainCrisis.LocationCoordinates.Count>=2)
+            {
+                double lat, lon;
+                if (double.TryParse(MainCrisis.LocationCoordinates[0], out lat))
+                    UCMap1.Latitude = lat;
+                if (double.TryParse(MainCrisis.LocationCoordinates[1], out lon))
+                    UCMap1.Longitude = lon;
+            }
         }
         hlProfile.NavigateUrl = Constants.PageManagerProfile+"?Action=Edit";
         Master.SetSiteMap(new[] {new[] {"Crisis Board", "CrisisBoard.aspx"}});

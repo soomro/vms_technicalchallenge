@@ -85,6 +85,7 @@ namespace Utils.Enumerations
         _abc,
         _123,
         _SpeChars, // special characters ( symbols and punctiations )
+        _Punc,
         _Space,
         _StartsWith_abc,
         _AllowAll

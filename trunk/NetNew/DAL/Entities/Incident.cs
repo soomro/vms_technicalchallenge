@@ -56,10 +56,10 @@ namespace DAL
             if (LocationCoordinates.Count == 0)
                 incorrects.Add("Incident location is not defined.");
 
-            if (!Validation.Check(Explanation, 3, 500, out msg, ValRules._AllowAll))
+            if (!Validation.Check(Explanation, 3, 500, out msg, ValRules._AllowAll,ValRules._StartsWith_abc))
                 incorrects.Add("Explanation is not correct! " + msg);
 
-            if (!Validation.Check(ShortDescription, 3, 50, out msg, ValRules._AllowAll))
+            if (!Validation.Check(ShortDescription, 3, 50, out msg, ValRules._abc,ValRules._123,ValRules._Space,ValRules._Punc))
                 incorrects.Add("Short description is not valid! " + msg);
 
 

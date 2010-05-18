@@ -48,6 +48,11 @@ public partial class Login : PageBase
             if (user != null && user.Password == txtPassword.Text)
             {
                 CurrentManager = user;
+                if(CurrentManager.UserName == "admin")
+                {
+                    Response.Redirect("~/ManReg.aspx?Action=Admin");
+                    return;
+                }
                 if (!string.IsNullOrEmpty(Request["ReturnUrl"]))
                 {
                     Response.Redirect(Server.UrlDecode(Request["ReturnUrl"]));

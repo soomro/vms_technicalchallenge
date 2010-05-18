@@ -57,6 +57,7 @@
     <Compile Include="Entities\NeedItem.cs" />
     <Compile Include="Entities\ProgressReport.cs" />
     <Compile Include="Entities\Request.cs" />
+    <Compile Include="Entities\RequestResponse.cs" />
     <Compile Include="Entities\Volunteer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

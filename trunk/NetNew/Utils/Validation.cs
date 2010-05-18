@@ -18,11 +18,13 @@ namespace Utils
         /// <returns></returns>
         public static bool Check(string val, int minLength, int maxLength, out string msg, params Utils.Enumerations.ValRules[] rules)
         {
+            val = val.Trim();
             if (val.Length < minLength || val.Length > maxLength)
             {
                 msg = string.Format("The length should be [{0}-{1}]", minLength, maxLength);
                 return false;
             }
+
             if (rules.Contains(Enumerations.ValRules._AllowAll) )
             {
                 msg ="";
@@ -62,7 +64,7 @@ namespace Utils
                         return false;
                     }
 
-                    if (!rules.Contains(Enumerations.ValRules._SpeChars) && Char.IsPunctuation(c))
+                    if (!rules.Contains(Enumerations.ValRules._Punc) && Char.IsPunctuation(c))
                        {
                         msg = string.Format("It can not contain punctuation letters.");
                         return false;
