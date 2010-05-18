@@ -53,7 +53,7 @@
                                    <div class="markermenu">
                             <ul>
                             <li> <a href="Alert.aspx">Send alert</a></li>
-                                <li>   <a href="AlertList.aspx">List all alerts</a></li></ul></div>
+                                <li>   <a href="Alert.aspx?Action=View">List all alerts</a></li></ul></div>
                                  </Content>
                         </asp:AccordionPane>
 

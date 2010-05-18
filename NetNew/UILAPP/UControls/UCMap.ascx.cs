@@ -16,10 +16,9 @@ public partial class UCMap : System.Web.UI.UserControl
         {
             // set default location 57.7070820644457, lon:11.9915771484375 
 
-            GoogleMap1.Latitude= 57.7070820644457;
-            GoogleMap1.Longitude = 11.9915771484375;
+            GoogleMap1.Latitude= 57.7070820644457f;;
+            GoogleMap1.Longitude = 11.9915771484375f;
             GoogleMap1.Zoom = 8;
-            
 
         }
     }
@@ -32,6 +31,30 @@ public partial class UCMap : System.Web.UI.UserControl
         }
         base.OnPreRender(e);
     }
+
+    public double Latitude
+    {
+        get
+        {
+            return GoogleMap1.Latitude;
+        }
+        set
+        {
+            GoogleMap1.Latitude = value;
+        }
+    } 
+  
+    public double Longitude
+    {
+        get
+        {
+            return GoogleMap1.Longitude;
+        }
+        set
+        {
+            GoogleMap1.Longitude = value;
+        }
+    } 
 
     private GoogleMarker BuildMarker(DAL.Incident inc)
     {

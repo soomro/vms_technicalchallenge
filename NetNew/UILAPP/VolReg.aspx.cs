@@ -160,7 +160,7 @@ public partial class VolReg : PageBase
         vol.Address.Street = Convert.SafeString(txtStreet.Text);
         vol.CoordinatesStr = string.Empty;
         vol.CoordinateLastUpdateTime = DateTime.Now;
-        vol.LastAccessTime = DateTime.Now;
+        vol.LastAccessTime = DateTime.Now.AddYears(-10);
         vol.EduAndTrainings = txtSpecialTraining.Text;
         vol.EmailAddr = txtEmailAddress.Text;
         vol.Username = txtUserName.Text;

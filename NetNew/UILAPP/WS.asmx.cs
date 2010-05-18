@@ -17,13 +17,13 @@ namespace UILAPP
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-        // [System.Web.Script.Services.ScriptService]
+    // [System.Web.Script.Services.ScriptService]
     public class WS : WebService
     {
         [WebMethod(Description = "Validates the username and password and returns true if it is correct.")]
         public bool Login(string username, string password)
         {
-            Log.WSLogger.Info("Login Callsed. Username:{0}, Password:{1}", username, password);
+            Log.WSLogger.Info("Login: Username:{0}, Password:{1}", username, password);
 
             Volunteer q =
                 DAL.Container.WSInstance.Volunteers.SingleOrDefault(
@@ -43,7 +43,7 @@ namespace UILAPP
         [WebMethod]
         public string CheckUpdate(string username, string password, float lat, float lon)
         {
-            Log.WSLogger.Info("username:{0}, password={1}, lat:{2}, lon:{3}", username, password, lat, lon);
+            Log.WSLogger.Info("Check Update: username:{0}, password={1}, lat:{2}, lon:{3}", username, password, lat, lon);
 
             const char sep = Collection.SeparatorChar;
 
@@ -80,6 +80,8 @@ namespace UILAPP
                 res += "A" + sep + alert.Id + sep + alert.Alert.Message + sep;
                 alert.DateShowed = DateTime.Now;
             }
+            vol.LastAccessTime = DateTime.Now;
+
             DAL.Container.WSInstance.SaveChanges();
             return res;
         }
@@ -87,8 +89,10 @@ namespace UILAPP
         [WebMethod(Description = "Returns the request information of requestresponseid")]
         public string GetRequest(string requestresponseID, string username, string password, out string msg)
         {
+            //try
+            //{
             Log.WSLogger.Info("username:{0}, password={1}, requestresponseID:{2} ", username, password,
-                              requestresponseID);
+                                 requestresponseID);
 
             char sep = Collection.SeparatorChar;
 
@@ -121,22 +125,31 @@ namespace UILAPP
                 NeedItem nSupplied = (from n in DAL.Container.Instance.NeedItems
                                       where n.RequestResponseId == rr.Id && n.ItemType == ni.ItemType
                                       select n).FirstOrDefault();
-                double amSupp = nSupplied.SuppliedAmount;
+                double amSupp = 0;
+                if (nSupplied!=null)
+                    amSupp  = nSupplied.SuppliedAmount;
 
                 res += sep + ni.ItemType + sep + ni.MetricType + sep + (ni.ItemAmount - ni.SuppliedAmount)
                        + sep + amSupp;
             }
             msg = "";
             return res + sep;
+            //  }
+            //catch (Exception ex)
+            //{
+            //    Utils.Log.WSLogger.ErrorException("Get request throwed exception:"+ex.InnerException!=null?ex.InnerException.Message:"",ex);
+            //    throw;
+            //}
         }
 
         [WebMethod]
         public bool RespondToRequest(string requestresponseID, string username, string password, string amountProvided,
                                      out string msg)
         {
-            amountProvided = amountProvided.Replace("??", ((char) 254) + "");
+            amountProvided = amountProvided.Replace("??", ((char)254) + "");
+            amountProvided = amountProvided.Replace("?", ((char)254) + "");
 
-            Log.WSLogger.Info("username:{0}, password={1}, requestresponseID:{2},amountProvided:{3} ", username,
+            Log.WSLogger.Info("RespondeToRequest: username:{0}, password={1}, requestresponseID:{2},amountProvided:{3} ", username,
                               password, requestresponseID, amountProvided);
 
             char sep = Collection.SeparatorChar;
@@ -144,47 +157,63 @@ namespace UILAPP
             Volunteer vol = (from v in DAL.Container.WSInstance.Volunteers
                              where v.Username == username && v.Password == password
                              select v).SingleOrDefault();
+
+            Log.WSLogger.Info("1");
+
             if (vol == null)
             {
+                Log.WSLogger.Info("2");
                 msg = "Username or password is incorrect";
+                Log.WSLogger.Info("ResponsToReq:"+msg);
                 return false;
             }
+            Log.WSLogger.Info("3");
             int reqId = Convert.ToInt(requestresponseID, 0);
-
+            Log.WSLogger.Info("4");
             RequestRespons requestres = (from r in DAL.Container.WSInstance.RequestResponses
                                          where r.Volunteer_Id == vol.Id && r.Id == reqId
                                          select r).SingleOrDefault();
-
+            Log.WSLogger.Info("5");
             if (requestres == null)
             {
-                msg = "Request cannot be found";
+                Log.WSLogger.Info("6");
+                msg = "Request cannot be found"+ reqId;
+                Log.WSLogger.Info("ResponsToReq:"+msg);
                 return false;
             }
-
+            Log.WSLogger.Info("7");
             requestres.DateResponded = DateTime.Now;
-
+            requestres.Status =  RequestResponseStatuses.Responded;
+            Log.WSLogger.Info("8");
             bool accepted = false;
-            string[] parts = amountProvided.Split(new[] {sep}, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = amountProvided.Split(new[] { sep }, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < parts.Length; i += 2)
             {
+                Log.WSLogger.Info("9");
                 string itype = parts[i];
                 string iamount = parts[i + 1];
                 NeedItem ni = requestres.Request.NeedItems.SingleOrDefault(n => n.ItemType == itype);
+                Log.WSLogger.Info("10");
                 if (ni != null)
                 {
                     // we are sure that itype is requested. now add a new needitem record to save the supp amount.
-
+                    Log.WSLogger.Info("11");
                     ni.SuppliedAmount = Convert.ToDouble(iamount, 0);
                     if (ni.SuppliedAmount > 0)
                     {
+                        Log.WSLogger.Info("12");
                         accepted = true; // if any need is supplied then it means it is accepted.
                         NeedItem dubCheckobj = (from niDub in requestres.NeedItems
                                                 where niDub.ItemType == itype
                                                 select niDub).FirstOrDefault();
                         if (dubCheckobj != null)
+                        {
+                            Log.WSLogger.Info("13");
                             dubCheckobj.SuppliedAmount = Convert.ToDouble(iamount, dubCheckobj.SuppliedAmount);
+                        }
                         else
                         {
+                            Log.WSLogger.Info("14");
                             requestres.NeedItems.Add(new NeedItem
                                                          {
                                                              SuppliedAmount = Convert.ToDouble(iamount, 0),
@@ -192,15 +221,25 @@ namespace UILAPP
                                                              MetricType = ni.MetricType
                                                          });
                         }
+                        Log.WSLogger.Info("15");
                     }
+                    Log.WSLogger.Info("16");
+                }
+                else
+                {
+                    Log.WSLogger.Info("ResponsToReq: Request need item is not found");
                 }
             }
-
+            Log.WSLogger.Info("17");
 
             requestres.Answer = accepted;
             requestres.DateResponded = DateTime.Now;
 
+            Log.WSLogger.Info("18");
+
             DAL.Container.WSInstance.SaveChanges();
+            Log.WSLogger.Info("Responde to request succeed-> ReqId:{0}, Answer:{1},"
+                , requestres.Request_Id, requestres.Answer);
             msg = "";
             return true;
         }
@@ -272,7 +311,7 @@ namespace UILAPP
             pr.Incident = request.Incident;
             try
             {
-                pr.IncidentStatus = (IncidentStatuses) status;
+                pr.IncidentStatus = (IncidentStatuses)status;
             }
             catch (Exception)
             {
@@ -298,7 +337,7 @@ namespace UILAPP
         public void IncidentReport(string message, string location, int typeOfIncident, string username, string password,
                                    out string msg)
         {
-            Log.WSLogger.Trace("Progress Report: username:{0}, password={1}, location:{2}, message:{3} ", username,
+            Log.WSLogger.Trace("Incident Report: username:{0}, password={1}, location:{2}, message:{3} ", username,
                                password, location, message);
 
             char sep = Collection.SeparatorChar;
@@ -323,13 +362,13 @@ namespace UILAPP
             ir.Volunteer = vol;
             ir.ReportDate = DateTime.Now;
             ir.Crisis = (from cr in DAL.Container.Instance.Crises
-                              where cr.StatusVal == (short)CrisisStatuses.Active
-                              select cr).FirstOrDefault();
+                         where cr.StatusVal == (short)CrisisStatuses.Active
+                         select cr).FirstOrDefault();
             ir.ReportDate = DateTime.Now;
 
             try
             {
-                ir.IncidentType = (IncidentTypes) typeOfIncident;
+                ir.IncidentType = (IncidentTypes)typeOfIncident;
             }
             catch (Exception)
             {
