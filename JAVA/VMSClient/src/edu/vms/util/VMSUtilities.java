@@ -105,13 +105,14 @@ public class VMSUtilities {
             if (midlet.getRequest().get(i) instanceof TextField) {
                 TextField tf = (TextField) midlet.getRequest().get(i);
                 int c = 0;
+                System.out.println("aaaaaaaaaaaa " + tf.getString());
                 if (!tf.getString().equals("")) {
                     c = Integer.parseInt(tf.getString());
                 }
                 if (c > Integer.parseInt((String) midlet.reqInfo.nAmount.elementAt(findex))) {
                     c = Integer.parseInt((String) midlet.reqInfo.nAmount.elementAt(findex));
                 }
-                midlet.reqInfo.nCollected.addElement(Integer.toString(c));
+                midlet.reqInfo.nCollected.setElementAt(Integer.toString(c), findex);
                 findex++;
             }
         }
@@ -139,7 +140,6 @@ public class VMSUtilities {
     }
 
     public void removeRequest() {
-        midlet.reqInfo = new Request();
         midlet.accepted = false;
         midlet.getChoiceGroup().set(0, "", null);
         midlet.getChoiceGroup().setSelectedIndex(0, false);
@@ -162,10 +162,11 @@ public class VMSUtilities {
         midlet.getViewRequest().append("\n");
         midlet.getViewRequest().append(request.message);
         midlet.getViewRequest().append("\n");
-        midlet.getViewRequest().append("Need list");
+        midlet.getViewRequest().append("\n");
+        midlet.getViewRequest().append("You accepted to provide the following items.");
         midlet.getViewRequest().append("\n");
         for (int i = 0; i < request.nType.size(); i++) {
-            midlet.getViewRequest().append(request.nType.elementAt(i) + "/ " + request.nUnit.elementAt(i) + "/ " + request.nAmount.elementAt(i) + "/ " + (String) midlet.reqInfo.nCollected.elementAt(i));
+            midlet.getViewRequest().append(request.nType.elementAt(i) + "/ " + request.nUnit.elementAt(i) + "/ " + (String) midlet.reqInfo.nCollected.elementAt(i));
             midlet.getViewRequest().append("\n");
         }
 

@@ -73,8 +73,10 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     // create a Command
     public static Command SUCCESS_LOGIN = new Command("Successful login", 1, 1);
 
-    /** @Gilana Ramezani */
-    /** The ClientMIDlet constructor */
+    /**
+     * @Gilana Ramezani
+     * The ClientMIDlet constructor
+     */
     public ClientMIDlet() {
         util = new VMSUtilities(this);
     }

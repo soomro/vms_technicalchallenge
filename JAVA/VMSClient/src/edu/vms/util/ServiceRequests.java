@@ -7,6 +7,7 @@ package edu.vms.util;
 import edu.vms.ClientMIDlet;
 import edu.vms.web.GetAlertResponse;
 import edu.vms.web.GetRequestResponse;
+import edu.vms.web.RespondToRequestResponse;
 import edu.vms.web.WS_Stub;
 import java.io.IOException;
 import java.io.InputStream;
@@ -109,7 +110,6 @@ public class ServiceRequests extends Thread {
 
         }
     }
-    //TODO: not implemented
 
     private void checkUpdate() {
         System.out.println("method : checkUpdate()");
@@ -129,7 +129,6 @@ public class ServiceRequests extends Thread {
         }
     }
 
-    //TODO: Implement after the server is ready
     private void getRequest() {
         System.out.println("method : getRequest()");
         WS_Stub service = new WS_Stub();
@@ -165,7 +164,7 @@ public class ServiceRequests extends Thread {
             System.out.println("ID " + midlet.reqInfo.ID);
             System.out.println("username : " + username);
             System.out.println("password : " + password);
-            service.respondToRequest(midlet.reqInfo.ID, username, password, responce);
+            RespondToRequestResponse rr = service.respondToRequest(midlet.reqInfo.ID, username, password, responce);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -178,6 +177,7 @@ public class ServiceRequests extends Thread {
             String responce = TextParser.createResponceForReject(midlet);
             System.out.println("responce " + responce);
             service.respondToRequest(midlet.reqInfo.ID, username, password, responce);
+            midlet.reqInfo = new Request();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
