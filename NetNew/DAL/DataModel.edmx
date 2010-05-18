@@ -221,6 +221,7 @@
           <Property Name="StatusVal" Type="smallint" Nullable="false" />
           <Property Name="Request_Id" Type="int" />
           <Property Name="Volunteer_Id" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
         </EntityType>
         <EntityType Name="Requests">
           <Key>
@@ -683,6 +684,7 @@
           <NavigationProperty Name="Request" Relationship="DataModel.FK_Aso_RequestResponseRequest" FromRole="RequestRespons" ToRole="Request" />
           <NavigationProperty Name="Volunteer" Relationship="DataModel.FK_Aso_RequestResponseVolunteer" FromRole="RequestRespons" ToRole="Volunteer" />
           <Property Type="Boolean" Name="Answer" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreated" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -1091,6 +1093,7 @@
           <EntitySetMapping Name="RequestResponses">
             <EntityTypeMapping TypeName="DataModel.RequestRespons">
               <MappingFragment StoreEntitySet="RequestResponses">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
                 <ScalarProperty Name="Volunteer_Id" ColumnName="Volunteer_Id" />
                 <ScalarProperty Name="Request_Id" ColumnName="Request_Id" />

@@ -67,7 +67,7 @@ public partial class ProgressReports : PageBase
         var g = new GridUtil(e.Row);
         //g.SetControlText("hlName", inc.ShortDescription, 20);
         //(g.GetControl("hlName") as HyperLink).NavigateUrl = Constants.PageIncident + "?iid=" + inc.Id + "&Action=Edit";
-        g.SetControlText("lbDateSent", p.DateSent.ToString("dd MMM yy, hh:mm"));
+        g.SetControlText("lbDateSent", p.DateSent.ToString("dd MMM yy, HH:mm"));
         g.SetControlText("lbVolunteer", p.Volunteer.NameLastName);
         g.SetControlText("lbReportText", p.ReportText, 20);
         g.SetControlText("lbStatus", Reflection.GetEnumDescription(p.IncidentStatus));

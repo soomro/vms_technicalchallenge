@@ -143,7 +143,12 @@ public partial class CreateRequest : PageBase
         req.Message = reqMessage;
         req.IsActive = true;
         req.Incident = GetIncident();
-        req.IsActive = rblStatus.SelectedValue == "Active" ? true : false;
+
+        if (PageAction == PageActions.Create)
+            req.IsActive = true;
+        else
+            req.IsActive = rblStatus.SelectedValue == "Active" ? true : false;
+
         foreach (ListItem li in cblNeedlist.Items)
         {
             int liid = System.Convert.ToInt32(li.Value);

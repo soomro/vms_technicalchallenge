@@ -24,8 +24,8 @@ public partial class IncidentList : PageBase
                 Master.ShowMessage(MessageTypes.Error, "Invalid parameter");
                 return;
             }
-
-            gvIncidents.DataSource = cr.Incidents;
+            
+            gvIncidents.DataSource =  cr.Incidents.OrderBy(i => i.Id).Reverse().ToArray();
             gvIncidents.DataBind();
             Master.PageTitle = "Incident List";
             hlCrisis.Text = cr.Name;
@@ -55,7 +55,7 @@ public partial class IncidentList : PageBase
     protected void gvIncidents_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         gvIncidents.PageIndex = e.NewPageIndex;
-        gvIncidents.DataSource = GetCrisisFromCid().Incidents;
+        gvIncidents.DataSource = GetCrisisFromCid().Incidents.OrderBy(i => i.Id).Reverse().ToArray();
         gvIncidents.DataBind();
     }
 
@@ -70,9 +70,9 @@ public partial class IncidentList : PageBase
         var g = new GridUtil(e.Row);
         g.SetControlText("hlName", inc.ShortDescription, 20);
         (g.GetControl("hlName") as HyperLink).NavigateUrl = Constants.PageIncident + "?iid=" + inc.Id + "&Action=Edit";
-        g.SetControlText("lbDateCreated", inc.DateCreated.ToString("dd MMM yy, hh:mm"));
+        g.SetControlText("lbDateCreated", inc.DateCreated.ToString("dd MMM yy, HH:mm"));
         g.SetControlText("lbDateClosed",
-                         inc.DateClosed.HasValue ? inc.DateClosed.Value.ToString("dd MMM yy, hh:mm") : "-");
+                         inc.DateClosed.HasValue ? inc.DateClosed.Value.ToString("dd MMM yy, HH:mm") : "-");
         g.SetControlText("lbStatus", Reflection.GetEnumDescription(inc.IncidentStatus));
         g.SetControlText("lbSeverity", Reflection.GetEnumDescription(inc.Severity));
         g.SetControlText("lbIncidentType", Reflection.GetEnumDescription(inc.IncidentType));

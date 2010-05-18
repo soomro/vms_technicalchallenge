@@ -144,8 +144,8 @@ public partial class Crisis : PageBase
         btnSave.Visible = enabledDisabled;
 
         ltStatus.Text = Reflection.GetEnumDescription(cr.Status);
-        ltDatecreated.Text = cr.DateCreated.ToString("dd MMM yy, hh:mm");
-        ltDateclosed.Text = cr.DateClosed.HasValue ? cr.DateClosed.Value.ToString("dd MMM yy, hh:mm") : "";
+        ltDatecreated.Text = cr.DateCreated.ToString("dd MMM yy, HH:mm");
+        ltDateclosed.Text = cr.DateClosed.HasValue ? cr.DateClosed.Value.ToString("dd MMM yy, HH:mm") : "";
         txtCrisisName.Text = cr.Name;
         txtExplanation.Text = cr.Explanation;
         ucEnumSelector1.DefaultSelection = cr.CrisisType;

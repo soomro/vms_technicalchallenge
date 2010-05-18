@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Net;
@@ -58,6 +59,14 @@ namespace Utils
 
         }
 
-       
+       public static DateTime? ToDateTime(string value)
+       {
+           var culture = CultureInfo.CreateSpecificCulture("en-US");
+           DateTime dt;
+           DateTime? res = new DateTime();
+           if(DateTime.TryParse(value, culture, DateTimeStyles.AllowWhiteSpaces, out dt))
+            res = dt;
+           return res;
+       }
     }
 }
