@@ -3,6 +3,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Utils;
 
+/// <summary>
+/// This user control is used to show to user the values of an enumeration as radiobuttons 
+/// or dropdownlist
+/// </summary>
 public partial class UC_ucEnumSelector : UserControl
 {
     public Type EnumType { get; set; }

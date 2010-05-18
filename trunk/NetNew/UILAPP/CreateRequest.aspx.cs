@@ -186,8 +186,19 @@ public partial class CreateRequest : PageBase
         }
 
         if (PageAction == PageActions.Create)
+        {
             Container.Instance.Requests.AddObject(req);
+        }
+
+            
         Container.Instance.SaveChanges();
+
+        if (PageAction == PageActions.Create)
+            Log.WEBLogger.Info(string.Format("Request is created:{0},{1},{2}, {3}", req.Name, req.Message,
+                                             req.IncidentId, req.NeedItems.Count));
+        else
+            Log.WEBLogger.Info(string.Format("Request is updated:{0},{1},{2}, {3}", req.Name, req.Message,
+                                             req.IncidentId, req.NeedItems.Count));
 
         RedirectToResourceGathering();
     }

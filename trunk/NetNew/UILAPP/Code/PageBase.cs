@@ -109,6 +109,7 @@ public class PageBase : Page
     {
         if (CurrentManager == null)
         {
+            Utils.Log.WEBLogger.Info("Authentication failed. Navigating to the login...");
             Response.Redirect("~/Login.aspx?ReturnUrl=" + Server.UrlEncode(Request.RawUrl));
         }
     }

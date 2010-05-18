@@ -341,9 +341,9 @@ public partial class Incident : PageBase
             removeList.Remove(o);
         }
         inc.DateCreated = DateTime.Now;
-        inc.ShortDescription = txShortDesc.Text;
-        inc.Explanation = txExplanation.Text;
-        inc.ShortAddress = txShortAddress.Text;
+        inc.ShortDescription = Utils.Convert.SafeString(txShortDesc.Text);
+        inc.Explanation = Utils.Convert.SafeString(txExplanation.Text);
+        inc.ShortAddress = Utils.Convert.SafeString(txShortAddress.Text);
         inc.LocationCoordinates.Add(UCIncidentMap1.Zoom + "");
 
         IList<string> msgs = inc.Validate();
