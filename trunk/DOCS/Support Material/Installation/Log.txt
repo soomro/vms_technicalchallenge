@@ -20,3 +20,8 @@ found article about  VS 2010 packaging features:
 http://msdn.microsoft.com/en-us/library/dd483479.aspx
 ---------------
 used a part of that article to generate installation guide
+-------------
+18 may tabareh
+it's decided to change the setup procedure to a more manual but easier way.
+----------
+The document rewritten from scrach with the new approach
