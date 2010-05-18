@@ -13,7 +13,7 @@ using Convert = Utils.Convert;
 
 public partial class Crisis : PageBase
 {
-    //TODO: check user inputs
+    
     public GoogleCirclePolygon CrisisArea
     {
         get { return Session[Constants.IdCrisisArea] as GoogleCirclePolygon; }
@@ -98,14 +98,11 @@ public partial class Crisis : PageBase
         {
             return null;
         }
-        List<DAL.Crisis> crlist = (from c in Container.Instance.Crises
-                                   where c.Id == cid
-                                   select c).Take(1).ToList();
-        if (crlist.Count > 0)
-        {
-            return crlist[0];
-        }
-        return null;
+        DAL.Crisis cr = (from c in Container.Instance.Crises
+                         where c.Id == cid
+                         select c).FirstOrDefault();
+       
+        return cr;
     }
 
     private void BindPage(DAL.Crisis cr)
@@ -172,8 +169,8 @@ public partial class Crisis : PageBase
     protected void btSave_Click(object sender, EventArgs e)
     {
         var ctype = ucEnumSelector1.SelectedValue<CrisisTypes>();
-        string name = txtCrisisName.Text;
-        string explanation = txtExplanation.Text;
+        string name = Utils.Convert.SafeString( txtCrisisName.Text);
+        string explanation = Utils.Convert.SafeString(txtExplanation.Text);
         if (CrisisArea == null)
         {
             Master.ShowMessage(MessageTypes.Error, "Define crisis area!");
@@ -203,10 +200,20 @@ public partial class Crisis : PageBase
         else if (PageAction == PageActions.Edit)
         {
             // Update
-            DAL.Crisis c = CrisisOperations.UpdateCrisis(MainCrisis.Id, name, explanation, ctype, LocationTypes.Circle,
-                                                         coords);
-            MainCrisis = c;
-            Master.ShowMessage(MessageTypes.Info, "Crisis information is updated");
+            try
+            {
+                DAL.Crisis c = CrisisOperations.UpdateCrisis(MainCrisis.Id, name, explanation, ctype, LocationTypes.Circle,
+                                                                 coords);
+                MainCrisis = c;
+                Master.ShowMessage(MessageTypes.Info, "Crisis information is updated");
+            }
+            catch (VMSException ex)
+            {
+                Master.ShowMessage(MessageTypes.Error, "Following error is occured:" + ex.Message);
+                return;
+            }
+            
+            
         }
     }
 
@@ -219,7 +226,7 @@ public partial class Crisis : PageBase
     {
         if (MainCrisis.Status == CrisisStatuses.Active)
         {
-            // TODO : Check for active incidents. All incidents should be closed.
+            
             try
             {
                 bool res = CrisisOperations.CloseCrisis(MainCrisis.Id);

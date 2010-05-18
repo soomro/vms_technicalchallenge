@@ -81,6 +81,11 @@ public partial class UC_UCCreateCrisisMap : UserControl
         }
     }
 
+    /// <summary>
+    /// The googlemap control can not persist the shapes on it between postbacks.
+    /// Therefore those shapes are stored in the session, then onprerender we are re-adding them to the control.
+    /// </summary>
+    /// <param name="e"></param>
     protected override void OnPreRender(EventArgs e)
     {
         GoogleMap1.Polygons.Clear();
@@ -99,7 +104,7 @@ public partial class UC_UCCreateCrisisMap : UserControl
     {
         if (!IsPostBack)
         {
-            // set default location 57.7070820644457, lon:11.9915771484375 
+            // COMMENT: This default location should be the location of manager.
 
             GoogleMap1.Latitude = 57.7070820644457;
             GoogleMap1.Longitude = 11.9915771484375;
