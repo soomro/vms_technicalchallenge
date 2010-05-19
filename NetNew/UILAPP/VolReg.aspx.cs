@@ -223,6 +223,7 @@ public partial class VolReg : PageBase
     {
         if (rdlDeleteConfirm.SelectedValue == "Yes")
         {
+
             bool canremove;
             foreach (var rr in CurrentVolunteer.RequestResponses)
             {
@@ -236,7 +237,7 @@ public partial class VolReg : PageBase
                     rr.Answer = false;
                 }
             }
-
+            
             Container.Instance.Volunteers.DeleteObject(CurrentVolunteer);
             Container.Instance.SaveChanges();
             CurrentVolunteer = null;

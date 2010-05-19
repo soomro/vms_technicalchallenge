@@ -104,7 +104,7 @@ public partial class Incident : PageBase
 
     private void BindDataForEdit(DAL.Incident inc)
     {
-        Master.PageTitle = "info";
+      
         ucIncidentType.DefaultSelection = inc.IncidentType;
         ucSeverity.DefaultSelection = inc.Severity;
 
@@ -168,7 +168,7 @@ public partial class Incident : PageBase
         btSave.Visible = boolVal;
         btReactivate.Visible = !boolVal;
         gvNeedList.Enabled =  boolVal;
-        Master.PageTitle = boolVal + "";
+       
     }
 
     /// <summary>

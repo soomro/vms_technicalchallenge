@@ -21,13 +21,13 @@
             </td>
             <td style="width:40%;">
              <ul>
-                    <li>Mohsen Tabareh</li>
+                    <li>Abdollah Tabareh</li>
                     <li>Gilana Ramazani</li>
                     <li>Abdullah Arslan</li>
                     <li>Waseem Soomro</li>
                     <li>Shobha BC</li>
                     <li>Mustafa Al-Zubaidi</li>
-                    <li>Tigran Harnutyan</li>
+                    <li>Tigran Harutyunyan</li>
                     </ul>
             </td>
         </tr>
