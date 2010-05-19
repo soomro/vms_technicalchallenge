@@ -74,6 +74,7 @@
     <Content Include="Images\accident1.gif" />
     <Content Include="Images\accident_created.gif" />
     <Content Include="Images\add.png" />
+    <Content Include="Images\apollo.jpg" />
     <Content Include="Images\arrow-list-red.gif" />
     <Content Include="Images\arrow-list.gif" />
     <Content Include="Images\bomb2_created.gif" />
@@ -152,6 +153,7 @@
     <Content Include="UControls\UCMap.ascx" />
     <Content Include="UControls\ucRequestMap.ascx" />
     <Content Include="UControls\UCSearchVolunteer.ascx" />
+    <Content Include="VMSClient.jar" />
     <Content Include="VolReg.aspx" />
     <Content Include="Web.config" />
     <Content Include="NLog.config" />

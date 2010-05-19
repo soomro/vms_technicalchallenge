@@ -49,14 +49,14 @@
         <div id="footerMain">
             <div id="footer">
                 <ul>
-                    <li><a href="#">Home
-                    <li><a href="#">About Us</a> |</li>
+                    <li><a href="Login.aspx">Home
+                    <li><a href="About.aspx">About Us</a> |</li>
                     <li><a href="#">Solutions</a> |</li>
-                    <li><a href="#">Support</a> |</li>
-                    <li><a href="#">Contact&nbsp;Us</a></li>
+                    <li><a href="About.aspx">Support</a> |</li>
+                    <li><a href="About.aspx">Contact&nbsp;Us</a></li>
                 </ul>
                 <p class="copyright">
-                    Copyright © Apollo Group 2010. All Rights Reserved.</p>
+                    Copyright © Apollo Group 2010. All Rights Reserved.</p><asp:LinkButton runat="server" ID="lbtLogout" Text="Logout"   />
             </div>
         </div>
         <!--footer end -->
