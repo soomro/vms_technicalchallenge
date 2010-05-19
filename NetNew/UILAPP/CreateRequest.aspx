@@ -33,7 +33,7 @@
                                 </div>
                                     <br />
                                     <div runat="server" id="dvStatus">
-                                    <asp:Label Text="Staus" runat="server" ID="lbStatus" /><br />
+                                    <asp:Label Text="Status" runat="server" ID="lbStatus" /><br />
                                     <asp:RadioButtonList runat="server" RepeatDirection="Horizontal" id="rblStatus"
                                         RepeatLayout="Flow">
                                         <asp:ListItem Text="Active" />
