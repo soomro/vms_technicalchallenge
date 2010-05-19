@@ -44,11 +44,13 @@ public partial class Login : PageBase
         }
         if (ddlUserType.SelectedValue == UserTypes.Manager.ToString())
         {
-            Manager user = Container.Instance.Managers.SingleOrDefault(row => row.UserName == txtUserName.Text);
+            Manager user =
+                Container.Instance.Managers.FirstOrDefault(
+                    row => row.UserName == txtUserName.Text && row.Password == txtPassword.Text);
             if (user != null && user.Password == txtPassword.Text)
             {
                 CurrentManager = user;
-                if(CurrentManager.UserName == "admin")
+                if(CurrentManager.UserName == "Admin")
                 {
                     Response.Redirect("~/ManReg.aspx?Action=Admin");
                     return;

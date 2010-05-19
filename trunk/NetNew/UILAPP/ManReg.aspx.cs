@@ -37,18 +37,23 @@ public partial class ManReg : PageBase
 
                 txtFullName.Text = CurrentManager.NameLastName;
                 txtBirthDate.Text = CurrentManager.DateBirth.ToString("yyyy-MM-dd");
-                ucEnumSelectorGender.DefaultSelection = CurrentManager.GenderVal;
+                ucEnumSelectorGender.DefaultSelection = CurrentManager.Gender;
                 foreach (string item in CurrentManager.ExpertiseCrisisTypes)
                 {
                     txtExpertiseCrisisTypes.Text += item + Environment.NewLine;
                 }
-                txtCountry.Text = CurrentManager.Address.Country;
-                txtCity.Text = CurrentManager.Address.City;
-                txtStreet.Text = CurrentManager.Address.Street;
-                txtHouseNo.Text = CurrentManager.Address.HouseNumber;
-                txtFlatNo.Text = CurrentManager.Address.FlatNumber;
-                txtPostalCode.Text = CurrentManager.Address.PostalCode;
-                txtHouseNo.Text = CurrentManager.Address.HouseNumber;
+              
+
+                if (CurrentManager.Address != null)
+                {
+                    txtCountry.Text = CurrentManager.Address.Country;
+                    txtCity.Text = CurrentManager.Address.City;
+                    txtStreet.Text = CurrentManager.Address.Street;
+                    txtHouseNo.Text = CurrentManager.Address.HouseNumber;
+                    txtFlatNo.Text = CurrentManager.Address.FlatNumber;
+                    txtPostalCode.Text = CurrentManager.Address.PostalCode;
+                    txtHouseNo.Text = CurrentManager.Address.HouseNumber;
+                }
                 txtUserName.Text = CurrentManager.UserName;
                 txtUserName.Enabled = false;
 

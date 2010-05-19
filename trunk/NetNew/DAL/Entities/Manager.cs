@@ -6,6 +6,12 @@ namespace DAL
 {
     public partial class Manager
     {
+        public Gender Gender
+        {
+            get { return (Gender)GenderVal; }
+            set { GenderVal = (short)value; }
+        }
+
         private IList<string> _expertiseCrisisTypes;
 
         public IList<string> ExpertiseCrisisTypes

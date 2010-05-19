@@ -65,7 +65,7 @@ public partial class VolReg : PageBase
 
     private void FillUiWithVolunteer(Volunteer vol)
     {
-        txtBirthDate.Text = vol.BirthDate.Value.ToString("yyyy-MM-dd");
+        if (vol.BirthDate != null) txtBirthDate.Text = vol.BirthDate.Value.ToString("yyyy-MM-dd");
         txtCity.Text = vol.Address.City;
         txtCountry.Text = vol.Address.Country;
         txtEmailAddress.Text = vol.EmailAddr;
@@ -83,6 +83,7 @@ public partial class VolReg : PageBase
         txtHeight.Text = vol.Height.ToString();
         txtHouseNo.Text = vol.Address.HouseNumber;
         ucEnumGender1.DefaultSelection = vol.Gender;
+        txtPassword.Text = "";
     }
 
     protected void btnRegister_Click(object sender, EventArgs e)
@@ -131,8 +132,24 @@ public partial class VolReg : PageBase
         {
             //make object and fill according to user inputs
             Volunteer vol = CurrentVolunteer;
+            var curPass = vol.Password;
+
             if (!FillVolunteer(vol))
                 return;
+            if (vol.Password!=curPass)
+            {
+                Master.ShowMessage(MessageTypes.Error, "Passwords doesn't match! ");
+                return;
+            }
+            //Validation of inputs
+            IList<string> messages = vol.Validate(); // check the fields and return error messages if any
+
+            if (messages.Count > 0) // there are error messages
+            {
+                Master.ShowMessage(MessageTypes.Error, messages.ToArray()); // show them
+                return; // cancel operation
+            }
+
             //Make changes presistent
             Container.Instance.SaveChanges();
             Master.ShowMessage(MessageTypes.Info, "Changes sumbited to system successfully.");
@@ -206,6 +223,20 @@ public partial class VolReg : PageBase
     {
         if (rdlDeleteConfirm.SelectedValue == "Yes")
         {
+            bool canremove;
+            foreach (var rr in CurrentVolunteer.RequestResponses)
+            {
+                var r = rr.Request;
+                var i = r.Incident;
+                var c = i.Crisis;
+                if (c.Status!=CrisisStatuses.Closed && i.IncidentStatus!= IncidentStatuses.Complete
+                    && rr.Status!=RequestResponseStatuses.Canceled && rr.Answer == true)
+                {
+                    rr.Status = RequestResponseStatuses.Canceled;
+                    rr.Answer = false;
+                }
+            }
+
             Container.Instance.Volunteers.DeleteObject(CurrentVolunteer);
             Container.Instance.SaveChanges();
             CurrentVolunteer = null;
