@@ -139,8 +139,20 @@ public partial class UControls_UCIncidentMap : UserControl
         Incident = inc;
 
         string name = GeoUtil.GetAddressName(e.Location.Latitude + "", e.Location.Longitude + "");
-        HttpContext.Current.Items["adrName"] = name;
+        
+        ClickedLocationName = name;
 
         Zoom = GoogleMap1.Zoom;
+    }
+    public string ClickedLocationName
+    {
+        get
+        {
+            return hdLocationName.Value;
+        }
+        set
+        {
+            hdLocationName.Value = value;
+        }
     }
 }

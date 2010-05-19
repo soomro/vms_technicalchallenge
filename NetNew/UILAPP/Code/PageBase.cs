@@ -107,7 +107,7 @@ public class PageBase : Page
     /// </summary>
     protected void RequireManager()
     {
-        if (CurrentManager == null)
+        if (CurrentManager == null || !CurrentManager.Approved.HasValue || CurrentManager.Approved==false)
         {
             Utils.Log.WEBLogger.Info("Authentication failed. Navigating to the login...");
             Response.Redirect("~/Login.aspx?ReturnUrl=" + Server.UrlEncode(Request.RawUrl));

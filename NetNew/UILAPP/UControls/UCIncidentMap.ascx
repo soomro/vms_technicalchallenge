@@ -9,3 +9,4 @@
        
         </artem:GoogleMap>
         <asp:Label ID="Label1" runat="server" Text="Label" Visible="False"></asp:Label>
+        <asp:HiddenField runat="server" ID="hdLocationName" />

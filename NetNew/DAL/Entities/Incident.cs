@@ -62,6 +62,28 @@ namespace DAL
             if (!Validation.Check(ShortDescription, 3, 50, out msg, ValRules._abc,ValRules._123,ValRules._Space,ValRules._Punc))
                 incorrects.Add("Short description is not valid! " + msg);
 
+            if (NeedItems == null || NeedItems.Count==0)
+            {
+                incorrects.Add("There should be at least one need item.");
+            }
+            else
+                foreach (var needItem in this.NeedItems)
+                {
+                    if (string.IsNullOrEmpty(needItem.ItemType))
+                    {
+                        incorrects.Add("One of the need items has no item type.");
+                        break;
+                    }
+                    if (needItem.ItemAmount == 0)
+                    {
+                        incorrects.Add("The item amont of " + needItem.ItemType + " need item can not be 0.");
+                    }
+                    if (needItem.SuppliedAmount >= needItem.ItemAmount)
+                    {
+                        incorrects.Add("Supplied amount can not be equal or greater than collected amount.");
+                    }
+                }
+
 
             return incorrects;
         }

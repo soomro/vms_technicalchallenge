@@ -35,15 +35,26 @@ public partial class Incident : PageBase
 
     protected override void OnPreRender(EventArgs e)
     {
-        txShortAddress.Text = HttpContext.Current.Items["adrName"] as string;
-        Session["adrName"] = HttpContext.Current.Items["adrName"] as string;
+        if (Session["selLocationSwitch"] == null && UCIncidentMap1.ClickedLocationName != "")
+        {
+            txShortAddress.Text = UCIncidentMap1.ClickedLocationName;
+            Session["selLocationSwitch"] = "1";
+        }
         
+        
+
         base.OnPreRender(e);
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
         RequireManager();
+
+        if ( Session["selLocationSwitch"] as string == "1" )
+        {
+            txShortAddress.Text = UCIncidentMap1.ClickedLocationName;
+            Session["selLocationSwitch"] = "2";
+        }
 
         if (!IsPostBack)
         {
@@ -87,7 +98,7 @@ public partial class Incident : PageBase
             {
                 Response.Redirect(Constants.PageIncident + "?Action=Create", true);
             }
-        }
+        } 
     }
 
 

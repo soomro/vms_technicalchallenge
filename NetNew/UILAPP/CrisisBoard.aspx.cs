@@ -37,7 +37,11 @@ public partial class CrisisBoard : PageBase
                     UCMap1.Longitude = lon;
             }
         }
-        hlProfile.NavigateUrl = Constants.PageManagerProfile+"?Action=Edit";
+        if(CurrentManager.UserName == "Admin")
+            hlProfile.NavigateUrl = Constants.PageManagerProfile+"?Action=Admin";
+        else
+            hlProfile.NavigateUrl = Constants.PageManagerProfile+"?Action=Edit";
+
         Master.SetSiteMap(new[] {new[] {"Crisis Board", "CrisisBoard.aspx"}});
         
     }

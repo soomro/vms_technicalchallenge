@@ -72,8 +72,8 @@ namespace Utils.Enumerations
     }
     public enum Gender:short
     {
-        Man,
-        Woman
+        Man=0,
+        Woman=1
     }
 
     /// <summary>
