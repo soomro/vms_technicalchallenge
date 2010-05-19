@@ -107,10 +107,16 @@ public class PageBase : Page
     /// </summary>
     protected void RequireManager()
     {
-        if (CurrentManager == null || !CurrentManager.Approved.HasValue || CurrentManager.Approved==false)
+        if (CurrentManager == null)
         {
             Utils.Log.WEBLogger.Info("Authentication failed. Navigating to the login...");
             Response.Redirect("~/Login.aspx?ReturnUrl=" + Server.UrlEncode(Request.RawUrl));
+            return;
+        }
+        if ( !CurrentManager.Approved.HasValue || CurrentManager.Approved==false)
+        {
+            Utils.Log.WEBLogger.Info("Manager is not approved. Navigating to the login...");
+            Response.Redirect("~/Login.aspx?Res=Ap&ReturnUrl=" + Server.UrlEncode(Request.RawUrl));
         }
     }
 

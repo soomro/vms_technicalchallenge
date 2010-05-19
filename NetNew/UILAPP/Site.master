@@ -24,29 +24,26 @@
                  <asp:Label ID="lblPageTitle" runat="server" Text="Page Title"></asp:Label></h2>
                        
         </div>
-        <br class="spacer"/>
-        <div id="pagePath" class="frame" style="text-align:left;">
-            
-            <div id="navcontainer">
 
-
+        <table style="width:99%; float: left; clear: both;">
+            <tr><td id="navpath" style="width:80%;">
             <asp:BulletedList ID="navlist" runat="server" DisplayMode="HyperLink" ClientIDMode="Static">
-               
             </asp:BulletedList>
-            
-            </div>
-        </div>
-        <div style="text-align:left" align="left">&nbsp;
-         <p id="massagePart" runat="server" Visible="false">
-               &nbsp;<asp:BulletedList ID="blMessages" runat="server" >
-              
+            </td><td id="logout" style="width:20%;text-align:right;"><asp:LinkButton runat="server" ID="lbtLogout" Text="Logout"   /></td></tr>
+
+            <tr><td colspan="2">
+                <asp:BulletedList ID="blMessages" runat="server" >              
                     </asp:BulletedList>
-            </p>
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-        </div>
+
+                     <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+
+            </td></tr>
+        </table>
+
+        
          <br class="spacer"><br />
         <!--footer start -->
-        <div id="footerMain">
+        <div id="footerMain" style="display: block; float: left; clear: both">
             <div id="footer">
                 <ul>
                     <li><a href="Login.aspx">Home
@@ -56,7 +53,7 @@
                     <li><a href="About.aspx">Contact&nbsp;Us</a></li>
                 </ul>
                 <p class="copyright">
-                    Copyright © Apollo Group 2010. All Rights Reserved.</p><asp:LinkButton runat="server" ID="lbtLogout" Text="Logout"   />
+                    Copyright © Apollo Group 2010. All Rights Reserved.</p>
             </div>
         </div>
         <!--footer end -->
