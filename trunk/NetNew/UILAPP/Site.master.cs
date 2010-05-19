@@ -22,6 +22,10 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                   select v).FirstOrDefault();
         if (man!=null || vol != null)
         {
+            lbtLogout.Visible = true;
+        }
+        else
+        {
             lbtLogout.Visible = false;
         }
 
@@ -87,7 +91,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
             blMessages.CssClass = "infolist";
         }
                  */
-            massagePart.Visible = true;
+            blMessages.Visible = true;
             var li = new ListItem(msg.MessageText);
             if (msg.MessageType==Utils.Enumerations.MessageTypes.Error)
             {

@@ -30,7 +30,8 @@
                 <td align="left" style="padding-right: 10px; padding-left: 15px; padding-bottom: 15px;
                     padding-top: 20px; font-size: 8pt;" valign="top" class="ErrorPage_ErrorMessage">
                     There is an unexpected error in the system.<br />
-                    What message should we show here?<br />
+                    The error is registered in the system and we will work to solve it.<br />
+                    
                     <br />
                     <a href="#" onclick="document.getElementById('div_hata').style.visibility='visible'">Show error details</a>
                     <br />

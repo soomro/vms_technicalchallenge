@@ -48,13 +48,13 @@ public partial class SiteMaster {
     protected global::System.Web.UI.WebControls.BulletedList navlist;
     
     /// <summary>
-    /// massagePart control.
+    /// lbtLogout control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl massagePart;
+    protected global::System.Web.UI.WebControls.LinkButton lbtLogout;
     
     /// <summary>
     /// blMessages control.
@@ -73,13 +73,4 @@ public partial class SiteMaster {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
-    
-    /// <summary>
-    /// lbtLogout control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.LinkButton lbtLogout;
 }

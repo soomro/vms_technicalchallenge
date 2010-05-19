@@ -52,7 +52,7 @@
                               
                             </td>
                             <td valign="top">
-                                <uc2:ucRequestMap ID="ucRequestMap1" runat="server" />
+                                <uc2:ucRequestMap ID="ucRequestMap1" runat="server" visible=false/>
                             </td>
                         </tr>
                     </table>

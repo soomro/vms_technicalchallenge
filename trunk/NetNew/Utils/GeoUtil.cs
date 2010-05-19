@@ -22,12 +22,23 @@ namespace Utils
             //MemoryStream ms = new MemoryStream(content);
             TextReader sr = new StreamReader(rs);
             var fullAddress = sr.ReadToEnd();
-            string addressname = fullAddress.Substring(
-                fullAddress.IndexOf("<name>")+6,
-                fullAddress.IndexOf("</name>")-fullAddress.IndexOf("<name>")-6
-                );
+            if (fullAddress.Length<6)
+            {
+                return "";
+            } try
+            {
 
-            return addressname;
+                string addressname = fullAddress.Substring(
+                    fullAddress.IndexOf("<name>")+6,
+                    fullAddress.IndexOf("</name>")-fullAddress.IndexOf("<name>")-6
+                    );
+
+                return addressname;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
 
         }
     }

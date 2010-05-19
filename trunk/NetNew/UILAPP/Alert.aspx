@@ -58,6 +58,8 @@
                 <td class="formField" width="5%" align="left">
                     <asp:Button ID="btnSend" runat="server" CssClass="buttons" OnClick="btnSend_Click"
                         Text="Send" ValidationGroup="1" />
+                    <asp:Button ID="btnCancel" runat="server" CssClass="buttons" 
+                        OnClick="btnCancel_Click" Text="Send" ValidationGroup="1" />
                 </td>
             </tr>
             <tr>

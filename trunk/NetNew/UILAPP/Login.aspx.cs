@@ -10,6 +10,11 @@ public partial class Login : PageBase
         if (!IsPostBack)
         {
             Master.PageTitle = "Volunteer Managemet System";
+
+            if (Request["Res"]+"" == "Ap")
+            {
+                Master.ShowMessage(MessageTypes.Info,"You need to be approved to use the system");
+            }
         }
         CurrentManager = null;
         CurrentVolunteer = null;
