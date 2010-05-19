@@ -105,7 +105,6 @@ public class VMSUtilities {
             if (midlet.getRequest().get(i) instanceof TextField) {
                 TextField tf = (TextField) midlet.getRequest().get(i);
                 int c = 0;
-                System.out.println("aaaaaaaaaaaa " + tf.getString());
                 if (!tf.getString().equals("")) {
                     c = Integer.parseInt(tf.getString());
                 }
