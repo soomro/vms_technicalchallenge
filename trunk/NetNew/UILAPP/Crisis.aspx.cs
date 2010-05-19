@@ -193,7 +193,7 @@ public partial class Crisis : PageBase
             }
             catch (VMSException ex)
             {
-                Master.ShowMessage(MessageTypes.Error, "Following error is occured:" + ex.Message);
+                Master.ShowMessage(MessageTypes.Error, ex.Messages.ToArray());
                 return;
             }
         }
@@ -209,7 +209,7 @@ public partial class Crisis : PageBase
             }
             catch (VMSException ex)
             {
-                Master.ShowMessage(MessageTypes.Error, "Following error is occured:" + ex.Message);
+                Master.ShowMessage(MessageTypes.Error, ex.Messages.ToArray());
                 return;
             }
             

@@ -29,6 +29,10 @@ public partial class UCMap : System.Web.UI.UserControl
         {
             GoogleMap1.Markers.Add(m);
         }
+
+        GoogleMap1.Latitude= Latitude; ;
+        GoogleMap1.Longitude = Longitude;
+
         base.OnPreRender(e);
     }
 
@@ -36,11 +40,12 @@ public partial class UCMap : System.Web.UI.UserControl
     {
         get
         {
-            return GoogleMap1.Latitude;
+            var lat = Utils.Convert.ToDouble(ViewState["Latitude"]+"", 57.7070820644457);
+            return lat;
         }
         set
         {
-            GoogleMap1.Latitude = value;
+            ViewState["Latitude"] = value;
         }
     } 
   
@@ -48,10 +53,12 @@ public partial class UCMap : System.Web.UI.UserControl
     {
         get
         {
-            return GoogleMap1.Longitude;
+            var lon = Utils.Convert.ToDouble(ViewState["Longitude"]+"", 11.9915771484375);
+            return lon;
         }
         set
         {
+            ViewState["Longitude"] = value;
             GoogleMap1.Longitude = value;
         }
     } 

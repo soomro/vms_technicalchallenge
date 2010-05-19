@@ -428,3 +428,40 @@ table.formTable .value
 	padding-left: 20px;
 	padding-top: 20px;
 }
+
+.spInfoTitle
+{
+	color: #333399;
+	font-size: larger;
+	font-weight: bold;
+	display: block;
+	clear: both;
+	font-family: "Lucida Sans Unicode" , "Lucida Grande" , Sans-Serif;
+}
+
+table.tblFrontPage td p
+{
+	padding: 5px 5px 10px 5px;
+	color: #333300;
+	font-family: "Lucida Sans Unicode" , "Lucida Grande" , Sans-Serif;
+	font-size: smaller;
+}
+
+table.tblFrontPage td 
+{
+	vertical-align:top;
+}
+table.tblFrontPage td a.download
+{
+	vertical-align: top;
+	font-size: larger;
+	font-weight: 700;
+	color: #CC0099;
+	text-decoration: blink;
+}
+table.tblFrontPage
+{
+	padding: 10px;
+	background-color: #E3DEA4;
+	margin: 15;
+}

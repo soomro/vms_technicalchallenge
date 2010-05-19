@@ -10,4 +10,16 @@
 
 
 public partial class About {
+    
+    /// <summary>
+    /// Master property.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated property.
+    /// </remarks>
+    public new SiteMaster Master {
+        get {
+            return ((SiteMaster)(base.Master));
+        }
+    }
 }

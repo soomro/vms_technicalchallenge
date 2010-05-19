@@ -4,10 +4,34 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DAL;
 using Utils.Enumerations;
 //TODO: add code comments for this file
 public partial class SiteMaster : System.Web.UI.MasterPage
 {
+    protected override void OnInit(EventArgs e)
+    {
+        int id = Utils.Convert.ToInt(Session["CurrentManager"] + "", 0);
+        var man = (from v in Container.Instance.Managers
+                   where v.Id == id
+                   select v).FirstOrDefault();
+
+        id = Utils.Convert.ToInt(Session["CurrentVolunteer"] + "", 0);
+        var vol= (from v in Container.Instance.Volunteers
+                  where v.Id == id
+                  select v).FirstOrDefault();
+        if (man!=null || vol != null)
+        {
+            lbtLogout.Visible = false;
+        }
+
+        base.OnInit(e);
+    }
+    protected override void OnLoad(EventArgs e)
+    {
+       
+        base.OnLoad(e);
+    }
     /// <summary>
     /// 
     /// </summary>
@@ -108,6 +132,12 @@ public partial class SiteMaster : System.Web.UI.MasterPage
             Messages.Add(new Utils.UIMessage() { MessageText=message, MessageType=mtype });
         }
 
+    }
+
+    protected void lbtLogout_Command(object sender, CommandEventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect(Constants.PageLogin);
     }
 
      

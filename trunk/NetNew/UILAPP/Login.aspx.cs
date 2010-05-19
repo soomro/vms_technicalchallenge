@@ -9,7 +9,7 @@ public partial class Login : PageBase
     {
         if (!IsPostBack)
         {
-            Master.PageTitle = "Login Page";
+            Master.PageTitle = "Volunteer Managemet System";
         }
         CurrentManager = null;
         CurrentVolunteer = null;

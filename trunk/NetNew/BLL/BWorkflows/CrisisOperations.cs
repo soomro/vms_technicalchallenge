@@ -68,7 +68,7 @@ namespace BLL.BWorkflows
             IList<string> valRes = c.Validate();
             if (valRes.Count > 0)
             {
-                Utils.Log.BLLogger.Error("Crisis could not validated in create"); 
+                Utils.Log.BLLogger.Error("Crisis could not validated in create");
                 throw new VMSException(valRes);
             }
                
