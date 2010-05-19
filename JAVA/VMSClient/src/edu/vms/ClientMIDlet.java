@@ -488,7 +488,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public Command getReportCommand() {
         if (reportCommand == null) {//GEN-END:|87-getter|0|87-preInit
             // write pre-init user code here
-            reportCommand = new Command("Report", "Report Incident", Command.OK, 1);//GEN-LINE:|87-getter|1|87-postInit
+            reportCommand = new Command("Report incident", "Report incident", Command.OK, 1);//GEN-LINE:|87-getter|1|87-postInit
             // write post-init user code here
         }//GEN-BEGIN:|87-getter|2|
         return reportCommand;
@@ -533,7 +533,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public Command getSendProgressCommand() {
         if (sendProgressCommand == null) {//GEN-END:|102-getter|0|102-preInit
             // write pre-init user code here
-            sendProgressCommand = new Command("Send", Command.OK, 0);//GEN-LINE:|102-getter|1|102-postInit
+            sendProgressCommand = new Command("Send", "Send", Command.OK, 0);//GEN-LINE:|102-getter|1|102-postInit
             // write post-init user code here
         }//GEN-BEGIN:|102-getter|2|
         return sendProgressCommand;
@@ -548,7 +548,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public Command getProgressCommand() {
         if (progressCommand == null) {//GEN-END:|104-getter|0|104-preInit
             // write pre-init user code here
-            progressCommand = new Command("Progress", Command.OK, 1);//GEN-LINE:|104-getter|1|104-postInit
+            progressCommand = new Command(" Report progress ", " Report progress ", Command.OK, 1);//GEN-LINE:|104-getter|1|104-postInit
             // write post-init user code here
         }//GEN-BEGIN:|104-getter|2|
         return progressCommand;
@@ -678,7 +678,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public TextField getTextField() {
         if (textField == null) {//GEN-END:|122-getter|0|122-preInit
             // write pre-init user code here
-            textField = new TextField("Location", null, 32, TextField.ANY);//GEN-LINE:|122-getter|1|122-postInit
+            textField = new TextField("Location", null, 100, TextField.ANY);//GEN-LINE:|122-getter|1|122-postInit
             // write post-init user code here
         }//GEN-BEGIN:|122-getter|2|
         return textField;
@@ -693,7 +693,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public TextField getTextField2() {
         if (textField2 == null) {//GEN-END:|125-getter|0|125-preInit
             // write pre-init user code here
-            textField2 = new TextField("Message to the manager", null, 32, TextField.ANY);//GEN-LINE:|125-getter|1|125-postInit
+            textField2 = new TextField("Message to the manager", null, 300, TextField.ANY);//GEN-LINE:|125-getter|1|125-postInit
             // write post-init user code here
         }//GEN-BEGIN:|125-getter|2|
         return textField2;
@@ -708,7 +708,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public TextField getTextField4() {
         if (textField4 == null) {//GEN-END:|127-getter|0|127-preInit
             // write pre-init user code here
-            textField4 = new TextField("Message", null, 32, TextField.ANY);//GEN-LINE:|127-getter|1|127-postInit
+            textField4 = new TextField("Message", null, 300, TextField.ANY);//GEN-LINE:|127-getter|1|127-postInit
             // write post-init user code here
         }//GEN-BEGIN:|127-getter|2|
         return textField4;
@@ -845,7 +845,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public TextField getTextField5() {
         if (textField5 == null) {//GEN-END:|155-getter|0|155-preInit
             // write pre-init user code here
-            textField5 = new TextField("Username", "", 32, TextField.ANY);//GEN-LINE:|155-getter|1|155-postInit
+            textField5 = new TextField("Username", "", 50, TextField.ANY);//GEN-LINE:|155-getter|1|155-postInit
             // write post-init user code here
         }//GEN-BEGIN:|155-getter|2|
         return textField5;
@@ -860,7 +860,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     public TextField getTextField6() {
         if (textField6 == null) {//GEN-END:|156-getter|0|156-preInit
             // write pre-init user code here
-            textField6 = new TextField("Password", "", 32, TextField.ANY | TextField.PASSWORD);//GEN-LINE:|156-getter|1|156-postInit
+            textField6 = new TextField("Password", "", 50, TextField.ANY | TextField.PASSWORD);//GEN-LINE:|156-getter|1|156-postInit
             // write post-init user code here
         }//GEN-BEGIN:|156-getter|2|
         return textField6;

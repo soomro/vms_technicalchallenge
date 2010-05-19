@@ -166,7 +166,8 @@ public class VMSUtilities {
         midlet.getViewRequest().append("You accepted to provide the following items.");
         midlet.getViewRequest().append("\n");
         for (int i = 0; i < request.nType.size(); i++) {
-            midlet.getViewRequest().append(request.nType.elementAt(i) + "/ " + request.nUnit.elementAt(i) + "/ " + (String) midlet.reqInfo.nCollected.elementAt(i));
+            midlet.getViewRequest().append(request.nType.elementAt(i) + " - " + (String) midlet.reqInfo.nCollected.elementAt(i) +
+                     " " + request.nUnit.elementAt(i));
             midlet.getViewRequest().append("\n");
         }
 
