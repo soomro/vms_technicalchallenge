@@ -56,7 +56,6 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     private StringItem stringItem;
     private Form alert;
     private Ticker ticker;
-    private Image image1;
     //</editor-fold>//GEN-END:|fields|0|
     public VMSUtilities util;
     public boolean loggedIn = false;
@@ -403,8 +402,6 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
             if (command == okCommand) {//GEN-END:|17-itemCommandAction|3|139-preAction
                 // write pre-action user code here
                 int selectedIndex = choiceGroup2.getSelectedIndex();
-                System.out.println("selectedIndex " + selectedIndex);
-                System.out.println(alertIDs[selectedIndex]);
                 if (!alertIDs[selectedIndex].equals("")) {
                     alertIndex = selectedIndex;
                     util.getAlert();
@@ -754,24 +751,7 @@ public class ClientMIDlet extends MIDlet implements CommandListener, ItemCommand
     }
     //</editor-fold>//GEN-END:|135-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: image1 ">//GEN-BEGIN:|130-getter|0|130-preInit
-    /**
-     * Returns an initiliazed instance of image1 component.
-     * @return the initialized component instance
-     */
-    public Image getImage1() {
-        if (image1 == null) {//GEN-END:|130-getter|0|130-preInit
-            // write pre-init user code here
-            try {//GEN-BEGIN:|130-getter|1|130-@java.io.IOException
-                image1 = Image.createImage("/look.jpg");
-            } catch (java.io.IOException e) {//GEN-END:|130-getter|1|130-@java.io.IOException
-                e.printStackTrace();
-            }//GEN-LINE:|130-getter|2|130-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|130-getter|3|
-        return image1;
-    }
-    //</editor-fold>//GEN-END:|130-getter|3|
+
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: login ">//GEN-BEGIN:|142-getter|0|142-preInit
     /**

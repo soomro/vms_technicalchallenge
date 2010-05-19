@@ -91,7 +91,6 @@ public class ServiceRequests extends Thread {
     }
 
     private void login() {
-        System.out.println("method : login()");
         WS_Stub service = new WS_Stub();
         try {
 
@@ -112,13 +111,11 @@ public class ServiceRequests extends Thread {
     }
 
     private void checkUpdate() {
-        System.out.println("method : checkUpdate()");
         WS_Stub service = new WS_Stub();
         String request = new String();
         try {
             getCoordinates();
             answer = service.checkUpdate(username, password, midlet.lat, midlet.lon);
-            System.out.println("answer \n" + answer);
             TextParser.pasrUpdates(answer, midlet);
             midlet.getChoiceGroup().set(0, midlet.reqInfo.name, null);
             for (int i = 0; i < 5; i++) {
@@ -130,19 +127,13 @@ public class ServiceRequests extends Thread {
     }
 
     private void getRequest() {
-        System.out.println("method : getRequest()");
         WS_Stub service = new WS_Stub();
         try {
-            System.out.println("username : " + username);
-            System.out.println("password : " + password);
             GetRequestResponse reqRespons = service.getRequest(midlet.reqInfo.ID, username, password);
-            System.out.println("msg : " + reqRespons.getMsg());
-            System.out.println("res : " + reqRespons.getGetRequestResult());
             TextParser.getRequestInfo(reqRespons.getGetRequestResult(), midlet);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        System.out.println("accepted = " + midlet.accepted);
         if (midlet.accepted) {
             midlet.switchDisplayable(null, midlet.getViewRequest());
             midlet.util.drawViewRequest(midlet.reqInfo);
@@ -155,15 +146,10 @@ public class ServiceRequests extends Thread {
     }
 
     private void acceptRequest() {
-        System.out.println("method : acceptRequest()");
         WS_Stub service = new WS_Stub();
         try {
 
             String responce = TextParser.createResponce(midlet);
-            System.out.println("responce " + responce);
-            System.out.println("ID " + midlet.reqInfo.ID);
-            System.out.println("username : " + username);
-            System.out.println("password : " + password);
             RespondToRequestResponse rr = service.respondToRequest(midlet.reqInfo.ID, username, password, responce);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -171,11 +157,9 @@ public class ServiceRequests extends Thread {
     }
 
     private void rejectRequest() {
-        System.out.println("method : rejectRequest()");
         WS_Stub service = new WS_Stub();
         try {
             String responce = TextParser.createResponceForReject(midlet);
-            System.out.println("responce " + responce);
             service.respondToRequest(midlet.reqInfo.ID, username, password, responce);
             midlet.reqInfo = new Request();
         } catch (Exception ex) {
@@ -187,7 +171,6 @@ public class ServiceRequests extends Thread {
      * drawRequest draws the page of request
      */
     private void checkPeriodically() {
-        System.out.println("main.loggedIn" + midlet.loggedIn);
         while (midlet.loggedIn) {
             try {
                 synchronized (this) {
@@ -210,7 +193,6 @@ public class ServiceRequests extends Thread {
             StringBuffer content = new StringBuffer();
             int next = is.read();
             while (next != -1) {
-                //System.out.print((char) next);
                 next = is.read();
                 content.append((char) next);
             }
@@ -234,7 +216,6 @@ public class ServiceRequests extends Thread {
             String message = msgFld.getString();
 
             msgFld.setString("");
-            System.out.println(progress + " " + message);
             service.progressReport(midlet.reqInfo.ID, message, progress, username, password);
             midlet.switchDisplayable(null, midlet.getMain());
         } catch (Exception e) {
@@ -254,7 +235,6 @@ public class ServiceRequests extends Thread {
 
             locFld.setString("");
             msgFld.setString("");
-            System.out.println(location + " " + type + " " + message);
             service.incidentReport(message, location, type, username, password);
             midlet.switchDisplayable(null, midlet.getMain());
         } catch (Exception e) {
@@ -279,14 +259,9 @@ public class ServiceRequests extends Thread {
     }
 
     private void getAlert() {
-        System.out.println("method : getAlert()");
         WS_Stub service = new WS_Stub();
         try {
-            System.out.println("username : " + username);
-            System.out.println("password : " + password);
             GetAlertResponse alert = service.getAlert(midlet.alertIDs[midlet.alertIndex], username, password);
-            System.out.println("msg : " + alert.getMsg());
-            System.out.println("res : " + alert.getGetAlertResult());
             midlet.getAlert().deleteAll();
             midlet.getAlert().append(alert.getGetAlertResult());
             midlet.switchDisplayable(null, midlet.getAlert());

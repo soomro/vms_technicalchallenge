@@ -2,17 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.vms.util;
 
 import java.util.Vector;
-
 
 /**
  *
  * @author tiko
  */
 public class Request {
+
     public String ID = new String("");
     public String name = new String("");
     public String location = new String("");
