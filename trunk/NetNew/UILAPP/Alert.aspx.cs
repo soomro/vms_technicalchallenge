@@ -27,7 +27,7 @@ public partial class Alert : PageBase
                 //filling up alerts
                 IOrderedQueryable<DAL.Alert> q = from alert in Container.Instance.Alerts
                                                  where alert.Crisis_Id == MainCrisis.Id
-                                                 orderby alert.DateSent
+                                                 orderby alert.DateSent descending 
                                                  select alert;
                 gvAlerts.DataSource = q;
                 gvAlerts.DataBind();

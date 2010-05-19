@@ -83,9 +83,11 @@
                             <p>
                                 Want to help the crisis affected, than what are you waiting for? Get registered
                                 to the Volunteer’s Management System. Help the society by contributing your few
-                                hrs and affordable things.<br /><br />
+                                hrs and affordable things.<br />
+                                For more information read the <a href="Mobile.pdf" target="_blank">VMS mobile application user manual</a>
+                                <br /><br />
                                 <a href="VMSClient.jar" class="download" >Download mobile VMS application</a>
-                                &nbsp;</p>
+                               
                         </td>
                         <td>
                             <span class="spInfoTitle">Help organization</span>
@@ -93,6 +95,7 @@
                                 Human ethics are most valued here, 100% services oriented organization aims to resolve
                                 the Crisis with the help of normal citizens. Like you!!! Maintains the coordination
                                 between volunteers and the crisis affected people to resolve any crisis.
+                                <br /> For more information of how to use this web site read <a target="_blank" href="VMS User Manual  for Manager.pdf">the manager manual</a>
                             </p>
                         </td>
                     </tr>

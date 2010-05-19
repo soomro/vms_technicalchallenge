@@ -158,6 +158,8 @@
     <Content Include="Web.config" />
     <Content Include="NLog.config" />
     <Content Include="WS.asmx" />
+    <None Include="Mobile.pdf" />
+    <None Include="VMS User Manual  for Manager.pdf" />
     <None Include="Web.config_oldforapp" />
     <None Include="Web.Debug.config_oldforapp">
       <DependentUpon>Web.config_oldforapp</DependentUpon>
