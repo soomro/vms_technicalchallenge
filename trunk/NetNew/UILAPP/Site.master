@@ -25,7 +25,7 @@
                        
         </div>
 
-        <table style="width:99%; float: left; clear: both;">
+        <table style="width:100%; float: left; clear: both;">
             <tr><td id="navpath" style="width:80%;">
             <asp:BulletedList ID="navlist" runat="server" DisplayMode="HyperLink" ClientIDMode="Static">
             </asp:BulletedList>
@@ -46,12 +46,13 @@
         <div id="footerMain" style="display: block; float: left; clear: both">
             <div id="footer">
                 <ul>
-                    <li><a href="Login.aspx">Home
+                    <li><a href="Login.aspx">Home</a></li>
                     <li><a href="About.aspx">About Us</a> |</li>
                     <li><a href="#">Solutions</a> |</li>
                     <li><a href="About.aspx">Support</a> |</li>
                     <li><a href="About.aspx">Contact&nbsp;Us</a></li>
                 </ul>
+                <br />
                 <p class="copyright">
                     Copyright © Apollo Group 2010. All Rights Reserved.</p>
             </div>

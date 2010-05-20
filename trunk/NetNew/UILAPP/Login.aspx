@@ -11,7 +11,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">&nbsp;
- <table width="98%">
+ <table width="100%">
         <tr>
             <td style="width: 20%; vertical-align:top;" id="login" >
                 
@@ -72,19 +72,19 @@
                 <td colspan="2">
                 <span class="spInfoTitle">General overview</span>
                 <p>
-                    Volunteer’s Management System. Magnificent innovative IT solution to attack the
-                    crisis more effectively than ever before. VMS is combined effort from Volunteers
-                    and help organizations to serve the crisis affected people on time.</p>
+                    Volunteer’s Management System, a magnificent innovative IT solution to attack the
+                    crisis more effectively than ever before. VMS is a combined effort from Volunteers
+                    and help organizations to serve the crisis-affected people on time.</p>
                
                </td></tr>
                     <tr>
                         <td>
                             <span class="spInfoTitle">Volunteers</span>
                             <p>
-                                Want to help the crisis affected, than what are you waiting for? Get registered
+                                Want to help the crisis affected, can you help by working at the field, or can you contribute to solve the crisis? Then what are you waiting for? Get registered
                                 to the Volunteer’s Management System. Help the society by contributing your few
-                                hrs and affordable things.<br />
-                                For more information read the <a href="Mobile.pdf" target="_blank">VMS mobile application user manual</a>
+                                hours and affordable things.<br /><br />
+                                For more information read the <a href="Mobile.pdf" target="_blank">VMS mobile application user manual</a>.
                                 <br /><br />
                                 <a href="VMSClient.jar" class="download" >Download mobile VMS application</a>
                                
@@ -92,10 +92,10 @@
                         <td>
                             <span class="spInfoTitle">Help organization</span>
                             <p>
-                                Human ethics are most valued here, 100% services oriented organization aims to resolve
-                                the Crisis with the help of normal citizens. Like you!!! Maintains the coordination
+                                Human ethics are the most valued here, 100% services oriented organization aims to resolve
+                                the Crisis with the help of normal citizens. Like you!!! Maintain the coordination
                                 between volunteers and the crisis affected people to resolve any crisis.
-                                <br /> For more information of how to use this web site read <a target="_blank" href="VMS User Manual  for Manager.pdf">the manager manual</a>
+                                <br /><br /> For more information of how to use this web site read <a target="_blank" href="VMS User Manual  for Manager.pdf">the manager manual</a>.
                             </p>
                         </td>
                     </tr>
