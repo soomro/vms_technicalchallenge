@@ -98,6 +98,33 @@ public partial class UControls_UCIncidentMap : UserControl
         }
     }
 
+    public double Latitude
+    {
+        get
+        {
+            var lat = Utils.Convert.ToDouble(ViewState["Latitude"]+"", 57.7070820644457);
+            return lat;
+        }
+        set
+        {
+            ViewState["Latitude"] = value;
+        }
+    }
+
+    public double Longitude
+    {
+        get
+        {
+            var lon = Utils.Convert.ToDouble(ViewState["Longitude"]+"", 11.9915771484375);
+            return lon;
+        }
+        set
+        {
+            ViewState["Longitude"] = value;
+            GoogleMap1.Longitude = value;
+        }
+    } 
+
     protected override void OnPreRender(EventArgs e)
     {
         GoogleMap1.Polygons.Clear();
@@ -108,6 +135,13 @@ public partial class UControls_UCIncidentMap : UserControl
             GoogleMap1.Markers.Add(Incident);
             GoogleMap1.Latitude = Incident.Latitude;
             GoogleMap1.Longitude = Incident.Longitude;
+            GoogleMap1.Zoom = 10;
+        }
+        else
+        {
+            GoogleMap1.Latitude = Latitude;
+            GoogleMap1.Longitude = Longitude;
+            GoogleMap1.Zoom = 8;
         }
         base.OnPreRender(e);
     }

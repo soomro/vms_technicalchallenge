@@ -63,6 +63,15 @@ public partial class Incident : PageBase
             ucIncidentType.EnumType = typeof (IncidentTypes);
             ucSeverity.EnumType = typeof (Severities);
 
+            if (MainCrisis.LocationCoordinates.Count>=2)
+            {
+                double lat, lon;
+                if (double.TryParse(MainCrisis.LocationCoordinates[0], out lat))
+                    UCIncidentMap1.Latitude = lat;
+                if (double.TryParse(MainCrisis.LocationCoordinates[1], out lon))
+                    UCIncidentMap1.Longitude = lon;
+            }
+
             if (PageAction == PageActions.Create)
             {
                 if (MainCrisis == null)

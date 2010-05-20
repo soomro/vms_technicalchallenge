@@ -267,7 +267,10 @@ public partial class ManReg : PageBase
         rec.Approved = chk.Checked;
         Container.Instance.SaveChanges();
 
-        gvuManagers.DataSource = Container.Instance.Managers;
+        IQueryable<Manager> q = from man in Container.Instance.Managers
+                                where man.UserName != GlobalIds.AdminUserName
+                                select man;
+        gvuManagers.DataSource = q;
         gvuManagers.DataBind();
         Master.ShowMessage(MessageTypes.Info, "Manager " + rec.NameLastName + " approve status changed");
     }
