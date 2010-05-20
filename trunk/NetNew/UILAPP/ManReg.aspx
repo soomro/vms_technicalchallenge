@@ -140,7 +140,7 @@
           <asp:GridView ID="gvuManagers" runat="server" AutoGenerateColumns="False" 
             Width="80%" onrowdatabound="gvuManagers_RowDataBound" BackColor="White" 
                 BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" 
-                DataKeyNames="Id">
+                DataKeyNames="Id" EmptyDataText="No manager registration is found!">
         <Columns>
             <asp:TemplateField HeaderText="Approved">
                 <ItemTemplate>
