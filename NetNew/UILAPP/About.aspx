@@ -22,7 +22,7 @@
             <td style="width:40%;">
              <ul>
                     <li>Abdollah Tabareh</li>
-                    <li>Gilana Ramazani</li>
+                    <li>Gilana Ramezani</li>
                     <li>Abdullah Arslan</li>
                     <li>Waseem Soomro</li>
                     <li>Shobha BC</li>
