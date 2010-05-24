@@ -103,10 +103,10 @@ public partial class Alert : PageBase
         var ni = e.Row.DataItem as DAL.Alert;
         var lblSent = e.Row.FindControl("lblSent") as Label;
         var lblSearch = e.Row.FindControl("lblSearch") as Label;
-        var txtMessage = e.Row.FindControl("txtMessage") as TextBox;
+        var lbMessage = e.Row.FindControl("lbMessage") as Label;
 
         lblSent.Text = (ni.DateSent.HasValue) ? ni.DateSent.Value.ToString() : string.Empty;
         lblSearch.Text = ni.SearchCriteriaStr;
-        txtMessage.Text = ni.Message;
+        lbMessage.Text = ni.Message;
     }
 }

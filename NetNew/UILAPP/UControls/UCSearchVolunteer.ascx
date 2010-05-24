@@ -16,14 +16,14 @@
     <ContentTemplate>
         <table class="style1">
             <tr>
-                <td class="formField" nowrap="nowrap" width="5%">
+                <td class="formField" nowrap="nowrap" >
                     Words in profile:
                 </td>
             </tr>
             <tr>
-                <td class="formField" nowrap="nowrap" width="5%">
+                <td class="formField" nowrap="nowrap" >
                     <asp:TextBox ID="txtCriteria" runat="server" CssClass="tx" Height="68px" 
-                        TextMode="MultiLine" Width="100%"></asp:TextBox>
+                        TextMode="MultiLine" Width="90%"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -37,7 +37,7 @@
                     <asp:GridView ID="gvVolList" runat="server" AutoGenerateColumns="False" 
                         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" 
                         CellPadding="4" DataKeyNames="Id" OnRowDataBound="gvVolList_RowDataBound" 
-                        Width="100%">
+                        Width="90%" EmptyDataText="No volunteer matches the search criteria!">
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>

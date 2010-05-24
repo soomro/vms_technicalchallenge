@@ -39,6 +39,8 @@ public partial class UControls_UCSearchVolunteer : UserControl
     {
         if (!IsPostBack)
         {
+            gvVolList.DataSource = new List<DAL.Volunteer>();
+            gvVolList.DataBind();
         }
     }
 

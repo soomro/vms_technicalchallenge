@@ -39,15 +39,6 @@ public partial class Alert {
     protected global::System.Web.UI.WebControls.Panel pnlDivForm;
     
     /// <summary>
-    /// txtMessage control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtMessage;
-    
-    /// <summary>
     /// ucSearchVolunteer control.
     /// </summary>
     /// <remarks>
@@ -55,6 +46,15 @@ public partial class Alert {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::UControls_UCSearchVolunteer ucSearchVolunteer;
+    
+    /// <summary>
+    /// txtMessage control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.TextBox txtMessage;
     
     /// <summary>
     /// btnSend control.
