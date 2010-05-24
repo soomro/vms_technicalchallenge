@@ -11,18 +11,13 @@
             <Columns>
                 <asp:TemplateField HeaderText="Message">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtMessage" runat="server" CssClass="tx" Height="76px" TextMode="MultiLine"
-                            Width="374px"></asp:TextBox>
-                    </ItemTemplate>
-                    <ItemStyle Width="5%" />
+                        <asp:Label ID="lbMessage" runat="server"  ></asp:Label>
+                    </ItemTemplate>                  
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Sent">
                     <ItemTemplate>
-                        <asp:Label ID="lblSent" runat="server"></asp:Label>
-                    </ItemTemplate>
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                    </EditItemTemplate>
+                        <asp:Label ID="lblSent" runat="server"></asp:Label>                    </ItemTemplate>
+                   
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Search Criteria">
                     <ItemTemplate>
@@ -44,34 +39,23 @@
     <asp:Panel runat="server" ID="pnlDivForm">
         <table class="tblForm" width="100%">
             <tr>
-                <td class="formField" align="left" width="5%">
-                    Alert Message:
-                    <asp:TextBox ID="txtMessage" runat="server" CssClass="tx" 
-                        Height="146px"  TextMode="MultiLine" 
-                        Width="374px"></asp:TextBox>
+                <td class="formField" align="left" width="50%">
+                   <uc1:UCSearchVolunteer ID="ucSearchVolunteer" runat="server" />
                 </td>
-                <td class="value" rowspan="4">
-                    <uc1:UCSearchVolunteer ID="ucSearchVolunteer" runat="server" />
-                </td>
-            </tr>
-            <tr>
-                <td class="formField" width="5%" align="left">
-                    <asp:Button ID="btnSend" runat="server" CssClass="buttons" OnClick="btnSend_Click"
+                <td class="value" style="width:50%" >
+                 Alert Message:<br /> &nbsp;<asp:TextBox ID="txtMessage" runat="server" CssClass="tx" 
+                        Height="100px"  TextMode="MultiLine" 
+                        Width="90%"></asp:TextBox>
+                        <br />
+                          <asp:Button ID="btnSend" runat="server" CssClass="buttons" OnClick="btnSend_Click"
                         Text="Send" ValidationGroup="1" />
                     <asp:Button ID="btnCancel" runat="server" CssClass="buttons" 
-                        OnClick="btnCancel_Click" Text="Send" ValidationGroup="1" />
+                        OnClick="btnCancel_Click" Text="Cancel" ValidationGroup="1" />
+                    
                 </td>
             </tr>
-            <tr>
-                <td class="formField" align="left" width="5%">
-                    &nbsp;
-                </td>
-            </tr>
-            <tr>
-                <td class="formField" width="5%">
-                    &nbsp;
-                </td>
-            </tr>
+          
+            
         </table>
     </asp:Panel>
 </asp:Content>

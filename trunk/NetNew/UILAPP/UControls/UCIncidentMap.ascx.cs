@@ -135,13 +135,13 @@ public partial class UControls_UCIncidentMap : UserControl
             GoogleMap1.Markers.Add(Incident);
             GoogleMap1.Latitude = Incident.Latitude;
             GoogleMap1.Longitude = Incident.Longitude;
-            GoogleMap1.Zoom = 10;
+            GoogleMap1.Zoom = Zoom;
         }
         else
         {
             GoogleMap1.Latitude = Latitude;
             GoogleMap1.Longitude = Longitude;
-            GoogleMap1.Zoom = 8;
+            GoogleMap1.Zoom = Zoom;
         }
         base.OnPreRender(e);
     }
