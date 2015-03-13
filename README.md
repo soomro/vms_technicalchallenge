@@ -3,10 +3,9 @@
 <hr>
 <br>
 <b> Project detail: </b><br>
-This is student project from 2011 batch at Gothenburg University, Sweden.
-Project: VMS Technical Challenge Full name: VMS (Volunteer Management System) - Technical Challenge <br>
+Project: VMS Technical Challenge <br>Full name: VMS (Volunteer Management System) - Technical Challenge <br>
 Project group name: Apollo. <br>
-
+Description: This is student project from 2011 batch at Gothenburg University, Sweden.
 
 <b>Project group members [in alphabetical order]:</b> 
 
