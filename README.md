@@ -1,0 +1,24 @@
+#VMS [Technical Challenge]
+<br>Second (and last) phase of the project at academia.
+<hr>
+<br>
+<b> Project detail: </b><br>
+This is student project from 2011 batch at Gothenburg University, Sweden.
+Project: VMS Technical Challenge Full name: VMS (Volunteer Management System) - Technical Challenge <br>
+Project group name: Apollo. <br>
+
+
+<b>Project group members [in alphabetical order]:</b> 
+
+Abdullah Arslan, <br>
+Gilana Ramezani, <br>
+Mohsen Tabareh, <br>
+Mustafa Al-Zubaidi,<br>
+Shobha BC, <br>
+Tigran Harutyunyan, <br>
+Waseem Soomro.<br>
+
+<br>Since project is exported form Google Code, following IDs may have been used for project members: abdullaharslan, bcshobha, tikogrig, gilana.62, tabareh, soomrowaseem, mustafaitgu
+<br>
+<br> <hr>
+<i>Project originally hosted at <a href="http://code.google.com/p/apollovms"> Google code </a></i>
