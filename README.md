@@ -6,6 +6,19 @@
 Project: VMS Technical Challenge <br>Full name: VMS (Volunteer Management System) - Technical Challenge <br>
 Project group name: Apollo. <br>
 Description: This is student project from 2011 batch at Gothenburg University, Sweden.
+<br>
+
+<b>
+For the problem behind the VMS idea and the features of VMS please see:<b>
+
+    Problem Statement - Solution:VMS 
+
+<b>Please follow the following documents' index for project work details:<b>
+
+    Getting Started with Project Space
+    Meeting Summaries
+    Useful Resources to Read
+    Guidelines for different purposes 
 
 <b>Project group members [in alphabetical order]:</b> 
 
